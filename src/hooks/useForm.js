@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { objectToFormData } from "../utils/objectToFormData";
+// import { objectToFormData } from "../utils/objectToFormData";
 import { validateForm } from "../utils/validateForm";
 
-export const useForm = (setData) => {
+export const useForm = (setData, dataName) => {
   const initialStates = {
     inputs: {
       email: "",
@@ -53,8 +53,11 @@ export const useForm = (setData) => {
   const handleSumbit = (event) => {
     event.preventDefault();
     if (isFormComplete) {
-      const formData = objectToFormData(inputs);
-      setData(inputs);
+      // const formData = objectToFormData(inputs);
+      setData((prevState) => ({
+        ...prevState,
+        [dataName]: { ...inputs },
+      }));
       setInputs({ ...initialStates.inputs });
       isFirstInputs.current = { ...initialStates.ref };
     } else {
