@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import PersonalRegister from "./components/personalRegister";
+// import PersonalRegister from "./components/personalRegister";
 import AcademicRegister from "./components/academicRegister";
 
 // function App() {
@@ -243,8 +243,8 @@ function App() {
   return (
     <main>
       <h1>Register Form</h1>
-      <PersonalRegister setData={setData} />
-      {/* <AcademicRegister setData={setData} /> */}
+      {/* <PersonalRegister setData={setData} /> */}
+      <AcademicRegister setData={setData} />
       {data && (
         <>
           <section>

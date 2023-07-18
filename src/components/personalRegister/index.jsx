@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useMemo } from "react";
 import { useForm } from "../../hooks/useForm";
-import { SearchSelect, SearchSelectItem, Button } from "@tremor/react";
+import { Button } from "@tremor/react";
 import countryList from "react-select-country-list";
-import CustomTextInput from "../customTextInput";
+import { CustomTextInput } from "../customTextInput";
 import CustomRadioInput from "../customRadioInput";
+import { SearchCustomSelect } from "../customSelect";
 
 //esta funcion es un formulario controlado
 //para el registro de un usuario nuevo
@@ -62,21 +63,14 @@ export default function PersonalRegister({ setData }) {
           handleInput={handleInputs}
           handleKeyDown={handleInputs}
         />
-        <div className="max-w-sm mx-auto space-y-6">
-          <label htmlFor="countries">Country:</label>
-          <SearchSelect
-            name="countries"
-            placeholder="Select your country..."
-            onValueChange={handleSelectChange}
-          >
-            {options.map((el) => (
-              <SearchSelectItem key={el.value} value={el.label}>
-                {el.label}
-              </SearchSelectItem>
-            ))}
-          </SearchSelect>
-          {errors.country && <span>{errors.country}</span>}
-        </div>
+        <SearchCustomSelect
+          label={"Country:"}
+          placeholder={"Select your country..."}
+          name={"countries"}
+          handleSelectChange={handleSelectChange}
+          error={errors.country}
+          options={options}
+        />
         <CustomTextInput
           label={"City of residence:"}
           placeholder={"Write where you are from..."}
@@ -107,7 +101,7 @@ export default function PersonalRegister({ setData }) {
             value={"yes"}
             defaultChecked={true}
           />
-          <CustomRadioInput 
+          <CustomRadioInput
             name={"support"}
             label={"No"}
             id={"noSupport"}
@@ -115,11 +109,7 @@ export default function PersonalRegister({ setData }) {
           />
           {errors.support && <span>{errors.support}</span>}
         </div>
-        <Button
-          disabled={!isFormComplete}
-          type="submit"
-          size="xl"
-        >
+        <Button disabled={!isFormComplete} type="submit" size="lg">
           <span className="text-xl uppercase">Next Step</span>
         </Button>
       </form>

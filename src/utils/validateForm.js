@@ -7,7 +7,7 @@ const REGEX_CITIES = /^[A-Za-z\u00C0-\u017F\s',-]+$/;
 
 //Funcion de manejo de errores
 
-export function validateForm(inputs, isFirstInputs) {
+export function validateProfileForm(inputs, isFirstInputs) {
   const errors = {};
 
   const validateRequiredField = (field) => {

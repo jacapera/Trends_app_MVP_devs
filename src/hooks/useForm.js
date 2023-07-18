@@ -1,36 +1,78 @@
 import { useEffect, useRef, useState } from "react";
 // import { objectToFormData } from "../utils/objectToFormData";
-import { validateForm } from "../utils/validateForm";
+import { validateProfileForm } from "../utils/validateForm";
 
 export const useForm = (setData, dataName) => {
   const initialStates = {
-    inputs: {
-      email: "",
-      username: "",
-      name: "",
-      age: "",
-      password: "",
-      city: "",
-      country: "",
-      support: "yes",
+    profile: {
+      inputs: {
+        email: "",
+        username: "",
+        name: "",
+        age: "",
+        password: "",
+        city: "",
+        country: "",
+        support: "yes", // dar apoyo
+      },
+      ref: {
+        email: true,
+        username: true,
+        name: true,
+        age: true,
+        password: true,
+        city: true,
+        country: true,
+      },
     },
-    ref: {
-      email: true,
-      username: true,
-      name: true,
-      age: true,
-      password: true,
-      city: true,
-      country: true,
+    academic: {
+      inputs: {
+        type: "", // Sin exp - Junior - Intermedio - Senior
+        institution: "",
+        level: "", // Nivel educativo
+        area: [], // Área de su(s) carrera(s) (con grado y/o posgrado)
+        graduation: "",
+      },
+      ref: {
+        type: true,
+        institution: true,
+        level: true,
+        area: true,
+        graduation: true,
+      },
+    },
+    info: {
+      inputs: {
+        company_name: "",
+        position: "",
+        career: [], // responsabilidades, logros
+        skills: [],
+        interests: [],
+        goals: [],
+        languages: [],
+        availability: "",
+        contract: "", // Tipo de contratación
+      },
+      ref: {
+        company_name: true,
+        position: true,
+        career: true, // responsabilidades, logros
+        skills: true,
+        interests: true,
+        goals: true,
+        languages: true,
+        availability: true,
+        contract: true, // Tipo de contratación
+      },
     },
   };
 
   const [isFormComplete, setIsFormComplete] = useState(false);
   const [inputs, setInputs] = useState({
-    ...initialStates.inputs,
+    ...initialStates[dataName].inputs,
   });
   const [errors, setErrors] = useState({});
-  const isFirstInputs = useRef({ ...initialStates.ref });
+  const isFirstInputs = useRef({ ...initialStates[dataName].ref });
 
   //cada vez que cambia el valor de un input se ejecuta esta funcion
   const handleInputs = (event) => {
@@ -42,11 +84,11 @@ export const useForm = (setData, dataName) => {
     }));
   };
 
-  const handleSelectChange = (event) => {
-    const country = event;
+  const handleSelectChange = (event, name) => {
+    const value = event;
     setInputs((prevState) => ({
       ...prevState,
-      country: country,
+      [name]: value,
     }));
   };
 
@@ -68,9 +110,10 @@ export const useForm = (setData, dataName) => {
   //cada vez que cambia el valor de un input
   //se ejecuta esta funcion para validar el valor del input
   useEffect(() => {
-    // console.log(inputs);
-    setErrors(validateForm(inputs, isFirstInputs));
-  }, [inputs]);
+    if(dataName === "profile") setErrors(validateProfileForm(inputs, isFirstInputs))
+    //if(dataName === "academic") setErrors(validateProfileForm(inputs, isFirstInputs))
+    //if(dataName === "info") setErrors(validateProfileForm(inputs, isFirstInputs))
+  }, [inputs, dataName]);
 
   //esta funcion esta a la espera de que no haya mas errores
   //para asi poder saber cuando el formulario se completó correctamente
