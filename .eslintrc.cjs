@@ -12,5 +12,6 @@ module.exports = {
   rules: {
     "react-refresh/only-export-components": "warn",
     "no-prototype-builtins": "off",
+    "react/prop-types": [0],
   },
 };

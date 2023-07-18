@@ -1,6 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-import CustomForm from "./components/form";
+import PersonalRegister from "./components/personalRegister";
 
 // function App() {
 // 	// const [count, setCount] = useState(0);
@@ -237,7 +237,7 @@ function App() {
 
   return (
     <main>
-      <CustomForm setData={setData} />
+      <PersonalRegister setData={setData} />
       {data && (
         <>
           <section>

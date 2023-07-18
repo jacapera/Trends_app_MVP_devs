@@ -26,7 +26,7 @@ export const useForm = (setData) => {
   };
 
   const [isFormComplete, setIsFormComplete] = useState(false);
-  const [contactInputs, setContactInputs] = useState({
+  const [inputs, setInputs] = useState({
     ...initialStates.inputs,
   });
   const [errors, setErrors] = useState({});
@@ -36,7 +36,7 @@ export const useForm = (setData) => {
   const handleInputs = (event) => {
     const name = event.target.name;
     const value = event.target.value;
-    setContactInputs((prevState) => ({
+    setInputs((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -44,7 +44,7 @@ export const useForm = (setData) => {
 
   const handleSelectChange = (event) => {
     const label = event.label;
-    setContactInputs((prevState) => ({
+    setInputs((prevState) => ({
       ...prevState,
       country: label,
     }));
@@ -53,9 +53,9 @@ export const useForm = (setData) => {
   const handleSumbit = (event) => {
     event.preventDefault();
     if (isFormComplete) {
-      const formData = objectToFormData(contactInputs);
-      setData(contactInputs);
-      setContactInputs({ ...initialStates.inputs });
+      const formData = objectToFormData(inputs);
+      setData(inputs);
+      setInputs({ ...initialStates.inputs });
       isFirstInputs.current = { ...initialStates.ref };
     } else {
       alert("Error! Missing data.");
@@ -65,21 +65,21 @@ export const useForm = (setData) => {
   //cada vez que cambia el valor de un input
   //se ejecuta esta funcion para validar el valor del input
   useEffect(() => {
-    setErrors(validateForm(contactInputs, isFirstInputs));
-  }, [contactInputs]);
+    setErrors(validateForm(inputs, isFirstInputs));
+  }, [inputs]);
 
   //esta funcion esta a la espera de que no haya mas errores
   //para asi poder saber cuando el formulario se completó correctamente
   useEffect(() => {
     setIsFormComplete(
-      Object.entries(contactInputs).every(([, value]) => value !== "") &&
+      Object.entries(inputs).every(([, value]) => value !== "") &&
         Object.keys(errors).length === 0
     );
-  }, [errors, contactInputs]);
+  }, [errors, inputs]);
 
   return {
     isFormComplete,
-    contactInputs,
+    inputs,
     errors,
     handleInputs,
     handleSelectChange,
