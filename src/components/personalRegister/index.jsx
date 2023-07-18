@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import { useMemo } from "react";
-import Select from "react-select";
 import { useForm } from "../../hooks/useForm";
+import { SearchSelect, SearchSelectItem, Button } from "@tremor/react";
 import countryList from "react-select-country-list";
-import CustomInput from "../customInput";
-// import s from "./form.module.css";
+import CustomTextInput from "../customTextInput";
+import CustomRadioInput from "../customRadioInput";
 
 //esta funcion es un formulario controlado
 //para el registro de un usuario nuevo
@@ -13,19 +13,18 @@ export default function PersonalRegister({ setData }) {
 
   const {
     isFormComplete,
-    inputs : contactInputs,
+    inputs: contactInputs,
     errors,
     handleInputs,
     handleSelectChange,
     handleSumbit,
-  } = useForm(setData);
+  } = useForm(setData, "profile");
 
   return (
     <div className="containerPersonalRegister">
       <form onSubmit={handleSumbit}>
-        <h1>Register Form</h1>
         <h3>Personal Information</h3>
-        <CustomInput
+        <CustomTextInput
           label={"Full name:"}
           placeholder={"Write your full name..."}
           type={"text"}
@@ -34,7 +33,7 @@ export default function PersonalRegister({ setData }) {
           error={errors.name}
           handleInput={handleInputs}
         />
-        <CustomInput
+        <CustomTextInput
           label={"Username:"}
           placeholder={"Write your username..."}
           type={"text"}
@@ -43,7 +42,7 @@ export default function PersonalRegister({ setData }) {
           error={errors.username}
           handleInput={handleInputs}
         />
-        <CustomInput
+        <CustomTextInput
           label={"Email:"}
           placeholder={"example@mail.com"}
           type={"email"}
@@ -53,7 +52,7 @@ export default function PersonalRegister({ setData }) {
           handleInput={handleInputs}
           handleKeyDown={handleInputs}
         />
-        <CustomInput
+        <CustomTextInput
           label={"Age:"}
           placeholder={"25"}
           type={"text"}
@@ -63,18 +62,22 @@ export default function PersonalRegister({ setData }) {
           handleInput={handleInputs}
           handleKeyDown={handleInputs}
         />
-        <div>
+        <div className="max-w-sm mx-auto space-y-6">
           <label htmlFor="countries">Country:</label>
-          <Select
+          <SearchSelect
             name="countries"
-            options={options}
             placeholder="Select your country..."
-            onChange={handleSelectChange}
-            defaultValue={null}
-          />
+            onValueChange={handleSelectChange}
+          >
+            {options.map((el) => (
+              <SearchSelectItem key={el.value} value={el.label}>
+                {el.label}
+              </SearchSelectItem>
+            ))}
+          </SearchSelect>
           {errors.country && <span>{errors.country}</span>}
         </div>
-        <CustomInput
+        <CustomTextInput
           label={"City of residence:"}
           placeholder={"Write where you are from..."}
           type={"text"}
@@ -83,7 +86,7 @@ export default function PersonalRegister({ setData }) {
           error={errors.city}
           handleInput={handleInputs}
         />
-        <CustomInput
+        <CustomTextInput
           label={"Password:"}
           placeholder={"Write your password..."}
           type={"password"}
@@ -97,26 +100,28 @@ export default function PersonalRegister({ setData }) {
             Would you share your experience as a student/professional to support
             others?
           </span>
-          <CustomInput
+          <CustomRadioInput
             label={"Yes"}
-            type={"radio"}
             name={"support"}
             id={"yesSupport"}
             value={"yes"}
             defaultChecked={true}
           />
-          <CustomInput
-            label={"No"}
-            type={"radio"}
+          <CustomRadioInput 
             name={"support"}
+            label={"No"}
             id={"noSupport"}
-            value={"No"}
+            value={"no"}
           />
           {errors.support && <span>{errors.support}</span>}
         </div>
-        <button disabled={!isFormComplete} type="submit">
-          continue
-        </button>
+        <Button
+          disabled={!isFormComplete}
+          type="submit"
+          size="xl"
+        >
+          <span className="text-xl uppercase">Next Step</span>
+        </Button>
       </form>
     </div>
   );

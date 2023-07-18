@@ -1,4 +1,6 @@
-export default function CustomInput({
+import { TextInput } from "@tremor/react";
+
+export default function CustomTextInput({
   label,
   value,
   type,
@@ -13,9 +15,11 @@ export default function CustomInput({
   return (
     <div>
       {label && <label htmlFor={name}>{label}</label>}
-      <input
+      <TextInput
         type={type}
         name={name}
+        error={!!error}
+        errorMessage={error}
         id={id ? id : name}
         placeholder={placeholder}
         onChange={handleInput}
@@ -23,7 +27,6 @@ export default function CustomInput({
         onKeyDown={handleKeyDown}
         defaultChecked={defaultChecked}
       />
-      {error && <span>{error}</span>}
     </div>
   );
 }

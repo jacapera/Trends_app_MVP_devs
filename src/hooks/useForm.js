@@ -43,10 +43,10 @@ export const useForm = (setData, dataName) => {
   };
 
   const handleSelectChange = (event) => {
-    const label = event.label;
+    const country = event;
     setInputs((prevState) => ({
       ...prevState,
-      country: label,
+      country: country,
     }));
   };
 
@@ -68,6 +68,7 @@ export const useForm = (setData, dataName) => {
   //cada vez que cambia el valor de un input
   //se ejecuta esta funcion para validar el valor del input
   useEffect(() => {
+    // console.log(inputs);
     setErrors(validateForm(inputs, isFirstInputs));
   }, [inputs]);
 
