@@ -241,7 +241,7 @@ function App() {
 
   return (
     <main>
-      <h1>Register Form</h1>
+      <h1>Register Form for Professionals</h1>
       <RegisterPage setData={setData}/>
       {data && (
         <>
