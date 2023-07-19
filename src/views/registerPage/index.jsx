@@ -22,7 +22,7 @@ export default function RegisterPage({ setData }) {
     },
   ];
 
-  const [isFormsComplete, setIsFormsComplete] = useState({
+  const [completedForms, setCompletedForms] = useState({
     profile: false,
     academic: false,
     info: false,
@@ -43,20 +43,20 @@ export default function RegisterPage({ setData }) {
         <CurrentForm
           setData={setData}
           dataName={dataName}
-          setFormsComplete={setIsFormsComplete}
+          setCompletedForms={setCompletedForms}
         />
 
         <div>
           {currentFormIndex < forms.length - 1 ? (
             <Button
-              disabled={!isFormsComplete[dataName]}
+              disabled={!completedForms[dataName]}
               onClick={handleNextStep}
             >
               <span className="text-xl uppercase">Next Step</span>
             </Button>
           ) : (
             <Button
-              disabled={!isFormsComplete[currentFormIndex]}
+              disabled={!completedForms[currentFormIndex]}
               onClick={registerSubmit}
             >
               <span>Register!</span>
@@ -66,21 +66,21 @@ export default function RegisterPage({ setData }) {
       </main>
       <footer className="flex self-center">
         <div className="w-8">
-          {isFormsComplete.profile ? (
+          {completedForms.profile ? (
             <CheckCircleIcon className="text-green-600" />
           ) : (
             <MinusCircleIcon className="text-red-600"/>
           )}
         </div>
         <div className="w-8">
-          {isFormsComplete.academic ? (
+          {completedForms.academic ? (
             <CheckCircleIcon className="text-green-600" />
           ) : (
             <MinusCircleIcon className="text-red-600"/>
           )}
         </div>
         <div className="w-8">
-          {isFormsComplete.info ? (
+          {completedForms.info ? (
             <CheckCircleIcon className="text-green-600" />
           ) : (
             <MinusCircleIcon className="text-red-600"/>

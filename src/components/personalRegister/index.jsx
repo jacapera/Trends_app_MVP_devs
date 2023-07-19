@@ -8,7 +8,7 @@ import { SearchCustomSelect } from "../customSelect";
 
 //esta funcion es un formulario controlado
 //para el registro de un usuario nuevo
-export default function PersonalRegister({ setData, dataName, setFormsComplete}) {
+export default function PersonalRegister({ setData, dataName, setCompletedForms}) {
   const options = useMemo(() => countryList().getData(), []);
 
   const {
@@ -22,7 +22,7 @@ export default function PersonalRegister({ setData, dataName, setFormsComplete})
 
   useEffect(() => {
     console.log(isFormComplete);
-    setFormsComplete(prevState => ({
+    setCompletedForms(prevState => ({
       ...prevState,
       [dataName]: isFormComplete
     }))
