@@ -1,5 +1,7 @@
+import { calculateMatchScore } from "./calculateMatchScore";
+
 // Se toma un array de perfiles y un perfil base
-const matcher = (profiles, targetProfile) => {
+export const matcher = (profiles, targetProfile) => {
   const matches = [];
 
   // Por cada perfil del arreglo se llama a calculateMatchScore

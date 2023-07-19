@@ -1,4 +1,4 @@
-function calculateMatchScore(profile1, profile2) {
+export const calculateMatchScore = (profile1, profile2) => {
   // Se define el "peso" que tiene cada campo del perfil
   // 5 = Alto, 3 = Medio, 1 = Bajo
   const weights = {
