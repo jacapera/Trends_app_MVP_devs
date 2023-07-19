@@ -1,22 +1,31 @@
-import { Button } from "@tremor/react";
 import { useForm } from "../../hooks/useForm";
 import {CustomMultiTextInput, CustomTextInput} from "../customTextInput";
 import { CustomSelect } from "../customSelect";
+import { useEffect } from "react";
 
-export default function AcademicRegister({ setData }) {
+export default function AcademicRegister({ setData, formKey, setFormsComplete }) {
   const {
     inputs: academicInputs,
     errors,
     isFormComplete,
-    handleSumbit,
+    handleSubmit,
     handleSelectChange,
     handleInputs,
     handleOptions
-  } = useForm(setData, "academic");
+  } = useForm(setData, formKey);
+
+  
+  useEffect(() => {
+    console.log(isFormComplete);
+    setFormsComplete(prevState => ({
+      ...prevState,
+      [formKey]: isFormComplete
+    }))
+  },[isFormComplete])
 
   return (
     <div className="containerAcademicRegister">
-      <form onSubmit={handleSumbit}>
+      <form onSubmit={handleSubmit}>
         <h3>Academic Information</h3>
         <CustomSelect 
           label={"Type of professional:"}
@@ -66,13 +75,6 @@ export default function AcademicRegister({ setData }) {
           handleInput={handleInputs}
           handleKeyDown={handleInputs}
         />
-        <Button
-          disabled={!isFormComplete}
-          type="submit"
-          size="lg"
-        >
-          <span className="text-xl uppercase">Next Step</span>
-        </Button>
       </form>
     </div>
   );

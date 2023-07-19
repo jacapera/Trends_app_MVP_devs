@@ -1,7 +1,6 @@
 import { useState } from "react";
 import "./App.css";
-// import PersonalRegister from "./components/personalRegister";
-import AcademicRegister from "./components/academicRegister";
+import RegisterPage from "./views/registerPage";
 
 // function App() {
 // 	// const [count, setCount] = useState(0);
@@ -243,8 +242,7 @@ function App() {
   return (
     <main>
       <h1>Register Form</h1>
-      {/* <PersonalRegister setData={setData} /> */}
-      <AcademicRegister setData={setData} />
+      <RegisterPage setData={setData}/>
       {data && (
         <>
           <section>

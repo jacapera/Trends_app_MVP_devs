@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "../../hooks/useForm";
-import { Button } from "@tremor/react";
 import countryList from "react-select-country-list";
 import { CustomTextInput } from "../customTextInput";
 import CustomRadioInput from "../customRadioInput";
@@ -9,21 +8,29 @@ import { SearchCustomSelect } from "../customSelect";
 
 //esta funcion es un formulario controlado
 //para el registro de un usuario nuevo
-export default function PersonalRegister({ setData }) {
+export default function PersonalRegister({ setData, formKey, setFormsComplete}) {
   const options = useMemo(() => countryList().getData(), []);
 
   const {
-    isFormComplete,
     inputs: contactInputs,
     errors,
+    isFormComplete,
     handleInputs,
     handleSelectChange,
-    handleSumbit,
-  } = useForm(setData, "profile");
+    handleSubmit,
+  } = useForm(setData, formKey);
+
+  useEffect(() => {
+    console.log(isFormComplete);
+    setFormsComplete(prevState => ({
+      ...prevState,
+      [formKey]: isFormComplete
+    }))
+  },[isFormComplete])
 
   return (
     <div className="containerPersonalRegister">
-      <form onSubmit={handleSumbit}>
+      <form onSubmit={handleSubmit}>
         <h3>Personal Information</h3>
         <CustomTextInput
           label={"Full name:"}
@@ -64,10 +71,10 @@ export default function PersonalRegister({ setData }) {
           handleKeyDown={handleInputs}
         />
         <SearchCustomSelect
-        value={contactInputs.country}
+          value={contactInputs.country}
           label={"Country:"}
           placeholder={"Select your country..."}
-          name={"countries"}
+          name={"country"}
           handleSelectChange={handleSelectChange}
           error={errors.country}
           options={options}
@@ -110,9 +117,6 @@ export default function PersonalRegister({ setData }) {
           />
           {errors.support && <span>{errors.support}</span>}
         </div>
-        <Button disabled={!isFormComplete} type="submit" size="lg">
-          <span className="text-xl uppercase">Next Step</span>
-        </Button>
       </form>
     </div>
   );

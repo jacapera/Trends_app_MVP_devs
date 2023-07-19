@@ -112,7 +112,7 @@ export const useForm = (setData, dataName) => {
     }));
   };
 
-  const handleSumbit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     if (isFormComplete) {
       // const formData = objectToFormData(inputs);
@@ -138,6 +138,7 @@ export const useForm = (setData, dataName) => {
   //cada vez que cambia el valor de un input
   //se ejecuta esta funcion para validar el valor del input
   useEffect(() => {
+    console.log(inputs);
     if (dataName === "profile")
       setErrors(validateProfileForm(inputs, isFirstInputs));
     if (dataName === "academic")
@@ -160,7 +161,7 @@ export const useForm = (setData, dataName) => {
     errors,
     handleInputs,
     handleSelectChange,
-    handleSumbit,
+    handleSubmit,
     handleOptions,
   };
 };
