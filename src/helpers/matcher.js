@@ -1,13 +1,13 @@
 import { calculateMatchScore } from "./calculateMatchScore";
 
 // Se toma un array de perfiles y un perfil base
-export const matcher = (profiles, targetProfile) => {
+export const matcher = (users, targetUser) => {
   const matches = [];
 
   // Por cada perfil del arreglo se llama a calculateMatchScore
-  for (const profile of profiles) {
-    const matchScore = calculateMatchScore(profile, targetProfile);
-    matches.push({ profile, matchScore });
+  for (const user of users) {
+    const matchScore = calculateMatchScore(user, targetUser);
+    matches.push({ user, matchScore });
   }
 
   // Se ordena las coincidencias según el match score

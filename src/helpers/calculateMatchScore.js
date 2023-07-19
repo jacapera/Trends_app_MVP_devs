@@ -1,4 +1,4 @@
-export const calculateMatchScore = (profile1, profile2) => {
+export const calculateMatchScore = (user1, user2) => {
   // Se define el "peso" que tiene cada campo del perfil
   // 5 = Alto, 3 = Medio, 1 = Bajo
   const weights = {
@@ -19,7 +19,7 @@ export const calculateMatchScore = (profile1, profile2) => {
 
   // Diccionario para matchear los tipos académicos
   const academicTypes = {
-    Secundaria: "Sin Experiencia",
+    "Secundaria": "Sin Experiencia",
     "Universitario Junior": "Junior",
     "Universitario Intermedio": "Middle",
     "Universitario Avanzado": "Senior",
@@ -28,10 +28,10 @@ export const calculateMatchScore = (profile1, profile2) => {
   // Desestructuración de los tipos académicos de los perfiles
   const {
     academic: { type: type1 },
-  } = profile1;
+  } = user1;
   const {
     academic: { type: type2 },
-  } = profile2;
+  } = user2;
 
   // El "puntaje" de matcheo
   let score = 0;
@@ -44,14 +44,14 @@ export const calculateMatchScore = (profile1, profile2) => {
     // info y academic tienen propiedades que son arrays
     if (
       ["info", "academic"].includes(outerKey) &&
-      [profile1, profile2].every((profile) =>
-        Array.isArray(profile[outerKey]?.[innerKey])
+      [user1, user2].every((user) =>
+        Array.isArray(user[outerKey]?.[innerKey])
       )
     ) {
       // Se convierte cada array en un set
       // por eficiencia y operaciones de conjunto
-      const set1 = new Set(profile1[outerKey][innerKey]);
-      const set2 = new Set(profile2[outerKey][innerKey]);
+      const set1 = new Set(user1[outerKey][innerKey]);
+      const set2 = new Set(user2[outerKey][innerKey]);
 
       // Operaciones de conjunto para evaluar la diversidad/complementariedad
       const commonData = new Set(
@@ -72,15 +72,15 @@ export const calculateMatchScore = (profile1, profile2) => {
       // Mientras la resta entre commonData y el total de exclusiveData 
       // esté más alejada de cero, siendo positiva, significa que 
       // los perfiles tienen menos datos que los diferencian.
-      if (commonData.size > 0 && (totalExclusiveData) < commonData.size) {
-        score += weights[key] * (commonData.size - (totalExclusiveData));
+      if (commonData.size > 0 && totalExclusiveData < commonData.size) {
+        score += weights[key] * (commonData.size - totalExclusiveData);
       }
 
       // Las demás propiedades van a ser un solo value (una vez elegido)
     } else if (
-      profile1[outerKey] &&
-      profile2[outerKey] &&
-      profile1[outerKey][innerKey] === profile2[outerKey][innerKey]
+      user1[outerKey] &&
+      user2[outerKey] &&
+      user1[outerKey][innerKey] === user2[outerKey][innerKey]
     ) {
       // Si hay coincidencia se suma al score
       score += weights[key];
