@@ -1,5 +1,4 @@
 import { TextInput } from "@tremor/react";
-import { useEffect, useState } from "react";
 import { ArrowCircleRightIcon } from "@heroicons/react/solid";
 
 export function CustomTextInput({
@@ -36,34 +35,19 @@ export function CustomTextInput({
 export function CustomMultiTextInput({
   label,
   values,
+  placeholder,
   type,
   name,
-  placeholder,
-  //handleInput,
-  // handleKeyDown,
   error,
   id,
+  handleInput,
+  handleOptions,
+  handleKeyDown,
 }) {
-  const [value, setValue] = useState("");
-  const [options, setOptions] = useState(values);
-
-  const handleInput = (event) => {
-    setValue(event.target.value);
-    if (value && event.keyCode === 13) {
-      setOptions((prevState) => [...new Set([...prevState, value])]);
-      setValue("");
-    }
-  };
-
-  useEffect(() => {
-    console.log(options);
-  }, [options]);
-
   return (
     <div>
       {label && <label htmlFor={name}>{label}</label>}
       <TextInput
-        value={value}
         type={type}
         name={name}
         error={!!error}
@@ -71,16 +55,16 @@ export function CustomMultiTextInput({
         id={id ? id : name}
         placeholder={placeholder}
         onChange={handleInput}
-        onKeyDown={handleInput}
+        onKeyDown={handleKeyDown}
         icon={ArrowCircleRightIcon}
       />
       <div>
-        {options.map((el, i) => (
+        {values.map((value, i) => (
           <span
-            key={`${el} ${i}`}
-            onClick={() => setOptions(options.filter((opt) => opt !== el))}
+            key={`${value} ${i}`}
+            onClick={() => handleOptions(name, value)}
           >
-            {el}
+            {value}
           </span>
         ))}
       </div>

@@ -11,6 +11,7 @@ export default function AcademicRegister({ setData }) {
     handleSumbit,
     handleSelectChange,
     handleInputs,
+    handleOptions
   } = useForm(setData, "academic");
 
   return (
@@ -24,6 +25,7 @@ export default function AcademicRegister({ setData }) {
           options={["Without experience", "Junior", "Middle", "Senior"]}
           handleSelectChange={handleSelectChange}
           error={errors.type}
+          value={academicInputs.type}
         />
         <CustomTextInput 
           label={"Institution:"}
@@ -50,12 +52,14 @@ export default function AcademicRegister({ setData }) {
           name={"area"}
           values={academicInputs.area}
           error={errors.area}
+          handleInput={handleInputs}
           handleKeyDown={handleInputs}
+          handleOptions={handleOptions}
         />
         <CustomTextInput 
           label={"Graduation year:"}
           placeholder={"example: 2002"}
-          type={"number"}
+          type={"text"}
           name={"graduation"}
           value={academicInputs.graduation}
           error={errors.graduation}

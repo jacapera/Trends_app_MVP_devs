@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 // import { objectToFormData } from "../utils/objectToFormData";
-import { validateProfileForm } from "../utils/validateForm";
+import {
+  validateAcademicForm,
+  validateProfileForm,
+} from "../utils/validateForm";
 
 export const useForm = (setData, dataName) => {
+  const REGEX_CONSECUTIVE_SPACES = /\s{2,}/g;
   const initialStates = {
     profile: {
       inputs: {
@@ -77,11 +81,27 @@ export const useForm = (setData, dataName) => {
   //cada vez que cambia el valor de un input se ejecuta esta funcion
   const handleInputs = (event) => {
     const name = event.target.name;
-    const value = event.target.value;
-    setInputs((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    const value = event.target.value.replace(REGEX_CONSECUTIVE_SPACES, " ");
+
+    if (name === "email" || name === "age" || name === "graduation")
+      if (event.key === " ") event.preventDefault();
+
+    if (name === "area") {
+      if (value.trim() && event.keyCode === 13) {
+        setInputs((prevState) => {
+          return {
+            ...prevState,
+            [name]: [...new Set([...prevState[name], value.trim()])],
+          };
+        });
+        event.target.value = "";
+      }
+    } else {
+      setInputs((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSelectChange = (event, name) => {
@@ -100,18 +120,28 @@ export const useForm = (setData, dataName) => {
         ...prevState,
         [dataName]: { ...inputs },
       }));
-      setInputs({ ...initialStates.inputs });
-      isFirstInputs.current = { ...initialStates.ref };
+      setInputs({ ...initialStates[dataName].inputs });
+      isFirstInputs.current = { ...initialStates[dataName].ref };
     } else {
       alert("Error! Missing data.");
     }
   };
 
+  const handleOptions = (name, opt) => {
+    const filterOptions = inputs[name].filter((area) => area !== opt);
+    setInputs((prevState) => ({
+      ...prevState,
+      [name]: filterOptions,
+    }));
+  };
+
   //cada vez que cambia el valor de un input
   //se ejecuta esta funcion para validar el valor del input
   useEffect(() => {
-    if(dataName === "profile") setErrors(validateProfileForm(inputs, isFirstInputs))
-    //if(dataName === "academic") setErrors(validateProfileForm(inputs, isFirstInputs))
+    if (dataName === "profile")
+      setErrors(validateProfileForm(inputs, isFirstInputs));
+    if (dataName === "academic")
+      setErrors(validateAcademicForm(inputs, isFirstInputs));
     //if(dataName === "info") setErrors(validateProfileForm(inputs, isFirstInputs))
   }, [inputs, dataName]);
 
@@ -119,7 +149,7 @@ export const useForm = (setData, dataName) => {
   //para asi poder saber cuando el formulario se completó correctamente
   useEffect(() => {
     setIsFormComplete(
-      Object.entries(inputs).every(([, value]) => value !== "") &&
+      Object.entries(inputs).every(([, value]) => value.length !== 0) &&
         Object.keys(errors).length === 0
     );
   }, [errors, inputs]);
@@ -131,5 +161,6 @@ export const useForm = (setData, dataName) => {
     handleInputs,
     handleSelectChange,
     handleSumbit,
+    handleOptions,
   };
 };

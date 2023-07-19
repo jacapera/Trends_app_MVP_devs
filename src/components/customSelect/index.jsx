@@ -12,6 +12,7 @@ export function SearchCustomSelect({
   name,
   label,
   placeholder,
+  value
 }) {
   return (
     <div className="max-w-sm mx-auto space-y-6">
@@ -20,6 +21,7 @@ export function SearchCustomSelect({
         name={name}
         placeholder={placeholder}
         onValueChange={(event) => handleSelectChange(event, name)}
+        value={value}
       >
         {options.map((el) => (
           <SearchSelectItem key={el.value} value={el.label}>
@@ -39,6 +41,7 @@ export function CustomSelect({
   name,
   label,
   placeholder,
+  value
 }) {
   return (
     <div className="max-w-sm mx-auto space-y-6">
@@ -47,6 +50,7 @@ export function CustomSelect({
         name={name}
         placeholder={placeholder}
         onValueChange={(event) => handleSelectChange(event, name)}
+        value={value}
       >
         {options.map((el, index) => (
           <SelectItem key={`${index} ${el}`} value={el}>

@@ -64,6 +64,7 @@ export default function PersonalRegister({ setData }) {
           handleKeyDown={handleInputs}
         />
         <SearchCustomSelect
+        value={contactInputs.country}
           label={"Country:"}
           placeholder={"Select your country..."}
           name={"countries"}

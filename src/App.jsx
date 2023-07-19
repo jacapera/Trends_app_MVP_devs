@@ -236,7 +236,7 @@ import AcademicRegister from "./components/academicRegister";
 function App() {
   const [data, setData] = useState({
     profile: {},
-    acedemic: {},
+    academic: {},
     info: {},
   });
 
@@ -250,7 +250,17 @@ function App() {
           <section>
             <p>{JSON.stringify(data)}</p>
           </section>
-          <button onClick={() => setData(null)}>delete data</button>
+          <button
+            onClick={() =>
+              setData({
+                profile: {},
+                academic: {},
+                info: {},
+              })
+            }
+          >
+            delete data
+          </button>
         </>
       )}
     </main>
