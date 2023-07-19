@@ -19,15 +19,19 @@ function calculateMatchScore(profile1, profile2) {
 
   // Diccionario para matchear los tipos académicos
   const academicTypes = {
-    "Secundaria": "Sin Experiencia",
+    Secundaria: "Sin Experiencia",
     "Universitario Junior": "Junior",
     "Universitario Intermedio": "Middle",
     "Universitario Avanzado": "Senior",
   };
 
   // Desestructuración de los tipos académicos de los perfiles
-  const { academic: { type: type1 } } = profile1;
-  const { academic: { type: type2 } } = profile2;
+  const {
+    academic: { type: type1 },
+  } = profile1;
+  const {
+    academic: { type: type2 },
+  } = profile2;
 
   // El "puntaje" de matcheo
   let score = 0;
@@ -44,17 +48,33 @@ function calculateMatchScore(profile1, profile2) {
         Array.isArray(profile[outerKey]?.[innerKey])
       )
     ) {
-      
       // Se convierte cada array en un set
-      // Los sets son más eficientes
-      const field1 = new Set(profile1[outerKey][innerKey]);
-      const field2 = new Set(profile2[outerKey][innerKey]);
-      const commonData = new Set(
-        [...field1].filter((data) => field2.has(data))
-      );
+      // por eficiencia y operaciones de conjunto
+      const set1 = new Set(profile1[outerKey][innerKey]);
+      const set2 = new Set(profile2[outerKey][innerKey]);
 
-      // Se suma según los datos en común
+      // Operaciones de conjunto para evaluar la diversidad/complementariedad
+      const commonData = new Set(
+        [...set1].filter((data) => set2.has(data))
+      );
+      const exclusiveData1 = new Set(
+        [...set1].filter((data) => !set2.has(data))
+      );
+      const exclusiveData2 = new Set(
+        [...set2].filter((data) => !set1.has(data))
+      );
+      const totalExclusiveData = exclusiveData1.size + exclusiveData2.size;
+
+      // Se suman puntos según los datos en común
       score += weights[key] * commonData.size;
+
+      // Se suman puntos extra en base a mayor afinidad:
+      // Mientras la resta entre commonData y el total de exclusiveData 
+      // esté más alejada de cero, siendo positiva, significa que 
+      // los perfiles tienen menos datos que los diferencian.
+      if (commonData.size > 0 && (totalExclusiveData) < commonData.size) {
+        score += weights[key] * (commonData.size - (totalExclusiveData));
+      }
 
       // Las demás propiedades van a ser un solo value (una vez elegido)
     } else if (
@@ -71,6 +91,6 @@ function calculateMatchScore(profile1, profile2) {
   if (academicTypes[type2] === type1 || academicTypes[type1] === type2) {
     score += 5;
   }
-  
+
   return score;
 }
