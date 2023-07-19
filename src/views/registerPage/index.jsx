@@ -7,56 +7,61 @@ import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/outline/";
 
 export default function RegisterPage({ setData }) {
   const [currentFormIndex, setCurrentFormIndex] = useState(0);
-  const forms = [
+  const [forms, setForms] = useState([
     {
-      component: PersonalRegister,
-      key: "profile",
+      Form: PersonalRegister,
+      dataName: "profile",
+      completed: false,
     },
     {
-      component: AcademicRegister,
-      key: "academic",
+      Form: AcademicRegister,
+      dataName: "academic",
+      completed: false,
     },
     {
-      component: InterestInfoRegister,
-      key: "info",
+      Form: InterestInfoRegister,
+      dataName: "info",
+      completed: false,
     },
-  ];
+  ]);
+  const CurrentForm = forms[currentFormIndex];
 
-  const [completedForms, setCompletedForms] = useState({
-    profile: false,
-    academic: false,
-    info: false,
-  });
+  const checkCompletedForms = (isFormComplete) => {
+    setForms((prevState) =>
+      prevState.map((el, i) =>
+        i === currentFormIndex ? { ...el, completed: isFormComplete } : el
+      )
+    );
+    // console.log(`checkCompletedForms ${isFormComplete}`);
+  };
 
   const handleNextStep = () => {
     setCurrentFormIndex((prevIndex) => prevIndex + 1);
+    console.log(CurrentForm);
   };
 
   const registerSubmit = () => {};
 
-  const CurrentForm = forms[currentFormIndex].component;
-  const dataName = forms[currentFormIndex].key;
-
   return (
     <div className="flex flex-col gap-4">
       <main>
-        <CurrentForm
+        <CurrentForm.Form
           setData={setData}
-          dataName={dataName}
-          setCompletedForms={setCompletedForms}
+          dataName={CurrentForm.dataName}
+          checkCompletedForms={checkCompletedForms}
         />
 
         <div>
           {currentFormIndex < forms.length - 1 ? (
             <Button
-              disabled={!completedForms[dataName]}
+              disabled={!CurrentForm.completed}
               onClick={handleNextStep}
             >
               <span className="text-xl uppercase">Next Step</span>
             </Button>
           ) : (
             <Button
-              disabled={!completedForms[currentFormIndex]}
+              disabled={!CurrentForm.completed}
               onClick={registerSubmit}
             >
               <span>Register!</span>
@@ -66,24 +71,24 @@ export default function RegisterPage({ setData }) {
       </main>
       <footer className="flex self-center">
         <div className="w-8">
-          {completedForms.profile ? (
+          {forms[0].completed ? (
             <CheckCircleIcon className="text-green-600" />
           ) : (
-            <MinusCircleIcon className="text-red-600"/>
+            <MinusCircleIcon className="text-red-600" />
           )}
         </div>
         <div className="w-8">
-          {completedForms.academic ? (
+          {forms[1].completed ? (
             <CheckCircleIcon className="text-green-600" />
           ) : (
-            <MinusCircleIcon className="text-red-600"/>
+            <MinusCircleIcon className="text-red-600" />
           )}
         </div>
         <div className="w-8">
-          {completedForms.info ? (
+          {forms[2].completed ? (
             <CheckCircleIcon className="text-green-600" />
           ) : (
-            <MinusCircleIcon className="text-red-600"/>
+            <MinusCircleIcon className="text-red-600" />
           )}
         </div>
       </footer>

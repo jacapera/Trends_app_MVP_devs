@@ -1,33 +1,61 @@
 import { useForm } from "../../hooks/useForm";
-import {CustomMultiTextInput, CustomTextInput} from "../customTextInput";
+import { CustomMultiTextInput, CustomTextInput } from "../customTextInput";
 import { CustomSelect } from "../customSelect";
-import { useEffect } from "react";
+import { useFields } from "../../hooks/useFields";
 
-export default function AcademicRegister({ setData, dataName, setCompletedForms }) {
+export default function AcademicRegister({
+  setData,
+  dataName,
+  checkCompletedForms,
+}) {
+  const initialStates = {
+    inputs: {
+      type: "", // Sin exp - Junior - Intermedio - Senior
+      institution: "",
+      level: "", // Nivel educativo
+      area: [], // Área de su(s) carrera(s) (con grado y/o posgrado)
+      graduation: "",
+    },
+    ref: {
+      type: true,
+      institution: true,
+      level: true,
+      area: true,
+      graduation: true,
+    },
+  };
+
   const {
     inputs: academicInputs,
     errors,
-    isFormComplete,
-    handleSubmit,
-    handleSelectChange,
     handleInputs,
+    handleSelectChange,
+    resetInputs,
     handleOptions
-  } = useForm(setData, dataName);
+  } = useFields(initialStates, dataName);
 
-  
-  useEffect(() => {
-    console.log(isFormComplete);
-    setCompletedForms(prevState => ({
-      ...prevState,
-      [dataName]: isFormComplete
-    }))
-  },[isFormComplete])
+  const { handleSubmit } = useForm(
+    academicInputs,
+    errors,
+    resetInputs,
+    setData,
+    dataName,
+    checkCompletedForms
+  );
+
+  // useEffect(() => {
+  //   console.log(isFormComplete);
+  //   setCompletedForms((prevState) => ({
+  //     ...prevState,
+  //     [dataName]: isFormComplete,
+  //   }));
+  // }, [isFormComplete]);
 
   return (
     <div className="containerAcademicRegister">
       <form onSubmit={handleSubmit}>
         <h3>Academic Information</h3>
-        <CustomSelect 
+        <CustomSelect
           label={"Type of professional:"}
           placeholder={"Select one option..."}
           name={"type"}
@@ -36,7 +64,7 @@ export default function AcademicRegister({ setData, dataName, setCompletedForms 
           error={errors.type}
           value={academicInputs.type}
         />
-        <CustomTextInput 
+        <CustomTextInput
           label={"Institution:"}
           placeholder={"Enter where you studied..."}
           type={"text"}
@@ -45,7 +73,7 @@ export default function AcademicRegister({ setData, dataName, setCompletedForms 
           error={errors.institution}
           handleInput={handleInputs}
         />
-        <CustomTextInput 
+        <CustomTextInput
           label={"Education level:"}
           placeholder={"Primary, Secondary, Tertiary, University..."}
           type={"text"}
@@ -54,7 +82,7 @@ export default function AcademicRegister({ setData, dataName, setCompletedForms 
           error={errors.level}
           handleInput={handleInputs}
         />
-        <CustomMultiTextInput 
+        <CustomMultiTextInput
           label={"Courses Completed:"}
           placeholder={"example: Software Engineer"}
           type={"text"}
@@ -65,7 +93,7 @@ export default function AcademicRegister({ setData, dataName, setCompletedForms 
           handleKeyDown={handleInputs}
           handleOptions={handleOptions}
         />
-        <CustomTextInput 
+        <CustomTextInput
           label={"Graduation year:"}
           placeholder={"example: 2002"}
           type={"text"}

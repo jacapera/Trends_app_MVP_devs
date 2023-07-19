@@ -1,32 +1,63 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { useForm } from "../../hooks/useForm";
 import countryList from "react-select-country-list";
 import { CustomTextInput } from "../customTextInput";
 import CustomRadioInput from "../customRadioInput";
 import { SearchCustomSelect } from "../customSelect";
+import { useFields } from "../../hooks/useFields";
 
 //esta funcion es un formulario controlado
 //para el registro de un usuario nuevo
-export default function PersonalRegister({ setData, dataName, setCompletedForms}) {
+export default function PersonalRegister({
+  setData,
+  dataName,
+  checkCompletedForms,
+}) {
   const options = useMemo(() => countryList().getData(), []);
+  const initialStates = {
+    inputs: {
+      email: "",
+      username: "",
+      name: "",
+      age: "",
+      password: "",
+      city: "",
+      country: "",
+      support: "yes", // dar apoyo
+    },
+    ref: {
+      email: true,
+      username: true,
+      name: true,
+      age: true,
+      password: true,
+      city: true,
+      country: true,
+    },
+  };
 
   const {
     inputs: contactInputs,
     errors,
-    isFormComplete,
     handleInputs,
     handleSelectChange,
-    handleSubmit,
-  } = useForm(setData, dataName);
+    resetInputs,
+  } = useFields(initialStates, dataName);
 
-  useEffect(() => {
-    console.log(isFormComplete);
-    setCompletedForms(prevState => ({
-      ...prevState,
-      [dataName]: isFormComplete
-    }))
-  },[isFormComplete])
+  const { handleSubmit } = useForm(
+    contactInputs,
+    errors,
+    resetInputs,
+    setData,
+    dataName,
+    checkCompletedForms,
+  );
+
+  // useEffect(() => {
+  //   console.log(isFormComplete);
+  //   checkCompletedForms(isFormComplete)
+  // }, [isFormComplete]);
 
   return (
     <div className="containerPersonalRegister">
