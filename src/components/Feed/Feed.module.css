@@ -1,0 +1,54 @@
+.BGContainer {
+    position: relative;
+    justify-content: center;
+    display: flex;
+    gap: 1rem;
+}
+
+.Feed {
+    background-color: white;
+    border-radius: .5rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 30rem;
+    padding: 1.3rem;
+    margin-bottom: .7rem;
+}
+
+.Feed hr {
+    border: 1px solid #d7d7d7 ;
+}
+
+
+.Filters {
+    position: sticky;
+    background-color: white;
+    border-radius: .5rem;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    height: 30rem;
+    width: 17rem;
+    color: #324A59;
+    top: 1.2rem;
+}
+
+.Title {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: 0 1.3rem;
+    padding-top: 1rem;
+}
+
+.Title img {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.Title h2 {
+    font-family: "Montserrat-SemiBold";
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.Filters hr {
+    border: 1px solid #d7d7d7 ;
+}
