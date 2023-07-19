@@ -35,21 +35,21 @@ export default function RegisterPage({ setData }) {
   const registerSubmit = () => {};
 
   const CurrentForm = forms[currentFormIndex].component;
-  const formKey = forms[currentFormIndex].key;
+  const dataName = forms[currentFormIndex].key;
 
   return (
     <div className="flex flex-col gap-4">
       <main>
         <CurrentForm
           setData={setData}
-          formKey={formKey}
+          dataName={dataName}
           setFormsComplete={setIsFormsComplete}
         />
 
         <div>
           {currentFormIndex < forms.length - 1 ? (
             <Button
-              disabled={!isFormsComplete[formKey]}
+              disabled={!isFormsComplete[dataName]}
               onClick={handleNextStep}
             >
               <span className="text-xl uppercase">Next Step</span>

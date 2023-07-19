@@ -3,7 +3,7 @@ import {CustomMultiTextInput, CustomTextInput} from "../customTextInput";
 import { CustomSelect } from "../customSelect";
 import { useEffect } from "react";
 
-export default function AcademicRegister({ setData, formKey, setFormsComplete }) {
+export default function AcademicRegister({ setData, dataName, setFormsComplete }) {
   const {
     inputs: academicInputs,
     errors,
@@ -12,14 +12,14 @@ export default function AcademicRegister({ setData, formKey, setFormsComplete })
     handleSelectChange,
     handleInputs,
     handleOptions
-  } = useForm(setData, formKey);
+  } = useForm(setData, dataName);
 
   
   useEffect(() => {
     console.log(isFormComplete);
     setFormsComplete(prevState => ({
       ...prevState,
-      [formKey]: isFormComplete
+      [dataName]: isFormComplete
     }))
   },[isFormComplete])
 
