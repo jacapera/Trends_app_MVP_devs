@@ -47,13 +47,13 @@ export const matchProblematic = (user, targetUser) => {
   const scoreUser = matchProblematicScore(
     userProblematic,
     targetUserGoals,
-    targetUser.profile.support
+    targetUser.profile.support.toString()
   );
 
   const scoreTargetUser = matchProblematicScore(
     targetUserProblematic,
     userGoals,
-    user.profile.support
+    user.profile.support.toString()
   );
 
   // Se retorna el máximo entre los dos
