@@ -1,19 +1,17 @@
-// Para hacer el código escalable
-// problematicData almacena las problemáticas
-// y sus opciones para el match
-const problematicData = {
-  "Falta de guía profesional": {
-    "Conocer nuevos colegas y oportunidades": 10,
-    true: 5,
-    false: 0,
-  },
-};
-
 // Se toma la problemática, los objetivos y si ofrece/necesita apoyo
 const matchProblematicScore = (problematic, goals, supportCondition) => {
   let score = 0;
+
+  // Por escalabilidad se define un objeto problematicData
+  // en donde se pueden ir añadiendo más opciones
+  const problematicData = {
+    "Falta de guía profesional": {
+      "Conocer nuevos colegas y oportunidades": 10,
+      support: 5 * supportCondition,
+    },
+  };
   // Se recorre problematicData:
-  // se busca la problemática y se suman puntos 
+  // se busca la problemática y se suman puntos
   // de acuerdo a sus opciones
   for (const problem of problematic) {
     if (problem in problematicData) {
@@ -25,9 +23,7 @@ const matchProblematicScore = (problematic, goals, supportCondition) => {
           }
         }
       }
-      if (supportCondition in options) {
-        score += options[supportCondition];
-      }
+      score += options["support"];
     }
   }
 
@@ -47,13 +43,13 @@ export const matchProblematic = (user, targetUser) => {
   const scoreUser = matchProblematicScore(
     userProblematic,
     targetUserGoals,
-    targetUser.profile.support.toString()
+    Number(targetUser.profile.support)
   );
 
   const scoreTargetUser = matchProblematicScore(
     targetUserProblematic,
     userGoals,
-    user.profile.support.toString()
+    Number(user.profile.support)
   );
 
   // Se retorna el máximo entre los dos

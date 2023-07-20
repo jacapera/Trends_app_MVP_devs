@@ -1,4 +1,5 @@
 import { matchAcademicType } from "./matchAcademicType.js";
+import { matchGoals } from "./matchGoals.js";
 import { matchProblematic } from "./matchProblematic.js";
 
 export const calculateMatchScore = (user, targetUser) => {
@@ -14,7 +15,7 @@ export const calculateMatchScore = (user, targetUser) => {
     "academic.type": () => matchAcademicType(user, targetUser),
     "info.career": 5,
     "info.interests": 5,
-    "info.goals": 5,
+    "info.goals": () => matchGoals(user, targetUser),
     "profile.city": 3,
     "profile.country": 3,
     "academic.level": 3,
