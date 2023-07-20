@@ -1,0 +1,54 @@
+.mainDiv{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gray;
+}
+
+.blackContainer{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 50%;
+    background-color: black;
+    z-index: 19;
+}
+
+.whiteContainer{
+    background-color: white;
+    height: 50vh;
+    width: 50vh;
+    border: 5px solid black;
+    z-index: 20;
+}
+
+.dropzoneBox{
+    display: flex;
+    border: 3px gray dashed;
+    border-radius: 20px;
+    margin: 25px;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropzoneBox:hover{
+    cursor: pointer;
+}
+
+.previewImage{
+    border-radius: 20px;
+    margin: 25px;
+    height: 80%;
+    width: 80%;
+}
+
+.dropzoneText{
+    color: gray;
+    font-size: 24px;
+}
