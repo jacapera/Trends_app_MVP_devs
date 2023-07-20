@@ -5,12 +5,16 @@ import formatRegisterCompany from "../../utils/formatRegisterCompany";
 import CompanyRegisterAcademic from "../../components/companyRegisterAcademic";
 import CompanyRegisterInfo from "../../components/companyRegisterInfo";
 import CompanyRegisterContact from "../../components/companyRegisterContact";
-
+import {HiOutlineCheckCircle,HiOutlineMinusCircle} from 'react-icons/hi';
+import { Icon } from "@tremor/react";
+import {validateContact , errorContact , validateAcademic , errorAcademic,validateInfo,errorInfo} from "../../utils/validate";
 
 
 export default function registerCompany() {
 
-	const[completo, setCompleto] = useState(false);	
+	const[isContactComplete, setIsContactComplete] = useState(false);
+	const[isAcademicComplete, setIsAcademicComplete] = useState(false);
+	const[isInfoComplete, setIsInfoComplete] = useState(false);
 
 	const[page,setPage]=useState({
 		button1:"Prev",
@@ -179,15 +183,6 @@ export default function registerCompany() {
 		setFormCompany({...formCompany,[prop]:value})
 	};
 
-	const validateComplete = ()=>{
-		for(let propiedad in formCompany){
-			if(formCompany[propiedad] === "") return false;
-		}
-		for(let propiedad in error){
-			if(error[propiedad]!=="") return false;
-		}
-		return true;
-	};
 
 	//presiono boton submit
 	const submitHandler=(event)=>{
@@ -201,19 +196,29 @@ export default function registerCompany() {
     useEffect(()=>{
         console.log("que tiene formCompany: ",formCompany);
         console.log("que tiene error: ", error)
-		console.log("que tiene data: ", data);      
-		
-		//setea estado
-		setCompleto(validateComplete);
+		//console.log("que tiene data: ", data);      
 
-    },[formCompany],[error],[data])
+		//validacion de contacto y error contacto
+		setIsContactComplete(validateContact(formCompany)&&errorContact(error));
+		console.log("que trae isContactComplete: ", isContactComplete)
+		
+		//validacion de academic y error academic
+		setIsAcademicComplete(validateAcademic(formCompany)&&errorAcademic(error));
+		
+		//validacion de info y error info
+		setIsInfoComplete(validateInfo(formCompany)&&errorInfo(error));
+
+    },[formCompany],[error],[data]);
+
+
+	
 
 	useEffect(()=>{
 		const fetchdata = async ()=>{
 			try{
 				const response = await fetch('../src/data/data.json');
 				const jsonData = await response.json();
-				console.log("que trae jsonData: ", jsonData);
+				//console.log("que trae jsonData: ", jsonData);
 				setData(jsonData);
 			}catch(error){
 				console.log("error al leer data.json: ", error.message);
@@ -242,11 +247,11 @@ export default function registerCompany() {
                 </div>
 				<div>
 					<Button 
-						disabled={!completo} 
+						disabled={!(isContactComplete&&isAcademicComplete&&isInfoComplete)}
 						type="submit"
 						style={{ margin: 10, padding: 10 }}
 						>Guardar Registro</Button>
-				</div>				
+				</div>
             </form>
 			<br/>
 			<div>
@@ -263,7 +268,22 @@ export default function registerCompany() {
 					style={{ margin: 10, padding: 10 }}
 					>{page.button2}</button>
 			</div>
+			<div>
+				{isContactComplete
+					?<Icon size="lg" color="green" icon={HiOutlineCheckCircle}/>
+					:<Icon size="lg" color="red" icon={HiOutlineMinusCircle}/>
+				}
+				{isAcademicComplete
+					?<Icon size="lg" color="green" icon={HiOutlineCheckCircle}/>
+					:<Icon size="lg" color="red" icon={HiOutlineMinusCircle}/>
+				}
+				{isInfoComplete
+					?<Icon size="lg" color="green" icon={HiOutlineCheckCircle}/>
+					:<Icon size="lg" color="red" icon={HiOutlineMinusCircle}/>
+				}
+			</div>
 
         </div>
     )
 };
+

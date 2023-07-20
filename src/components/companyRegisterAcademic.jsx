@@ -10,7 +10,7 @@ export default function companyRegisterAcademic({formCompany,error,handleChangeS
 			try{
 				const response = await fetch('../src/data/data.json');
 				const jsonData = await response.json();
-				console.log("que trae jsonData: ", jsonData);
+				//console.log("que trae jsonData: ", jsonData);
 				setData(jsonData);
 			}catch(error){
 				console.log("error al leer data.json: ", error.message);
