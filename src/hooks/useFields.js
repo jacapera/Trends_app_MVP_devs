@@ -1,103 +1,46 @@
 import { useEffect, useRef, useState } from "react";
 import {
   validateAcademicForm,
+  validateInfoForm,
   validateProfileForm,
 } from "../utils/validateForm";
 
-export const useFields = (initialStates, dataName) => {
+export const useFields = (initialInputs, initialRefs, dataName) => {
   const REGEX_CONSECUTIVE_SPACES = /\s{2,}/g;
-  // const initialStates = {
-  //   profile: {
-  //     inputs: {
-  //       email: "",
-  //       username: "",
-  //       name: "",
-  //       age: "",
-  //       password: "",
-  //       city: "",
-  //       country: "",
-  //       support: "yes", // dar apoyo
-  //     },
-  //     ref: {
-  //       email: true,
-  //       username: true,
-  //       name: true,
-  //       age: true,
-  //       password: true,
-  //       city: true,
-  //       country: true,
-  //     },
-  //   },
-  //   academic: {
-  //     inputs: {
-  //       type: "", // Sin exp - Junior - Intermedio - Senior
-  //       institution: "",
-  //       level: "", // Nivel educativo
-  //       area: [], // Área de su(s) carrera(s) (con grado y/o posgrado)
-  //       graduation: "",
-  //     },
-  //     ref: {
-  //       type: true,
-  //       institution: true,
-  //       level: true,
-  //       area: true,
-  //       graduation: true,
-  //     },
-  //   },
-  //   info: {
-  //     inputs: {
-  //       company_name: "",
-  //       position: "",
-  //       career: [], // responsabilidades, logros
-  //       skills: [],
-  //       interests: [],
-  //       goals: [],
-  //       languages: [],
-  //       availability: "",
-  //       contract: "", // Tipo de contratación
-  //     },
-  //     ref: {
-  //       company_name: true,
-  //       position: true,
-  //       career: true, // responsabilidades, logros
-  //       skills: true,
-  //       interests: true,
-  //       goals: true,
-  //       languages: true,
-  //       availability: true,
-  //       contract: true, // Tipo de contratación
-  //     },
-  //   },
-  // };
 
   const [inputs, setInputs] = useState({
-    ...initialStates.inputs,
+    ...initialInputs,
   });
+  console.log(initialInputs);
+  const [input, setInput] = useState({nameInput: "", valueInput: ""})
   const [errors, setErrors] = useState({});
-  const isFirstInputs = useRef({ ...initialStates.ref });
+  const isFirstInputs = useRef({ ...initialRefs });
 
   //cada vez que cambia el valor de un input se ejecuta esta funcion
-  const handleInputs = (event) => {
-    const name = event.target.name;
-    const value = event.target.value.replace(REGEX_CONSECUTIVE_SPACES, " ");
+  const handleInputs = (event, type) => {
+    const nameInput = event.target.name;
+    let valueInput = event.target.value;
+    if (nameInput !== "password")
+      valueInput = valueInput.replace(REGEX_CONSECUTIVE_SPACES, " ");
 
-    if (name === "email" || name === "age" || name === "graduation")
+    if (nameInput === "email" || nameInput === "age" || nameInput === "graduation")
       if (event.key === " ") event.preventDefault();
 
-    if (name === "area") {
-      if (value.trim() && event.keyCode === 13) {
-        setInputs((prevState) => {
-          return {
-            ...prevState,
-            [name]: [...new Set([...prevState[name], value.trim()])],
-          };
-        });
+    if (type === "options") {
+      setInput({nameInput, valueInput})
+      if (errors[nameInput]) return
+      if (valueInput.trim() && event.keyCode === 13) {
+        setInputs((prevState) => ({
+          ...prevState,
+          [nameInput]: [...new Set([...prevState[nameInput], valueInput.trim()])],
+        }));
         event.target.value = "";
+        setInput({nameInput: "", valueInput: ""})
       }
     } else {
       setInputs((prevState) => ({
         ...prevState,
-        [name]: value,
+        [nameInput]: valueInput,
       }));
     }
   };
@@ -119,8 +62,8 @@ export const useFields = (initialStates, dataName) => {
   };
 
   const resetInputs = () => {
-    setInputs({ ...initialStates.inputs });
-    isFirstInputs.current = { ...initialStates.ref };
+    setInputs({ ...initialInputs });
+    isFirstInputs.current = { ...initialRefs };
   };
 
   //cada vez que cambia el valor de un input
@@ -130,8 +73,8 @@ export const useFields = (initialStates, dataName) => {
       setErrors(validateProfileForm(inputs, isFirstInputs));
     if (dataName === "academic")
       setErrors(validateAcademicForm(inputs, isFirstInputs));
-    //if(dataName === "info") setErrors(validateProfileForm(inputs, isFirstInputs))
-  }, [inputs]);
+    if(dataName === "info") setErrors(validateInfoForm(inputs, input, isFirstInputs))
+  }, [inputs, input]);
 
   return {
     errors,
@@ -139,6 +82,6 @@ export const useFields = (initialStates, dataName) => {
     resetInputs,
     handleInputs,
     handleOptions,
-    handleSelectChange
+    handleSelectChange,
   };
 };

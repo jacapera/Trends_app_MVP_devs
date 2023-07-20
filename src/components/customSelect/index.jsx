@@ -1,4 +1,6 @@
 import {
+  MultiSelect,
+  MultiSelectItem,
   SearchSelect,
   SearchSelectItem,
   Select,
@@ -63,6 +65,31 @@ export function CustomSelect({
   );
 }
 
-export function CustomSelectMultiple() {
-  return;
+export function CustomSelectMultiple({
+  handleSelectChange,
+  options,
+  error,
+  name,
+  label,
+  placeholder,
+  value
+}) {
+  return (
+    <div>
+      <label htmlFor={name}>{label}</label>
+      <MultiSelect
+        name={name}
+        placeholder={placeholder}
+        onValueChange={(event) => handleSelectChange(event, name)}
+        value={value}
+      >
+        {options.map((el, index) => (
+          <MultiSelectItem key={`${index} ${el}`} value={el}>
+            {el}
+          </MultiSelectItem>
+        ))}
+      </MultiSelect>
+      {error && <span>{error}</span>}
+    </div>
+  )
 }

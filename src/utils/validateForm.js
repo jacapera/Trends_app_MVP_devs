@@ -2,7 +2,7 @@ const REGEX_EMAIL = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const REGEX_NUMBERS = /^\d+$/;
 const REGEX_LETTERS_SPACES = /^[A-Za-z\s]+$/;
 const REGEX_PASSWORD =
-  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?& ]{8,}$/;
 const REGEX_CITIES = /^[A-Za-z\u00C0-\u017F\s',-]+$/;
 const REGEX_SENTENCE = /^[\w\s.,'"-]+$/;
 
@@ -128,6 +128,93 @@ export function validateAcademicForm(inputs, isFirstInputs) {
 
   //manejo de errores del input type
   validateRequiredField("type");
+
+  return errors;
+}
+
+//validaciones para datos de intereses
+export function validateInfoForm(inputs, input, isFirstInputs) {
+  const errors = {};
+  const props = Object.keys(inputs);
+
+  const validateRequiredField = (field) => {
+    if (input.nameInput === field) {
+      if (isFirstInputs.current[field]) {
+        isFirstInputs.current[field] = input.valueInput.length === 0;
+      } else if (inputs[field].length === 0 && input.valueInput.length === 0) {
+        errors[field] = "This field is required.";
+      }
+    } else {
+      if (isFirstInputs.current[field]) {
+        isFirstInputs.current[field] = inputs[field].length === 0;
+      } else if (inputs[field].length === 0) {
+        errors[field] = "This field is required.";
+      }
+    }
+  };
+
+  for (const prop of props) {
+    validateRequiredField(prop);
+  }
+
+  if (!isFirstInputs.current.company && inputs.company !== "") {
+    if (!REGEX_LETTERS_SPACES.test(inputs.company)) {
+      errors.company = "Numbers and special characters not allowed.";
+    } else if (inputs.company.length > 30) {
+      errors.company = "Maximum characters allowed: 30.";
+    }
+  }
+  if (!isFirstInputs.current.position && inputs.position !== "") {
+    if (!REGEX_LETTERS_SPACES.test(inputs.position)) {
+      errors.position = "Numbers and special characters not allowed.";
+    } else if (inputs.position.length > 30) {
+      errors.position = "Maximum characters allowed: 30.";
+    }
+  }
+
+  if (input.nameInput === "career") {
+    console.log(input);
+    if (!isFirstInputs.current.career && input.valueInput !== "") {
+      if (!REGEX_LETTERS_SPACES.test(input.valueInput)) {
+        errors.career = "Numbers and special characters not allowed.";
+      } else if (input.valueInput.length > 30) {
+        errors.career = "Maximum characters allowed: 30.";
+      }
+    }
+  }
+
+  if (input.nameInput === "skills") {
+    console.log(input);
+    if (!isFirstInputs.current.skills && input.valueInput !== "") {
+      if (!REGEX_LETTERS_SPACES.test(input.valueInput)) {
+        errors.skills = "Numbers and special characters not allowed.";
+      } else if (input.valueInput.length > 30) {
+        errors.skills = "Maximum characters allowed: 30.";
+      }
+    }
+  }
+
+  if (input.nameInput === "interests") {
+    console.log(input);
+    if (!isFirstInputs.current.interests && input.valueInput !== "") {
+      if (!REGEX_LETTERS_SPACES.test(input.valueInput)) {
+        errors.interests = "Numbers and special characters not allowed.";
+      } else if (input.valueInput.length > 30) {
+        errors.interests = "Maximum characters allowed: 30.";
+      }
+    }
+  }
+
+  if (input.nameInput === "goals") {
+    console.log(input);
+    if (!isFirstInputs.current.goals && input.valueInput !== "") {
+      if (!REGEX_LETTERS_SPACES.test(input.valueInput)) {
+        errors.goals = "Numbers and special characters not allowed.";
+      } else if (input.valueInput.length > 30) {
+        errors.goals = "Maximum characters allowed: 30.";
+      }
+    }
+  }
 
   return errors;
 }

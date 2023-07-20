@@ -4,25 +4,17 @@ import { CustomSelect } from "../customSelect";
 import { useFields } from "../../hooks/useFields";
 
 export default function AcademicRegister({
-  setData,
+  handleUserData,
   dataName,
   checkCompletedForms,
+  initialInputs,
 }) {
-  const initialStates = {
-    inputs: {
-      type: "", // Sin exp - Junior - Intermedio - Senior
-      institution: "",
-      level: "", // Nivel educativo
-      area: [], // Área de su(s) carrera(s) (con grado y/o posgrado)
-      graduation: "",
-    },
-    ref: {
-      type: true,
-      institution: true,
-      level: true,
-      area: true,
-      graduation: true,
-    },
+  const initialRefs = {
+    type: true,
+    institution: true,
+    level: true,
+    area: true,
+    graduation: true,
   };
 
   const {
@@ -30,30 +22,15 @@ export default function AcademicRegister({
     errors,
     handleInputs,
     handleSelectChange,
-    resetInputs,
-    handleOptions
-  } = useFields(initialStates, dataName);
+    handleOptions,
+  } = useFields(initialInputs, initialRefs, dataName);
 
-  const { handleSubmit } = useForm(
-    academicInputs,
-    errors,
-    resetInputs,
-    setData,
-    dataName,
-    checkCompletedForms
-  );
+  useForm(academicInputs, errors, dataName, checkCompletedForms, handleUserData);
 
-  // useEffect(() => {
-  //   console.log(isFormComplete);
-  //   setCompletedForms((prevState) => ({
-  //     ...prevState,
-  //     [dataName]: isFormComplete,
-  //   }));
-  // }, [isFormComplete]);
 
   return (
     <div className="containerAcademicRegister">
-      <form onSubmit={handleSubmit}>
+      <form>
         <h3>Academic Information</h3>
         <CustomSelect
           label={"Type of professional:"}
@@ -89,7 +66,7 @@ export default function AcademicRegister({
           name={"area"}
           values={academicInputs.area}
           error={errors.area}
-          handleInput={handleInputs}
+          handleInput={(event) => handleInputs(event, "options")}
           handleKeyDown={handleInputs}
           handleOptions={handleOptions}
         />

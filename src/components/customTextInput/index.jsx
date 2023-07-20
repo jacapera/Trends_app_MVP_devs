@@ -1,5 +1,6 @@
-import { TextInput } from "@tremor/react";
+import { Badge, TextInput } from "@tremor/react";
 import { ArrowCircleRightIcon } from "@heroicons/react/solid";
+import { XIcon } from "@heroicons/react/outline";
 
 export function CustomTextInput({
   label,
@@ -54,20 +55,24 @@ export function CustomMultiTextInput({
         errorMessage={error}
         id={id ? id : name}
         placeholder={placeholder}
-        onChange={handleInput}
-        onKeyDown={handleKeyDown}
+        onChange={(event) => handleInput(event, "options")}
+        onKeyDown={(event) => handleKeyDown(event, "options")}
         icon={ArrowCircleRightIcon}
       />
-      <div>
-        {values.map((value, i) => (
-          <span
-            key={`${value} ${i}`}
-            onClick={() => handleOptions(name, value)}
-          >
-            {value}
-          </span>
-        ))}
-      </div>
+      {values.length > 0 && (
+        <div className="flex flex-row overflow-auto flex-nowrap gap-2 pt-2">
+          {values.map((value, i) => (
+            <Badge
+              key={`${value} ${i}`}
+              onClick={() => handleOptions(name, value)}
+              icon={XIcon}
+              size="lg"
+            >
+              <span className="text-base">{value}</span>
+            </Badge>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

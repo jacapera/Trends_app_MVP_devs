@@ -10,31 +10,20 @@ import { useFields } from "../../hooks/useFields";
 //esta funcion es un formulario controlado
 //para el registro de un usuario nuevo
 export default function PersonalRegister({
-  setData,
+  handleUserData,
   dataName,
   checkCompletedForms,
+  initialInputs,
 }) {
   const options = useMemo(() => countryList().getData(), []);
-  const initialStates = {
-    inputs: {
-      email: "",
-      username: "",
-      name: "",
-      age: "",
-      password: "",
-      city: "",
-      country: "",
-      support: "yes", // dar apoyo
-    },
-    ref: {
-      email: true,
-      username: true,
-      name: true,
-      age: true,
-      password: true,
-      city: true,
-      country: true,
-    },
+  const initialRefs = {
+    email: true,
+    username: true,
+    name: true,
+    age: true,
+    password: true,
+    city: true,
+    country: true,
   };
 
   const {
@@ -42,17 +31,9 @@ export default function PersonalRegister({
     errors,
     handleInputs,
     handleSelectChange,
-    resetInputs,
-  } = useFields(initialStates, dataName);
+  } = useFields(initialInputs, initialRefs, dataName);
 
-  const { handleSubmit } = useForm(
-    contactInputs,
-    errors,
-    resetInputs,
-    setData,
-    dataName,
-    checkCompletedForms,
-  );
+  useForm(contactInputs, errors, dataName, checkCompletedForms, handleUserData);
 
   // useEffect(() => {
   //   console.log(isFormComplete);
@@ -61,7 +42,7 @@ export default function PersonalRegister({
 
   return (
     <div className="containerPersonalRegister">
-      <form onSubmit={handleSubmit}>
+      <form>
         <h3>Personal Information</h3>
         <CustomTextInput
           label={"Full name:"}
