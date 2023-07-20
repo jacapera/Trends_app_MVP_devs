@@ -24,7 +24,7 @@ export default function studentRegisterInterest({profile,error,handleChangeSelec
 
     return(
         <div>
-					<h3>Intereses</h3>
+					<Title>Intereses</Title>
 					<label>Intereses de carrera: </label><br/>
 					<TextInput
 						name="career_interest"

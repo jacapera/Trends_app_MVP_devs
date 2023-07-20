@@ -7,7 +7,7 @@ import CompanyRegisterInfo from "../../components/companyRegisterInfo";
 import CompanyRegisterContact from "../../components/companyRegisterContact";
 import {HiOutlineCheckCircle,HiOutlineMinusCircle} from 'react-icons/hi';
 import { Icon } from "@tremor/react";
-import {validateContact , errorContact , validateAcademic , errorAcademic,validateInfo,errorInfo} from "../../utils/validate";
+import {validateContact,errorContact,validateAcademic,errorAcademic,validateInfo,errorInfo} from "../../utils/validateCompany";
 
 
 export default function registerCompany() {

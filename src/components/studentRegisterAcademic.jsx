@@ -21,10 +21,10 @@ export default function studentRegisterAcademic({profile,error,handleChangeSelec
 		}
 		fetchdata();
 	},[]) 
-
+ 
     return(
         <div>
-					<h3>Informacion Academica</h3>
+					<Title>Informacion Academica</Title>
 					<label>Tipo de Estudiante: </label><br/>
 					<Select
 						name="type_student"

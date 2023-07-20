@@ -5,10 +5,20 @@ import StudentRegisterExtra from "../../components/studentRegisterExtra";
 import StudentRegisterContact from "../../components/studentRegisterContact";
 import StudentRegisterAcademic from "../../components/studentRegisterAcademic";
 import StudentRegisterInterest from "../../components/studentRegisterInterest";
-
+import {HiOutlineCheckCircle,HiOutlineMinusCircle} from 'react-icons/hi';
+import { Icon } from "@tremor/react";
+import {validateContact,errorContact,
+	validateAcademic,errorAcademic,
+	validateInterest,errorInterest,
+	validateExtra,errorExtra} from "../../utils/validateStudent";
 
 
 export default function registerStudent() {
+
+	const[isContactComplete, setIsContactComplete] = useState(false);
+	const[isAcademicComplete, setIsAcademicComplete] = useState(false);
+	const[isInterestComplete, setIsInterestComplete] = useState(false);
+	const[isExtraComplete,setIsExtraComplete] = useState(false);
 
 	//?ESTADOS LOCALES
 	const[data, setData] = useState(null);
@@ -35,11 +45,12 @@ export default function registerStudent() {
 		career_interest:"",
 		skills:"",
 		interests: "",
-		goals:"", //desplegar lista
-		other_goals:"", // se agrega al array de goals
     	languages: "",
     	availability: "",
-    	contract: "",	
+    	contract: "",
+		//Extra
+		goals:"", //desplegar lista
+		other_goals:"", // se agrega al array de goals			
 		problematic:"", //problematica
 		other_problematic:"",  //se agrega al array de problematica
 	});
@@ -269,16 +280,23 @@ export default function registerStudent() {
 		console.log("que tiene profile: ", profile);
 		console.log("que tiene error: ", error)
 		console.log("que tiene data: ", data);
-		//calculo progreso
-		const totalField = Object.keys(profile).length;
-		const completedFields = Object.values(profile).filter((value)=>value!=='').length;
-		const currentProgress = (completedFields/totalField) * 100;
-		SetProgress(currentProgress);
 
 		console.log("que tienen progress: ", progress);
 
 		//setea estado 
 		setCompleto(validateComplete())
+
+		//validacion contacto
+		setIsContactComplete(validateContact(profile)&&errorContact(error));
+
+		//validacion academic
+		setIsAcademicComplete(validateAcademic(profile)&&errorAcademic(error));
+
+		//validacion intereses
+		setIsInterestComplete(validateInterest(profile)&&errorInterest(error));
+
+		//validacion info extra
+		setIsExtraComplete(validateExtra(profile)&&errorExtra(error));
 
 	},[profile],[error],[data],[progress]);
 
@@ -321,7 +339,10 @@ export default function registerStudent() {
 					<StudentRegisterExtra profile={profile} handleChangeSelect={handleChangeSelect} handleChangeProfile={handleChangeProfile}/>
 				</div>
 				<div>
-					<Button disabled={!completo} type="submit" style={{ margin: 10, padding: 10 }}
+					<Button 
+						disabled={!(isContactComplete&&isAcademicComplete&&isInterestComplete&&isExtraComplete)} 
+						type="submit" 
+						style={{ margin: 10, padding: 10 }}
 						>Guardar Registro</Button>
 				</div>
 			</form>
@@ -341,8 +362,24 @@ export default function registerStudent() {
 					>{page.button2}</button>
 			</div>
 			<div>
-				<label>progreso: </label>
-				<progress id="profile" max="100" value={progress}>{progress}</progress>
+				{/* <label>progreso: </label>
+				<progress id="profile" max="100" value={progress}>{progress}</progress> */}
+				{isContactComplete
+					?<Icon size="lg" color="green" icon={HiOutlineCheckCircle}/>
+					:<Icon size="lg" color="red" icon={HiOutlineMinusCircle}/>
+				}
+				{isAcademicComplete
+					?<Icon size="lg" color="green" icon={HiOutlineCheckCircle}/>
+					:<Icon size="lg" color="red" icon={HiOutlineMinusCircle}/>
+				}
+				{isInterestComplete
+					?<Icon size="lg" color="green" icon={HiOutlineCheckCircle}/>
+					:<Icon size="lg" color="red" icon={HiOutlineMinusCircle}/>
+				}
+				{isExtraComplete
+					?<Icon size="lg" color="green" icon={HiOutlineCheckCircle}/>
+					:<Icon size="lg" color="red" icon={HiOutlineMinusCircle}/>
+				}				
 			</div>
 
 		</div>

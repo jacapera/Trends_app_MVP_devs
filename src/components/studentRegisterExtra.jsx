@@ -26,7 +26,7 @@ export default function studentRegisterExtra({profile,handleChangeSelect,handleC
         <div>
 				{/* INFORMACION EXTRA */}
 				<div>
-					<h3>Informacion Extra</h3>
+					<Title>Informacion Extra</Title>
                     <p>Para mejorar tu experiencia y nuestras recomendaciones, te pedimos que marques las casillas correspondientes.</p>
                     <p>Cual o cuales son tus objetivos como estudiante en los siguientes 6 meses</p>
 					<label>Objetivos: </label><br/>
