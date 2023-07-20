@@ -26,6 +26,21 @@
         {"value":"Ingeniería de Software"},
         {"value":"Marketing"}
     ],
+    "goals":[
+        {"value":"Elegir Carrera"},
+        {"value":"Encontrar Pasantia"},
+        {"value":"Conocer Mercado"},
+        {"value":"Profundizar Estudios"},
+        {"value":"Elegir Especializacion"},
+        {"value":"Conocer Oportunidades"},
+        {"value":"Otros Objetivos"}
+    ],
+    "problematics":[
+        {"value":"No se que me gusta"},
+        {"value":"Falta informacion del mercado laboral"},
+        {"value":"Falta guia profesional"},
+        {"value":"Dificultad para encontrar trabajo"}
+    ],
     "industry":[
         {"value":"TI"},
         {"value":"Energia"},

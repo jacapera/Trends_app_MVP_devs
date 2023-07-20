@@ -37,7 +37,7 @@ function Home() {
 				<h1>Trends</h1>
 				<h4>Hello </h4>
                 <p>Are you a student or an enterprise ?</p>
-                <Link to='/registerStudent'>
+                <Link to='/studentRegister'>
                     <button
                         style={{ margin: 10, padding: 10 }}
                     >Student</button>

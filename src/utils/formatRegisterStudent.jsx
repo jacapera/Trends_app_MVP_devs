@@ -1,4 +1,19 @@
 export default function formatRegisterStudent(stateProfile){
+
+  //?Formatea objetivos en un solo arreglo
+    let arrayGoals=[];
+    arrayGoals=[
+      ...stateProfile.goals && stateProfile.goals,
+      ...stateProfile.other_goals && stateProfile.other_goals.split(',')
+    ];
+
+  //?Formatea Problematica
+  let arrayProblematic=[];
+  arrayProblematic=[
+    ...stateProfile.problematic && stateProfile.problematic,
+    ...stateProfile.other_problematic && stateProfile.other_problematic.split(',')
+  ];
+
     const format = {
         profile: {
             name: `${stateProfile.name} ${stateProfile.lastname}`, 
@@ -19,11 +34,12 @@ export default function formatRegisterStudent(stateProfile){
           info: {
             career: stateProfile.career_interest.split(','),//["Desarrollo de Software"],
             skills: stateProfile.skills.split(','),//["Programación en Python", "Desarrollo web", "Bases de datos"],
-            goals: stateProfile.goals.split(','),//["Obtener una pasantía en una empresa de tecnología", "Desarrollar habilidades de liderazgo"]
+            goals: arrayGoals,//["Obtener una pasantía en una empresa de tecnología", "Desarrollar habilidades de liderazgo"]
             interests: stateProfile.interests.split(','),//["Inteligencia Artificial","Desarrollo de aplicaciones móviles"]
             languages: stateProfile.languages.split(','),//["Español", "Inglés"],
             availability: stateProfile.availability,//"Full-time",
             contract: stateProfile.contract,//"Remoto",
+            problematic: arrayProblematic,
           },
         };
     
