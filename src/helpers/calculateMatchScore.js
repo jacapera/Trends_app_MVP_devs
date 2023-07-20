@@ -1,9 +1,15 @@
-export const calculateMatchScore = (user1, user2) => {
-  // Se define el "peso" que tiene cada campo del perfil
+import { matchAcademicType } from "./matchAcademicType";
+
+export const calculateMatchScore = (user, targetUser) => {
+  // El "puntaje" de matcheo
+  let score = 0;
+
+  // Se definen los handlers y el "peso" para cada campo del perfil
   // 5 = Alto, 3 = Medio, 1 = Bajo
-  const weights = {
+  const fieldHandlers = {
     "profile.support": 5,
     "academic.area": 5,
+    "academic.type": () => matchAcademicType(user, targetUser),
     "info.career": 5,
     "info.interests": 5,
     "info.goals": 5,
@@ -17,46 +23,31 @@ export const calculateMatchScore = (user1, user2) => {
     "academic.graduation": 1,
   };
 
-  // Diccionario para matchear los tipos académicos
-  const academicTypes = {
-    "Secundaria": "Sin Experiencia",
-    "Universitario Junior": "Junior",
-    "Universitario Intermedio": "Middle",
-    "Universitario Avanzado": "Senior",
-  };
-
-  // Desestructuración de los tipos académicos de los perfiles
-  const {
-    academic: { type: type1 },
-  } = user1;
-  const {
-    academic: { type: type2 },
-  } = user2;
-
-  // El "puntaje" de matcheo
-  let score = 0;
-
   // Como cada perfil es un objeto con objetos,
   // se hace una búsqueda "deep" de las propiedades
-  for (const key in weights) {
+  for (const key in fieldHandlers) {
     const [outerKey, innerKey] = key.split(".");
+
+    // Si el valor es una función, se la llama
+    // y se suma su valor de retorno al score
+    if (typeof fieldHandlers[key] === "function") {
+      score += fieldHandlers[key]();
+    }
 
     // info y academic tienen propiedades que son arrays
     if (
       ["info", "academic"].includes(outerKey) &&
-      [user1, user2].every((user) =>
+      [user, targetUser].every((user) =>
         Array.isArray(user[outerKey]?.[innerKey])
       )
     ) {
       // Se convierte cada array en un set
       // por eficiencia y operaciones de conjunto
-      const set1 = new Set(user1[outerKey][innerKey]);
-      const set2 = new Set(user2[outerKey][innerKey]);
+      const set1 = new Set(user[outerKey][innerKey]);
+      const set2 = new Set(targetUser[outerKey][innerKey]);
 
       // Operaciones de conjunto para evaluar la diversidad/complementariedad
-      const commonData = new Set(
-        [...set1].filter((data) => set2.has(data))
-      );
+      const commonData = new Set([...set1].filter((data) => set2.has(data)));
       const exclusiveData1 = new Set(
         [...set1].filter((data) => !set2.has(data))
       );
@@ -66,31 +57,26 @@ export const calculateMatchScore = (user1, user2) => {
       const totalExclusiveData = exclusiveData1.size + exclusiveData2.size;
 
       // Se suman puntos según los datos en común
-      score += weights[key] * commonData.size;
+      score += fieldHandlers[key] * commonData.size;
 
       // Se suman puntos extra en base a mayor afinidad:
-      // Mientras la resta entre commonData y el total de exclusiveData 
-      // esté más alejada de cero, siendo positiva, significa que 
+      // Mientras la resta entre commonData y el total de exclusiveData
+      // esté más alejada de cero, siendo positiva, significa que
       // los perfiles tienen menos datos que los diferencian.
       if (commonData.size > 0 && totalExclusiveData < commonData.size) {
-        score += weights[key] * (commonData.size - totalExclusiveData);
+        score += fieldHandlers[key] * (commonData.size - totalExclusiveData);
       }
 
       // Las demás propiedades van a ser un solo value (una vez elegido)
     } else if (
-      user1[outerKey] &&
-      user2[outerKey] &&
-      user1[outerKey][innerKey] === user2[outerKey][innerKey]
+      user[outerKey] &&
+      targetUser[outerKey] &&
+      user[outerKey][innerKey] === targetUser[outerKey][innerKey]
     ) {
       // Si hay coincidencia se suma al score
-      score += weights[key];
+      score += fieldHandlers[key];
     }
   }
 
-  // Se usa el diccionario para matchear el tipo académico
-  if (academicTypes[type2] === type1 || academicTypes[type1] === type2) {
-    score += 5;
-  }
-
   return score;
-}
+};
