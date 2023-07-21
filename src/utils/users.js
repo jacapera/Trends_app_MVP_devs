@@ -1,3 +1,19 @@
+/**
+ * professional goals: 
+ * Conseguir un trabajo, Conocer más sobre el mercado laboral de mi profesión, Conocer nuevos colegas y oportunidades, Hacer una especialización, Emprender
+ * 
+ * professional problematic:
+ * Falta de información del mercado laboral, Falta de guía profesional, Dificultad para conseguir trabajo
+ * 
+ * 
+ * student goals:
+ * Elegir una carrera, Encontrar una pasantía o trabajo, Conocer más sobre el mercado laboral de mi profesión, Profundizar en mis estudios, Elegir una especialización, Conocer nuevos colegas y oportunidades
+ * 
+ * student problematic:
+ * No sé que es lo que me gusta, Falta de información del mercado laboral, Falta de guía profesional, Dificultad para conseguir trabajo
+ */
+
+
 const student1 = {
   profile: {
     name: "Juan Perez",
@@ -19,13 +35,14 @@ const student1 = {
     career: ["Desarrollo de Software"],
     skills: ["Programación en Python", "Desarrollo web", "Bases de datos"],
     goals: [
-      "Obtener una pasantía en una empresa de tecnología",
-      "Desarrollar habilidades de liderazgo",
+      "Elegir una carrera",
+      "Encontrar una pasantía o trabajo",
     ],
     interests: [
       "Inteligencia Artificial",
       "Desarrollo de aplicaciones móviles",
     ],
+    problematic: ["Falta de información del mercado laboral", "Falta de guía profesional"],
     languages: ["Español", "Inglés"],
     availability: "Full-time",
     contract: "Remoto",
@@ -57,10 +74,10 @@ const student2 = {
       "Administración de personal",
     ],
     goals: [
-      "Obtener un puesto de Recursos Humanos en una empresa multinacional",
-      "Realizar un posgrado en Psicología Organizacional",
+      "Profundizar en mis estudios", "Elegir una especialización",
     ],
     interests: ["Desarrollo profesional", "Coaching"],
+    problematic: ["Falta de guía profesional"],
     languages: ["Español", "Inglés"],
     availability: "Full-time",
     contract: "Remoto",
@@ -92,13 +109,13 @@ const student3 = {
       "Manejo de casos",
     ],
     goals: [
-      "Obtener una maestría en Psicología Clínica",
-      "Abrir mi propia consulta",
+      "Profundizar en mis estudios", "Elegir una especialización",
     ],
     interests: [
       "Investigación en neurociencia",
       "Tratamiento de trastornos de ansiedad",
     ],
+    problematic: ["No sé que es lo que me gusta", "Falta de guía profesional"],
     languages: ["Inglés", "Español"],
     availability: "Part-time",
     contract: "Remoto",
@@ -125,8 +142,9 @@ const student4 = {
   info: {
     career: ["Abogacía"],
     skills: ["Litigio"],
-    goals: ["Especializarme en derecho laboral"],
+    goals: ["Elegir una carrera", "Encontrar una pasantía o trabajo"],
     interests: ["Derecho laboral"],
+    problematic: ["Dificultad para conseguir trabajo"],
     languages: ["Español"],
     availability: "Part-Time",
     contract: "Remoto",
@@ -154,10 +172,10 @@ const student5 = {
     career: ["Abogacía"],
     skills: ["Investigación jurídica", "Litigio", "Redacción legal"],
     goals: [
-      "Trabajar en un bufete reconocido internacionalmente",
-      "Especializarme en derecho corporativo",
+      "Encontrar una pasantía o trabajo", "Conocer más sobre el mercado laboral de mi profesión", "Profundizar en mis estudios",
     ],
     interests: ["Derecho internacional", "Propiedad intelectual"],
+    problematic: ["No sé que es lo que me gusta", "Falta de información del mercado laboral"],
     languages: ["Español", "Inglés"],
     availability: "Full-time",
     contract: "Remoto",
@@ -184,8 +202,9 @@ const student6 = {
   info: {
     career: "Perito mercantil",
     skills: ["Contabilidad", "Gestión"],
-    goals: ["Dinero", "Abundancia"],
-    interests: ["Crecimiento personal", "Poder"],
+    goals: ["Conocer más sobre el mercado laboral de mi profesión", "Encontrar una pasantía o trabajo"],
+    interests: ["Marketing internacional"],
+    problematic: ["Dificultad para conseguir trabajo"],
     languages: ["Inglés", "Español"],
     availability: "Full-time",
     contract: "Remoto",
@@ -216,8 +235,9 @@ const student7 = {
       "Análisis de riesgos",
       "Conocimientos en mercado de capitales",
     ],
+    goals: ["Profundizar en mis estudios", "Elegir una especialización"],
     interests: ["Mercado de valores", "Inversiones sostenibles"],
-    goals: ["Obtener la certificación CFA"],
+    problematic: ["Falta de guía profesional", "Dificultad para conseguir trabajo"],
     languages: ["Español"],
     availability: "Full-time",
     contract: "Remoto",
@@ -237,7 +257,6 @@ const professional1 = {
   academic: {
     type: "Senior",
     institution: "Universidad Autónoma de Madrid",
-    level: "Avanzado",
     area: ["Marketing"],
     graduation: "2000",
   },
@@ -256,9 +275,9 @@ const professional1 = {
     ],
     interests: ["Marketing de contenidos", "Inteligencia de mercado"],
     goals: [
-      "Liderar una campaña de marketing a nivel internacional",
-      "Mentorizar a jóvenes profesionales en el campo del marketing",
+      "Conocer más sobre el mercado laboral de mi profesión", "Conocer nuevos colegas y oportunidades",
     ],
+    problematic: ["Falta de información del mercado laboral"],
     languages: ["Español", "Inglés"],
     availability: "Full-time",
     contract: "Remoto",
@@ -278,7 +297,6 @@ const professional2 = {
   academic: {
     type: "Middle",
     institution: "Stanford University",
-    level: "Avanzado",
     area: ["Ingeniería de Software"],
     graduation: "2000",
   },
@@ -300,8 +318,8 @@ const professional2 = {
       "Desarrollo de aplicaciones híbridas",
     ],
     goals: [
-      "Liderar el desarrollo de un producto innovador",
-      "Contribuir a proyectos de código abierto",
+      "Hacer una especialización",
+      "Emprender",
     ],
     languages: ["Inglés"],
     availability: "Full-time",
@@ -341,9 +359,9 @@ const professional3 = {
     ],
     interests: ["Psicología organizacional", "Desarrollo de liderazgo"],
     goals: [
-      "Obtener una certificación en coaching",
-      "Contribuir a la mejora de la experiencia del empleado",
+      "Conocer nuevos colegas y oportunidades",
     ],
+    problematic: [""],
     languages: ["Francés", "Inglés"],
     availability: "Full-time",
     contract: "Híbrido",
@@ -363,13 +381,12 @@ const professional4 = {
   academic: {
     type: "Sin Experiencia",
     institution: "University of California, Berkeley",
-    level: "Avanzado",
     area: ["Finanzas"],
     graduation: "2000",
   },
   info: {
-    company_name: "XYZ Investment Bank",
-    position: "Analista Financiero",
+    company_name: "",
+    position: "",
     career: [
       "Análisis de inversiones",
       "Elaboración de informes financieros",
@@ -382,9 +399,9 @@ const professional4 = {
     ],
     interests: ["Mercado de valores", "Inversiones sostenibles"],
     goals: [
-      "Obtener la certificación CFA",
-      "Especializarme en inversiones de impacto",
+      "Conseguir un trabajo", "Conocer más sobre el mercado laboral de mi profesión",
     ],
+    problematic: ["Falta de información del mercado laboral", "Dificultad para conseguir trabajo"],
     languages: ["Inglés"],
     availability: "Full-time",
     contract: "Presencial",
@@ -404,7 +421,6 @@ const professional5 = {
   academic: {
     type: "Senior",
     institution: "IE Business School",
-    level: "Avanzado",
     area: ["Dirección de Empresas"],
     graduation: "2000",
   },
@@ -423,12 +439,47 @@ const professional5 = {
     ],
     interests: ["Transformación digital", "Innovación empresarial"],
     goals: [
-      "Asesorar a empresas en su proceso de transformación digital",
-      "Ser reconocida como referente en consultoría estratégica",
+      "Conocer más sobre el mercado laboral de mi profesión",
+      "Conocer nuevos colegas y oportunidades",
     ],
     languages: ["Español", "Inglés"],
     availability: "Full-time",
     contract: "Remoto",
+  },
+};
+
+const company1 = {
+  profile: {
+    company_name: "Coca Cola", //Denominacion legal o marca comercial
+    cuit: "27303255418",
+    email: "admin@cocacola.com",
+    city: "Buenos Aires", //Ubicacion
+    country: "Argentina", //?
+    website: "https://cocacola.com.ar",
+    username: "cocacola23",
+    password: "contraseña123",
+  },
+  academic: {
+    level_required: "Avanzado", //Nivel educacion requerida
+    study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
+    experience_required: "3", //Experiencia requerida
+    industry: ["Finanzas y Banca", "TI"], //Industria/Sector
+  },
+  info: {
+    benefits: ["Planes de seguro de salud", "Flexibilidad laboral"], //Beneficios otorgados por la empresa
+    skills_required: [
+      "Programación en Python",
+      "Desarrollo web",
+      "Bases de datos",
+    ],
+    job_description: [
+      "Inteligencia Artificial",
+      "Desarrollo de aplicaciones móviles",
+    ], //Descripcion responsabilidades del puesto
+    job_goal: [""], //Objetivos y metas del trabajo propuesto
+    languages_required: ["Español", "Inglés"],
+    availability: "Full-time",
+    contract_offered: "Remoto",
   },
 };
 
@@ -449,3 +500,7 @@ export const students = [
   student6,
   student7,
 ];
+
+export const companies = [
+  company1,
+]

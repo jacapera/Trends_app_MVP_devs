@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
 }
 
 .PhotoContainer {
@@ -52,9 +53,21 @@
     margin: 0;
     margin-top: .8rem;
 }
-
-.Card > img {
+.LastContainer {
+    height: 100%;
+    min-height: 6.8rem;
+    color: #324A59;
+    font-size: .7rem;
+    font-family: "Montserrat-Regular";
+}
+.LastContainer img {
+    margin-top: 1.5rem;
     height: 1.5rem;
     width: 1.5rem;
-    margin-left: 20%;
+}
+
+.LastContainer h3 {
+    display: block;
+    margin:0;
+    line-height: 1.8rem;
 }

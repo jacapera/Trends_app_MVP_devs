@@ -4,8 +4,7 @@ import detailIcon from "../../assets/TestIcons/detailsIcon.png"
 
 
 const FeedCard = (user) => {
-    const {profile} = user.user
-    console.log(user);
+    const {info, profile, academic} = user.user.user
 
     return (
         <div className={style.Card}>
@@ -14,14 +13,18 @@ const FeedCard = (user) => {
             </div>
 
             <div className={style.AttributesContainer}>
-                <h1>{profile.profile.name}</h1>
-                <h2>{profile.academic.area.join(" - ")}</h2>
-                <h2>{profile.info.skills.join(" - ")}</h2>
+                <h1>{profile.name}</h1>
+                <h2>{academic.area.join(" - ")}</h2>
+                <h2>{info.skills.join(" - ")}</h2>
 
-                <h3>{`${profile.profile.city} - ${profile.profile.country}`}</h3>
+                <h3>{`${profile.city} - ${profile.country}`}</h3>
             </div>
 
-            <img src={detailIcon} alt="" />
+            <div className={style.LastContainer}>
+                <h3>Estudiante</h3>
+                <img src={detailIcon} alt="" />
+            </div>
+
         </div>
     )
 }

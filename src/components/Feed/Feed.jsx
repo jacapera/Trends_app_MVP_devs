@@ -2,21 +2,56 @@ import FeedCard from "../FeedCard/FeedCard";
 import style from "./Feed.module.css";
 import filterIcon from "../../assets/TestIcons/filter.png";
 import { useEffect } from "react";
-import { matcher } from "../../utils/matchAlgorithm";
-import { professionals, students } from "../../utils/users";
+import {students, professionals} from "../../utils/users";
 import { useState } from "react";
+import { matcher } from "../../utils/matchingAlgorithm/matcher";
 
 const Feed = () => {
 
     const [matchedProfilesStudents, setMatchedProfilesStudents] = useState([]);
     const [matchedProfilesProfessionals, setMatchedProfilesProfessionals] = useState([]);
+    const [allUsers, setAllUsers] = useState([])
+
+    function showProfessionalsAndStudents(professionals, students) {
+        let combinedArray = [];
+        let professionalsIndex = 0;
+        let studentsIndex = 0;
+        const professionalsPerGroup = 5;
+        const studentsPerGroup = 2;
+      
+        while (professionalsIndex < professionals.length || studentsIndex < students.length) {
+          // Show 5 professionals
+          for (let i = 0; i < professionalsPerGroup; i++) {
+            if (professionalsIndex < professionals.length) {
+              combinedArray.push(professionals[professionalsIndex])
+              professionalsIndex++;
+            }
+          }
+      
+          // Show 2 students
+          for (let i = 0; i < studentsPerGroup; i++) {
+            if (studentsIndex < students.length) {
+              combinedArray.push(students[studentsIndex])
+              studentsIndex++;
+            }
+          }
+        }
+
+        return combinedArray;
+    }
 
     useEffect(() => {
         const matchedProfilesForStudent = matcher(professionals, students[1]);
         const matchedProfilesForProfessionals = matcher(students, professionals[3]);
         setMatchedProfilesStudents(matchedProfilesForProfessionals);
-        setMatchedProfilesProfessionals(matchedProfilesForStudent)
+        setMatchedProfilesProfessionals(matchedProfilesForStudent);
     }, [])
+
+    useEffect(() => {
+        const users = showProfessionalsAndStudents(matchedProfilesProfessionals, matchedProfilesStudents);
+        setAllUsers(users);
+    }, [matchedProfilesProfessionals, matchedProfilesStudents])
+
 
     const divideProfilesIntoGroups = (profiles) => {
         const groups = [];
@@ -26,9 +61,8 @@ const Feed = () => {
         return groups;
     };
 
-    const profileGroups = divideProfilesIntoGroups(matchedProfilesStudents);
 
-
+    const profileGroups = divideProfilesIntoGroups(allUsers);
 
     return (
         <section className={style.BGContainer}>
