@@ -21,9 +21,6 @@ export default function registerStudent() {
 	const[isExtraComplete,setIsExtraComplete] = useState(false);
 
 	//?ESTADOS LOCALES
-	const[data, setData] = useState(null);
-	const[progress, SetProgress] = useState(0);
-
 	const[profile, setProfile] = useState({
 		name:"",
 		lastname:"",
@@ -56,7 +53,6 @@ export default function registerStudent() {
 	});
 
 	const [error,setError] = useState({});
-	const[completo, setCompleto] = useState(false);
 
 	const[page,setPage]=useState({
 		button1:"Prev",
@@ -279,12 +275,6 @@ export default function registerStudent() {
 	useEffect(()=>{
 		console.log("que tiene profile: ", profile);
 		console.log("que tiene error: ", error)
-		console.log("que tiene data: ", data);
-
-		console.log("que tienen progress: ", progress);
-
-		//setea estado 
-		setCompleto(validateComplete())
 
 		//validacion contacto
 		setIsContactComplete(validateContact(profile)&&errorContact(error));
@@ -298,22 +288,7 @@ export default function registerStudent() {
 		//validacion info extra
 		setIsExtraComplete(validateExtra(profile)&&errorExtra(error));
 
-	},[profile],[error],[data],[progress]);
-
-	//?AL MONTARSE COMPONENTE
-	useEffect(()=>{
-		const fetchdata = async ()=>{
-			try{
-				const response = await fetch('../src/data/data.json');
-				const jsonData = await response.json();
-				console.log("que trae jsonData: ", jsonData);
-				setData(jsonData);
-			}catch(error){
-				console.log("error al leer data.json: ", error.message);
-			}
-		}
-		fetchdata();
-	},[])
+	},[profile],[error]);
 
 	return (
 		<div>

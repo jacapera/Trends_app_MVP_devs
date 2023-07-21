@@ -85,7 +85,7 @@ export default function registerCompany() {
 		}
 	}	
 
-	const[data, setData] = useState(null);
+	// const[data, setData] = useState(null);
     
     const[formCompany, setFormCompany] = useState({
         company_name:"",
@@ -208,24 +208,8 @@ export default function registerCompany() {
 		//validacion de info y error info
 		setIsInfoComplete(validateInfo(formCompany)&&errorInfo(error));
 
-    },[formCompany],[error],[data]);
+    },[formCompany],[error]);
 
-
-	
-
-	useEffect(()=>{
-		const fetchdata = async ()=>{
-			try{
-				const response = await fetch('../src/data/data.json');
-				const jsonData = await response.json();
-				//console.log("que trae jsonData: ", jsonData);
-				setData(jsonData);
-			}catch(error){
-				console.log("error al leer data.json: ", error.message);
-			}
-		}
-		fetchdata();
-	},[])    
 
     return(
         <div>
