@@ -3,7 +3,7 @@ import style from "./ImageDropzone.module.css"
 import React, { useState } from 'react';
 import { useDropzone } from "react-dropzone";
 
-const ImageDropzone = ({ handleCancelButton }) => {
+const ImageDropzone = ({ handleCancelButton, handleImageChange }) => {
     const [image, setImage] = useState(null);
     const [crop, setCrop] = useState({ unit: "px", width: 500, height: 500 });
 
@@ -17,13 +17,23 @@ const ImageDropzone = ({ handleCancelButton }) => {
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
+    const handleImageDeleteButton = () =>{
+        setImage(null);
+    }
+
+    const handleUploadButton = () =>{
+        handleImageChange(image.preview);
+        handleCancelButton();
+    }
+
     return (
         <div className={style.mainDiv}>
             <div className={style.blackContainer} onClick={() => handleCancelButton()}></div>
             <div className={style.whiteContainer}>
                 {image ? (
-                    <div>
+                    <div className={style.previewImageContainer}>
                         <img src={image.preview} className={style.previewImage} />
+                        <button className={style.previewImageDeleteButton} onClick={() => handleImageDeleteButton()}>X</button>
                     </div>
                 ) : (
                     <div {...getRootProps()} className={style.dropzoneBox}>
@@ -35,9 +45,9 @@ const ImageDropzone = ({ handleCancelButton }) => {
                         )}
                     </div>
                 )}
-                <div>
-                    <button>SUBIR</button>
-                    <button onClick={() => handleCancelButton()}>CANCELAR</button>
+                <div className={style.buttonDiv}>
+                    <button className={style.saveButton} onClick={() => handleUploadButton()}>SUBIR</button>
+                    <button className={style.cancelButton} onClick={() => handleCancelButton()}>CANCELAR</button>
                 </div>
             </div>
         </div>
