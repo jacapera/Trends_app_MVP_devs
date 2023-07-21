@@ -5,6 +5,7 @@ const store = configureStore({
     reducer: {
         users: usersReducer,
     },
+    // middleware of the redux devtools
     devTools: true,
 });
 

@@ -17,6 +17,7 @@ const usersSlice = createSlice({
 
 export default usersSlice.reducer;
 
+// export of the selectors of the global state
 export const selectAllUsers = (state) => state.users.allUsers;
 export const selectStudents = (state) => state.users.students;
 export const selectProfessionals = (state) => state.users.professionals;

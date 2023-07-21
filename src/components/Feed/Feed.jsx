@@ -7,11 +7,12 @@ import { useState } from "react";
 import { matcher } from "../../utils/matchingAlgorithm/matcher";
 
 const Feed = () => {
-
+    
     const [matchedProfilesStudents, setMatchedProfilesStudents] = useState([]);
     const [matchedProfilesProfessionals, setMatchedProfilesProfessionals] = useState([]);
     const [allUsers, setAllUsers] = useState([])
 
+    //function for join the 2 diferents arrays of users, the order is 5 professionals and 2 students (this could be change)
     function showProfessionalsAndStudents(professionals, students) {
         let combinedArray = [];
         let professionalsIndex = 0;
@@ -20,6 +21,7 @@ const Feed = () => {
         const studentsPerGroup = 2;
       
         while (professionalsIndex < professionals.length || studentsIndex < students.length) {
+
           // Show 5 professionals
           for (let i = 0; i < professionalsPerGroup; i++) {
             if (professionalsIndex < professionals.length) {
@@ -53,6 +55,7 @@ const Feed = () => {
     }, [matchedProfilesProfessionals, matchedProfilesStudents])
 
 
+    //function to divide in groups of 3 users (for the cards)
     const divideProfilesIntoGroups = (profiles) => {
         const groups = [];
         for (let i = 0; i < profiles.length; i += 3) {
@@ -60,7 +63,6 @@ const Feed = () => {
         }
         return groups;
     };
-
 
     const profileGroups = divideProfilesIntoGroups(allUsers);
 
