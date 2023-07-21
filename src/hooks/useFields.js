@@ -35,18 +35,18 @@ export const useFields = (initialInputs, initialRefs, dataName, data) => {
       setInput({ nameInput, valueInput });
       if (errors[nameInput]) return;
       if (valueInput.trim() && event.keyCode === 13) {
-        setInputs((prevState) => ({
-          ...prevState,
+        setInputs((prevInputs) => ({
+          ...prevInputs,
           [nameInput]: [
-            ...new Set([...prevState[nameInput], valueInput.trim()]),
+            ...new Set([...prevInputs[nameInput], valueInput.trim()]),
           ],
         }));
         event.target.value = "";
         setInput({ nameInput: "", valueInput: "" });
       }
     } else {
-      setInputs((prevState) => ({
-        ...prevState,
+      setInputs((prevInputs) => ({
+        ...prevInputs,
         [nameInput]: valueInput,
       }));
     }

@@ -51,6 +51,7 @@ export const useRegister = () => {
         skills: [],
         interests: [],
         goals: [],
+        problematics: [],
         languages: [],
         availability: "",
         contract: "",

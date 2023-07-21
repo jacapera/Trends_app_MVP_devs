@@ -14,7 +14,7 @@ export function SearchCustomSelect({
   name,
   label,
   placeholder,
-  value
+  value,
 }) {
   return (
     <div className="max-w-sm mx-auto space-y-6">
@@ -43,7 +43,7 @@ export function CustomSelect({
   name,
   label,
   placeholder,
-  value
+  value,
 }) {
   return (
     <div className="max-w-sm mx-auto space-y-6">
@@ -72,7 +72,7 @@ export function CustomSelectMultiple({
   name,
   label,
   placeholder,
-  value
+  value,
 }) {
   return (
     <div>
@@ -80,7 +80,7 @@ export function CustomSelectMultiple({
       <MultiSelect
         name={name}
         placeholder={placeholder}
-        onValueChange={(event) => handleSelectChange(event, name)}
+        onChange={(event) => handleSelectChange(event, name)}
         value={value}
       >
         {options.map((el, index) => (
@@ -88,8 +88,15 @@ export function CustomSelectMultiple({
             {el}
           </MultiSelectItem>
         ))}
+        {value
+          .filter((el) => !options.includes(el))
+          ?.map((el, index) => (
+            <MultiSelectItem key={`${index} ${el}`} value={el}>
+              {el}
+            </MultiSelectItem>
+          ))}
       </MultiSelect>
       {error && <span>{error}</span>}
     </div>
-  )
+  );
 }

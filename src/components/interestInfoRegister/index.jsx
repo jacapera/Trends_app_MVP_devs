@@ -17,6 +17,7 @@ export default function InterestInfoRegister({
     skills: true,
     interests: true,
     goals: true,
+    problematics: true,
     languages: true,
     availability: true,
     contract: true, // Tipo de contratación
@@ -31,6 +32,15 @@ export default function InterestInfoRegister({
   } = useFields(initialInputs, initialRefs, dataName, data);
 
   useForm(infoInputs, errors, dataName, checkCompletedForms, handleUserData);
+
+  const problematics = [
+    "No se que me gusta",
+    "Falta info del mercado",
+    "Falta guia profesional",
+    "Dificultad para encontrar trabajo",
+    "Siento que no tengo lo que se necesita para el puesto",
+    "Sindrome del impostor",
+  ];
 
   return (
     <>
@@ -100,10 +110,32 @@ export default function InterestInfoRegister({
           handleKeyDown={handleInputs}
           handleOptions={handleOptions}
         />
+        <div>
+          <CustomSelectMultiple
+            label={"Do you have any difficulties in finding a job?"}
+            placeholder={"Select one o more options..."}
+            name={"problematics"}
+            value={infoInputs.problematics}
+            // error={errors.problematics}
+            handleSelectChange={handleSelectChange}
+            options={problematics}
+          />
+          <CustomMultiTextInput
+            label={"Other difficulties:"}
+            placeholder={"Write and press enter for save..."}
+            type={"text"}
+            name={"problematics"}
+            values={infoInputs.problematics}
+            error={errors.problematics}
+            handleInput={handleInputs}
+            handleKeyDown={handleInputs}
+            handleOptions={handleOptions}
+            selectedOptions={problematics}
+          />
+        </div>
         <CustomSelectMultiple
           label={"Languages:"}
           placeholder={"Enter the languages you learned..."}
-          type={"text"}
           name={"languages"}
           value={infoInputs.languages}
           error={errors.languages}

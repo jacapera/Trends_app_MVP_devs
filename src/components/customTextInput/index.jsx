@@ -44,6 +44,7 @@ export function CustomMultiTextInput({
   handleInput,
   handleOptions,
   handleKeyDown,
+  selectedOptions = [],
 }) {
   return (
     <div>
@@ -61,16 +62,19 @@ export function CustomMultiTextInput({
       />
       {values.length > 0 && (
         <div className="flex flex-row overflow-auto flex-nowrap gap-2 pt-2">
-          {values.map((value, i) => (
-            <Badge
-              key={`${value} ${i}`}
-              onClick={() => handleOptions(name, value)}
-              icon={XIcon}
-              size="lg"
-            >
-              <span className="text-base">{value}</span>
-            </Badge>
-          ))}
+          {values.map(
+            (value, i) =>
+              !selectedOptions.includes(value) && (
+                <Badge
+                  key={`${value} ${i}`}
+                  onClick={() => handleOptions(name, value)}
+                  icon={XIcon}
+                  size="lg"
+                >
+                  <span className="text-base">{value}</span>
+                </Badge>
+              )
+          )}
         </div>
       )}
     </div>
