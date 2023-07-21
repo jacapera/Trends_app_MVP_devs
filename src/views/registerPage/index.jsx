@@ -1,8 +1,10 @@
 import { Button } from "@tremor/react";
 import { useState } from "react";
 import ProfessionalRegisterForm from "../../components/profesionalRegisterForm";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterPage() {
+  const navigate = useNavigate()
   const [registerForm, setRegisterForm] = useState("");
 
   const handleRegister = (type) => {
@@ -35,7 +37,7 @@ export default function RegisterPage() {
         </div>
       )}
       <footer className="self-start">
-        <Button onClick={() => handleRegister("")} variant="secondary">
+        <Button onClick={() => navigate("/Trends_app_MVP/")} variant="secondary">
           Go to back
         </Button>
       </footer>
