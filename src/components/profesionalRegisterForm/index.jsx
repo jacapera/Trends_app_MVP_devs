@@ -20,7 +20,7 @@ export default function ProfessionalRegisterForm() {
   const progressValue = handleProgressBar();
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 w-96">
       <h2>Register Form for Professionals</h2>
       <section>
         <CurrentForm.Form

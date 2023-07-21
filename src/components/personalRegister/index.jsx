@@ -6,6 +6,7 @@ import { CustomTextInput } from "../customTextInput";
 import CustomRadioInput from "../customRadioInput";
 import { SearchCustomSelect } from "../customSelect";
 import { useFields } from "../../hooks/useFields";
+import CustomInputDate from "../customInputDate";
 
 //esta funcion es un formulario controlado
 //para el registro de un usuario nuevo
@@ -19,10 +20,9 @@ export default function PersonalRegister({
   const options = useMemo(() => countryList().getData(), []);
   const initialRefs = {
     email: true,
-    username: true,
     name: true,
+    birth: true,
     age: true,
-    password: true,
     city: true,
     country: true,
   };
@@ -50,15 +50,6 @@ export default function PersonalRegister({
           handleInput={handleInputs}
         />
         <CustomTextInput
-          label={"Username:"}
-          placeholder={"Write your username..."}
-          type={"text"}
-          name={"username"}
-          value={contactInputs.username}
-          error={errors.username}
-          handleInput={handleInputs}
-        />
-        <CustomTextInput
           label={"Email:"}
           placeholder={"example@mail.com"}
           type={"email"}
@@ -67,6 +58,12 @@ export default function PersonalRegister({
           error={errors.email}
           handleInput={handleInputs}
           handleKeyDown={handleInputs}
+        />
+        <CustomInputDate 
+          label={"Date of Birth:"}
+          name={"birth"}
+          value={contactInputs.birth}
+          handleInput={handleInputs}
         />
         <CustomTextInput
           label={"Age:"}
@@ -96,15 +93,7 @@ export default function PersonalRegister({
           error={errors.city}
           handleInput={handleInputs}
         />
-        <CustomTextInput
-          label={"Password:"}
-          placeholder={"Write your password..."}
-          type={"password"}
-          name={"password"}
-          value={contactInputs.password}
-          error={errors.password}
-          handleInput={handleInputs}
-        />
+        
         <div onChange={handleInputs}>
           <span htmlFor="support">
             Would you share your experience as a student/professional to support

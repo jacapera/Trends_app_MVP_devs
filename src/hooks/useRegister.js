@@ -3,6 +3,7 @@ import AcademicRegister from "../components/academicRegister";
 import InterestInfoRegister from "../components/interestInfoRegister";
 import PersonalRegister from "../components/personalRegister";
 import { sendDataRegister } from "../services/fetchingAPI";
+import MainRegister from "../components/mainRegister";
 
 export const useRegister = () => {
   const [userData, setUserData] = useState({});
@@ -14,6 +15,15 @@ export const useRegister = () => {
   const [currentFormIndex, setCurrentFormIndex] = useState(0);
   const [forms, setForms] = useState([
     {
+      Form: MainRegister,
+      dataName: "profile",
+      completed: false,
+      initialInputs: {
+        username: "",
+        password: "",
+      },
+    },
+    {
       Form: PersonalRegister,
       dataName: "profile",
       completed: false,
@@ -21,6 +31,7 @@ export const useRegister = () => {
         email: "",
         username: "",
         name: "",
+        birth: "",
         age: "",
         password: "",
         city: "",

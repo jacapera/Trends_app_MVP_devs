@@ -76,6 +76,7 @@ export const useFields = (initialInputs, initialRefs, dataName, data) => {
   //cada vez que cambia el valor de un input
   //se ejecuta esta funcion para validar el valor del input
   useEffect(() => {
+    console.log(inputs);
     if (dataName === "profile")
       setErrors(validateProfileForm(inputs, isFirstInputs));
     if (dataName === "academic")
