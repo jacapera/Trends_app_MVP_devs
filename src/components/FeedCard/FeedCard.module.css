@@ -59,6 +59,7 @@
     color: #324A59;
     font-size: .7rem;
     font-family: "Montserrat-Regular";
+    margin-left: 2rem;
 }
 .LastContainer img {
     margin-top: 1.5rem;
@@ -69,5 +70,6 @@
 .LastContainer h3 {
     display: block;
     margin:0;
+    width: 5rem;
     line-height: 1.8rem;
 }

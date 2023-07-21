@@ -7,7 +7,7 @@ import { useState } from "react";
 import { matcher } from "../../utils/matchingAlgorithm/matcher";
 
 const Feed = () => {
-    
+
     const [matchedProfilesStudents, setMatchedProfilesStudents] = useState([]);
     const [matchedProfilesProfessionals, setMatchedProfilesProfessionals] = useState([]);
     const [allUsers, setAllUsers] = useState([])
@@ -17,7 +17,7 @@ const Feed = () => {
         let combinedArray = [];
         let professionalsIndex = 0;
         let studentsIndex = 0;
-        const professionalsPerGroup = 5;
+        const professionalsPerGroup = 3;
         const studentsPerGroup = 2;
       
         while (professionalsIndex < professionals.length || studentsIndex < students.length) {
@@ -25,7 +25,7 @@ const Feed = () => {
           // Show 5 professionals
           for (let i = 0; i < professionalsPerGroup; i++) {
             if (professionalsIndex < professionals.length) {
-              combinedArray.push(professionals[professionalsIndex])
+              combinedArray.push({...professionals[professionalsIndex], type: "professional"})
               professionalsIndex++;
             }
           }
@@ -33,7 +33,7 @@ const Feed = () => {
           // Show 2 students
           for (let i = 0; i < studentsPerGroup; i++) {
             if (studentsIndex < students.length) {
-              combinedArray.push(students[studentsIndex])
+              combinedArray.push({...students[studentsIndex], type: "student"})
               studentsIndex++;
             }
           }

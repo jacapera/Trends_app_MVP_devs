@@ -5,6 +5,9 @@ import detailIcon from "../../assets/TestIcons/detailsIcon.png"
 
 const FeedCard = (user) => {
     const {info, profile, academic} = user.user.user
+    const {type} = user.user
+    console.log(type);
+    console.log(user);
 
     return (
         <div className={style.Card}>
@@ -21,7 +24,7 @@ const FeedCard = (user) => {
             </div>
 
             <div className={style.LastContainer}>
-                <h3>Estudiante</h3>
+                <h3>{type}</h3>
                 <img src={detailIcon} alt="" />
             </div>
 
