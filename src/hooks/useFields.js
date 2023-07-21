@@ -5,14 +5,15 @@ import {
   validateProfileForm,
 } from "../utils/validateForm";
 
-export const useFields = (initialInputs, initialRefs, dataName) => {
+export const useFields = (initialInputs, initialRefs, dataName, data) => {
   const REGEX_CONSECUTIVE_SPACES = /\s{2,}/g;
 
-  const [inputs, setInputs] = useState({
-    ...initialInputs,
-  });
-  console.log(initialInputs);
-  const [input, setInput] = useState({nameInput: "", valueInput: ""})
+  const [inputs, setInputs] = useState(
+    Object.keys(data[dataName]).length === 0
+      ? { ...initialInputs }
+      : { ...data[dataName] }
+  );
+  const [input, setInput] = useState({ nameInput: "", valueInput: "" });
   const [errors, setErrors] = useState({});
   const isFirstInputs = useRef({ ...initialRefs });
 
@@ -23,19 +24,25 @@ export const useFields = (initialInputs, initialRefs, dataName) => {
     if (nameInput !== "password")
       valueInput = valueInput.replace(REGEX_CONSECUTIVE_SPACES, " ");
 
-    if (nameInput === "email" || nameInput === "age" || nameInput === "graduation")
+    if (
+      nameInput === "email" ||
+      nameInput === "age" ||
+      nameInput === "graduation"
+    )
       if (event.key === " ") event.preventDefault();
 
     if (type === "options") {
-      setInput({nameInput, valueInput})
-      if (errors[nameInput]) return
+      setInput({ nameInput, valueInput });
+      if (errors[nameInput]) return;
       if (valueInput.trim() && event.keyCode === 13) {
         setInputs((prevState) => ({
           ...prevState,
-          [nameInput]: [...new Set([...prevState[nameInput], valueInput.trim()])],
+          [nameInput]: [
+            ...new Set([...prevState[nameInput], valueInput.trim()]),
+          ],
         }));
         event.target.value = "";
-        setInput({nameInput: "", valueInput: ""})
+        setInput({ nameInput: "", valueInput: "" });
       }
     } else {
       setInputs((prevState) => ({
@@ -73,7 +80,8 @@ export const useFields = (initialInputs, initialRefs, dataName) => {
       setErrors(validateProfileForm(inputs, isFirstInputs));
     if (dataName === "academic")
       setErrors(validateAcademicForm(inputs, isFirstInputs));
-    if(dataName === "info") setErrors(validateInfoForm(inputs, input, isFirstInputs))
+    if (dataName === "info")
+      setErrors(validateInfoForm(inputs, input, isFirstInputs));
   }, [inputs, input]);
 
   return {

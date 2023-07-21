@@ -14,6 +14,7 @@ export default function PersonalRegister({
   dataName,
   checkCompletedForms,
   initialInputs,
+  data
 }) {
   const options = useMemo(() => countryList().getData(), []);
   const initialRefs = {
@@ -31,14 +32,9 @@ export default function PersonalRegister({
     errors,
     handleInputs,
     handleSelectChange,
-  } = useFields(initialInputs, initialRefs, dataName);
+  } = useFields(initialInputs, initialRefs, dataName, data);
 
   useForm(contactInputs, errors, dataName, checkCompletedForms, handleUserData);
-
-  // useEffect(() => {
-  //   console.log(isFormComplete);
-  //   checkCompletedForms(isFormComplete)
-  // }, [isFormComplete]);
 
   return (
     <div className="containerPersonalRegister">

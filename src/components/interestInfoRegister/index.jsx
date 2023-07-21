@@ -8,6 +8,7 @@ export default function InterestInfoRegister({
   dataName,
   checkCompletedForms,
   initialInputs,
+  data,
 }) {
   const initialRefs = {
     company: true,
@@ -27,7 +28,7 @@ export default function InterestInfoRegister({
     handleInputs,
     handleSelectChange,
     handleOptions,
-  } = useFields(initialInputs, initialRefs, dataName);
+  } = useFields(initialInputs, initialRefs, dataName, data);
 
   useForm(infoInputs, errors, dataName, checkCompletedForms, handleUserData);
 

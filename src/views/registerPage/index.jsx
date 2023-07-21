@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PersonalRegister from "../../components/personalRegister";
 import AcademicRegister from "../../components/academicRegister";
 import InterestInfoRegister from "../../components/interestInfoRegister";
-import { Button } from "@tremor/react";
-import { CheckCircleIcon, MinusCircleIcon } from "@heroicons/react/outline/";
+import { Button, ProgressBar } from "@tremor/react";
+import { ArrowSmLeftIcon } from "@heroicons/react/outline/";
+import { sendDataRegister } from "../../services/fetchingAPI";
 
 export default function RegisterPage() {
   const [userData, setUserData] = useState({});
@@ -68,16 +69,22 @@ export default function RegisterPage() {
     );
   };
 
-  const handleUserData = (inputs) => (setUserData({ ...inputs }));
+  const handleUserData = (inputs) => setUserData({ ...inputs });
 
-  const handleNextStep = (isFormComplete, dataName, userData) => {
+  const handlePrevForm = () => {
+    setCurrentFormIndex((prevState) =>
+      prevState > 0 ? prevState - 1 : prevState
+    );
+  };
+
+  const handleSaveData = (isFormComplete, dataName, userData) => {
     if (isFormComplete) {
       setData((prevState) => ({
         ...prevState,
         [dataName]: userData,
       }));
-      setCurrentFormIndex((prevIndex) =>
-        prevIndex < 2 ? prevIndex + 1 : prevIndex
+      setCurrentFormIndex((prevState) =>
+        prevState < forms.length - 1 ? prevState + 1 : prevState
       );
     } else {
       console.error("Missing data in forms.");
@@ -85,56 +92,62 @@ export default function RegisterPage() {
     console.log(isFormComplete, dataName, userData);
   };
 
-  const registerSubmit = () => {
-    handleNextStep(CurrentForm.completed, CurrentForm.dataName, userData);
-    alert("register complete!")
+  useEffect(() => {
+    if (
+      Object.keys(data.academic).length &&
+      Object.keys(data.academic).length &&
+      Object.keys(data.info).length
+    ) {
+      sendDataRegister(data);
+      alert("sending data...")
+    }
+  }, [data]);
+
+  const handleProgressBar = () => {
+    const completedForms = forms.filter((form) => form.completed).length;
+    return (completedForms / forms.length) * 100;
   };
+
+  const progressValue = handleProgressBar();
 
   return (
     <div className="flex flex-col gap-4">
       <main>
         <CurrentForm.Form
+          data={data}
           handleUserData={handleUserData}
           dataName={CurrentForm.dataName}
           initialInputs={CurrentForm.initialInputs}
           checkCompletedForms={checkCompletedForms}
         />
-
-        <div>
-          {currentFormIndex < forms.length - 1 ? (
-            <Button disabled={!CurrentForm.completed} onClick={() => handleNextStep(CurrentForm.completed, CurrentForm.dataName, userData)}>
-              <span className="text-xl uppercase">Next Step</span>
-            </Button>
-          ) : (
-            <Button disabled={!CurrentForm.completed} onClick={registerSubmit}>
-              <span>Register!</span>
-            </Button>
-          )}
+        <div className="flex gap-4 justify-center">
+          <Button
+            className="cursor-pointer"
+            variant="secondary"
+            icon={ArrowSmLeftIcon}
+            disabled={currentFormIndex === 0}
+            onClick={handlePrevForm}
+          >
+            <span className="text-base">Back</span>
+          </Button>
+          <Button
+            className="cursor-pointer"
+            disabled={!CurrentForm.completed}
+            onClick={() =>
+              handleSaveData(
+                CurrentForm.completed,
+                CurrentForm.dataName,
+                userData
+              )
+            }
+          >
+            <span className="text-base uppercase">
+              {currentFormIndex < forms.length - 1 ? "Next Step" : "Register"}
+            </span>
+          </Button>
         </div>
       </main>
-      <footer className="flex self-center">
-        <div className="w-8">
-          {forms[0].completed ? (
-            <CheckCircleIcon className="text-green-600" />
-          ) : (
-            <MinusCircleIcon className="text-red-600" />
-          )}
-        </div>
-        <div className="w-8">
-          {forms[1].completed ? (
-            <CheckCircleIcon className="text-green-600" />
-          ) : (
-            <MinusCircleIcon className="text-red-600" />
-          )}
-        </div>
-        <div className="w-8">
-          {forms[2].completed ? (
-            <CheckCircleIcon className="text-green-600" />
-          ) : (
-            <MinusCircleIcon className="text-red-600" />
-          )}
-        </div>
-      </footer>
+      <ProgressBar value={progressValue} showAnimation={true} />
       {data && (
         <>
           <section>

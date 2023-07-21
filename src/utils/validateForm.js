@@ -173,7 +173,6 @@ export function validateInfoForm(inputs, input, isFirstInputs) {
   }
 
   if (input.nameInput === "career") {
-    console.log(input);
     if (!isFirstInputs.current.career && input.valueInput !== "") {
       if (!REGEX_LETTERS_SPACES.test(input.valueInput)) {
         errors.career = "Numbers and special characters not allowed.";
@@ -184,7 +183,6 @@ export function validateInfoForm(inputs, input, isFirstInputs) {
   }
 
   if (input.nameInput === "skills") {
-    console.log(input);
     if (!isFirstInputs.current.skills && input.valueInput !== "") {
       if (!REGEX_LETTERS_SPACES.test(input.valueInput)) {
         errors.skills = "Numbers and special characters not allowed.";
@@ -195,7 +193,6 @@ export function validateInfoForm(inputs, input, isFirstInputs) {
   }
 
   if (input.nameInput === "interests") {
-    console.log(input);
     if (!isFirstInputs.current.interests && input.valueInput !== "") {
       if (!REGEX_LETTERS_SPACES.test(input.valueInput)) {
         errors.interests = "Numbers and special characters not allowed.";
@@ -206,7 +203,6 @@ export function validateInfoForm(inputs, input, isFirstInputs) {
   }
 
   if (input.nameInput === "goals") {
-    console.log(input);
     if (!isFirstInputs.current.goals && input.valueInput !== "") {
       if (!REGEX_LETTERS_SPACES.test(input.valueInput)) {
         errors.goals = "Numbers and special characters not allowed.";

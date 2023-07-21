@@ -8,6 +8,7 @@ export default function AcademicRegister({
   dataName,
   checkCompletedForms,
   initialInputs,
+  data,
 }) {
   const initialRefs = {
     type: true,
@@ -23,10 +24,15 @@ export default function AcademicRegister({
     handleInputs,
     handleSelectChange,
     handleOptions,
-  } = useFields(initialInputs, initialRefs, dataName);
+  } = useFields(initialInputs, initialRefs, dataName, data);
 
-  useForm(academicInputs, errors, dataName, checkCompletedForms, handleUserData);
-
+  useForm(
+    academicInputs,
+    errors,
+    dataName,
+    checkCompletedForms,
+    handleUserData
+  );
 
   return (
     <div className="containerAcademicRegister">
