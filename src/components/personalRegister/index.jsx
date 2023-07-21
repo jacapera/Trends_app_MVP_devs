@@ -114,14 +114,14 @@ export default function PersonalRegister({
             label={"Yes"}
             name={"support"}
             id={"yesSupport"}
-            value={"yes"}
+            value={true}
             defaultChecked={true}
           />
           <CustomRadioInput
             name={"support"}
             label={"No"}
             id={"noSupport"}
-            value={"no"}
+            value={false}
           />
           {errors.support && <span>{errors.support}</span>}
         </div>
