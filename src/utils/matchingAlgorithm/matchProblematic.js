@@ -1,43 +1,62 @@
-// Se toma la problemática, los objetivos y si ofrece/necesita apoyo
-const matchProblematicScore = (problematic, goals, supportCondition) => {
+import { convertObjToSets } from "./convertObjToSets.js";
+
+// Se toma la problemática, los objetivos 
+// y si ofrece/necesita apoyo
+const matchProblematicScore = (
+  problematic, 
+  goals, 
+  supportCondition
+) => {
   let score = 0;
 
   // Por escalabilidad se define un objeto problematicData
-  // en donde se pueden ir añadiendo más opciones
+  // en donde se puedan ir añadiendo más opciones
   const problematicData = {
     "Falta de guía profesional": {
       "Conocer nuevos colegas y oportunidades": 10,
       support: 5 * supportCondition,
     },
   };
+
   // Se recorre problematicData:
   // se busca la problemática y se suman puntos
   // de acuerdo a sus opciones
-  for (const problem of problematic) {
+  problematic?.forEach((problem) => {
     if (problem in problematicData) {
       const options = problematicData[problem];
-      if (goals.size > 0) {
-        for (const goal of goals) {
-          if (goal in options) {
-            score += options[goal];
-          }
+      goals?.forEach((goal) => {
+        if (goal in options) {
+          score += options[goal];
         }
+      });
+
+      if ("support" in options) {
+        score += options["support"];
       }
-      score += options["support"];
     }
-  }
+  });
 
   return score;
 };
 
-// La función principal:
-// Toma al usuario objetivo y a su potencial match
+// ----- La función principal ----- //
+
+// Se toma al usuario objetivo y a su potencial match
 export const matchProblematic = (user, targetUser) => {
-  // Extrae sus problemáticas y objetivos
-  const userProblematic = new Set(user.info.problematic);
-  const targetUserProblematic = new Set(targetUser.info.problematic);
-  const userGoals = new Set(user.info.goals);
-  const targetUserGoals = new Set(targetUser.info.goals);
+  // Se extraen sus problemáticas y objetivos
+  // Utilizando convertObjToSets se pueden añadir nuevos campos en el futuro
+
+  // Usuario principal
+  const {
+    problematic: targetUserProblematic,
+    goals: targetUserGoals,
+  } = convertObjToSets(targetUser.info);
+
+  // Potencial match
+  const {
+    problematic: userProblematic,
+    goals: userGoals,
+  } = convertObjToSets(user.info);
 
   // Se definen los puntajes correspondientes
   const scoreUser = matchProblematicScore(
