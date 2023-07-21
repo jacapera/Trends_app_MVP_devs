@@ -4,6 +4,7 @@ import { Button, Italic, Select, SelectItem, TextInput, Title } from "@tremor/re
 export default function companyRegisterContact({formCompany,error,handleChangeSelect,handleChangeForm}){
 
     const[data, setData] = useState(null);
+	const[countrys, setCountrys] = useState(null);
 
     useEffect(()=>{
 		const fetchdata = async ()=>{
@@ -17,6 +18,18 @@ export default function companyRegisterContact({formCompany,error,handleChangeSe
 			}
 		}
 		fetchdata();
+
+		const getCountrys = async ()=>{
+			try{
+				const response = await fetch('../src/data/country.json');
+				const jsonData = await response.json();
+				//console.log("que trae json data countrys: ", jsonData);
+				setCountrys(jsonData);
+			}catch(error){
+				console.log("error al cargar countrys: ", error.message)
+			}
+		}
+		getCountrys();		
 	},[]) 
 
     return(
@@ -71,9 +84,12 @@ export default function companyRegisterContact({formCompany,error,handleChangeSe
 						placeholder="--seleccione opcion--"
                     >
                         {
-                            data?.country.map((country,index)=>(
-                                <SelectItem key={index} value={country.value}>{country.value}</SelectItem>
-                            ))
+                            // data?.country.map((country,index)=>(
+                            //     <SelectItem key={index} value={country.value}>{country.value}</SelectItem>
+                            // ))
+							countrys?.map((country,index)=>(
+								<SelectItem key={index} value={country.name}>{country.name}</SelectItem>
+							))
                         }
                     </Select>					
 					{error.country && <label style={{color:"red"}}>{error.country}</label>}

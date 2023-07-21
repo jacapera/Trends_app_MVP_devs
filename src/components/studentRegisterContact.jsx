@@ -5,6 +5,7 @@ import { Button, Italic, Select, SelectItem, TextInput, Title, MultiSelect, Mult
 export default function studentRegisterContact({profile,error,handleChangeSelect,handleChangeProfile}){
 
     const[data, setData] = useState(null);
+	const[countrys, setCountrys] = useState(null);
 
     console.log("que trae profile: ", profile);
 
@@ -13,13 +14,26 @@ export default function studentRegisterContact({profile,error,handleChangeSelect
 			try{
 				const response = await fetch('../src/data/data.json');
 				const jsonData = await response.json();
-				console.log("que trae jsonData: ", jsonData);
+				//console.log("que trae jsonData: ", jsonData);
 				setData(jsonData);
 			}catch(error){
 				console.log("error al leer data.json: ", error.message);
 			}
 		}
 		fetchdata();
+		
+		const getCountrys = async ()=>{
+			try{
+				const response = await fetch('../src/data/country.json');
+				const jsonData = await response.json();
+				console.log("que trae json data countrys: ", jsonData);
+				setCountrys(jsonData);
+			}catch(error){
+				console.log("error al cargar countrys: ", error.message)
+			}
+		}
+		getCountrys();
+		//console.log(">>>que tiene contrys: ", countrys);
 	},[]) 
 
     return(
@@ -44,6 +58,17 @@ export default function studentRegisterContact({profile,error,handleChangeSelect
 					></TextInput>
 					{error.lastname && <label style={{color:"red"}}><Italic>{error.lastname}</Italic></label>}
 					<br/>
+
+					<label>Fecha de Nacimiento: </label><br/>
+					<TextInput
+						name="birth_date"
+						type="date"
+						value={profile.birth_date}
+						onChange={handleChangeProfile}
+					></TextInput>
+					{error.birth_date && <label style={{color:"red"}}><Italic>{error.birth_date}</Italic></label>}
+					<br/>					
+
 					<label>DNI: </label><br/>
 					<TextInput
 						name="dni"
@@ -88,26 +113,12 @@ export default function studentRegisterContact({profile,error,handleChangeSelect
 						placeholder="--Seleccione Opcion--"
 					>
 						{
-							data?.country.map((country,index)=>(
-								<SelectItem key={index} value={country.value}>{country.value}</SelectItem>
+							countrys?.map((country, index)=>(
+								<SelectItem key={index} value={country.name}>{country.name}</SelectItem>
 							))
 						}
 					</Select><br/>					
 
-					<label>Nombre de Usuario: </label><br/>
-					<TextInput
-						name="username"
-						type="text"
-						value={profile.username}
-						onChange={handleChangeProfile}						
-					></TextInput><br/>	
-					<label>Contraseña: </label><br/>
-					<TextInput
-						name="password"
-						type="password"
-						value={profile.password}
-						onChange={handleChangeProfile}
-					></TextInput><br/>
 					<label>Apoyo de profesionales con experiencia:</label>
 					<TextInput
 						name="professional_support"
