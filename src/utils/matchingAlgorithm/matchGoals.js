@@ -1,4 +1,7 @@
-// Se toman el objetivo, la carrera y el área
+import { convertObjToSets } from "./convertObjToSets.js";
+import { countCommonElements } from "./countCommonElements.js";
+
+// Se toman el objetivo, la carrera, el área, etc...
 // y si ofrece/necesita apoyo
 const matchGoalsScore = (
   goals,
@@ -11,6 +14,8 @@ const matchGoalsScore = (
 ) => {
   let score = 0;
 
+  // Por escalabilidad se define un objeto goalsData
+  // en donde se puedan ir añadiendo más opciones
   const goalsData = {
     "Conocer más sobre el mercado laboral de mi profesión": {
       career: 2 * careerCount,
@@ -29,56 +34,77 @@ const matchGoalsScore = (
   // Se recorre goalsData:
   // se busca el objetivo y se suman puntos
   // de acuerdo a sus opciones
-  for (const goal of goals) {
+  goals?.forEach((goal) => {
     if (goal in goalsData) {
       const options = goalsData[goal];
-      for (const option in options) {
-        score += options[option];
+      Object.values(options).forEach((option) => {
+        score += option;
+      });
+
+      if ("support" in options) {
+        score += options["support"];
       }
     }
-  }
+  });
 
   return score;
 };
 
-// helper para contar elementos en común
-const countCommonElements = (set1, set2) => {
-  let count = 0;
-  set1.forEach((item) => {
-    if (set2.has(item)) {
-      count++;
-    }
-  });
-  return count;
-};
+// ----- La función principal ----- //
 
-// La función principal:
 // Se toma al usuario objetivo y a su potencial match
 export const matchGoals = (user, targetUser) => {
-  // Extrae sus objetivos, información de carrera, área, etc
-  const userGoals = new Set(user.info.goals);
-  const userCareer = new Set(user.info.career);
-  const userSkills = new Set(user.info.skills);
-  const userInterests = new Set(user.info.interests);
-  const userAcademicArea = new Set(user.academic.area);
-  const targetUserGoals = new Set(targetUser.info.goals);
-  const targetUserCareer = new Set(targetUser.info.career);
-  const targetUserSkills = new Set(user.info.skills);
-  const targetUserInterests = new Set(user.info.interests);
-  const targetUserAcademicArea = new Set(targetUser.academic.area);
+  // Se extraen sus objetivos, información de carrera, área, etc...
+  // Utilizando convertObjToSets se pueden añadir nuevos campos en el futuro
+
+  // Usuario principal
+  const {
+    goals: targetUserGoals,
+    career: targetUserCareer,
+    skills: targetUserSkills,
+    interests: targetUserInterests,
+  } = convertObjToSets(targetUser.info);
+  const {
+    area: targetUserAcademicArea,
+  } = convertObjToSets(targetUser.academic);
+
+  // Potencial match
+  const {
+    goals: userGoals,
+    career: userCareer,
+    skills: userSkills,
+    interests: userInterests,
+  } = convertObjToSets(user.info);
+  const {
+    area: userAcademicArea,
+  } = convertObjToSets(user.academic);
 
   // Se cuentan los elementos en común
-  const commonCareerCount = countCommonElements(userCareer, targetUserCareer);
-  const commonAcademicAreaCount = countCommonElements(
-    userAcademicArea,
-    targetUserAcademicArea
-  );
-  const commonGoalsCount = countCommonElements(userGoals, targetUserGoals);
-  const commonSkillsCount = countCommonElements(userSkills, targetUserSkills);
-  const commonInterestsCount = countCommonElements(
-    userInterests,
-    targetUserInterests
-  );
+  const commonCareerCount = 
+    countCommonElements(
+      userCareer, 
+      targetUserCareer
+    );
+  const commonAcademicAreaCount = 
+    countCommonElements(
+      userAcademicArea,
+      targetUserAcademicArea
+    );
+  const commonGoalsCount = 
+    countCommonElements(
+      userGoals, 
+      targetUserGoals
+    );
+  const commonSkillsCount = 
+    countCommonElements(
+      userSkills, 
+      targetUserSkills
+    );
+  const commonInterestsCount = 
+    countCommonElements(
+      userInterests,
+      targetUserInterests
+    );
 
   // Se definen los puntajes correspondientes
   const scoreUser = matchGoalsScore(
