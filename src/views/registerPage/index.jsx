@@ -1,171 +1,44 @@
-import { useEffect, useState } from "react";
-import PersonalRegister from "../../components/personalRegister";
-import AcademicRegister from "../../components/academicRegister";
-import InterestInfoRegister from "../../components/interestInfoRegister";
-import { Button, ProgressBar } from "@tremor/react";
-import { ArrowSmLeftIcon } from "@heroicons/react/outline/";
-import { sendDataRegister } from "../../services/fetchingAPI";
+import { Button } from "@tremor/react";
+import { useState } from "react";
+import ProfessionalRegisterForm from "../../components/profesionalRegisterForm";
 
 export default function RegisterPage() {
-  const [userData, setUserData] = useState({});
-  const [data, setData] = useState({
-    profile: {},
-    academic: {},
-    info: {},
-  });
-  const [currentFormIndex, setCurrentFormIndex] = useState(0);
-  const [forms, setForms] = useState([
-    {
-      Form: PersonalRegister,
-      dataName: "profile",
-      completed: false,
-      initialInputs: {
-        email: "",
-        username: "",
-        name: "",
-        age: "",
-        password: "",
-        city: "",
-        country: "",
-        support: "yes",
-      },
-    },
-    {
-      Form: AcademicRegister,
-      dataName: "academic",
-      completed: false,
-      initialInputs: {
-        type: "",
-        institution: "",
-        level: "",
-        area: [],
-        graduation: "",
-      },
-    },
-    {
-      Form: InterestInfoRegister,
-      dataName: "info",
-      completed: false,
-      initialInputs: {
-        company: "",
-        position: "",
-        career: [],
-        skills: [],
-        interests: [],
-        goals: [],
-        languages: [],
-        availability: "",
-        contract: "",
-      },
-    },
-  ]);
-  const CurrentForm = forms[currentFormIndex];
+  const [registerForm, setRegisterForm] = useState("");
 
-  const checkCompletedForms = (isFormComplete, dataName) => {
-    setForms((prevState) =>
-      prevState.map((el) =>
-        el.dataName === dataName ? { ...el, completed: isFormComplete } : el
-      )
-    );
+  const handleRegister = (type) => {
+    setRegisterForm(type);
   };
-
-  const handleUserData = (inputs) => setUserData({ ...inputs });
-
-  const handlePrevForm = () => {
-    setCurrentFormIndex((prevState) =>
-      prevState > 0 ? prevState - 1 : prevState
-    );
-  };
-
-  const handleSaveData = (isFormComplete, dataName, userData) => {
-    if (isFormComplete) {
-      setData((prevState) => ({
-        ...prevState,
-        [dataName]: userData,
-      }));
-      setCurrentFormIndex((prevState) =>
-        prevState < forms.length - 1 ? prevState + 1 : prevState
-      );
-    } else {
-      console.error("Missing data in forms.");
-    }
-    console.log(isFormComplete, dataName, userData);
-  };
-
-  useEffect(() => {
-    if (
-      Object.keys(data.academic).length &&
-      Object.keys(data.academic).length &&
-      Object.keys(data.info).length
-    ) {
-      sendDataRegister(data);
-      alert("sending data...")
-    }
-  }, [data]);
-
-  const handleProgressBar = () => {
-    const completedForms = forms.filter((form) => form.completed).length;
-    return (completedForms / forms.length) * 100;
-  };
-
-  const progressValue = handleProgressBar();
 
   return (
-    <div className="flex flex-col gap-4">
-      <main>
-        <CurrentForm.Form
-          data={data}
-          handleUserData={handleUserData}
-          dataName={CurrentForm.dataName}
-          initialInputs={CurrentForm.initialInputs}
-          checkCompletedForms={checkCompletedForms}
-        />
-        <div className="flex gap-4 justify-center">
-          <Button
-            className="cursor-pointer"
-            variant="secondary"
-            icon={ArrowSmLeftIcon}
-            disabled={currentFormIndex === 0}
-            onClick={handlePrevForm}
-          >
-            <span className="text-base">Back</span>
+    <main className="flex flex-col items-center justify-center gap-10">
+      <h2>First of all... How do you want to register?</h2>
+      {registerForm === "" && (
+        <section className="flex flex-col items-stretch gap-10 w-28">
+          <Button className="w-full" onClick={() => handleRegister("student")}>
+            Student
           </Button>
-          <Button
-            className="cursor-pointer"
-            disabled={!CurrentForm.completed}
-            onClick={() =>
-              handleSaveData(
-                CurrentForm.completed,
-                CurrentForm.dataName,
-                userData
-              )
-            }
-          >
-            <span className="text-base uppercase">
-              {currentFormIndex < forms.length - 1 ? "Next Step" : "Register"}
-            </span>
+          <Button onClick={() => handleRegister("professional")}>
+            Professional
           </Button>
-        </div>
-      </main>
-      <ProgressBar value={progressValue} showAnimation={true} />
-      {data && (
-        <>
-          <section>
-            <p>{JSON.stringify(data)}</p>
-          </section>
-          <button
-            onClick={() =>
-              setData({
-                profile: {},
-                academic: {},
-                info: {},
-              })
-            }
-          >
-            delete data
-          </button>
-        </>
+          <Button onClick={() => handleRegister("company")}>Company</Button>
+        </section>
       )}
-    </div>
+      {registerForm === "student" && (
+        <div>here would go the register for students... IF I had one!</div>
+      )}
+      {registerForm === "professional" && <ProfessionalRegisterForm />}
+      {registerForm === "company" && (
+        <div>
+          {
+            "here would go the registry for companies... and as you should suppose... I DON'T HAVE IT"
+          }
+        </div>
+      )}
+      <footer className="self-start">
+        <Button onClick={() => handleRegister("")} variant="secondary">
+          Go to back
+        </Button>
+      </footer>
+    </main>
   );
 }
