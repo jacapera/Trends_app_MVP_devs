@@ -1,0 +1,85 @@
+.mainDiv{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.blackContainer{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 50%;
+    background-color: black;
+    z-index: 19;
+}
+
+.whiteContainer{
+    background-color: white;
+    height: 70vh;
+    width: 70vh;
+    border: 5px solid #232323;
+    border-radius: 40px;
+    z-index: 20;
+}
+
+.dropzoneBox{
+    display: flex;
+    border: 3px lightgray dashed;
+    border-radius: 20px;
+    margin: 25px;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropzoneBox:hover{
+    cursor: pointer;
+}
+
+.previewImageContainer{
+    height: 70%;
+    width: 80%;
+    margin: 10%;
+}
+
+.previewImage{
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
+    transform: scaleX(1);
+}
+
+.previewImageDeleteButton{
+    position: absolute;
+    background-color: red;
+    top: 22vh;
+    left: 125vh;
+}
+
+.dropzoneText{
+    color: lightgray;
+    font-size: 24px;
+}
+
+.buttonDiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.saveButton{
+    background-color: darkgreen;
+    width: 18%;
+    border: 2px lightgray solid;
+}
+
+.cancelButton{
+    background-color: darkred;
+    width: 18%;
+    border: 2px lightgray solid;
+}
