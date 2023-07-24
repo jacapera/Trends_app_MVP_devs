@@ -1,3 +1,26 @@
+
+
+// import { Route, Routes } from "react-router-dom";
+// import "./App.css";
+// import LandingPage from "./views/landingPage";
+// import RegisterPage from "./views/registerPage";
+// import LoginPage from "./views/loginPage";
+// import NotFoundPage from "./views/notFoundPage";
+
+// function App() {
+
+//   return (
+ //    <>
+ //      <Routes>
+  //       <Route exact path="/Trends_app_MVP/" element={<LandingPage />} />
+   //      <Route path="/Trends_app_MVP/register" element={<RegisterPage />} />
+   //      <Route path="/Trends_app_MVP/login" element={<LoginPage />} />
+   //      <Route path="/*" element={<NotFoundPage />} />
+   //    </Routes>
+   //  </>
+//   );
+
+
 import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
@@ -284,12 +307,13 @@ function App() {
             </div>
 		</>
 	);
-=======
+
 //	return(
 //		<div>
 //			<Profile /> 
 //		</div>
 //	)
+
 
 }
 
