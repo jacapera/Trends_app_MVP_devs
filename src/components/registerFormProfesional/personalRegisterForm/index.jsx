@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useMemo } from "react";
-import { useForm } from "../../hooks/useForm";
+import { useForm } from "../../../hooks/useForm";
 import countryList from "react-select-country-list";
-import { CustomTextInput } from "../customTextInput";
-import CustomRadioInput from "../customRadioInput";
-import { SearchCustomSelect } from "../customSelect";
-import { useFields } from "../../hooks/useFields";
-import CustomInputDate from "../customInputDate";
+import { CustomTextInput } from "../../customTextInput";
+import CustomRadioInput from "../../customRadioInput";
+import { SearchCustomSelect } from "../../customSelect";
+import { useFields } from "../../../hooks/useFields";
+import CustomInputDate from "../../customInputDate";
 
 //esta funcion es un formulario controlado
 //para el registro de un usuario nuevo

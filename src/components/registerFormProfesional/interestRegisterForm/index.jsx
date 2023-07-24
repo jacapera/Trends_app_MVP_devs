@@ -1,7 +1,7 @@
-import { useFields } from "../../hooks/useFields";
-import { useForm } from "../../hooks/useForm";
-import { CustomSelect, CustomSelectMultiple } from "../customSelect";
-import { CustomMultiTextInput, CustomTextInput } from "../customTextInput";
+import { useFields } from "../../../hooks/useFields";
+import { useForm } from "../../../hooks/useForm";
+import { CustomSelect, CustomSelectMultiple } from "../../customSelect";
+import { CustomMultiTextInput, CustomTextInput } from "../../customTextInput";
 
 export default function InterestInfoRegister({
   handleUserData,

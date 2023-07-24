@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Button, Italic, Select, SelectItem, TextInput, Title, MultiSelect, MultiSelectItem } from "@tremor/react";
+import { Italic, Select, SelectItem, TextInput, Title } from "@tremor/react";
+// import { Button, MultiSelect, MultiSelectItem } from "@tremor/react";
 
 
-export default function studentRegisterAcademic({profile,error,handleChangeSelect,handleChangeProfile}){
+export default function StudentRegisterAcademic({profile,error,handleChangeSelect,handleChangeProfile}){
 
     const[data, setData] = useState(null);
 

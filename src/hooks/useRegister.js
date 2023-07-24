@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import AcademicRegister from "../components/academicRegister";
-import InterestInfoRegister from "../components/interestInfoRegister";
-import PersonalRegister from "../components/personalRegister";
+import AcademicRegister from "../components/registerFormProfesional/academicRegisterForm";
+import InterestRegister from "../components/registerFormProfesional/interestRegisterForm";
+import PersonalRegister from "../components/registerFormProfesional/personalRegisterForm";
 import { sendDataRegister } from "../services/fetchingAPI";
-import MainRegister from "../components/mainRegister";
+import MainRegister from "../components/registerFormProfesional/mainRegisterForm";
 
 export const useRegister = () => {
   const [userData, setUserData] = useState({});
@@ -52,7 +52,7 @@ export const useRegister = () => {
       },
     },
     {
-      Form: InterestInfoRegister,
+      Form: InterestRegister,
       dataName: "info",
       completed: false,
       initialInputs: {

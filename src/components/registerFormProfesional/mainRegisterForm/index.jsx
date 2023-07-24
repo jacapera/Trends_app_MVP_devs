@@ -1,6 +1,6 @@
-import { useFields } from "../../hooks/useFields";
-import { useForm } from "../../hooks/useForm";
-import { CustomTextInput } from "../customTextInput";
+import { useFields } from "../../../hooks/useFields";
+import { useForm } from "../../../hooks/useForm";
+import { CustomTextInput } from "../../customTextInput";
 
 export default function MainRegister({
   handleUserData,

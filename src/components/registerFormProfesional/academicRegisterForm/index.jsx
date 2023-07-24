@@ -1,7 +1,7 @@
-import { useForm } from "../../hooks/useForm";
-import { CustomMultiTextInput, CustomTextInput } from "../customTextInput";
-import { CustomSelect } from "../customSelect";
-import { useFields } from "../../hooks/useFields";
+import { useForm } from "../../../hooks/useForm";
+import { CustomMultiTextInput, CustomTextInput } from "../../customTextInput";
+import { CustomSelect } from "../../customSelect";
+import { useFields } from "../../../hooks/useFields";
 
 export default function AcademicRegister({
   handleUserData,
