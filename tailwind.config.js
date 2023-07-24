@@ -1,3 +1,5 @@
+
+
 /** @type {import('tailwindcss').Config} */ 
 
 module.exports = {
@@ -7,6 +9,7 @@ module.exports = {
 
     // Path to the Tremor module
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}",
+
   ],
   theme: {
     transparent: "transparent",
@@ -126,5 +129,6 @@ module.exports = {
         /^(fill-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(?:50|100|200|300|400|500|600|700|800|900|950))$/,
     },
   ],
+
   plugins: [require("@headlessui/tailwindcss")],
 };
