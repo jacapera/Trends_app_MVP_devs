@@ -1,4 +1,4 @@
-import { calculateMatchScore } from "./calculateMatchScore";
+import calculateMatchScore from "./calculateMatchScore";
 
 // Se toma un array de perfiles y un perfil base
 export const matcher = (users, targetUser) => {
