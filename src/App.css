@@ -1,3 +1,5 @@
+
+
 #root {
 	max-width: 1280px;
 	margin: 0 auto;
@@ -5,6 +7,8 @@
 	padding-top: 1vh;
 	text-align: center;
 }
+
+
 
 .card {
 	padding: 1em;
@@ -57,3 +61,4 @@
 	color: #888;
 }
 */
+
