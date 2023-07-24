@@ -1,18 +1,17 @@
 /**
- * professional goals: 
+ * professional goals:
  * Conseguir un trabajo, Conocer más sobre el mercado laboral de mi profesión, Conocer nuevos colegas y oportunidades, Hacer una especialización, Emprender
- * 
+ *
  * professional problematic:
  * Falta de información del mercado laboral, Falta de guía profesional, Dificultad para conseguir trabajo
- * 
- * 
+ *
+ *
  * student goals:
  * Elegir una carrera, Encontrar una pasantía o trabajo, Conocer más sobre el mercado laboral de mi profesión, Profundizar en mis estudios, Elegir una especialización, Conocer nuevos colegas y oportunidades
- * 
+ *
  * student problematic:
  * No sé que es lo que me gusta, Falta de información del mercado laboral, Falta de guía profesional, Dificultad para conseguir trabajo
  */
-
 
 const student1 = {
   profile: {
@@ -34,15 +33,15 @@ const student1 = {
   info: {
     career: ["Desarrollo de Software"],
     skills: ["Programación en Python", "Desarrollo web", "Bases de datos"],
-    goals: [
-      "Elegir una carrera",
-      "Encontrar una pasantía o trabajo",
-    ],
+    goals: ["Elegir una carrera", "Encontrar una pasantía o trabajo"],
     interests: [
       "Inteligencia Artificial",
       "Desarrollo de aplicaciones móviles",
     ],
-    problematic: ["Falta de información del mercado laboral", "Falta de guía profesional"],
+    problematic: [
+      "Falta de información del mercado laboral",
+      "Falta de guía profesional",
+    ],
     languages: ["Español", "Inglés"],
     availability: "Full-time",
     contract: "Remoto",
@@ -73,9 +72,7 @@ const student2 = {
       "Entrevistas de selección",
       "Administración de personal",
     ],
-    goals: [
-      "Profundizar en mis estudios", "Elegir una especialización",
-    ],
+    goals: ["Profundizar en mis estudios", "Elegir una especialización"],
     interests: ["Desarrollo profesional", "Coaching"],
     problematic: ["Falta de guía profesional"],
     languages: ["Español", "Inglés"],
@@ -108,9 +105,7 @@ const student3 = {
       "Terapia cognitivo-conductual",
       "Manejo de casos",
     ],
-    goals: [
-      "Profundizar en mis estudios", "Elegir una especialización",
-    ],
+    goals: ["Profundizar en mis estudios", "Elegir una especialización"],
     interests: [
       "Investigación en neurociencia",
       "Tratamiento de trastornos de ansiedad",
@@ -172,10 +167,15 @@ const student5 = {
     career: ["Abogacía"],
     skills: ["Investigación jurídica", "Litigio", "Redacción legal"],
     goals: [
-      "Encontrar una pasantía o trabajo", "Conocer más sobre el mercado laboral de mi profesión", "Profundizar en mis estudios",
+      "Encontrar una pasantía o trabajo",
+      "Conocer más sobre el mercado laboral de mi profesión",
+      "Profundizar en mis estudios",
     ],
     interests: ["Derecho internacional", "Propiedad intelectual"],
-    problematic: ["No sé que es lo que me gusta", "Falta de información del mercado laboral"],
+    problematic: [
+      "No sé que es lo que me gusta",
+      "Falta de información del mercado laboral",
+    ],
     languages: ["Español", "Inglés"],
     availability: "Full-time",
     contract: "Remoto",
@@ -202,7 +202,10 @@ const student6 = {
   info: {
     career: "Perito mercantil",
     skills: ["Contabilidad", "Gestión"],
-    goals: ["Conocer más sobre el mercado laboral de mi profesión", "Encontrar una pasantía o trabajo"],
+    goals: [
+      "Conocer más sobre el mercado laboral de mi profesión",
+      "Encontrar una pasantía o trabajo",
+    ],
     interests: ["Marketing internacional"],
     problematic: ["Dificultad para conseguir trabajo"],
     languages: ["Inglés", "Español"],
@@ -237,7 +240,10 @@ const student7 = {
     ],
     goals: ["Profundizar en mis estudios", "Elegir una especialización"],
     interests: ["Mercado de valores", "Inversiones sostenibles"],
-    problematic: ["Falta de guía profesional", "Dificultad para conseguir trabajo"],
+    problematic: [
+      "Falta de guía profesional",
+      "Dificultad para conseguir trabajo",
+    ],
     languages: ["Español"],
     availability: "Full-time",
     contract: "Remoto",
@@ -275,7 +281,8 @@ const professional1 = {
     ],
     interests: ["Marketing de contenidos", "Inteligencia de mercado"],
     goals: [
-      "Conocer más sobre el mercado laboral de mi profesión", "Conocer nuevos colegas y oportunidades",
+      "Conocer más sobre el mercado laboral de mi profesión",
+      "Conocer nuevos colegas y oportunidades",
     ],
     problematic: ["Falta de información del mercado laboral"],
     languages: ["Español", "Inglés"],
@@ -317,10 +324,7 @@ const professional2 = {
       "Inteligencia Artificial",
       "Desarrollo de aplicaciones híbridas",
     ],
-    goals: [
-      "Hacer una especialización",
-      "Emprender",
-    ],
+    goals: ["Hacer una especialización", "Emprender"],
     languages: ["Inglés"],
     availability: "Full-time",
     contract: "Híbrido",
@@ -358,9 +362,7 @@ const professional3 = {
       "Capacitación y desarrollo",
     ],
     interests: ["Psicología organizacional", "Desarrollo de liderazgo"],
-    goals: [
-      "Conocer nuevos colegas y oportunidades",
-    ],
+    goals: ["Conocer nuevos colegas y oportunidades"],
     problematic: [""],
     languages: ["Francés", "Inglés"],
     availability: "Full-time",
@@ -399,9 +401,13 @@ const professional4 = {
     ],
     interests: ["Mercado de valores", "Inversiones sostenibles"],
     goals: [
-      "Conseguir un trabajo", "Conocer más sobre el mercado laboral de mi profesión",
+      "Conseguir un trabajo",
+      "Conocer más sobre el mercado laboral de mi profesión",
     ],
-    problematic: ["Falta de información del mercado laboral", "Dificultad para conseguir trabajo"],
+    problematic: [
+      "Falta de información del mercado laboral",
+      "Dificultad para conseguir trabajo",
+    ],
     languages: ["Inglés"],
     availability: "Full-time",
     contract: "Presencial",
@@ -501,6 +507,4 @@ export const students = [
   student7,
 ];
 
-export const companies = [
-  company1,
-]
+export const companies = [company1];

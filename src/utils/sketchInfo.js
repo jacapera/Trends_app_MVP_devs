@@ -37,14 +37,14 @@ export const professional = {
     support: true,
   },
   acedemic: {
-    type: "",   // Sin exp - Junior - Intermedio - Senior
+    type: "", // Sin exp - Junior - Intermedio - Senior
     institution: "",
     level: "",
     degrees: "",
     graduation: new Date(),
   },
   info: {
-    company_name:"",
+    company_name: "",
     position: "",
     responsibilities_achievements: "",
     skills: "",
@@ -73,7 +73,7 @@ export const company = {
     graduation: new Date(),
   },
   info: {
-    sector:"",
+    sector: "",
     position: "",
     benefits: "",
     responsabilities: "",

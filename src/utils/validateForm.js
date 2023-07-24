@@ -8,7 +8,6 @@ const REGEX_SENTENCE = /^[\w\s.,'"-]+$/;
 
 //Funcion de manejo de errores
 
-
 export function validateProfileForm(inputs, isFirstInputs) {
   const errors = {};
   const props = Object.keys(inputs);
