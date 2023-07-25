@@ -4,6 +4,11 @@ module.exports = (sequelize) => {
   const Info = sequelize.define(
     "info",
     {
+      id: {
+        type: DataTypes.UUID,
+        primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
+      },
       career: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
@@ -58,22 +63,22 @@ module.exports = (sequelize) => {
       availability: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          isIn: {
-            args: ["Full-time", "Part-time"],
-            msg: "Invalid availability.",
-          },
-        },
+        // validate: {
+        //   isIn: {
+        //     args: ["Full-time", "Part-time"],
+        //     msg: "Invalid availability.",
+        //   },
+        // },
       },
       contract: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-          isIn: {
-            args: ["Remoto", "Híbrido", "Presencial"],
-            msg: "Invalid contract type.",
-          },
-        },
+        // validate: {
+        //   isIn: {
+        //     args: ["Remoto", "Híbrido", "Presencial"],
+        //     msg: "Invalid contract type.",
+        //   },
+        // },
       },
     },
     { timestamps: false }
