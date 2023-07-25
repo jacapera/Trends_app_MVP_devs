@@ -2,7 +2,13 @@ require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
-const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = require("../config");
+const {
+  DB_USER,
+  DB_PASSWORD,
+  DB_HOST,
+  DB_PORT,
+  DB_NAME,
+} = require("../config");
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
@@ -39,7 +45,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 const {
-  User,
+  //User,
   //Message,
   Profile,
   Academic,
@@ -56,27 +62,57 @@ const {
 //Message.belongsTo(User, { foreignKey: "user_id", allowNull: false });
 
 // ESTUDIANTES
-Profile.hasOne(Student, { as: "studentProfile" });
-Student.belongsTo(Profile, { as: "profile" });
+Student.belongsTo(Profile, {
+  foreignKey: {
+    name: "studentProfile",
+    allowNull: false,
+  },
+});
+Profile.hasOne(Student, {
+  foreignKey: {
+    name: "studentProfile",
+    allowNull: false,
+  },
+});
 
-Academic.hasOne(Student, { as: "studentAcademic" });
-Student.belongsTo(Academic, { as: "academic" });
+Student.belongsTo(Academic, {
+  foreignKey: {
+    name: "studentAcademic",
+    allowNull: false,
+  },
+});
+Academic.hasOne(Student, {
+  foreignKey: {
+    name: "studentAcademic",
+    allowNull: false,
+  },
+});
 
-Info.hasOne(Student, { as: "studentInfo" });
-Student.belongsTo(Info, { as: "info" });
+Student.belongsTo(Info, {
+  foreignKey: {
+    name: "studentInfo",
+    allowNull: false,
+  },
+});
+Info.hasOne(Student, {
+  foreignKey: {
+    name: "studentInfo",
+    allowNull: false,
+  },
+});
 
 // PROFESIONALES
-Profile.hasOne(Professional, { as: "professionalProfile" });
-Professional.belongsTo(Profile, { as: "profile" });
+// Profile.belongsTo(Professional, { as: "professionalProfile" });
+// Professional.belongsTo(Profile, { as: "profile" });
 
-Academic.hasOne(Professional, { as: "professionalAcademic" });
-Professional.belongsTo(Academic, { as: "academic" });
+// Academic.belongsTo(Professional, { as: "professionalAcademic" });
+// Professional.belongsTo(Academic, { as: "academic" });
 
-Professional.belongsTo(Info, { foreignKey: "infoId", as: "info" });
-Professional.belongsTo(ProfessionalInfo, {
-  foreignKey: "infoId",
-  as: "professionalInfo",
-});
+// Professional.belongsTo(Info, { foreignKey: "infoId", as: "info" });
+// Professional.belongsTo(ProfessionalInfo, {
+//   foreignKey: "infoId",
+//   as: "professionalInfo",
+// });
 
 module.exports = {
   ...sequelize.models,

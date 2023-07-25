@@ -10,8 +10,9 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
       },
       infoId: {
-        type: DataTypes.UUID,
-        allowNull: false,
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true,
       },
     },
     { timestamps: false }

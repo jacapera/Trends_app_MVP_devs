@@ -4,6 +4,11 @@ module.exports = (sequelize) => {
   const Profile = sequelize.define(
     "profile",
     {
+      id: {
+        type: DataTypes.UUID,
+        primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -14,7 +19,7 @@ module.exports = (sequelize) => {
       },
       bio: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
       },
       username: {
         type: DataTypes.STRING,
@@ -67,16 +72,16 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: false,
       },
-      session: {
-        type: DataTypes.BOOLEAN,
-        default: false,
-      },
+      // session: {
+      //   type: DataTypes.BOOLEAN,
+      //   default: false,
+      // },
     },
     {
       timestamps: false,
-      defaultScope: {
-        attributes: { exclude: ["password"] },
-      },
+      // defaultScope: {
+      //   attributes: { exclude: ["password"] },
+      // },
     }
   );
 
