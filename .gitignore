@@ -1,4 +1,5 @@
 # VSCODE IGNORE
+.vscode/
 .vscode/*
 !.vscode/extensions.json
 .idea
@@ -8,6 +9,9 @@
 *.njsproj
 *.sln
 *.sw?
+
+#PROJECT IGNORE
+users.js
 
 #API IGNORE
 /api/node_modules
