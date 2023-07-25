@@ -1,0 +1,148 @@
+/* Estilo para el cuerpo de la página */
+body {
+  font-family: "Poppins", Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+}
+
+/* Estilo para el contenedor principal */
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Estilo para el artículo */
+article {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  max-width: 1200px;
+  padding: 20px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  background-color: #fff;
+}
+
+/* Estilo para la sección izquierda */
+section:nth-child(1) {
+  flex: 1;
+  padding-right: 20px;
+}
+
+/* Estilo para el título */
+h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #232323;
+  font-weight: 500;
+}
+
+/* Estilo para el subtítulo */
+h2 {
+  font-size: 24px;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Estilo para el párrafo */
+p {
+  font-size: 18px;
+  color: #777;
+  margin: 10px 0;
+}
+
+/* Estilo para los botones */
+div > Button {
+  cursor: pointer;
+  font-size: 18px;
+  background-color: #9ac2ef;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin: 10px;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para el botón de variante "light" */
+div > Button.variant-light {
+  background-color: #fab180;
+  color: #232323;
+}
+
+/* Estilo para los botones cuando se les pasa el ratón por encima */
+div > Button:hover {
+  background-color: #77a9d5;
+}
+
+/* Estilo para la sección derecha */
+section:nth-child(2) {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f8f9fa;
+}
+
+/* Estilo para el emoji de imagen */
+section:nth-child(2) p {
+  font-size: 48px;
+  color: #9ac2ef;
+}
+
+/* Estilos para el botón de modo oscuro */
+.dark-mode-button {
+  cursor: pointer;
+  font-size: 20px;
+  background-color: #232323;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 15px;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilos para el ícono de luna (modo oscuro) */
+.dark-mode-button i {
+  font-size: 24px;
+}
+
+/* Estilos para el botón de modo oscuro cuando se le pasa el ratón por encima */
+.dark-mode-button:hover {
+  background-color: #333;
+}
+
+/* Agregamos el estilo para el modo oscuro */
+.dark-mode {
+  background-color: #232323;
+  color: #f5f5f5;
+}
+
+/* Media query para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+  article {
+    flex-direction: column-reverse;
+    padding: 10px;
+  }
+
+  section:nth-child(1) {
+    padding-right: 0;
+  }
+
+  div {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  div > Button {
+    margin: 5px;
+  }
+}

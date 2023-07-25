@@ -1,0 +1,106 @@
+/* Estilo para el cuerpo de la página */
+body {
+    font-family: "Poppins", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+  }
+  
+  /* Estilo para el contenedor principal */
+  .main-container {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Estilo para el título */
+  h2 {
+    font-size: 32px;
+    color: #232323;
+    font-weight: 500;
+  }
+  
+  /* Estilo para los botones */
+  .button-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 300px;
+  }
+  
+  .register-button {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 500;
+    background-color: #9ac2ef;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 15px 30px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .register-button:hover {
+    background-color: #77a9d5;
+  }
+  
+  /* Estilo para el formulario de registro profesional */
+  .professional-register-form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  /* Estilo para el pie de página */
+  .footer-container {
+    align-self: flex-start;
+    margin-top: 20px;
+  }
+  
+/* Estilo para el botón de vuelta */
+.back-button {
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  background-color: #fab180;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px; 
+  transition: background-color 0.3s ease;
+  align-self: flex-start; 
+  margin-top: 20px;
+}
+
+.back-button:hover {
+  background-color: #e49454;
+}
+
+  
+  /* Media query para pantallas más pequeñas */
+  @media screen and (max-width: 768px) {
+    h2 {
+      font-size: 28px;
+    }
+  
+    .register-button {
+      font-size: 18px;
+      padding: 12px 24px;
+    }
+  
+    .professional-register-form {
+      padding: 20px;
+    }
+  
+    .back-button {
+      font-size: 18px;
+      padding: 6px 12px;
+    }
+  }
+  

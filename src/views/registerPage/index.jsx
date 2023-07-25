@@ -1,10 +1,10 @@
-import { Button } from "@tremor/react";
 import { useState } from "react";
 import ProfessionalRegisterForm from "../../components/profesionalRegisterForm";
 import { useNavigate } from "react-router-dom";
+import './register.css';
 
 export default function RegisterPage() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [registerForm, setRegisterForm] = useState("");
 
   const handleRegister = (type) => {
@@ -12,17 +12,19 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center gap-10">
+    <main className="main-container">
       <h2>First of all... How do you want to register?</h2>
       {registerForm === "" && (
-        <section className="flex flex-col items-stretch gap-10 w-28">
-          <Button className="w-full" onClick={() => handleRegister("student")}>
+        <section className="button-section">
+          <button className="register-button" onClick={() => handleRegister("student")}>
             Student
-          </Button>
-          <Button onClick={() => handleRegister("professional")}>
+          </button>
+          <button className="register-button" onClick={() => handleRegister("professional")}>
             Professional
-          </Button>
-          <Button onClick={() => handleRegister("company")}>Company</Button>
+          </button>
+          <button className="register-button" onClick={() => handleRegister("company")}>
+            Company
+          </button>
         </section>
       )}
       {registerForm === "student" && (
@@ -36,10 +38,10 @@ export default function RegisterPage() {
           }
         </div>
       )}
-      <footer className="self-start">
-        <Button onClick={() => navigate("/Trends_app_MVP/")} variant="secondary">
+      <footer className="footer-container">
+        <button className="back-button" onClick={() => navigate("/Trends_app_MVP/")}>
           Go to back
-        </Button>
+        </button>
       </footer>
     </main>
   );

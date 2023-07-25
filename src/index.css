@@ -19,7 +19,7 @@
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+	-moz-osx-font-smoothing: grayscale;i tailwind
 	-webkit-text-size-adjust: 100%;
 }
 
@@ -34,11 +34,8 @@ a:hover {
 
 } */
 
-
-}
-
 body {
-	margin: 0;
+	margin: 10px;
 	display: flex;
 	place-items: center;
 	min-width: 320px;
