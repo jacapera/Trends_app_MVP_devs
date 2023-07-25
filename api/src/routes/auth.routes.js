@@ -6,6 +6,6 @@ const authRoutes = Router()
 authRoutes.post("/auth/register", register)
 authRoutes.post("/auth/login", login)
 authRoutes.post("/auth/logout", logout)
-authRoutes.post("/auth/profile", profile)
+authRoutes.get("/auth/profile", profile)
 
 module.exports = authRoutes
