@@ -7,14 +7,10 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true,
     },
-    // firstName:{
-    //   type: DataTypes.STRING,
-    //   allowNull: true,
-    // },
-    // lastName:{
-    //   type: DataTypes.STRING,
-    //   allowNull: true,
-    // },
+    full_name:{
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
     userName:{
       type: DataTypes.STRING,
       allowNull: true,

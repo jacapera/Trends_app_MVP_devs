@@ -15,10 +15,10 @@ router.get('/', userAuthenticated, async (req, res) => {
   }
 });
 
-router.get('/:id', userAuthenticated, async (req, res) => {
+router.get('/:user_id', userAuthenticated, async (req, res) => {
   try {
-    const { id } = req.params;
-    res.status(200).json(await controllers.getUserById(id));
+    const { user_id } = req.params;
+    res.status(200).json(await controllers.getUserById(user_id));
   } catch (error) {
     return error.statusCode
       ? res.status(error.statusCode).json({message:error.message})

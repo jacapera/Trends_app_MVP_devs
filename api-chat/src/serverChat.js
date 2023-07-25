@@ -37,15 +37,23 @@ module.exports = serverSocket => {
     // Ver en consola cuando se conecte un cliente
     //console.log('Cliente conectado: ', socket.id);
 
-    // Emitiendo saludo a cada cliente que se conecte
-    io.emit('saludo server', '!Hola...te saludo desde el servidor socket.io 👀');
+    // Chat Individual
+    // ----------------------------------------------------------------------------
+    socket.on("private-message", ({ user_id, message }) => {
+      console.log("user conected: ", socket.id, user_id)
 
-    // Escuchando evento del cliente y enviando a todos
+      io.to(user_id).emit("private-message", {
+        user_id: socket.id,
+        message,
+      })
+    });
+
+    // Escuchando evento del cliente y enviando a todos CHAT GRUPAL
+    // ----------------------------------------------------------------------------
     socket.on("message", ({ user_id, message, userName, image, fecha, file }) => {
       console.log("Evento recibido: ", user_id, message, userName, fecha, file);
       //console.log("archivo recibido: ", file);
 
-      postMessage(user_id, message)
       if(file && file.data instanceof Buffer){
         socket.broadcast.emit("message", {
           message,
@@ -61,8 +69,8 @@ module.exports = serverSocket => {
             data: file.data
           },
         });
-
       } else {
+        postMessage(user_id, message)
         socket.broadcast.emit("message", {
           message,
           fecha,

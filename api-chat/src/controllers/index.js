@@ -9,6 +9,9 @@ const postMessage = require('./messageControllers/postMessage');
 const deleteMessage = require('./messageControllers/deleteMessage');
 
 
+const getGroups = require('./groupControllers/getGroups');
+
+
 module.exports = {
   //Users
   // ------------
@@ -23,4 +26,8 @@ module.exports = {
   getMessages,
   postMessage,
   deleteMessage,
+
+  //Groups
+  // -------------
+  getGroups,
 }

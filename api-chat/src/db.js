@@ -29,11 +29,12 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 
 console.log(sequelize.models)
-const { User, Message, Group } = sequelize.models;
+const { User, Message, Chat } = sequelize.models;
+
+User.belongsToMany(Chat, {through: 'user_chat'}, {timestamps: false});
+Chat.belongsToMany(User, {through: 'user_chat'}, {timestamps: false});
 
 Message.belongsTo(User, { foreignKey: 'user_id', allowNull: false });
-Message.belongsTo(Group, { foreignKey: 'group_id', allowNull: false });
-Group.belongsTo(User, { foreignKey: 'user_id', allowNull: false });
 
 module.exports = {
   ...sequelize.models,
