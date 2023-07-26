@@ -4,4 +4,9 @@ import NotFoundPage from "./notFoundPage";
 import RegisterPage from "./registerPage";
 import Profile from "./Profile/Profile";
 
-export { LandingPage, LoginPage, NotFoundPage, Profile, RegisterPage };
+
+import Chat from "./Chat/index";
+
+export { LandingPage, LoginPage, NotFoundPage, Profile, RegisterPage, Chat };
+
+

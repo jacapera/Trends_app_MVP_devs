@@ -1,4 +1,5 @@
-export const matchAcademicType = (user, targetUser) => {
+
+const matchAcademicType = (user, targetUser) => {
   // Diccionario para matchear los tipos académicos
   const academicTypes = {
     "Secundaria": "Sin Experiencia",
@@ -23,3 +24,4 @@ export const matchAcademicType = (user, targetUser) => {
   return 0;
 };
 
+export default matchAcademicType;
