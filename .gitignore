@@ -1,8 +1,30 @@
-public
-node_modules
-notes.txt
-/*.config.js
-/*.config
+# VSCODE IGNORE
+.vscode/
+.vscode/*
+.vscode/settings.json
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+#PROJECT IGNORE
+users.js
+
+#API IGNORE
+/api/node_modules
+/api/.env
+/api/package-lock.json
+
+#CLIENT IGNORE
+/client/public
+/client/node_modules
+/client/notes.txt
+/client/*.config.js
+/client/*.config
 
 # Logs
 logs
@@ -12,7 +34,6 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
 node_modules
 dist
 dist-ssr
@@ -28,3 +49,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+*.env
