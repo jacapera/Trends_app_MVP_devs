@@ -2,10 +2,10 @@ const { User } = require('../../db');
 const { hashPassword, unlinkFile } = require('../../helpers/auth');
 
 const postUser =  async (user) => {
-  const { userName, email, image } = user;
+  const { userName, email, image, full_name, rol } = user;
   let { password } = user;
 
-  if (!userName || !password || !email ) {
+  if (!userName || !password || !email || !full_name || !rol ) {
     const error = new Error('Falta información');
     error.statusCode = 400;
     throw error;
@@ -23,7 +23,7 @@ const postUser =  async (user) => {
   try {
     const [ userCreated, created ]  = await User.findOrCreate({
       where: { email },
-      defaults: { email, password, userName, image }
+      defaults: { email, password, userName, image, full_name, rol }
     });
     if(created){
       return 'Usuario registrado con éxito'

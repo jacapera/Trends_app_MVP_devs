@@ -8,7 +8,8 @@ module.exports = (sequelize) => {
       autoincrement: true
     },
     type_chat:{
-      type: DataTypes.INTEGER,
+      type: DataTypes.ENUM('privado', 'grupal'),
+      defaultValue: 'privado',
       allowNull: true,
     },
     name:{

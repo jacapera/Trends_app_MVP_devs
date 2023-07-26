@@ -9,7 +9,8 @@ const postMessage = require('./messageControllers/postMessage');
 const deleteMessage = require('./messageControllers/deleteMessage');
 
 
-const getGroups = require('./groupControllers/getGroups');
+const getChats = require('./chatControllers/getChats');
+const postChat = require('./chatControllers/postChat');
 
 
 module.exports = {
@@ -29,5 +30,6 @@ module.exports = {
 
   //Groups
   // -------------
-  getGroups,
+  getChats,
+  postChat,
 }
