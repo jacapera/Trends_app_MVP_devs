@@ -4,12 +4,12 @@ export default function validation(input){
   const regexEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   //const regexPassword = new RegExp("[0-9]");
   const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-  //const regexName = /^[a-zA-Z0-9\s]+$/i
+  const regexName = /^[a-zA-Z0-9\s]+$/i
   const regexUserName = /^\S+$/;
 
-  // !name ? errors.name = "El nombre es requerido"
-  // : (name.length < 5 || name.length > 30) ? errors.name = "El nombre de tener mínimo 5 y máximo 30 caracters"
-  // : (!regexName.test(name)) && (errors.name = "El nombre no puede tener caracteres especiales");
+  !input.full_name ? error.full_name = "El nombre es requerido"
+    : (input.full_name.length < 5 || input.full_name.length > 30) ? error.full_name = "El nombre de tener mínimo 5 y máximo 30 caracters"
+    : (!regexName.test(input.full_name)) && (error.full_name = "El nombre no puede tener caracteres especiales");
 
   !input.userName && (error.userName = "Username es requerido");
   !regexUserName.test(input.userName) && (error.userName = "Username no debe tener espacios ni al comienzo, final o en medio");

@@ -6,7 +6,6 @@ import {
   RegisterPage,
   NotFoundPage,
   Profile,
-
   Chat,
 } from "./views/";
 

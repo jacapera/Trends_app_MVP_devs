@@ -1,8 +1,9 @@
 
-import { matchAcademicType } from "./matchAcademicType.js";
-import { matchGoals } from "./matchGoals.js";
-import { matchProblematic } from "./matchProblematic.js";
+// import { matchAcademicType } from "./matchAcademicType.js";
+// import { matchGoals } from "./matchGoals.js";
+// import { matchProblematic } from "./matchProblematic.js";
 
+/*
 export const calculateMatchScore = (user, targetUser) => {
   // El "puntaje" de matcheo
   let score = 0;
@@ -27,6 +28,7 @@ export const calculateMatchScore = (user, targetUser) => {
     "academic.institution": 1,
     "academic.graduation": 1,
   };
+  */
 
   /*
   
