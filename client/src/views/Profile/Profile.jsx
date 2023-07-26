@@ -1,6 +1,6 @@
 import { useState } from "react";
 import style from "./Profile.module.css";
-import { ImageDropzone } from "../../components";
+import { ImageDropzone, NavBar } from "../../components";
 import {
   FaGraduationCap,
   FaLocationDot,
@@ -9,6 +9,8 @@ import {
   FaPenToSquare,
   FaFloppyDisk,
 } from "react-icons/fa6";
+
+
 
 const Profile = () => {
   //A SER REEMPLAZADO POR DATOS DEL USUARIO TRAIDOS DEL BACK
@@ -153,6 +155,8 @@ const Profile = () => {
           handleImageChange={handleImageChange}
         />
       )}
+
+      <NavBar/>
 
       <div className={style.header}>
         <p>Estudiante</p>
