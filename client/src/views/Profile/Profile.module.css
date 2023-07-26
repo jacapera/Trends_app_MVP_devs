@@ -1,4 +1,71 @@
-.mainDiv{
+.BGContainer {
+    margin: auto auto;
+    width: 70vw;
+    height: 100%;
+    background-color: white;
+    text-align: left;
+    font-family: "Poppins-Medium";
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.BGContainer h2 {
+    font-family: "Rubik-Medium";
+    font-weight: 100;
+}
+
+.BGContainer h3 {
+    font-family: "Rubik-Regular";
+}
+
+.BGContainer header {
+    width: 100%;
+    height: 12rem;
+    background-color: #9AC2EF ;
+    position: relative;
+    margin-bottom: 6rem;
+
+}
+
+.BGContainer main {
+    display: flex;
+}
+
+.BGContainer section {
+    position: relative;
+    padding: 0 5rem;
+}
+
+.ImageContainer {
+    width: 14rem;
+    height: 14rem;
+    position: absolute;
+    left: 5rem;
+    bottom: -40%;
+}
+
+.ImageContainer img {
+    width: 100%;
+    height: 100%;
+    border-radius: 90%;
+}
+
+.FirstInfo h1, .FirstInfo h3 {
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* .mainDiv{
     background-color: #e8e8e8;
     width: 100vw;
     height: 100vh;
@@ -172,4 +239,4 @@
 .bio{
     font-size: 40px;
     margin: auto 20px;
-}
+} */

@@ -1,0 +1,17 @@
+.Container {
+    display: flex;
+    align-items: center;
+    width: 13rem;
+}
+
+.ImageContainer {
+    height: 5rem;
+    width: 5rem;
+}
+
+
+
+.Container h3 {
+    font-size: .8rem;
+    font-family: "Rubik-Regular";
+}

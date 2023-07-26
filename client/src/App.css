@@ -56,6 +56,26 @@
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'Poppins-Medium';
+    src: url('./assets/fontsTest/Poppins-Medium.otf');
+  }
+  
+  @font-face {
+    font-family: 'Rubik-Light';
+    src: url('./assets/fontsTest/Rubik-Light.ttf');
+  }
+  
+  @font-face {
+    font-family: 'Rubik-Regular';
+    src: url('./assets/fontsTest/Rubik-Regular.ttf');
+  }
+  
+  @font-face {
+    font-family: 'Rubik-Medium';
+    src: url('./assets/fontsTest/Rubik-Medium.ttf');
+  }
+
 /*  
 .read-the-docs {
 	color: #888;
