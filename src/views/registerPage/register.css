@@ -1,106 +1,90 @@
-/* Estilo para el cuerpo de la página */
+/* CSS para el registro de la página */
+
+/* Tipografía */
 body {
-    font-family: "Poppins", Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f5f5f5;
-  }
-  
-  /* Estilo para el contenedor principal */
-  .main-container {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  /* Estilo para el título */
-  h2 {
-    font-size: 32px;
-    color: #232323;
-    font-weight: 500;
-  }
-  
-  /* Estilo para los botones */
-  .button-section {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-width: 300px;
-  }
-  
-  .register-button {
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: 500;
-    background-color: #9ac2ef;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 15px 30px;
-    width: 100%;
-    transition: background-color 0.3s ease;
-  }
-  
-  .register-button:hover {
-    background-color: #77a9d5;
-  }
-  
-  /* Estilo para el formulario de registro profesional */
-  .professional-register-form {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 500px;
-  }
-  
-  /* Estilo para el pie de página */
-  .footer-container {
-    align-self: flex-start;
-    margin-top: 20px;
-  }
-  
-/* Estilo para el botón de vuelta */
-.back-button {
-  cursor: pointer;
-  font-size: 18px;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  background-color: #fab180;
-  color: #fff;
+}
+
+/* Modo claro */
+body.light-mode {
+  background-color: #ffffff;
+  color: #232323;
+}
+
+/* Modo oscuro */
+body.dark-mode {
+  background-color: #232323;
+  color: #ffffff;
+}
+
+/* Contenedor principal */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Título */
+h2 {
+  margin-bottom: 20px;
+}
+
+/* Botones de registro */
+.button-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.register-button {
+  padding: 10px;
+  background-color: #9ac2ef;
+  color: #232323;
   border: none;
-  border-radius: 8px;
-  padding: 10px 20px; 
-  transition: background-color 0.3s ease;
-  align-self: flex-start; 
-  margin-top: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.register-button:hover {
+  background-color: #fab180;
+}
+
+/* Formulario de registro */
+/* Estilos específicos para cada tipo de registro se aplicarán dentro de los componentes */
+
+/* Botón de retroceso */
+.back-button {
+  padding: 10px;
+  background-color: #9ac2ef;
+  color: #232323;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .back-button:hover {
-  background-color: #e49454;
+  background-color: #fab180;
 }
 
-  
-  /* Media query para pantallas más pequeñas */
-  @media screen and (max-width: 768px) {
-    h2 {
-      font-size: 28px;
-    }
-  
-    .register-button {
-      font-size: 18px;
-      padding: 12px 24px;
-    }
-  
-    .professional-register-form {
-      padding: 20px;
-    }
-  
-    .back-button {
-      font-size: 18px;
-      padding: 6px 12px;
-    }
+/* Pie de página */
+.footer-container {
+  margin-top: 20px;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+  .main-container {
+    padding: 10px;
   }
   
+  .button-section {
+    flex-direction: row;
+    gap: 10px;
+  }
+}

@@ -1,5 +1,5 @@
 import { Button } from "@tremor/react";
-import { CustomTextInput } from "../../components/customTextInput";
+import { CustomTextInput } from "../../components";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authLogin } from '../../utils/authLogin';

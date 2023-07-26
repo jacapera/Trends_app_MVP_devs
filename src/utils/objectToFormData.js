@@ -11,4 +11,4 @@ function objectToFormData(obj) {
   return formData;
 }
 
-export {objectToFormData}
+export { objectToFormData };

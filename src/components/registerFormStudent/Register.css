@@ -1,0 +1,68 @@
+/* Estilos generales */
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #9ac2ef; /* Fondo celeste */
+    color: #232323; /* Texto en modo claro */
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Estilos en modo oscuro */
+  body.dark-mode {
+    background-color: #232323; /* Fondo oscuro */
+    color: #ffffff; /* Texto en modo oscuro */
+  }
+  
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Estilos para el formulario */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #fab180; /* Botón naranja */
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: #ff7f00; /* Botón naranja en hover */
+  }
+  
+  .progress-icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .progress-icons svg {
+    margin: 5px;
+  }
+  
+  /* Estilos responsivos */
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+  }
+  

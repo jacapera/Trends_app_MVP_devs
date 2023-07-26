@@ -1,6 +1,8 @@
 public
 node_modules
 notes.txt
+/*.config.js
+/*.config
 
 # Logs
 logs

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import ProfessionalRegisterForm from "../../components/profesionalRegisterForm";
+import { ProfessionalRegisterForm, StudentRegisterForm, CompanyRegisterForm } from "../../components";
 import { useNavigate } from "react-router-dom";
+
 import './register.css';
 
 export default function RegisterPage() {
@@ -27,20 +28,16 @@ export default function RegisterPage() {
           </button>
         </section>
       )}
-      {registerForm === "student" && (
-        <div>here would go the register for students... IF I had one!</div>
-      )}
+      {registerForm === "student" && <StudentRegisterForm />}
       {registerForm === "professional" && <ProfessionalRegisterForm />}
       {registerForm === "company" && (
         <div>
-          {
-            "here would go the registry for companies... and as you should suppose... I DON'T HAVE IT"
-          }
+           <img src="/images/company_image.png" alt="Company" />
         </div>
       )}
       <footer className="footer-container">
         <button className="back-button" onClick={() => navigate("/Trends_app_MVP/")}>
-          Go to back
+          {registerForm === "company" && <CompanyRegisterForm />}
         </button>
       </footer>
     </main>
