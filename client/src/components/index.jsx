@@ -6,6 +6,8 @@ import FeedCard from "./FeedCard/FeedCard";
 import ImageDropzone from "./ImageDropzone/ImageDropzone";
 import CustomInputDate from "./customInputDate";
 import CustomRadioInput from "./customRadioInput";
+import CompanyJobs from "./CompanyJobs/CompanyJobs";
+import JobFormCompany from "./jobFormCompany";
 import {
   CustomSelect,
   CustomSelectMultiple,
@@ -27,4 +29,6 @@ export {
   SearchCustomSelect,
   CustomTextInput,
   CustomMultiTextInput,
+  CompanyJobs,
+  JobFormCompany,  
 };
