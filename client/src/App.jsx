@@ -6,6 +6,7 @@ import {
   RegisterPage,
   NotFoundPage,
   Profile,
+
   Chat,
 } from "./views/";
 
@@ -13,6 +14,7 @@ import {
 // --------------------------------------------------
 import Register from "./views/Chat/Register/Register";
 import Login from "./views/Chat/Login";
+
 
 function App() {
   return (
@@ -28,6 +30,7 @@ function App() {
           <Route path='register-chat' element={ <Register />} />
           <Route path='login-chat' element={ <Login />} />
         </Route>
+
 
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>

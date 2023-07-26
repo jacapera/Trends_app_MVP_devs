@@ -1,5 +1,9 @@
 import { Button } from "@tremor/react";
+
+
 import { Link, useNavigate } from "react-router-dom";
+
+
 
 export default function LandingPage() {
   const navigate = useNavigate()
@@ -27,8 +31,12 @@ export default function LandingPage() {
         <section>
           <p>✨Image Sketch✨</p>
         </section>
+
+
         {/* PROVISIONAL MIENTRAS PRUEBAS DEL CHAT */}
         <Link to="/Trends_app_MVP/chat">ir a chat</Link>
+
+
       </article>
     </main>
   )
