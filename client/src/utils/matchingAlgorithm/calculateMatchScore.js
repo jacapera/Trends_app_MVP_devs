@@ -1,8 +1,7 @@
-import { matchAcademicType } from "./matchAcademicType.js";
-import { matchGoals } from "./matchGoals.js";
-import { matchProblematic } from "./matchProblematic.js";
+import matchAcademicType from "./matchAcademicType.js";
+import crossMatchData from "./crossMatchData.js";
 
-export const calculateMatchScore = (user, targetUser) => {
+const calculateMatchScore = (user, targetUser) => {
   // El "puntaje" de matcheo
   let score = 0;
 
@@ -15,14 +14,12 @@ export const calculateMatchScore = (user, targetUser) => {
     "academic.type": () => matchAcademicType(user, targetUser),
     "info.career": 5,
     "info.interests": 5,
-    "info.goals": () => matchGoals(user, targetUser),
     "profile.city": 3,
     "profile.country": 3,
     "academic.level": 3,
     "info.skills": 3,
     "info.languages": 3,
     "info.availability": 3,
-    "info.problematic": () => matchProblematic(user, targetUser),
     "academic.institution": 1,
     "academic.graduation": 1,
   };
@@ -31,7 +28,6 @@ export const calculateMatchScore = (user, targetUser) => {
   // se hace una búsqueda "deep" de las propiedades
   for (const key in fieldHandlers) {
     const [outerKey, innerKey] = key.split(".");
-
     // Si el valor es una función, se la llama
     // y se suma su valor de retorno al score
     if (typeof fieldHandlers[key] === "function") {
@@ -82,5 +78,10 @@ export const calculateMatchScore = (user, targetUser) => {
     }
   }
 
+  // Para matcheos cruzados se llama a crossMatchData
+  score += crossMatchData(user, targetUser);
+
   return score;
 };
+
+export default calculateMatchScore;
