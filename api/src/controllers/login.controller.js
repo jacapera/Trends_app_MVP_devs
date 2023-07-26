@@ -14,11 +14,9 @@ const validateUser = async (user) => {
       },
     });
     if (!foundedUser) return;
-    const correctPassword = await decryptPassword(
-      user.password,
-      foundedUser.profile.password
-    );
-    if (!correctPassword) return;
+    console.log(foundedUser);
+    const isCorrectPassword = await foundedUser.profile.comparePassword(user.password)
+    if (!isCorrectPassword) return;
     const token = await createToken({ id: foundedUser.id });
     return token;
   } catch (error) {
