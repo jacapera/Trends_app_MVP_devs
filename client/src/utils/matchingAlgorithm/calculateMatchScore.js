@@ -1,32 +1,32 @@
 
-import { matchAcademicType } from "./matchAcademicType.js";
-import { matchGoals } from "./matchGoals.js";
-import { matchProblematic } from "./matchProblematic.js";
+// import { matchAcademicType } from "./matchAcademicType.js";
+// import { matchGoals } from "./matchGoals.js";
+// import { matchProblematic } from "./matchProblematic.js";
 
-export const calculateMatchScore = (user, targetUser) => {
-  // El "puntaje" de matcheo
-  let score = 0;
+// export const calculateMatchScore = (user, targetUser) => {
+//   // El "puntaje" de matcheo
+//   let score = 0;
 
-  // Se definen los handlers
-  // o el "peso" para cada campo del perfil
-  // 5 = Alto, 3 = Medio, 1 = Bajo
-  const fieldHandlers = {
-    "profile.support": 5,
-    "academic.area": 5,
-    "academic.type": () => matchAcademicType(user, targetUser),
-    "info.career": 5,
-    "info.interests": 5,
-    "info.goals": () => matchGoals(user, targetUser),
-    "profile.city": 3,
-    "profile.country": 3,
-    "academic.level": 3,
-    "info.skills": 3,
-    "info.languages": 3,
-    "info.availability": 3,
-    "info.problematic": () => matchProblematic(user, targetUser),
-    "academic.institution": 1,
-    "academic.graduation": 1,
-  };
+//   // Se definen los handlers
+//   // o el "peso" para cada campo del perfil
+//   // 5 = Alto, 3 = Medio, 1 = Bajo
+//   const fieldHandlers = {
+//     "profile.support": 5,
+//     "academic.area": 5,
+//     "academic.type": () => matchAcademicType(user, targetUser),
+//     "info.career": 5,
+//     "info.interests": 5,
+//     "info.goals": () => matchGoals(user, targetUser),
+//     "profile.city": 3,
+//     "profile.country": 3,
+//     "academic.level": 3,
+//     "info.skills": 3,
+//     "info.languages": 3,
+//     "info.availability": 3,
+//     "info.problematic": () => matchProblematic(user, targetUser),
+//     "academic.institution": 1,
+//     "academic.graduation": 1,
+//   };
 
   /*
   
