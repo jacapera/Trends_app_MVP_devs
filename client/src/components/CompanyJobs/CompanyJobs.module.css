@@ -1,0 +1,16 @@
+.head{
+    border: 1px solid red;
+}
+.body{
+    border: 1px solid blue;
+}
+.postJob{
+    border: 1px solid black;
+    margin: 10px;
+}
+.button{
+    background-color: #FAB180;
+    color: white;
+    border-radius: 25px;
+    margin: 10px;
+}
