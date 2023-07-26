@@ -2,7 +2,7 @@ import { Select, SelectItem, Subtitle, TextInput, Title } from "@tremor/react";
 import { useEffect, useState } from "react";
 import style from './dataJobCompany.module.css';
 
-const dataJobCompany = ()=>{
+const dataJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
 
     const [data, setData] = useState(null);
 
@@ -28,16 +28,16 @@ const dataJobCompany = ()=>{
                     <TextInput
                         name="jobName"
                         type="text"
-                        //value={formCompany.study_area}
-                        //onChange={handleChangeForm}
+                        value={formJob.jobName}
+                        onChange={handleChangeForm}
                         placeholder="ingrese nombre del puesto"
                     ></TextInput><br/>
                     <label>Fecha de Creacion: </label><br/>
                     <TextInput
                         name="dateCreation"
                         type="date"
-                        //value={formCompany.study_area}
-                        //onChange={handleChangeForm}
+                        value={formJob.dateCreation}
+                        onChange={handleChangeForm}
                         placeholder="ingrese nombre del puesto"
                     ></TextInput><br/>
 
@@ -46,8 +46,8 @@ const dataJobCompany = ()=>{
                     <label>Nivel educativo requerido: </label><br/>
                     <Select
                         name="level_required"
-                        //value={formCompany.level_required}
-                        //onChange={(value) => handleChangeSelect("level_required", value)}
+                        value={formJob.level_required}
+                        onChange={(value) => handleChangeSelect("level_required", value)}
                         placeholder="--seleccione opcion--"
                     >
                         {data?.levelStudent.map((level, index) => (
@@ -66,8 +66,8 @@ const dataJobCompany = ()=>{
                     <TextInput
                         name="study_area"
                         type="text"
-                        //value={formCompany.study_area}
-                        //onChange={handleChangeForm}
+                        value={formJob.study_area}
+                        onChange={handleChangeForm}
                         placeholder="ingrese areas separadas por comas"
                     ></TextInput>
                     {/* {error.study_area && (
@@ -80,8 +80,8 @@ const dataJobCompany = ()=>{
                     <TextInput
                         name="experience_required"
                         type="number"
-                        //value={formCompany.experience_required}
-                        //onChange={handleChangeForm}
+                        value={formJob.experience_required}
+                        onChange={handleChangeForm}
                     ></TextInput>
                     {/* {error.experience_required && (
                         <label style={{ color: "red" }}>{error.experience_required}</label>
@@ -90,20 +90,13 @@ const dataJobCompany = ()=>{
 
                     <label>Area/Industria: </label>
                     <br />
-                    <Select
+                    <TextInput
                         name="industry"
-                        //value={formCompany.industry}
-                        //onValueChange={(value) => handleChangeSelect("industry", value)}
-                    >
-                        {data?.industry.map((area, index) => (
-                        <SelectItem key={index} value={area.value}>
-                            {area.value}
-                        </SelectItem>
-                        ))}
-                    </Select>
-                    {/* {error.industry && (
-                        <label style={{ color: "red" }}>{error.industry}</label>
-                    )} */}
+                        type="text"
+                        value={formJob.industry}
+                        onChange={handleChangeForm}
+                    ></TextInput>                    
+
                     <br />    
 
             </div>

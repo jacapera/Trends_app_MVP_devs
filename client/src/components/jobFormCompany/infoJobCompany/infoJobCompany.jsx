@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import style from './infoJobCompany.module.css';
 
 
-const infoJobCompany = ()=>{
+const infoJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
 
     const [data, setData] = useState(null);
 
@@ -29,8 +29,8 @@ const infoJobCompany = ()=>{
                     <TextInput
                         name="benefits"
                         type="text"
-                        //value={formCompany.benefits}
-                        //onChange={handleChangeForm}
+                        value={formJob.benefits}
+                        onChange={handleChangeForm}
                         placeholder="ingrese beneficios separados por comas"
                     ></TextInput>
 
@@ -43,8 +43,8 @@ const infoJobCompany = ()=>{
                     <TextInput
                         name="skills_required"
                         type="text"
-                        //value={formCompany.skills_required}
-                        //onChange={handleChangeForm}
+                        value={formJob.skills_required}
+                        onChange={handleChangeForm}
                         placeholder="ingrese habilidades separadas por comas"
                     ></TextInput>
                     {/* {error.skills_required && (
@@ -56,8 +56,8 @@ const infoJobCompany = ()=>{
                     <TextInput
                         name="job_description"
                         type="text"
-                        //value={formCompany.job_description}
-                        //onChange={handleChangeForm}
+                        value={formJob.job_description}
+                        onChange={handleChangeForm}
                         placeholder="ingrese descripcion separados por comas"
                     ></TextInput>
                     {/* {error.job_description && (
@@ -69,8 +69,8 @@ const infoJobCompany = ()=>{
                     <TextInput
                         name="job_goal"
                         type="text"
-                        //value={formCompany.job_goal}
-                        //onChange={handleChangeForm}
+                        value={formJob.job_goal}
+                        onChange={handleChangeForm}
                         placeholder="ingrese objetivos separados por comas"
                     ></TextInput>
                     {/* {error.job_goal && (
@@ -82,8 +82,8 @@ const infoJobCompany = ()=>{
                     <TextInput
                         name="languages_required"
                         type="text"
-                        //value={formCompany.languages_required}
-                        //onChange={handleChangeForm}
+                        value={formJob.languages_required}
+                        onChange={handleChangeForm}
                         placeholder="ingrese idiomas separados por comas"
                     ></TextInput>
                     {/* {error.languages_required && (
@@ -94,8 +94,8 @@ const infoJobCompany = ()=>{
                     <label>Disponibilidad: </label><br/>
                     <Select
                         name="availability"
-                        //value={formCompany.availability}
-                        //onValueChange={(value) => handleChangeSelect("availability", value)}
+                        value={formJob.availability}
+                        onValueChange={(value) => handleChangeSelect("availability", value)}
                         placeholder="--seleccione una opcion---"
                     >
                         {data?.availabilitys.map((availability, index) => (
@@ -112,8 +112,8 @@ const infoJobCompany = ()=>{
                     <label>Tipo de Contratacion Ofrecida: </label><br/>
                     <Select
                         name="contract_offered"
-                        //value={formCompany.contract_offered}
-                        //onValueChange={(value) => handleChangeSelect("contract_offered", value)}
+                        value={formJob.contract_offered}
+                        onValueChange={(value) => handleChangeSelect("contract_offered", value)}
                         placeholder="--seleccione opcion---"
                     >
                         {data?.contracts.map((contract, index) => (

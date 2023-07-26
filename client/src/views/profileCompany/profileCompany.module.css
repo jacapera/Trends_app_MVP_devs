@@ -1,9 +1,9 @@
 .mainDiv{
     background-color: #e8e8e8;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     color: #344C5A;
-    border: 1px solid red;
+    /* border: 1px solid red; */
     /* display: flex; */
 }
 
@@ -27,7 +27,7 @@
     -webkit-box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
 .header p{
@@ -40,7 +40,7 @@
     /* width: 80%; */
     flex-direction: column;
     /* padding-top: 8vh; */
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 .container{
     display: flex;
@@ -52,12 +52,12 @@
     margin-top: 5vw;
     margin-left: 5vh;
     width: fit-content;
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .profilePicture{
-    max-height: 30vh;
-    max-width: 20vw;
+    height: 20vh;
+    min-width: 10vw;
     border-radius: 50%;
     border: 5px solid white;
 }
@@ -76,11 +76,12 @@
     /* margin: 8vh auto 0 auto; */
     margin-top: 15vh;
     padding-left: 1.8vw;
+    padding-right: 2vw;
     /* display: flex; */
     /* justify-content: space-between; */
     /* align-items: flex-start; */
     /* z-index: 1; */
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 .infoContainer{

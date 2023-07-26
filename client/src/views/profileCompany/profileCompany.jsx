@@ -53,7 +53,7 @@ export default function profileCompany() {
     }]
     //*----------------------------------------------------------------
 
-    const [isProfileOwner, setIsProfileOwner] = useState(true);
+    const [isProfileOwner, setIsProfileOwner] = useState(false);
     const [isEditing, setIsEditing] = useState({
         profile: false,
         search: false,
@@ -187,13 +187,13 @@ export default function profileCompany() {
                                     //className={style.headerEditionInput} 
                                     type="text" name="profile.company_name" 
                                     value={userData.profile.company_name} 
-                                    onChange={handleInputChange}/><br/>
+                                    onChange={handleInputChange}/>
                             <label>Ciudad: </label><br/>
                                 <TextInput 
                                     //className={style.headerEditionInput} 
                                     type="text" name="profile.city" 
                                     value={userData.profile.city} 
-                                    onChange={handleInputChange}/><br/>
+                                    onChange={handleInputChange}/>
                             <label>Pais: </label><br/>
                                 <Select
                                     name="profile.country"
@@ -202,9 +202,6 @@ export default function profileCompany() {
                                     placeholder="--seleccione opcion--"
                                 >
                                     {
-                                    // data?.country.map((country,index)=>(
-                                    //     <SelectItem key={index} value={country.value}>{country.value}</SelectItem>
-                                    // ))
                                     countrys?.map((country, index) => (
                                         <SelectItem key={index} value={country.name}>
                                         {country.name}
@@ -217,24 +214,24 @@ export default function profileCompany() {
                                     //className={style.headerEditionInput} 
                                     type="text" name="profile.website" 
                                     value={userData.profile.website} 
-                                    onChange={handleInputChange}/><br/>
+                                    onChange={handleInputChange}/>
                             <label>Cuit: </label><br/>
                                 <TextInput 
                                     //className={style.headerEditionInput} 
                                     type="text" name="profile.cuit" 
                                     value={userData.profile.cuit} 
-                                    onChange={handleInputChange}/><br/>
+                                    onChange={handleInputChange}/>
                             <label>Email: </label><br/>
                                 <TextInput 
                                     //className={style.headerEditionInput} 
                                     type="text" name="profile.email" 
                                     value={userData.profile.email} 
-                                    onChange={handleInputChange}/><br/>
+                                    onChange={handleInputChange}/>
                             <label>Bio de la empresa: </label><br/>
                                 <textarea
                                 className={style.headerEditionInput} 
                                 name="profile.bio" 
-                                rows="20" cols="50"
+                                rows="30" cols="80"
                                 value={userData.profile.bio} 
                                 onChange={handleInputChange}/><br/>
                             

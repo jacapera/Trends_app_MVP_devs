@@ -5,7 +5,7 @@ import { CompanyJobs, JobFormCompany } from "../../components/index";
 import {AiFillHome} from 'react-icons/ai';
 import {HiUser,HiChat} from 'react-icons/hi';
 import { Title } from "@tremor/react";
-
+ 
 const feedCompany = () =>{
 
     const[companyData, setCompanyData] = useState();
@@ -42,7 +42,7 @@ const feedCompany = () =>{
                 job_description: ["Inteligencia Artificial","Desarrollo de aplicaciones móviles"],
                 job_goal: ["Obtener una pasantía en una empresa de tecnología","Desarrollar habilidades de liderazgo"],
                 languages_required: ["Español", "Inglés"],
-                availability: "Full-time",
+                availability: "Full-Time",
                 contract_offered: "Remoto",
                 },    
             },
@@ -62,7 +62,7 @@ const feedCompany = () =>{
                 job_description: ["Arquitecto de Aplicación", "Experiencia en metodologías Agiles y DevSecOps"],
                 job_goal: ["liderazgo", "atencion al detalle", "calidad del software"],
                 languages_required: ["Español", "Inglés"],
-                availability: "Full-time",
+                availability: "Full-Time",
                 contract_offered: "Presencial",
                 },    
             },  
@@ -76,9 +76,18 @@ const feedCompany = () =>{
     },[])
 
     const[page, setPage] = useState("companyJobs");
+    const[jobEdit, setJobEdit] = useState();
 
-    const handlePage = (type) => {
-        setPage(type)
+    const handlePage = (namepage) => {
+        setPage(namepage)
+    };
+
+    const handlePageEditJob = (namepage,data) =>{
+        console.log("que recibe data: ", data);
+        console.log("que recibe namepage: ", namepage);
+        setJobEdit(data);
+
+        handlePage(namepage);
     };
     
     return(
@@ -105,8 +114,8 @@ const feedCompany = () =>{
                 <p>Mis Chats</p>
             </div>
             <div className={style.right}>
-                {page === "companyJobs" && <CompanyJobs jobs={jobs} handlePage={handlePage}/> }
-                {page === "jobForm" && <JobFormCompany/>}
+                {page === "companyJobs" && <CompanyJobs jobs={jobs} handlePageEditJob={handlePageEditJob}/> }
+                {page === "jobForm" && <JobFormCompany jobEdit={jobEdit}/>}
                 {page === "Candidates"}
                 {page === "profileCompany" && <ProfileCompany/>}
                 {page === "Chats"}

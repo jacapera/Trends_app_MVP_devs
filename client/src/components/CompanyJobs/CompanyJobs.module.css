@@ -1,8 +1,10 @@
 .head{
-    border: 1px solid red;
+    padding-top: 2vh;
 }
 .body{
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
+    border-top: 3px solid black;
+    padding-top: 2vh;
 }
 .postJob{
     border: 1px solid black;

@@ -25,6 +25,7 @@
     border: 1px solid black;
     width: 80vw;
     height: 100vh;
+    /* padding-top: 2vh; */
 }
 .button{
     border-radius: 50%;
@@ -32,6 +33,7 @@
     margin-left: 20px;
     margin-right: 20px;
     height: 10vh;
-    width: 6vw;
+    min-width: 6vw;
+
 }
 
