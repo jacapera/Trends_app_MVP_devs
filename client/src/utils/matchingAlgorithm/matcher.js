@@ -1,3 +1,4 @@
+
 import calculateMatchScore from "./calculateMatchScore";
 
 // Se toma un array de perfiles y un perfil base
@@ -15,4 +16,5 @@ export const matcher = (users, targetUser) => {
 
   // Se retorna un arreglo con los perfiles que hicieron match
   return matches;
+
 };

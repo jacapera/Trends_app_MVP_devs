@@ -16,6 +16,7 @@
 const student1 = {
   profile: {
     name: "Juan Perez",
+
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "juanperez",
     age: "21",
@@ -23,6 +24,7 @@ const student1 = {
     password: "contraseña123",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
     city: "Buenos Aires",
     country: "Argentina",
     support: true,
@@ -55,6 +57,7 @@ const student1 = {
 const student2 = {
   profile: {
     name: "Maria Sanchez",
+
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "mariasanchez",
     age: "21",
@@ -62,6 +65,7 @@ const student2 = {
     password: "password456",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
     city: "Madrid",
     country: "España",
     support: false,
@@ -92,6 +96,7 @@ const student2 = {
 const student3 = {
   profile: {
     name: "John Smith",
+
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "johnsmith",
     age: "21",
@@ -99,6 +104,7 @@ const student3 = {
     password: "password789",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
     city: "New York",
     country: "United States",
     support: true,
@@ -132,6 +138,7 @@ const student3 = {
 const student4 = {
   profile: {
     name: "Laura Johnson",
+
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "laurajohnson",
     age: "21",
@@ -139,6 +146,7 @@ const student4 = {
     password: "qwerty123",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
     city: "London",
     country: "United Kingdom",
     support: false,
@@ -165,6 +173,7 @@ const student4 = {
 const student5 = {
   profile: {
     name: "Carlos Fernández",
+
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "carlosfernandez",
     age: "21",
@@ -172,6 +181,8 @@ const student5 = {
     password: "contraseña456",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
+    
     city: "Mexico City",
     country: "Mexico",
     support: true,
@@ -205,6 +216,7 @@ const student5 = {
 const student6 = {
   profile: {
     name: "Juan Gomez",
+
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "juan",
     age: "21",
@@ -212,6 +224,7 @@ const student6 = {
     password: "1234",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
     city: "Cartagena",
     country: "Colombia",
     support: true,
@@ -224,7 +237,9 @@ const student6 = {
     graduation: "2023",
   },
   info: {
+
     career: ["Perito mercantil"],
+
     skills: ["Contabilidad", "Gestión"],
     goals: [
       "Conocer más sobre el mercado laboral de mi profesión",
@@ -241,6 +256,7 @@ const student6 = {
 const student7 = {
   profile: {
     name: "Jonathan Leroy",
+
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "jonathan",
     age: "21",
@@ -248,6 +264,8 @@ const student7 = {
     password: "qwerty",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
+    
     city: "San Francisco",
     country: "United States",
     support: true,
@@ -281,6 +299,7 @@ const student7 = {
 const professional1 = {
   profile: {
     name: "Ana Rodriguez",
+
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "anarodriguez",
     age: "21",
@@ -288,6 +307,7 @@ const professional1 = {
     password: "password123",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
     city: "Madrid",
     country: "España",
     support: true,
@@ -326,6 +346,7 @@ const professional1 = {
 const professional2 = {
   profile: {
     name: "Michael Brown",
+
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "michaelbrown",
     age: "21",
@@ -333,6 +354,8 @@ const professional2 = {
     password: "password456",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
+    
     city: "New York",
     country: "United States",
     support: false,
@@ -370,6 +393,8 @@ const professional2 = {
 const professional3 = {
   profile: {
     name: "Sophie Martin",
+
+    
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "sophiemartin",
     age: "21",
@@ -377,6 +402,8 @@ const professional3 = {
     password: "qwerty123",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
+    
     city: "Paris",
     country: "France",
     support: true,
@@ -403,7 +430,10 @@ const professional3 = {
     ],
     interests: ["Psicología organizacional", "Desarrollo de liderazgo"],
     goals: ["Conocer nuevos colegas y oportunidades"],
+
     problematic: ["Falta de información del mercado laboral"],
+
+    
     languages: ["Francés", "Inglés"],
     availability: "Full-time",
     contract: "Híbrido",
@@ -413,6 +443,8 @@ const professional3 = {
 const professional4 = {
   profile: {
     name: "David Lee",
+
+    
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "davidlee",
     age: "21",
@@ -420,6 +452,8 @@ const professional4 = {
     password: "password789",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
+    
     city: "San Francisco",
     country: "United States",
     support: true,
@@ -461,6 +495,8 @@ const professional4 = {
 const professional5 = {
   profile: {
     name: "Maria Garcia",
+
+    
     bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Magnam ipsam officia alias sapiente blanditiis ipsa nisi odio nam maiores corporis doloremque culpa itaque aspernatur inventore hic, sint quisquam voluptatibus iusto!",
     username: "mariagarcia",
     age: "21",
@@ -468,6 +504,8 @@ const professional5 = {
     password: "contraseña456",
     image:
       "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+
+    
     city: "Madrid",
     country: "España",
     support: false,
@@ -504,6 +542,8 @@ const professional5 = {
 
 const company1 = {
   profile: {
+
+    
     company_name: "Coca Cola",
     cuit: "27303255418",
     website: "https://cocacola.com.ar",
@@ -569,6 +609,8 @@ const company1 = {
       },
     },
   ],
+
+  
 };
 
 export const professionals = [
