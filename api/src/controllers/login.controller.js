@@ -1,6 +1,6 @@
 const { Student, Profile, Academic, Info } = require("../db");
-const { decryptPassword } = require("../libs/encryptPassword");
-const { createToken } = require("../libs/jwt");
+const { decryptPassword } = require("../helpers/encryptPassword");
+const { createToken } = require("../helpers/jwt");
 
 const validateUser = async (user) => {
   try {

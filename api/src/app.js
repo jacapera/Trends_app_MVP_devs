@@ -3,6 +3,9 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/auth.routes");
+const studentRoutes = require("./routes/student.routes");
+const searchRoutes = require("./routes/search.routes");
+const professionalRoutes = require("./routes/professional.routes");
 
 const app = express();
 
@@ -23,5 +26,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/api/v1", authRoutes);
+app.use("/api/v1/search", searchRoutes);
+
+// --- solo para pruebas ---
+app.use("/students", studentRoutes);
+// app.use("/professionals", professionalRoutes);
 
 module.exports = app;
