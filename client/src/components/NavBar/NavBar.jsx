@@ -1,14 +1,20 @@
 import style from "./NavBar.module.css"
 import {NavLink} from "react-router-dom"
-import {FaMagnifyingGlass, FaRegUser, FaComments, FaPeopleGroup, FaRobot, FaRightFromBracket} from "react-icons/fa6"
+import {FaMagnifyingGlass, FaRegUser, FaComments, FaPeopleGroup, FaRobot, FaRightFromBracket, FaMoon, FaSun} from "react-icons/fa6"
 import SearchComponent from "../SearchComponent/SearchComponent"
 import { useState } from "react"
 
 const NavBar = () =>{
     const [isSearchActive, setIsSearchActive] = useState(false);
 
+    const [darkmode, setDarkmode] = useState(false);
+
     const handleSearchButton = () =>{
         setIsSearchActive(!isSearchActive);
+    }
+
+    const handleDarkmode = () =>{
+        setDarkmode(!darkmode);
     }
 
     return(
@@ -51,11 +57,20 @@ const NavBar = () =>{
                 </NavLink>
             </div>
 
+            <div>
+                <button  className={style.navBarButtonContainer} onClick={handleDarkmode}>
+                    {darkmode ? 
+                        <FaSun className={style.buttonIcon}/> :
+                        <FaMoon className={style.buttonIcon}/>
+                    }
+                    <p>Darkmode</p>
+                </button>
 
-            <button className={style.navBarButtonContainer}>
-                <FaRightFromBracket className={style.buttonIcon}/>
-                <p className={style.buttonText}>Salir</p>
-            </button>
+                <button className={style.navBarButtonContainer}>
+                    <FaRightFromBracket className={style.buttonIcon}/>
+                    <p className={style.buttonText}>Salir</p>
+                </button>
+            </div>
         </div>
     )
 }
