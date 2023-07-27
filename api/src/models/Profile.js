@@ -14,7 +14,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isAlpha: true,
           len: [2, 55],
         },
       },
@@ -73,16 +72,9 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: false,
       },
-      // session: {
-      //   type: DataTypes.BOOLEAN,
-      //   default: false,
-      // },
     },
     {
       timestamps: false,
-      // defaultScope: {
-      //   attributes: { exclude: ["password"] },
-      // },
     }
   );
 

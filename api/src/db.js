@@ -49,12 +49,8 @@ const {
   //Message,
   Profile,
   Academic,
-  // Area,
   Info,
-  // Career,
-  // Skill,
-  // Interest,
-  ProfessionalInfo,
+  InfoProfessional,
   Student,
   Professional,
 } = sequelize.models;
@@ -102,17 +98,50 @@ Info.hasOne(Student, {
 });
 
 // PROFESIONALES
-// Profile.belongsTo(Professional, { as: "professionalProfile" });
-// Professional.belongsTo(Profile, { as: "profile" });
+Professional.belongsTo(Profile, {
+  foreignKey: {
+    name: "professionalProfile",
+    allowNull: false,
+  },
+});
+Profile.hasOne(Professional, {
+  foreignKey: {
+    name: "professionalProfile",
+    allowNull: false,
+  },
+});
 
-// Academic.belongsTo(Professional, { as: "professionalAcademic" });
-// Professional.belongsTo(Academic, { as: "academic" });
+Professional.belongsTo(Academic, {
+  foreignKey: {
+    name: "professionalAcademic",
+    allowNull: false,
+  },
+});
+Academic.hasOne(Professional, {
+  foreignKey: {
+    name: "professionalAcademic",
+    allowNull: false,
+  },
+});
 
-// Professional.belongsTo(Info, { foreignKey: "infoId", as: "info" });
-// Professional.belongsTo(ProfessionalInfo, {
-//   foreignKey: "infoId",
-//   as: "professionalInfo",
+// Professional.belongsTo(Info, {
+//   foreignKey: {
+//     name: "professionalInfo",
+//     allowNull: false,
+//   },
 // });
+Info.hasOne(Professional, {
+  foreignKey: {
+    name: "professionalInfo",
+    allowNull: false,
+  },
+});
+
+Professional.belongsTo(Info, { foreignKey: "infoId", as: "info" });
+Professional.belongsTo(InfoProfessional, {
+  foreignKey: "infoId",
+  as: "infoProfessional",
+});
 
 module.exports = {
   ...sequelize.models,

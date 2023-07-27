@@ -1,8 +1,8 @@
 const {
   createNewStudent,
   createNewProfessional,
-} = require("../libs/createUser");
-const { createToken } = require("../libs/jwt");
+} = require("../helpers/createUser");
+const { createToken } = require("../helpers/jwt");
 
 const userType = (type) => {
   if (type === "student") return createNewStudent;

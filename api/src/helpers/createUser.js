@@ -3,7 +3,7 @@ const {
   Academic,
   Info,
   Student,
-  ProfessionalInfo,
+  InfoProfessional,
   Professional,
   conn,
 } = require("../db");
