@@ -1,16 +1,12 @@
 const { User, Company } = require("../db");
 
-const findAccount = async (email) => {
+const findAccount = async (prop) => {
   try {
     const foundedCompany = await Company.findOne({
-      where: {
-        email: email,
-      },
+      where: prop,
     });
     const foundedUser = await User.findOne({
-      where: {
-        email: email,
-      },
+      where: prop,
     });
 
     if (!foundedCompany && !foundedUser) return;
