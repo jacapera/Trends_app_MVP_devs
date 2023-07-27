@@ -13,6 +13,7 @@ const authenticateUser = (req, res, next) => {
     }
 
     // Si el token es válido, almacenamos los datos del usuario en el objeto req.user
+    // console.log(user);
     req.user = user;
     next();
   })(req, res, next);

@@ -3,6 +3,7 @@ const {
   encryptPassword,
   decryptPassword,
 } = require("../helpers/encryptPassword");
+const { DEFAULT_IMG } = require("../../config");
 
 module.exports = (sequelize) => {
   const Company = sequelize.define("company", {
@@ -18,20 +19,20 @@ module.exports = (sequelize) => {
         len: [2, 55],
       },
     },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        len: [3, 33],
-      },
-    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
         isEmail: true,
+      },
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        len: [3, 33],
       },
     },
     password: {
@@ -57,9 +58,12 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       allowNull: true,
-      defaultValue:
-        "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+      defaultValue: DEFAULT_IMG,
       validate: { isUrl: true },
+      set(value) {
+        // Si el valor es un string vacío, lo convierte a null
+        this.setDataValue("image", value || DEFAULT_IMG);
+      },
     },
     bio: {
       type: DataTypes.TEXT,
