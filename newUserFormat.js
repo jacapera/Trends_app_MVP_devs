@@ -1,0 +1,66 @@
+const user1 = {
+  type: "Student",
+  email: "juan.perez@example.com",
+  username: "juanperez",
+  password: "contraseña123",
+  name: "Juan Perez",
+  bio: "",
+  age: "23",
+  image: "",
+  city: "Buenos Aires",
+  country: "Argentina",
+  support: true,
+  formation: "Universitario Avanzado",
+  institution: "Universidad Nacional de Buenos Aires",
+  level: "En curso",
+  area: ["Ingeniería Informática"],
+  graduation: "2023",
+  company_name: "", //Only for professionals
+  position: "", //Only for professionals
+  career: ["Desarrollo de Software"],
+  skills: ["Programación en Python", "Desarrollo web", "Bases de datos"],
+  goals: ["Elegir una carrera", "Encontrar una pasantía o trabajo"],
+  interests: ["Inteligencia Artificial", "Desarrollo de aplicaciones móviles"],
+  problematic: [
+    "Falta de información del mercado laboral",
+    "Falta de guía profesional",
+  ],
+  languages: ["Español", "Inglés"],
+  availability: "Full-time",
+  contract: "Remoto",
+};
+
+const user2 = {
+  type: "Professional",
+  email: "juan.perez@example.com",
+  username: "juanperez",
+  password: "contraseña123",
+  name: "Juan Perez",
+  profile_bio: "",
+  profile_age: "23",
+  profile_image: "",
+  profile_city: "Buenos Aires",
+  profile_country: "Argentina",
+  profile_support: true,
+  academic_formation: "Universitario Avanzado",
+  academic_institution: "Universidad Nacional de Buenos Aires",
+  academic_level: "En curso",
+  academic_area: ["Ingeniería Informática"],
+  academic_graduation: "2023",
+  info_company_name: "", //Only for professionals
+  info_position: "", //Only for professionals
+  info_career: ["Desarrollo de Software"],
+  info_skills: ["Programación en Python", "Desarrollo web", "Bases de datos"],
+  info_goals: ["Elegir una carrera", "Encontrar una pasantía o trabajo"],
+  info_interests: [
+    "Inteligencia Artificial",
+    "Desarrollo de aplicaciones móviles",
+  ],
+  info_problematic: [
+    "Falta de información del mercado laboral",
+    "Falta de guía profesional",
+  ],
+  info_languages: ["Español", "Inglés"],
+  info_availability: "Full-time",
+  info_contract: "Remoto",
+};
