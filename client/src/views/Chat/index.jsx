@@ -13,13 +13,9 @@ import LIstUsers from './LIstUsers';
 import Login from './Login';
 import Register from './Register/Register';
 
-const socket = io('http://localhost:3007');
+const socket = io('http://localhost:3004');
 
 const Chat = () => {
-  // ?======================================
-  // ? Idea en desarrollo
-  //?const [socket, setSocket] = useState(null);
-  // ?======================================
   // Estados Locales
   //----------------------------------------------------
   const [message, setMessage] = useState('');
@@ -34,6 +30,7 @@ const Chat = () => {
   // Estados Globales
   //------------------------------------------------------
   const usersChat = useSelector(state => state.usersChat);
+  const userName = useSelector(state => state.usersChat.userName);
   const emisor = useSelector(state => state.usersChat.user_id);
   const isMinimized = useSelector(selectIsMinimized);
 
@@ -106,9 +103,8 @@ const Chat = () => {
     event.preventDefault();
     if(message !== '' ){
       const fecha = formatDate(new Date());
-      const receptor = selectedUser.user_id;
-      setMessages([...messages, {emisor, message, from: usersChat.userName, image: usersChat.image, fecha}]);
-      socket.emit("private-message", {emisor,receptor, message, userName: usersChat.userName, image:usersChat.image, fecha});
+      setMessages([...messages, {message, from: usersChat.userName, image: usersChat.image, fecha}]);
+      socket.emit("message", {message, userName: usersChat.userName, image:usersChat.image, fecha});
       setMessage("");
       setPreview(false);
     }
@@ -224,14 +220,6 @@ const Chat = () => {
     socket.on("mensaje-recibido", receiveMessage);
     //return () => {socket.disconnect()};
   },[]);
-
-  // ?==========================
-  // ?Idea en desarrollo
-  // useEffect(() => {
-  //   socket.emit("newUser")
-  // },[socket]);
-  // ?===========================
-
   // Para Debugin
   // useEffect(() => {
   //   //console.log('filePreviwe: ', filePreview);
@@ -243,30 +231,19 @@ const Chat = () => {
   //   console.log('access: ', user.access);
   // },[filePreview, selectedFile, preview, isMinimized,user]);
 
-  // Controlla el Scroll
   useEffect(() => {
     // Controlar el scroll para mejorar experiencia de usuario
     const messageContainer = messagesRef.current;
     messageContainer && (messageContainer.scrollTop = messageContainer.scrollHeight);
     console.log('messages: ', messages);
-    //console.log(messages.map(item => item.file?.type))
   },[messages, preview])
-
-  // // Controlar cambio de página se minimize el chat
-  // useEffect(() => {
-  //   location.pathname !== '/Trends_app_MVP/chat'
-  //     && dispatch(setIsMinimized(true));
-  // },[location]);
-
-  useEffect(() => {
-    //axios.get()
-  },[]);
 
   return (
     <div>
-      { !usersChat.access ? <Login /> :
+      {
+        !userName ? <Login /> :
         (
-          <div className={`flex w-[100%] border-2 ${!usersChat.access && "hidden"}`}>
+          <div className={`flex w-[100%] border-2 ${usersChat.access && "hidden"}`}>
             {
               !isMinimized ? (
                 // *================================================
@@ -278,7 +255,7 @@ const Chat = () => {
                     {/* ENCABEZADO IZQUIERDO (mi foto y username)*/}
                     <div className='flex items-center left-[4px] top-[70] gap-3 bg-slate-400 w-[29.3%] h-[50px] fixed'>
                       <div className='flex w-7 h-7 ml-[5px] rounded-full bg-gray-500'>
-                        <img className='w-full h-full object-cover rounded-full' src={`http://localhost:3007/${usersChat.image}`} alt='imagen de perfil' />
+                        <img className='w-full h-full object-cover rounded-full' src={`${usersChat.image}`} alt='imagen de perfil' />
                       </div>
                       <h2 className='my-2'>{usersChat.userName}</h2>
                     </div>
@@ -295,7 +272,7 @@ const Chat = () => {
                       <div className='flex items-center  ml-[5px] gap-3'>
                         <div className='flex w-7 h-7 rounded-full bg-gray-500'>
                           {/* Foto del grupo o usuario al que se le envia mensajes */}
-                          <img className='w-full h-full object-cover rounded-full' src={`http://localhost:3007/${selectedUser?.image}`} alt='foto de perfil' />
+                          <img className='w-full h-full object-cover rounded-full' src={`${selectedUser?.image}`} alt='foto de perfil' />
                         </div>
                         <h2 className='my-2'>{selectedUser?.userName}</h2>
                       </div>
@@ -331,7 +308,7 @@ const Chat = () => {
                               <div className='flex items-center w-full gap-2 px-1 mt-0 mb-1'>
                                 { /** validación mostrar foto de quien envia mensaje */
                                   message.from !== usersChat.userName && <div className='flex w-7 h-7 rounded-full bg-gray-500 relative right-[46px]'>
-                                    <img className='w-full h-full object-cover rounded-full' src={`http://localhost:3007/${message.image}`} alt='foto de perfil' />
+                                    <img className='w-full h-full object-cover rounded-full' src={`${message.image}`} alt='foto de perfil' />
                                   </div>
                                 }
                                 { /** Validación para mostrar userName de quien envia mensaje */
@@ -360,7 +337,8 @@ const Chat = () => {
                                         />
                                     }
                                     {/** descargar archivo adjunto */}
-                                    <button onClick={(event) => {downloadFile(event,message.file)}}
+                                    <button  onClick={(event) => {downloadFile(event,message.file)}}
+                                      className='flex w-[auto] bg-green'
                                     >Download</button>
                                   </div>
                                 )
@@ -457,7 +435,6 @@ const Chat = () => {
               )
             }
           </div>
-
         )
       }
       <Outlet />

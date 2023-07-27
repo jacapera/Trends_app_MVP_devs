@@ -18,7 +18,7 @@
 // });
 const validateUser = require("../controllers/login.controller");
 const registerUser = require("../controllers/register.controller");
-const getUsers = require("../libs/getUser");
+const getUsers = require("../helpers/getUser");
 
 const register = async (req, res) => {
   //FALTAN LAS VALIDACIONES

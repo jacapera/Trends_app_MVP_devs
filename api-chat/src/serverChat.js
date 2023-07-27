@@ -38,7 +38,7 @@ module.exports = serverSocket => {
     //console.log('Cliente conectado: ', socket.id);
 
     // Chat Individual
-    // ----------------------------------------------------------------------------
+    // --------------------------------------------------------------------- -------
     socket.on("private-message", ({
       emisor,
       receptor,
@@ -57,6 +57,9 @@ module.exports = serverSocket => {
       if(privateRooms[roomId] || privateRooms[reverseRoomId]){
         const existingRoomId = privateRooms[roomId] ? roomId : reverseRoomId;
         console.log('existingRoomId', existingRoomId)
+        socket.on("conectar-sala", existingRoomId => {
+          socket.join(existingRoomId);
+        })
         socket.emit("chat-iniciado", existingRoomId);
       } else {
         socket.room = roomId;

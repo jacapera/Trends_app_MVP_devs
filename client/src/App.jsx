@@ -32,7 +32,6 @@ function App() {
           <Route path='login-chat' element={ <Login />} />
         </Route>
 
-
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </>

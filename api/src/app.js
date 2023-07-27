@@ -32,4 +32,10 @@ app.use("/api/v1/search", searchRoutes);
 app.use("/students", studentRoutes);
 // app.use("/professionals", professionalRoutes);
 
-module.exports = app;
+// -------- Servidor Socket.io-------------------
+const { createServer } = require('http');
+appSocket = createServer(app);
+const serverSocket = require('./serverSocket');
+serverSocket(appSocket);
+
+module.exports = appSocket;
