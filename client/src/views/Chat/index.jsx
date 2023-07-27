@@ -29,10 +29,12 @@ const Chat = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [filePreview, setFilePreview] =useState('');
   const [preview, setPreview] = useState(false);
+  const [roomId, setRoomId] = useState('');
 
   // Estados Globales
   //------------------------------------------------------
   const usersChat = useSelector(state => state.usersChat);
+  const emisor = useSelector(state => state.usersChat.user_id);
   const isMinimized = useSelector(selectIsMinimized);
 
   // Variables
@@ -103,10 +105,10 @@ const Chat = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if(message !== '' ){
-      console.log('fecha: ', new Date().getDay());
       const fecha = formatDate(new Date());
-      setMessages([...messages, {message, from: usersChat.userName, image: usersChat.image, fecha}]);
-      socket.emit("message", {user_id: usersChat.user_id, message, userName: usersChat.userName, image:usersChat.image, fecha});
+      const receptor = selectedUser.user_id;
+      setMessages([...messages, {emisor, message, from: usersChat.userName, image: usersChat.image, fecha}]);
+      socket.emit("private-message", {emisor,receptor, message, userName: usersChat.userName, image:usersChat.image, fecha});
       setMessage("");
       setPreview(false);
     }
@@ -215,8 +217,12 @@ const Chat = () => {
     return () => {socket.off("message", receiveMessage)};
   },[]);
   useEffect(() => {
-    socket.on("private-message", receiveMessage);
-    return () => {socket.off("private-message", receiveMessage)};
+    socket.on("chat-iniciado", roomId => {
+      console.log('ROOM: ',roomId)
+      setRoomId(roomId);
+    });
+    socket.on("mensaje-recibido", receiveMessage);
+    //return () => {socket.disconnect()};
   },[]);
 
   // ?==========================

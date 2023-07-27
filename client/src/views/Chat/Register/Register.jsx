@@ -62,7 +62,8 @@ const Register = () => {
     }
   };
 
-  const handleTogglePasswordVisibility = () => {
+  const handleTogglePasswordVisibility = (event) => {
+    event.preventDefault();
     setShowPassword(!showPassword);
   };
 
@@ -151,6 +152,7 @@ const Register = () => {
         "full_name": errors.full_name || "",
         "userName": errors.userName || "",
         "email": errors.email || "",
+        "rol": errors.rol || "",
         "password": errors.password || "",
       });
     }
@@ -232,6 +234,7 @@ const Register = () => {
               <option value="professional" >professional</option>
             </select>
           </div>
+          {touchedFields.rol && formErrors.rol && <p className='text-red-600 text-left' >{formErrors.rol}</p>}
           {/* INPUT PASSWORD */}
           <div className='flex flex-col relative '>
               <label className='mt-[8px] text-left' >Password</label>
@@ -245,7 +248,7 @@ const Register = () => {
                 placeholder='escriba password aquí'
               />
               <button onClick={handleTogglePasswordVisibility}
-                className='flex justify-center items-center w-[30px] h-[30px] bg-blue-300 relative top-[20px] right-[0px] '
+                className='flex justify-center items-center w-[30px] h-[30px] bg-transparent relative top-[-35px] right-[-86%] '
               >{showPassword ? <VisibilityOffOutlined /> : <VisibilityOutlined />}</button>
           </div>
           {touchedFields.password && formErrors.password && <p className='text-red-600 text-left' >{formErrors.password}</p>}

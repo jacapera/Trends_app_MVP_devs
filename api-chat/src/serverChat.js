@@ -21,7 +21,7 @@ module.exports = serverSocket => {
   };
   // ===========================================================
 
-
+  const privateRooms = {}
   // Escuchando cuando se conecte un cliente
   // --------------------------------------------------
   io.on('connection', socket => {
@@ -39,23 +39,37 @@ module.exports = serverSocket => {
 
     // Chat Individual
     // ----------------------------------------------------------------------------
-    socket.on("private-message", ({ user_id, message }) => {
-      console.log("user conected: ", socket.id, user_id)
+    socket.on("private-message", ({
+      emisor,
+      receptor,
+      message,
+      userName,
+      image,
+      fecha,
+      file
+    }) => {
+      console.log('emisor-receptor: ',emisor, receptor)
 
-      io.to(user_id).emit("private-message", {
-        user_id: socket.id,
-        message,
-      })
-    });
+      const roomId = `${emisor}_${receptor}`;
+      const reverseRoomId = `${receptor}_${emisor}`;
+      console.log('sala: ',roomId, reverseRoomId)
 
-    // Escuchando evento del cliente y enviando a todos CHAT GRUPAL
-    // ----------------------------------------------------------------------------
-    socket.on("message", ({ user_id, message, userName, image, fecha, file }) => {
-      console.log("Evento recibido: ", user_id, message, userName, fecha, file);
-      //console.log("archivo recibido: ", file);
+      if(privateRooms[roomId] || privateRooms[reverseRoomId]){
+        const existingRoomId = privateRooms[roomId] ? roomId : reverseRoomId;
+        console.log('existingRoomId', existingRoomId)
+        socket.emit("chat-iniciado", existingRoomId);
+      } else {
+        socket.room = roomId;
+        socket.join(roomId);
+        privateRooms[roomId] = { [emisor]: true, [receptor]:true};
+        console.log('RoomId: ', roomId)
+        socket.emit("chat-iniciado", roomId);
+      }
 
       if(file && file.data instanceof Buffer){
-        socket.broadcast.emit("message", {
+        io.to(roomId).emit("mensaje-recibido", {
+          emisor,
+          receptor,
           message,
           fecha,
           from: userName,
@@ -70,15 +84,62 @@ module.exports = serverSocket => {
           },
         });
       } else {
-        postMessage(user_id, message)
-        socket.broadcast.emit("message", {
+        //postMessage(user_id, message)
+        io.to(roomId).emit("mensaje-recibido", {
+          emisor,
+          receptor,
           message,
           fecha,
           from: userName,
           image,
         });
       }
+      console.log('mensaje recibido: ', emisor, receptor, message)
+
     });
+    
+    // Escuchando evento del cliente y enviando a todos CHAT GRUPAL
+    // ----------------------------------------------------------------------------
+    socket.on("message", ({ user_id, message, userName, image, fecha, file }) => {
+      console.log("Evento recibido: ", user_id, message, userName, fecha, file);
+      //console.log("archivo recibido: ", file);
+
+      if(file && file.data instanceof Buffer){
+        socket.broadcast.emit("message", {
+          user_id,
+          message,
+          fecha,
+          from: userName,
+          image,
+          file:{
+            name: file.name,
+            size: file.size,
+            type: file.type,
+            lastModifiedDate: file.lastModifiedDate,
+            lastModified: file.lastModified,
+            data: file.data
+          },
+        });
+      } else {
+        //postMessage(user_id, message)
+        socket.broadcast.emit("message", {
+          user_id,
+          message,
+          fecha,
+          from: userName,
+          image,
+        });
+      }
+
+      
+    });
+
+    socket.on("disconnect", () => {
+      
+    })
+
+
+
   });
 }
 

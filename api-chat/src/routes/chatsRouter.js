@@ -13,8 +13,10 @@ router.get("/", userAuthenticated, async (req, res) => {
 
 router.post('/create', userAuthenticated, async (req, res) => {
   try {
+    console.log(req.body);
     return res.status(200).json(await controllers.postChat(req.body));
   } catch (error) {
+    console.log(error)
     return error.statusCode
       ? res.status(error.statusCode).json({message:error.message})
       : res.status(500).json({message:error.message});

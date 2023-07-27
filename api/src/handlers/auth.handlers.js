@@ -18,9 +18,11 @@
 // });
 const validateUser = require("../controllers/login.controller");
 const registerUser = require("../controllers/register.controller");
+const getUsers = require("../libs/getUser");
 
 const register = async (req, res) => {
   //FALTAN LAS VALIDACIONES
+  console.log("body: ", req.body)
   const { type, profile, academic, info } = req.body;
   try {
     // const token = await registerUser({ type, profile, academic, info });
@@ -28,6 +30,7 @@ const register = async (req, res) => {
     await registerUser({ type, profile, academic, info });
     res.status(201).json("User registered successfully.");
   } catch (error) {
+    console.log(error)
     res.status(400).json({ error: error.message });
   }
 };
@@ -55,9 +58,9 @@ const logout = (req, res) => {
   }
 };
 
-const profile = (req, res) => {
+const profile = async (req, res) => {
   try {
-    res.status(200).json("Profile");
+    res.status(200).json(await getUsers());
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

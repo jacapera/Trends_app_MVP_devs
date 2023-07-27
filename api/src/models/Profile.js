@@ -72,10 +72,6 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: false,
       },
-      // session: {
-      //   type: DataTypes.BOOLEAN,
-      //   default: false,
-      // },
     },
     {
       timestamps: false,

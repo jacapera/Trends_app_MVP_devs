@@ -5,6 +5,7 @@ import validation from './validationLogin';
 import axios from 'axios';
 import styleRegister from './Register/styleRegister.css';
 import { setUserChat } from '../../Redux/usersChatSlice';
+import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
 
 
 const Login = () => {
@@ -18,6 +19,7 @@ const Login = () => {
   const [touchedFields, setTouchedFields] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [message, setMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   const userName = useSelector(state => state.usersChat.userName);
   const usersChat = useSelector(state => state.usersChat);
@@ -45,6 +47,12 @@ const Login = () => {
     }));
   };
 
+  const handleTogglePasswordVisibility = (event) => {
+    event.preventDefault();
+    setShowPassword(!showPassword);
+  };
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     let auxErrors = Object.values(formErrors).every(value => value === "");
@@ -53,15 +61,7 @@ const Login = () => {
         .then(({data}) => {
           console.log(data)
           dispatch(setUserChat(data))
-          // if(response.data.user.session === session){
-          //   console.log('SESSION:', session)
-          //   setMessage('ya iniciaste session en otra pestaña');
-          //   console.log(message)
-          //   openModal();
-          //   dispatch(setIsLogin(false))
-          //   //navigate('/Trens_app_MVP/login');
-          // }
-          //navigate('/Trends_app_MVP/chat')
+          navigate('/Trends_app_MVP/chat')
         }).catch(error => {
           console.log(error)
           setMessage(error.response.data.message);
@@ -110,7 +110,7 @@ const Login = () => {
           className='flex flex-col border-2 p-[20px] rounded-md w-full h-[fit-content] justify-center itme'
         >
           <div className='flex flex-col shadow-white ' >
-              <label className='mt-[8px]' >Email</label>
+              <label className='mt-[8px] text-left' >Email</label>
               <input
                 className='rounded-md h-[40px] p-[5px] shadow-white  '
                 onChange={handleChange}
@@ -122,15 +122,18 @@ const Login = () => {
           </div>
           {touchedFields.email && formErrors.email && <p className='text-red-600' >{formErrors.email}</p>}
           <div className='flex flex-col'>
-              <label className='mt-[8px]' >Password</label>
+              <label className='mt-[8px] text-left' >Password</label>
               <input
                 className='rounded-md h-[40px] p-[5px]  '
                 onChange={handleChange} value={formRegister.password}
                 onBlur={handleBlur}
-                name='password' type="password"
+                name='password' type={showPassword ? "text" : "password"}
                 autoComplete='off'
                 placeholder='escriba password aquí'
               />
+              <button onClick={handleTogglePasswordVisibility}
+                className='flex justify-center items-center w-[30px] h-[30px] bg-transparent relative top-[-35px] right-[-86%] '
+              >{showPassword ? <VisibilityOffOutlined /> : <VisibilityOutlined />}</button>
           </div>
           {touchedFields.password && formErrors.password && <p className='text-red-600' >{formErrors.password}</p>}
           {/*//* BOTON DE ENVIAR */}

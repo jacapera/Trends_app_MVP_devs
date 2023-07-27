@@ -7,19 +7,7 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoincrement: true
     },
-    type_chat:{
-      type: DataTypes.ENUM('privado', 'grupal'),
-      defaultValue: 'privado',
-      allowNull: true,
-    },
-    name:{
-      type: DataTypes.INTEGER,
-      allowNull: true,
-    },
-    description:{
-      type: DataTypes.STRING,
-    },
-    create_at:{
+    created_at:{
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },

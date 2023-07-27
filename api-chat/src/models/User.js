@@ -21,6 +21,9 @@ module.exports = (sequelize) => {
       allowNull: true,
       isEmail: true,
       unique: true,
+      validate: {
+        isEmail: true,
+      }
     },
     password:{
       type: DataTypes.STRING,
@@ -28,10 +31,6 @@ module.exports = (sequelize) => {
     },
     image:{
       type: DataTypes.STRING,
-    },
-    session:{
-      type: DataTypes.BOOLEAN,
-      default: false,
     },
     rol:{
       type: DataTypes.STRING,

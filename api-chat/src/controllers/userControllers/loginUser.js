@@ -21,7 +21,7 @@ const loginUser = async (email, password) => {
       userFound.session = true;
       await userFound.save();
       const { password, ...userDataWithoutPassword } = userFound.dataValues;
-      const token = jwt.sign(userDataWithoutPassword, JWT_SECRET_KEY, {expiresIn: "2h"});
+      const token = jwt.sign(userDataWithoutPassword, JWT_SECRET_KEY, {expiresIn: "24h"});
       const user = {
         ...userDataWithoutPassword,
         token,

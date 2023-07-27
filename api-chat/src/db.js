@@ -32,36 +32,26 @@ console.log(sequelize.models)
 const { User, Message, Chat } = sequelize.models;
 
 
-// Relación entre Usuario y Chat (Participantes):
-/**
- * Cada usuario puede participar en varios Chats
- * Cada chat puede tner varios usuarios
- * *(Muchos a Muchos)
- */
-Chat.belongsToMany(User, { through: 'Usuario_chat', as: 'participantes', foreignKey: 'chat_id' });
-User.belongsToMany(Chat, { through: 'Usuario_chat', as: 'chats', foreignKey: 'user_id' });
+//Chat.belongsToMany(User, { through: 'Usuario_chat', as: 'participantes', foreignKey: 'chat_id' });
+//User.belongsToMany(Chat, { through: 'Usuario_chat', as: 'chats', foreignKey: 'user_id' });
 
-// Relación entre Chat y Mensaje (Mensajes enviados):
-/**
- * Cada chat puede contener varios mensajes
- * cada mensaje pertenece a un solo chat
- * *(Uno a Muchos)
- */
-Chat.hasMany(Message, { as: 'mensajes', foreignKey: 'chat_id' });
-Message.belongsTo(Chat, { as: 'chat', foreignKey: 'chat_id' });
+// Creando chat privado
+// --------------------------------------------------------------------------
+// mensajes del emisor
+Chat.hasMany(Message,  {as: "message_sent",foreignKey: 'sender_id' });
+Message.belongsTo(Chat, {as: "sender", foreignKey: 'sender_id' });
+// mensajes del receptor
+Chat.hasMany(Message,  {as: "message-received", foreignKey: 'received_id' });
+Message.belongsTo(Chat, {as: "received-message", foreignKey: 'received_id' });
 
-// Relación entre Usuario y Mensaje (Autor del mensaje):
-/**
- * Cada usuario puede enviar varios mensajes
- * Cada mensaje es enviado por un único usuario
- * (Uno a Muchos)
- */
-User.hasMany(Message, { as: 'mensajesEnviados', foreignKey: 'user_id' });
-Message.belongsTo(User, { as: 'autor', foreignKey: 'user_id' });
+
+
+User.hasMany(Message, {foreignKey: 'user_id' });
+Message.belongsTo(User, {foreignKey: 'user_id' });
 
 // Relación entre Chat y Usuario (Propiedad de chat privado):
-Chat.belongsTo(User, { as: 'emisor', foreignKey: 'emisorId' });
-Chat.belongsTo(User, { as: 'receptor', foreignKey: 'receptorId' });
+// Chat.belongsTo(User, { as: 'emisor', foreignKey: 'emisorId' });
+// Chat.belongsTo(User, { as: 'receptor', foreignKey: 'receptorId' });
 
 module.exports = {
   ...sequelize.models,
