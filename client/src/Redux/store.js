@@ -10,7 +10,7 @@ const store = configureStore({
 
         usersChat: usersChatReducer,
         chat: chatReducer,
-
+        
     },
     // middleware of the redux devtools
     devTools: true,
