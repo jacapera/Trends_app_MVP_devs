@@ -12,6 +12,7 @@ const userType = (type) => {
 
   //if (type === "company") return findOneCompany;
 };
+const { createToken } = require("../helpers/jwt");
 
 const validateUser = async (user) => {
   const { type, email, password } = user;

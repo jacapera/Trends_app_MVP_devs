@@ -12,21 +12,6 @@ module.exports = (sequelize) => {
       type: {
         type: DataTypes.STRING,
         allowNull: false,
-        // validate: {
-        //   isIn: {
-        //     args: [
-        //       "Secundaria",
-        //       "Universitario Junior",
-        //       "Universitario Intermedio",
-        //       "Universitario Avanzado",
-        //       "Sin Experiencia",
-        //       "Junior",
-        //       "Middle",
-        //       "Senior",
-        //     ],
-        //     msg: "Invalid academic type.",
-        //   },
-        // },
       },
       institution: {
         type: DataTypes.STRING,

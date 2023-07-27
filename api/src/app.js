@@ -9,6 +9,9 @@ const passport = require("./auth/passport-config");
 const authenticateUser = require("./middlewares/authenticateUser");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
+const studentRoutes = require("./routes/student.routes");
+const searchRoutes = require("./routes/search.routes");
+const professionalRoutes = require("./routes/professional.routes");
 
 const app = express();
 
@@ -28,7 +31,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/api/v1", authRoutes);
-app.use("/api/v1", authenticateUser, userRoutes);
+app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/user", authenticateUser, userRoutes);
+app.use("/api/v1/search", searchRoutes);
+
+// --- solo para pruebas ---
+app.use("/students", studentRoutes);
+// app.use("/professionals", professionalRoutes);
 
 module.exports = app;

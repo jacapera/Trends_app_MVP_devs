@@ -3,15 +3,15 @@ const {
   Academic,
   Info,
   Student,
-  ProfessionalInfo,
+  InfoProfessional,
   Professional,
   conn,
 } = require("../db");
 
 const createNewStudent = async (userData) => {
   const { profile, academic, info } = userData;
-
   const transaction = await conn.transaction();
+  // console.log(hashedPassword);
   // console.log({ ...profile, ...academic, ...info });
   try {
     const studentProfile = await Profile.create(profile, { transaction });

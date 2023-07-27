@@ -20,22 +20,6 @@ module.exports = (sequelize) => {
       goals: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
-        // validate: {
-        //   isIn: {
-        //     args: [
-        //       "Elegir una carrera",
-        //       "Encontrar una pasantía o trabajo",
-        //       "Conocer más sobre el mercado laboral de mi profesión",
-        //       "Profundizar en mis estudios",
-        //       "Elegir una especialización",
-        //       "Conocer nuevos colegas y oportunidades",
-        //       "Conseguir un trabajo",
-        //       "Hacer una especialización",
-        //       "Emprender",
-        //     ],
-        //     msg: "Invalid goal",
-        //   },
-        // },
       },
       interests: {
         type: DataTypes.ARRAY(DataTypes.STRING),
@@ -44,17 +28,6 @@ module.exports = (sequelize) => {
       problematic: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
-        // validate: {
-        //   isIn: {
-        //     args: [
-        //       "No sé que es lo que me gusta",
-        //       "Falta de información del mercado laboral",
-        //       "Falta de guía profesional",
-        //       "Dificultad para conseguir trabajo",
-        //     ],
-        //     msg: "Invalid problematic.",
-        //   },
-        // },
       },
       languages: {
         type: DataTypes.ARRAY(DataTypes.STRING),
@@ -63,22 +36,10 @@ module.exports = (sequelize) => {
       availability: {
         type: DataTypes.STRING,
         allowNull: false,
-        // validate: {
-        //   isIn: {
-        //     args: ["Full-time", "Part-time"],
-        //     msg: "Invalid availability.",
-        //   },
-        // },
       },
       contract: {
         type: DataTypes.STRING,
         allowNull: false,
-        // validate: {
-        //   isIn: {
-        //     args: ["Remoto", "Híbrido", "Presencial"],
-        //     msg: "Invalid contract type.",
-        //   },
-        // },
       },
     },
     {
