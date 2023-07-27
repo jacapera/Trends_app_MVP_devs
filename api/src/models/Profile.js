@@ -85,6 +85,9 @@ module.exports = (sequelize) => {
         withoutId: {
           attributes: { exclude: ["id"] },
         },
+        withoutPassword: {
+          attributes: { exclude: ["password"] },
+        },
       },
     }
   );

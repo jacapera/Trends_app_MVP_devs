@@ -1,6 +1,7 @@
 const {
   createNewStudent,
   createNewProfessional,
+  createNewCompany,
 } = require("../helpers/createUser");
 const { createToken } = require("../helpers/jwt");
 
@@ -8,6 +9,8 @@ const userType = (type) => {
   if (type === "student") return createNewStudent;
 
   if (type === "professional") return createNewProfessional;
+
+  if (type === "company") return createNewCompany;
 };
 
 const registerUser = async (userData) => {
@@ -15,10 +18,12 @@ const registerUser = async (userData) => {
   try {
     const createUser = userType(type);
     const createdUser = await createUser({ ...userData, type: undefined });
-    if (!createdUser.id || !createdUser) throw new Error(`Error creating a new user. ${error}`);
+    if (!createdUser.id || !createdUser)
+      throw new Error(`Error creating a new user. ${error}`);
     // console.log(createdUser.id);
     const token = await createToken({
-      user: { id: createdUser.id, ...userData },
+      id: createdUser.id,
+      ...userData,
     });
     return token;
   } catch (error) {
