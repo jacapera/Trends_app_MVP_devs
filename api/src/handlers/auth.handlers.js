@@ -18,14 +18,14 @@
 // });
 const validateUser = require("../controllers/login.controller");
 const registerUser = require("../controllers/register.controller");
+const { verifyToken } = require("../helpers/jwt");
 
 const register = async (req, res) => {
   //FALTAN LAS VALIDACIONES
   const { type, profile, academic, info } = req.body;
   try {
-    // const token = await registerUser({ type, profile, academic, info });
-    // console.log(token);
-    await registerUser({ type, profile, academic, info });
+    const token = await registerUser({ type, profile, academic, info });
+    res.cookie("token", token)
     res.status(201).json("User registered successfully.");
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -55,9 +55,12 @@ const logout = (req, res) => {
   }
 };
 
-const profile = (req, res) => {
+const profile = async (req, res) => {
+  const cookie = req.cookies.token
+  // console.log(cookie);
   try {
-    res.status(200).json("Profile");
+    const token = await verifyToken(cookie)
+    res.status(200).json(token);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
