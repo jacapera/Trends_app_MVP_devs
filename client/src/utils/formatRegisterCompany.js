@@ -1,5 +1,6 @@
 export default function formatRegisterCompany(state) {
   const format = {
+      type:"company",
       company_name: state.company_name, //"Coca Cola", //Denominacion legal o marca comercial
       cuit: state.cuit, //"27303255418",
       email: state.email, //"admin@cocacola.com",

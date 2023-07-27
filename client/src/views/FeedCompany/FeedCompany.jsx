@@ -27,9 +27,13 @@ const feedCompany = () =>{
         },
         jobs:[
             {
-            id:"1",
-            jobName:"Programador Senior en Python",
-            dateCreation:"2023-07-20",
+            datajob:{
+                id:"1",
+                jobName:"Programador Senior en Python",
+                creationDate:"2023-07-20",
+                closingDate:"",
+                active:true,
+            },
             academic: {
                 level_required: "Avanzado", //Nivel educacion requerida
                 study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
@@ -47,9 +51,13 @@ const feedCompany = () =>{
                 },    
             },
             {
-            id:"2",
-            jobName:"Arquitecto de Aplicaciones",
-            dateCreation:"2023-07-07",
+            datajob:{
+                id:"2",
+                jobName:"Arquitecto de Aplicaciones",
+                creationDate:"2023-07-07",
+                closingDate:"",
+                active:true,
+            },
             academic: {
                 level_required: "Avanzado", //Nivel educacion requerida
                 study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
@@ -66,6 +74,30 @@ const feedCompany = () =>{
                 contract_offered: "Presencial",
                 },    
             },  
+            {
+            datajob:{
+                id:"3",
+                jobName:"RPA Developer",
+                creationDate:"2023-02-07",
+                closingDate:"2023-07-01",
+                active:false,
+            },
+            academic: {
+                level_required: "Avanzado", //Nivel educacion requerida
+                study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
+                experience_required: "5", //Experiencia requerida
+                industry: ["Servicios TI","Consultoria de TI"], //Industria/Sector
+                },
+            info: {
+                benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
+                skills_required: ["Mainframe knowledge", "AS400 preferred"],
+                job_description: ["Arquitecto de Aplicación", "Experiencia en metodologías Agiles y DevSecOps"],
+                job_goal: ["liderazgo", "atencion al detalle", "calidad del software"],
+                languages_required: ["Español", "Inglés"],
+                availability: "Full-Time",
+                contract_offered: "Presencial",
+                },    
+            },             
         ]        
     };
 

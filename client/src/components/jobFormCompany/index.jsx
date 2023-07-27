@@ -11,7 +11,9 @@ const[isFormComplete, setIsFormComplete] = useState(false);
 
 const[formJob, setFormJob] = useState({
     jobName:"",
-    dateCreation:"",
+    creationDate:"",
+    closingDate:"",
+    active:true, //true / false
     level_required:"",
     study_area:[],
     experience_required:"",
@@ -69,16 +71,53 @@ const handlePageForm = (event) =>{
 
     const handleChangeForm = (event)=>{
         console.log("que trae event: ", event);
-        const {name,value} = event.target;
+        const {name,value,checked} = event.target;
+        if(name==="active"){
+            console.log("->entra a active");
+            if(!checked){
+                // Obtiene la fecha actual
+                let fechaActual = new Date();
+
+                // Extrae los componentes de la fecha
+                let año = fechaActual.getFullYear();
+                let mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Sumar 1 al mes porque en JavaScript los meses comienzan en 0
+                let dia = String(fechaActual.getDate()).padStart(2, '0');
+
+                // Construye la fecha en formato "yyyy/MM/dd"
+                let fechaFormateada = año + '-' + mes + '-' + dia;
+
+                setFormJob({...formJob,closingDate:fechaFormateada, [name]:checked})
+            }else{
+                setFormJob({...formJob,closingDate:"", [name]:checked})
+            }
+            return;
+        }
+
+        
+        if(name==="closingDate"){
+            console.log("->entra a closingDate");
+            console.log("que tiene value: ", value)
+            if(value!==""){
+                setFormJob({...formJob,closingDate:value, active:false})
+            }else{
+                setFormJob({...formJob,closingDate:value, active:true})
+            }
+            return;
+        }
+        
         setFormJob({...formJob,[name]:value});
+        
     };
 
+    //Asi formatea al enviar la carga/modificacion de una oferta laboral
     const formatJob = (data) =>{
         console.log("que tiene data: ", data)
         const format = {
             datajob:{
                 jobName:data.jobName,
-                dateCreation:data.dateCreation,
+                creationDate:data.creationDate,
+                closingDate:data.closingDate,
+                active:data.active,
             },
             academic:{
                 level_required:data.level_required,
@@ -104,6 +143,7 @@ const handlePageForm = (event) =>{
         event.preventDefault();
         const envioData = formatJob(formJob);
         console.log("como envia datos job: ", envioData)
+        //!PIDE DE NUEVO A BACK JOBS Y RENDERIZA DE NUEVO.
 
     };
 
@@ -126,8 +166,10 @@ const handlePageForm = (event) =>{
         if(jobEdit){
             console.log(">> jobEdit tiene datos")
             setFormJob({
-                jobName:jobEdit.jobName,
-                dateCreation:jobEdit.dateCreation,
+                jobName:jobEdit.datajob.jobName,
+                creationDate:jobEdit.datajob.creationDate,
+                closingDate:jobEdit.datajob.closingDate,
+                active:jobEdit.datajob.active,
                 level_required:jobEdit.academic.level_required,
                 study_area:jobEdit.academic.study_area.join(','),
                 experience_required:jobEdit.academic.experience_required,

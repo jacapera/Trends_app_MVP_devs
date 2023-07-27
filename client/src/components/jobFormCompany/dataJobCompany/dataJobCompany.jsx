@@ -32,20 +32,36 @@ const dataJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                         onChange={handleChangeForm}
                         placeholder="ingrese nombre del puesto"
                     ></TextInput><br/>
-                    <label>Fecha de Creacion: </label><br/>
-                    <TextInput
-                        name="dateCreation"
-                        type="date"
-                        value={formJob.dateCreation}
-                        onChange={handleChangeForm}
-                        placeholder="ingrese nombre del puesto"
-                    ></TextInput><br/>
-                    {/* <DatePicker
-                        name="dateCreation"
-                        //value={formJob.dateCreation}
-                        onValueChange={handleChangeForm}
-                        locale={es}
-                    /> */}
+                    <div className={style.dateContainer}>
+                        <div>
+                            <label>Fecha de Creacion: </label><br/>
+                            <TextInput
+                                name="creationDate"
+                                type="date"
+                                value={formJob.creationDate}
+                                onChange={handleChangeForm}
+                            ></TextInput><br/>                            
+                        </div>
+                        <div>
+                            <label>¿Oferta Activa?</label>
+                            <TextInput
+                                name="active"
+                                type="checkbox"
+                                checked={formJob.active}
+                                //value={formJob.active}
+                                onChange={handleChangeForm}
+                            />
+                        </div>
+                        <div>
+                            <label>Fecha de Cierre: </label><br/>
+                            <TextInput
+                                name="closingDate"
+                                type="date"
+                                value={formJob.closingDate}
+                                onChange={handleChangeForm}
+                            ></TextInput><br/>                            
+                        </div>
+                    </div>
 
                 <Subtitle>Requisitos Academicos</Subtitle>
 
