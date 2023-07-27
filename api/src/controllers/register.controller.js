@@ -1,6 +1,4 @@
 const {
-  createNewStudent,
-  createNewProfessional,
   createNewCompany,
   createNewUser
 } = require("../helpers/createUser");
