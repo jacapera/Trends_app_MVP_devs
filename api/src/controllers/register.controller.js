@@ -13,11 +13,11 @@ const registerUser = async (userData) => {
   const { type } = userData;
   try {
     const createNewAccount = userType(type);
-    const createdUser = await createNewAccount(userData);
-    if (!createdUser.id || !createdUser)
+    const createdAccount = await createNewAccount(userData);
+    if (!createdAccount.id || !createdAccount)
       throw new Error(`Error creating a new user. ${error}`);
-    // console.log(createdUser.id);
-    const token = await createToken({ id: createdUser.id });
+    // console.log(createdAccount.id);
+    const token = await createToken({ id: createdAccount.id });
     return token;
   } catch (error) {
     throw new Error(error.message);
