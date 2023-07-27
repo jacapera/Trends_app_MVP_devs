@@ -3,6 +3,6 @@ const { profile } = require("../handlers/user.handlers");
 
 const userRoutes = Router();
 
-userRoutes.get("/user/profile", profile);
+userRoutes.get("/profile", profile);
 
 module.exports = userRoutes

@@ -3,8 +3,8 @@ const { register, login, logout } = require("../handlers/auth.handlers")
 
 const authRoutes = Router()
 
-authRoutes.post("/auth/register", register)
-authRoutes.post("/auth/login", login)
-authRoutes.post("/auth/logout", logout)
+authRoutes.post("/register", register)
+authRoutes.post("/login", login)
+authRoutes.post("/logout", logout)
 
 module.exports = authRoutes
