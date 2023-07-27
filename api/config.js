@@ -1,6 +1,8 @@
 require("dotenv").config();
 
+
 const {
+  NODE_ENV,
   SV_HOST,
   SV_PORT,
   JWT_KEY,
@@ -12,6 +14,7 @@ const {
 } = process.env;
 
 module.exports = {
+  NODE_ENV,
   SV_HOST,
   SV_PORT,
   JWT_KEY,
