@@ -40,6 +40,12 @@ const dataJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                         onChange={handleChangeForm}
                         placeholder="ingrese nombre del puesto"
                     ></TextInput><br/>
+                    {/* <DatePicker
+                        name="dateCreation"
+                        //value={formJob.dateCreation}
+                        onValueChange={handleChangeForm}
+                        locale={es}
+                    /> */}
 
                 <Subtitle>Requisitos Academicos</Subtitle>
 

@@ -68,6 +68,7 @@ const handlePageForm = (event) =>{
     }
 
     const handleChangeForm = (event)=>{
+        console.log("que trae event: ", event);
         const {name,value} = event.target;
         setFormJob({...formJob,[name]:value});
     };

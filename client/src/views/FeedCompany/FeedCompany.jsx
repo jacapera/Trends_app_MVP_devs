@@ -29,7 +29,7 @@ const feedCompany = () =>{
             {
             id:"1",
             jobName:"Programador Senior en Python",
-            dateCreation:"20/07/2023",
+            dateCreation:"2023-07-20",
             academic: {
                 level_required: "Avanzado", //Nivel educacion requerida
                 study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
@@ -49,7 +49,7 @@ const feedCompany = () =>{
             {
             id:"2",
             jobName:"Arquitecto de Aplicaciones",
-            dateCreation:"07/07/2023",
+            dateCreation:"2023-07-07",
             academic: {
                 level_required: "Avanzado", //Nivel educacion requerida
                 study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
