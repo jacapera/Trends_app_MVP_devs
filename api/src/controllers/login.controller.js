@@ -1,34 +1,35 @@
-const { Student, Profile, Academic, Info } = require("../db");
+const {
+  findOneStudentByProfile,
+  findOneProfessionalByProfile,
+  findOneCompany,
+} = require("../helpers/findUser");
 const { createToken } = require("../helpers/jwt");
 
+const userType = (type) => {
+  if (type === "student") return findOneStudentByProfile;
+
+  if (type === "professional") return findOneProfessionalByProfile;
+
+  //if (type === "company") return findOneCompany;
+};
+
 const validateUser = async (user) => {
+  const { type, email, password } = user;
   try {
-    const foundedUser = await Student.findOne({
-      attributes: ["id"],
-      include: [
-        {
-          model: Profile.scope("withoutId"),
-          where: {
-            email: user.email,
-          },
-        },
-        { model: Academic.scope("withoutId") },
-        { model: Info.scope("withoutId") },
-      ],
-    });
+    const findUser = userType(type);
+    const foundedUser = await findUser("email", email);
+    // console.log(foundedUser);
     if (!foundedUser) return;
     const isCorrectPassword = await foundedUser.profile.comparePassword(
-      user.password
+      password
     );
     if (!isCorrectPassword) return;
     const token = await createToken({
-      user: {
-        id: foundedUser.id,
-        type: "student",
-        profile: { ...foundedUser.profile.dataValues, password: undefined },
-        academic: foundedUser.academic,
-        info: foundedUser.info,
-      },
+      id: foundedUser.id,
+      type,
+      profile: { ...foundedUser.profile.dataValues, password: undefined },
+      academic: foundedUser.academic.dataValues,
+      info: foundedUser.info.dataValues,
     });
     return token;
   } catch (error) {
