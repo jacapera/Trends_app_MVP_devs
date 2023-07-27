@@ -81,7 +81,14 @@ module.exports = (sequelize) => {
         // },
       },
     },
-    { timestamps: false }
+    {
+      timestamps: false,
+      scopes: {
+        withoutId: {
+          attributes: { exclude: ["id"] },
+        },
+      },
+    }
   );
 
   return Info;

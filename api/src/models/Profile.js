@@ -1,5 +1,8 @@
 const { DataTypes } = require("sequelize");
-const { encryptPassword, decryptPassword } = require("../libs/encryptPassword");
+const {
+  encryptPassword,
+  decryptPassword,
+} = require("../helpers/encryptPassword");
 
 module.exports = (sequelize) => {
   const Profile = sequelize.define(
@@ -14,7 +17,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          isAlpha: true,
           len: [2, 55],
         },
       },
@@ -73,21 +75,24 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: false,
       },
-      // session: {
-      //   type: DataTypes.BOOLEAN,
-      //   default: false,
-      // },
     },
     {
       timestamps: false,
       // defaultScope: {
       //   attributes: { exclude: ["password"] },
       // },
+      scopes: {
+        withoutId: {
+          attributes: { exclude: ["id"] },
+        },
+      },
     }
   );
 
-  Profile.beforeCreate(async (profile) => {
-    profile.password = await encryptPassword(profile.password);
+  //se utiliza este hook para encriptar la password
+  Profile.beforeSave(async (profile) => {
+    if (profile.changed("password"))
+      profile.password = await encryptPassword(profile.password);
   });
 
   Profile.prototype.comparePassword = async function (password) {
