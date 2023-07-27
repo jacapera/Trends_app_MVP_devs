@@ -1,5 +1,6 @@
 require("dotenv").config();
-
+const DEFAULT_IMG =
+  "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80";
 
 const {
   NODE_ENV,
@@ -14,6 +15,7 @@ const {
 } = process.env;
 
 module.exports = {
+  DEFAULT_IMG,
   NODE_ENV,
   SV_HOST,
   SV_PORT,
