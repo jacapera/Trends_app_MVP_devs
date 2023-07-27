@@ -1,5 +1,9 @@
 const { DataTypes } = require("sequelize");
-const { encryptPassword, decryptPassword } = require("../helpers/encryptPassword");
+const {
+  encryptPassword,
+  decryptPassword,
+} = require("../helpers/encryptPassword");
+const { DEFAULT_IMG } = require("../../config");
 
 module.exports = (sequelize) => {
   const User = sequelize.define(
@@ -60,12 +64,11 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
         //si no se proporciona una url, se establece este valor por defecto
-        defaultValue:
-          "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+        defaultValue: DEFAULT_IMG,
         validate: { isUrl: true },
         set(value) {
           // Si el valor es un string vacío, lo convierte a null
-          this.setDataValue("profile_image", value || null);
+          this.setDataValue("profile_image", value || DEFAULT_IMG);
         },
       },
       profile_city: {
@@ -145,7 +148,7 @@ module.exports = (sequelize) => {
       },
     },
     {
-      timestamps: false,
+      // timestamps: false,
       scopes: {
         withoutId: {
           attributes: { exclude: ["id"] },

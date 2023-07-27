@@ -28,7 +28,9 @@ options.secretOrKey = JWT_KEY;
 passport.use(
   new JWTStrategy(options, async function (payload, done) {
     try {
+      // console.log(payload.id);
       const foundedAccount = await findAccount({ id: payload.id });
+      // console.log(`passport-config: ${foundedAccount}`);
       if (foundedAccount) return done(null, foundedAccount);
       return done(null, false);
     } catch (error) {
