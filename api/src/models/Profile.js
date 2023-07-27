@@ -1,4 +1,5 @@
 const { DataTypes } = require("sequelize");
+const { encryptPassword, decryptPassword } = require("../libs/encryptPassword");
 
 module.exports = (sequelize) => {
   const Profile = sequelize.define(
@@ -27,7 +28,7 @@ module.exports = (sequelize) => {
         unique: true,
         validate: {
           len: [3, 33],
-        }
+        },
       },
       age: {
         type: DataTypes.INTEGER,
@@ -84,6 +85,14 @@ module.exports = (sequelize) => {
       // },
     }
   );
+
+  Profile.beforeCreate(async (profile) => {
+    profile.password = await encryptPassword(profile.password);
+  });
+
+  Profile.prototype.comparePassword = async function (password) {
+    return await decryptPassword(password, this.password);
+  };
 
   return Profile;
 };

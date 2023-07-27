@@ -8,16 +8,13 @@ const {
   conn,
 } = require("../db");
 
-const createNewStudent = async (userData, hashedPassword) => {
+const createNewStudent = async (userData) => {
   const { profile, academic, info } = userData;
   const transaction = await conn.transaction();
   // console.log(hashedPassword);
   // console.log({ ...profile, ...academic, ...info });
   try {
-    const studentProfile = await Profile.create(
-      { ...profile, password: hashedPassword },
-      { transaction }
-    );
+    const studentProfile = await Profile.create(profile, { transaction });
     const studentAcademic = await Academic.create(academic, { transaction });
     const studentInfo = await Info.create(info, { transaction });
     const createdStudent = await Student.create(
