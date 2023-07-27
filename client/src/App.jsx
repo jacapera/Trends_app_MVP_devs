@@ -6,7 +6,7 @@ import {
   RegisterPage,
   NotFoundPage,
   Profile,
-
+  FeedCompany,
   Chat,
 } from "./views/";
 
@@ -24,6 +24,7 @@ function App() {
         <Route path="/Trends_app_MVP/register" element={<RegisterPage />} />
         <Route path="/Trends_app_MVP/login" element={<LoginPage />} />
         <Route path="/Trends_app_MVP/profile" element={<Profile />} />
+        <Route path="/Trends_app_MVP/feedCompany" element={<FeedCompany />} />
 
         {/* RUTAS HIJAS PARA PRUEBAS DEL CHAT DESPUES LAS PODEMOS REMOVER */}
         <Route path="/Trends_app_MVP/chat" element={<Chat />}>

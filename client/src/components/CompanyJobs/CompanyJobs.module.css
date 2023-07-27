@@ -1,0 +1,18 @@
+.head{
+    padding-top: 2vh;
+}
+.body{
+    /* border: 1px solid blue; */
+    border-top: 3px solid black;
+    padding-top: 2vh;
+}
+.postJob{
+    border: 1px solid black;
+    margin: 10px;
+}
+.button{
+    background-color: #FAB180;
+    color: white;
+    border-radius: 25px;
+    margin: 10px;
+}
