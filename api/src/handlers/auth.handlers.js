@@ -1,21 +1,3 @@
-// const { Student, Profile, Academic, Info } = require("../db");
-// const user = await Student.findOne({
-//   attributes: [],
-//   include: [
-//     {
-//       model: Profile,
-//       where: {
-//         name: "Juan",
-//       },
-//     },
-//     {
-//       model: Info,
-//     },
-//     {
-//       model: Academic,
-//     },
-//   ],
-// });
 const { NODE_ENV } = require("../../config");
 const validateUser = require("../controllers/login.controller");
 const registerUser = require("../controllers/register.controller");
