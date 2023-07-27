@@ -1,8 +1,9 @@
-const { Student, Profile, Academic, Info } = require("../db");
+const { User, Company } = require("../db");
 const passport = require("passport");
 const JWTStrategy = require("passport-jwt").Strategy;
 const LocalStrategy = require("passport-local").Strategy;
 const { JWT_KEY } = require("../../config");
+const { findAccount } = require("../helpers/findAccount");
 
 //--------------------Auth SingUp PASSPORT--------------------//
 // passport.use(
@@ -27,21 +28,8 @@ options.secretOrKey = JWT_KEY;
 passport.use(
   new JWTStrategy(options, async function (payload, done) {
     try {
-      const foundedUser = await Student.findOne({
-        where: {
-          id: payload.id,
-        },
-        attributes: ["id"],
-        include: [
-          {
-            model: Profile.scope("withoutId", "withoutPassword"),
-            // attributes: { exclude: ["password"] },
-          },
-          { model: Academic.scope("withoutId") },
-          { model: Info.scope("withoutId") },
-        ],
-      });
-      if (foundedUser) return done(null, foundedUser);
+      const foundedAccount = await findAccount({ id: payload.id });
+      if (foundedAccount) return done(null, foundedAccount);
       return done(null, false);
     } catch (error) {
       return done(error, false);
