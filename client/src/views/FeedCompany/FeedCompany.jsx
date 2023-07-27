@@ -5,6 +5,8 @@ import { CompanyJobs, JobFormCompany } from "../../components/index";
 import {AiFillHome} from 'react-icons/ai';
 import {HiUser,HiChat} from 'react-icons/hi';
 import { Title } from "@tremor/react";
+import CandidatesCompany from "../../components/CandidatesCompany/candidatesCompany";
+import { matcherCandidatesJob } from "../../utils/matcherCandidatesJob";
  
 const feedCompany = () =>{
 
@@ -121,6 +123,14 @@ const feedCompany = () =>{
 
         handlePage(namepage);
     };
+
+    const handlePageCandidates = (namepage,data) =>{
+        //!EJECUTO ALGORITMO MATCHEO Y ENVIO RESULTADOS A COMPONENTE
+        matcherCandidatesJob(data);
+
+
+        handlePage(namepage);
+    }
     
     return(
         <>
@@ -130,25 +140,25 @@ const feedCompany = () =>{
                 <button 
                     onClick={()=>handlePage("companyJobs")} 
                     className={style.button}
-                ><AiFillHome size={45} color="#9AC2EF" /></button>
+                ><AiFillHome  size={35} color="#9AC2EF" /></button>
                 <p>Inicio</p>
 
                 <button 
                     onClick={()=>handlePage("profileCompany")}
                     className={style.button}
-                ><HiUser size={45} color="#9AC2EF"  /></button>
+                ><HiUser size={35} color="#9AC2EF"  /></button>
                 <p>Mi Perfil</p>
 
                 <button 
                     onClick={()=>handlePage("Chats")}
                     className={style.button}
-                ><HiChat size={45} color="#9AC2EF" /></button>
+                ><HiChat size={35} color="#9AC2EF" /></button>
                 <p>Mis Chats</p>
             </div>
             <div className={style.right}>
-                {page === "companyJobs" && <CompanyJobs jobs={jobs} handlePageEditJob={handlePageEditJob}/> }
+                {page === "companyJobs" && <CompanyJobs jobs={jobs} handlePageEditJob={handlePageEditJob} handlePageCandidates={handlePageCandidates}/> }
                 {page === "jobForm" && <JobFormCompany jobEdit={jobEdit}/>}
-                {page === "Candidates"}
+                {page === "Candidates" && <CandidatesCompany/>}
                 {page === "profileCompany" && <ProfileCompany/>}
                 {page === "Chats"}
             </div>

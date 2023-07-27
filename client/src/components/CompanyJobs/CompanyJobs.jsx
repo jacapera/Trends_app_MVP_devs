@@ -2,7 +2,7 @@ import { Title } from "@tremor/react";
 import style from "./CompanyJobs.module.css"
 
 
-const CompanyJobs = ({jobs, handlePageEditJob})=>{
+const CompanyJobs = ({jobs, handlePageEditJob,handlePageCandidates})=>{
     console.log("que trae jobs: ", jobs)
 
     return(
@@ -24,9 +24,12 @@ const CompanyJobs = ({jobs, handlePageEditJob})=>{
                                 <p>#{job.datajob.id} - {job.datajob.jobName}</p>
                                 <p>Fecha de Creacion: {job.datajob.creationDate}</p>
                                 <p>Oferta: {job.datajob.active ?"Activa" :"Cerrada"} / Fecha de cierre: {job.datajob.closingDate}</p>
+                                {/* BOTON PARA VER PERFILES DE CANDIDATOS */}
                                 <button
+                                    onClick={()=>handlePageCandidates("Candidates",job)}
                                     className={style.button}
                                 >Ver Perfiles</button>
+                                {/* BOTON PARA EDITAR OFERTA LABORAL */}
                                 <button
                                     onClick={()=>handlePageEditJob("jobForm",job)}
                                     className={style.button}
