@@ -5,6 +5,8 @@ const {
   Student,
   ProfessionalInfo,
   Professional,
+  User,
+  Company,
 } = require("../db");
 
 const findOneStudentByProfile = async (prop, data) => {
@@ -39,6 +41,31 @@ const findOneProfessionalByProfile = async (prop, data) => {
   });
 };
 
+const findAccount = async (email) => {
+  try {
+    const foundedCompany = await Company.findOne({
+      where: {
+        email: email,
+      },
+    });
+    const foundedUser = await User.findOne({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!foundedCompany && !foundedUser) return;
+    return foundedUser || foundedCompany;
+  } catch (error) {
+    throw error;
+  }
+};
+
 const findOneCompany = async (prop, data) => {};
 
-module.exports = { findOneStudentByProfile, findOneProfessionalByProfile, findOneCompany };
+module.exports = {
+  findOneStudentByProfile,
+  findOneProfessionalByProfile,
+  findOneCompany,
+  findAccount
+};

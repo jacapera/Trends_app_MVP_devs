@@ -2,36 +2,26 @@ const {
   findOneStudentByProfile,
   findOneProfessionalByProfile,
   findOneCompany,
+  findUser,
+  findAccount
 } = require("../helpers/findUser");
 const { createToken } = require("../helpers/jwt");
 
 const userType = (type) => {
-  if (type === "student") return findOneStudentByProfile;
-
-  if (type === "professional") return findOneProfessionalByProfile;
-
-  //if (type === "company") return findOneCompany;
+  if (type === "company") return findOneCompany;
+  return findUser;
 };
-const { createToken } = require("../helpers/jwt");
 
 const validateUser = async (user) => {
-  const { type, email, password } = user;
+  const { email, password } = user;
   try {
-    const findUser = userType(type);
-    const foundedUser = await findUser("email", email);
-    // console.log(foundedUser);
-    if (!foundedUser) return;
-    const isCorrectPassword = await foundedUser.profile.comparePassword(
-      password
-    );
+    // const findAccount = userType(type);
+    const foundedAccount = await findAccount(email);
+    // console.log(foundedAccount);
+    if (!foundedAccount) return;
+    const isCorrectPassword = await foundedAccount.comparePassword(password);
     if (!isCorrectPassword) return;
-    const token = await createToken({
-      id: foundedUser.id,
-      type,
-      profile: { ...foundedUser.profile.dataValues, password: undefined },
-      academic: foundedUser.academic.dataValues,
-      info: foundedUser.info.dataValues,
-    });
+    const token = await createToken({ id: foundedAccount.id });
     return token;
   } catch (error) {
     throw new Error(`Error validating data. ${error}`);

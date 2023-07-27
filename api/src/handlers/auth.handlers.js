@@ -19,7 +19,6 @@
 const { NODE_ENV } = require("../../config");
 const validateUser = require("../controllers/login.controller");
 const registerUser = require("../controllers/register.controller");
-const { verifyToken } = require("../helpers/jwt");
 
 const register = async (req, res) => {
   //FALTAN LAS VALIDACIONES
@@ -39,9 +38,9 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const { type, email, password } = req.body;
+  const user = req.body;
   try {
-    const token = await validateUser({ email, password, type });
+    const token = await validateUser(user);
     if (!token) throw new Error("Incorrect credentials.");
     res.cookie("token", token, {
       httpOnly: true,
