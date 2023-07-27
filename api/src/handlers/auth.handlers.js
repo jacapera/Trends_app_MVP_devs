@@ -23,15 +23,16 @@ const { verifyToken } = require("../helpers/jwt");
 
 const register = async (req, res) => {
   //FALTAN LAS VALIDACIONES
-  const { type, profile, academic, info } = req.body;
+  const newUser = req.body;
   try {
-    const token = await registerUser({ type, profile, academic, info });
+    const token = await registerUser(newUser);
     res.cookie("token", token, {
       httpOnly: true,
       secure: NODE_ENV === "production",
       sameSite: "strict",
     });
-    res.status(201).json("User registered successfully.");
+    // res.status(201).json("User registered successfully.");
+    res.status(201).json(token)
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
