@@ -119,6 +119,11 @@
     padding-top: 6rem ;
 }
 
+.Studies {
+    display: flex;
+    gap: 1rem;
+}
+
 @media screen and (max-width: 845px) {
     .FirstInfo h1 {
         font-size: 2.5rem;
@@ -157,6 +162,10 @@
         left: 50%;
         transform: translateX(-50%);
         margin: 0;
+    }
+
+    .Studies {
+        flex-direction: column;
     }
 }
 

@@ -186,6 +186,14 @@ const Profile = () => {
                             <h3>{userData.profile.bio}</h3>
                         </div>
                     </section>
+                    <hr />
+                    <section>
+                        <h2>Studies</h2>
+                        <div className={style.Studies}>
+                            <h3>{userData.academic.institution}</h3>
+                        </div>
+
+                    </section>
                 </div>
 
                 <div className={style.Relations}>
