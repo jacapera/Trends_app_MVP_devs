@@ -2,6 +2,7 @@ import { useState } from "react";
 import style from "./Profile.module.css"
 import ImageDropzone from "../../components/ImageDropzone/ImageDropzone"
 import {FaGraduationCap, FaLocationDot, FaBriefcase, FaCameraRotate, FaPenToSquare, FaFloppyDisk} from "react-icons/fa6";
+import { AiFillEdit } from "react-icons/ai";
 import Relations from "../../components/Relations/Relations";
 
 
@@ -61,6 +62,7 @@ const Profile = () => {
 
     const [isProfileOwner, setIsProfileOwner] = useState(true);
     const [isEditing, setIsEditing] = useState({
+        image: false,
         basic: false,
         contact: false,
         general: false
@@ -140,10 +142,29 @@ const Profile = () => {
     return(
 
         <div className={style.BGContainer}>
+            {
+                isEditing.image &&
+                <div className={style.EditImage}>
+                        <div><h2>Add or Edit photo</h2></div>
+                        <div>
+
+                        </div>
+
+                        <div>
+                            <button></button>
+                        </div>
+                </div>
+            }
             <header>
-                    <div className={style.ImageContainer}>
+                    <div className={style.ImageContainer} onClick={() => setIsEditing(prevState => ({...prevState, image: !prevState.image}))}>
                         <img src={userData.profile.image} alt="" />
+                        <div className={style.Extra}></div>
+                        <div className={style.IconContainer}>
+                            <AiFillEdit size="6rem" color="white"/>
+                        </div>
                     </div>
+
+                    <h1>Student</h1>
             </header>
 
             <main>

@@ -3,7 +3,7 @@ import dog from "../../assets/TestIcons/landingPage.jpg"
 
 const Relations = () => {
     return (
-        <div>
+        <div className={style.BGContainer}>
             <div className={style.Container}>
                 <div className={style.ImageContainer}>
                     <img src={dog} alt="" />
