@@ -1,4 +1,3 @@
-
 const matchAcademicType = (user, targetUser) => {
   // Diccionario para matchear los tipos académicos
   const academicTypes = {
