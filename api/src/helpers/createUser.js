@@ -10,8 +10,8 @@ const {
 
 const createNewStudent = async (userData) => {
   const { profile, academic, info } = userData;
+
   const transaction = await conn.transaction();
-  // console.log(hashedPassword);
   // console.log({ ...profile, ...academic, ...info });
   try {
     const studentProfile = await Profile.create(profile, { transaction });
