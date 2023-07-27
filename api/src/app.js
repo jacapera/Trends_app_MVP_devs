@@ -11,7 +11,7 @@ const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
 const studentRoutes = require("./routes/student.routes");
 const searchRoutes = require("./routes/search.routes");
-const professionalRoutes = require("./routes/professional.routes");
+// const professionalRoutes = require("./routes/professional.routes");
 
 const app = express();
 
@@ -39,4 +39,10 @@ app.use("/api/v1/search", searchRoutes);
 app.use("/students", studentRoutes);
 // app.use("/professionals", professionalRoutes);
 
-module.exports = app;
+// -------- Servidor Socket.io-------------------
+const { createServer } = require('http');
+appSocket = createServer(app);
+const serverSocket = require('./sockets/serverSokect');
+serverSocket(appSocket);
+
+module.exports = appSocket;
