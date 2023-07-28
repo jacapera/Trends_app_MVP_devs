@@ -25,14 +25,13 @@ const searchUserById = async (req, res) => {
 const searchUsers = async (req, res) => {
   const queryParams = { ...req.query };
   const userType = queryParams.type;
-  delete queryParams.type;
 
-  if (userType !== "student" && userType !== "professional") {
+  if (!["student", "professional", "company"].includes(userType)) {
     return res.status(400).json({ error: "Invalid user type" });
   }
 
   try {
-    const users = await getUsers(queryParams, userType);
+    const users = await getUsers(queryParams);
     if (users && users.error)
       return res.status(500).json({
         error: users.error,
