@@ -1,0 +1,56 @@
+/* Estilos generales para la barra de navegación */
+.navigation {
+  font-family: "Poppins Medium", sans-serif;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 100px;
+  justify-content: space-between;
+  background-color: #9AC2EF; /* Celeste */
+  padding: 0 20px;
+  font-size: 16px;
+}
+
+/* Estilos para el logo */
+.logo img {
+  height: 60px;
+}
+
+/* Estilos para el contenedor del botón de modo oscuro */
+.dark-mode {
+  display: flex;
+  align-items: center;
+}
+
+/* Estilos para el botón de modo oscuro */
+.dark-mode button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #232323; /* Modo oscuro */
+  font-size: 24px;
+  margin-left: 20px;
+}
+
+/* Estilos para los enlaces de navegación */
+.login a {
+  text-decoration: none;
+  color: #232323; /* Modo oscuro */
+  transition: color 0.3s;
+}
+
+/* Estilos al hacer hover en los enlaces */
+.login a:hover {
+  color: #FAB180; /* Naranja */
+}
+
+/* Estilos para el modo oscuro */
+.navigation.dark-mode {
+  background-color: #232323; /* Modo oscuro */
+  color: #fff; /* Color del texto en modo oscuro */
+}
+
+/* Estilos para el botón de modo oscuro en modo oscuro */
+.navigation.dark-mode .dark-mode button {
+  color: #9AC2EF; /* Celeste */
+}
