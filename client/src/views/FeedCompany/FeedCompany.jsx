@@ -5,6 +5,8 @@ import { CompanyJobs, JobFormCompany } from "../../components/index";
 import {AiFillHome} from 'react-icons/ai';
 import {HiUser,HiChat} from 'react-icons/hi';
 import { Title } from "@tremor/react";
+import CandidatesCompany from "../../components/CandidatesCompany/candidatesCompany";
+import { matcherCandidatesJob } from "../../utils/matcherCandidatesJob";
  
 const feedCompany = () =>{
 
@@ -27,9 +29,13 @@ const feedCompany = () =>{
         },
         jobs:[
             {
-            id:"1",
-            jobName:"Programador Senior en Python",
-            dateCreation:"20/07/2023",
+            datajob:{
+                id:"1",
+                jobName:"Programador Senior en Python",
+                creationDate:"2023-07-20",
+                closingDate:"",
+                active:true,
+            },
             academic: {
                 level_required: "Avanzado", //Nivel educacion requerida
                 study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
@@ -47,9 +53,13 @@ const feedCompany = () =>{
                 },    
             },
             {
-            id:"2",
-            jobName:"Arquitecto de Aplicaciones",
-            dateCreation:"07/07/2023",
+            datajob:{
+                id:"2",
+                jobName:"Arquitecto de Aplicaciones",
+                creationDate:"2023-07-07",
+                closingDate:"",
+                active:true,
+            },
             academic: {
                 level_required: "Avanzado", //Nivel educacion requerida
                 study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
@@ -66,6 +76,30 @@ const feedCompany = () =>{
                 contract_offered: "Presencial",
                 },    
             },  
+            {
+            datajob:{
+                id:"3",
+                jobName:"RPA Developer",
+                creationDate:"2023-02-07",
+                closingDate:"2023-07-01",
+                active:false,
+            },
+            academic: {
+                level_required: "Avanzado", //Nivel educacion requerida
+                study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
+                experience_required: "5", //Experiencia requerida
+                industry: ["Servicios TI","Consultoria de TI"], //Industria/Sector
+                },
+            info: {
+                benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
+                skills_required: ["Mainframe knowledge", "AS400 preferred"],
+                job_description: ["Arquitecto de Aplicación", "Experiencia en metodologías Agiles y DevSecOps"],
+                job_goal: ["liderazgo", "atencion al detalle", "calidad del software"],
+                languages_required: ["Español", "Inglés"],
+                availability: "Full-Time",
+                contract_offered: "Presencial",
+                },    
+            },             
         ]        
     };
 
@@ -89,6 +123,14 @@ const feedCompany = () =>{
 
         handlePage(namepage);
     };
+
+    const handlePageCandidates = (namepage,data) =>{
+        //!EJECUTO ALGORITMO MATCHEO Y ENVIO RESULTADOS A COMPONENTE
+        matcherCandidatesJob(data);
+
+
+        handlePage(namepage);
+    }
     
     return(
         <>
@@ -98,25 +140,25 @@ const feedCompany = () =>{
                 <button 
                     onClick={()=>handlePage("companyJobs")} 
                     className={style.button}
-                ><AiFillHome size={45} color="#9AC2EF" /></button>
+                ><AiFillHome  size={35} color="#9AC2EF" /></button>
                 <p>Inicio</p>
 
                 <button 
                     onClick={()=>handlePage("profileCompany")}
                     className={style.button}
-                ><HiUser size={45} color="#9AC2EF"  /></button>
+                ><HiUser size={35} color="#9AC2EF"  /></button>
                 <p>Mi Perfil</p>
 
                 <button 
                     onClick={()=>handlePage("Chats")}
                     className={style.button}
-                ><HiChat size={45} color="#9AC2EF" /></button>
+                ><HiChat size={35} color="#9AC2EF" /></button>
                 <p>Mis Chats</p>
             </div>
             <div className={style.right}>
-                {page === "companyJobs" && <CompanyJobs jobs={jobs} handlePageEditJob={handlePageEditJob}/> }
+                {page === "companyJobs" && <CompanyJobs jobs={jobs} handlePageEditJob={handlePageEditJob} handlePageCandidates={handlePageCandidates}/> }
                 {page === "jobForm" && <JobFormCompany jobEdit={jobEdit}/>}
-                {page === "Candidates"}
+                {page === "Candidates" && <CandidatesCompany/>}
                 {page === "profileCompany" && <ProfileCompany/>}
                 {page === "Chats"}
             </div>
