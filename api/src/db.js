@@ -47,6 +47,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 const { User } = sequelize.models;
 
 module.exports = {
+
   ...sequelize.models,
   conn: sequelize,
+
 };
