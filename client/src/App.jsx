@@ -1,6 +1,7 @@
 import "./App.css";
 import StudentRegister from "./components/registerFormStudent";
 import { Route, Routes ,Link} from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import CompanyRegister from "./components/registerFormCompany";
 import "./App.css";
 import {
@@ -21,9 +22,11 @@ import NavBarInicio from "../src/components/NavBarInicio/NavBarInicio";
 
 
 function App() {
+  const location = useLocation();
+  const isLandingPage = location.pathname === "/Trends_app_MVP/";
   return (
     <>
-    <NavBarInicio/> 
+    {isLandingPage && <NavBarInicio />}
       <Routes>
         <Route exact path="/Trends_app_MVP/" element={<LandingPage />} />
         <Route path="/Trends_app_MVP/register" element={<RegisterPage />} />

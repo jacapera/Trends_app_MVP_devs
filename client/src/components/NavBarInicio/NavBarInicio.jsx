@@ -24,7 +24,7 @@ function NavBarInicio() {
       </div>
       {/* Login */}
       <div className="SIGN UP">
-        <Link to="/Trends_app_MVP/login">Sign up</Link>
+        <Link to="/Trends_app_MVP/register">Sign up</Link>
       </div>
       
       {/* Modo Oscuro */}
