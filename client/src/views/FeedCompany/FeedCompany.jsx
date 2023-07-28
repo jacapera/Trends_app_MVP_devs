@@ -116,17 +116,25 @@ const feedCompany = () =>{
         setPage(namepage)
     };
 
+    
     const handlePageEditJob = (namepage,data) =>{
         console.log("que recibe data: ", data);
         console.log("que recibe namepage: ", namepage);
         setJobEdit(data);
-
+        
         handlePage(namepage);
     };
 
+    const[arraycandidates, setArrayCandidates] = useState();
+    const[jobName,setJobName] = useState();
+
     const handlePageCandidates = (namepage,data) =>{
+        console.log("que recibe data <handlePageCandidates>: ", data)
+        
         //!EJECUTO ALGORITMO MATCHEO Y ENVIO RESULTADOS A COMPONENTE
-        matcherCandidatesJob(data);
+        setArrayCandidates(matcherCandidatesJob(data));
+        const nameJob='#'+data.datajob.id+' - '+data.datajob.jobName;
+        setJobName(nameJob);
 
 
         handlePage(namepage);
@@ -158,7 +166,7 @@ const feedCompany = () =>{
             <div className={style.right}>
                 {page === "companyJobs" && <CompanyJobs jobs={jobs} handlePageEditJob={handlePageEditJob} handlePageCandidates={handlePageCandidates}/> }
                 {page === "jobForm" && <JobFormCompany jobEdit={jobEdit}/>}
-                {page === "Candidates" && <CandidatesCompany/>}
+                {page === "Candidates" && <CandidatesCompany jobName={jobName} arraycandidates={arraycandidates}/>}
                 {page === "profileCompany" && <ProfileCompany/>}
                 {page === "Chats"}
             </div>
