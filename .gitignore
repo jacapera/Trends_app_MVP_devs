@@ -50,9 +50,5 @@ dist-ssr
 *.sln
 *.sw?
 
-<<<<<<< HEAD
 # Config files
 *.config.js
-=======
-*.env
->>>>>>> 5cd0b2fa18b088efbce2dd683589ed0e55fab204
