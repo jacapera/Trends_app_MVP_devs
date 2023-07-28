@@ -1,10 +1,14 @@
 import { useState } from "react";
-import style from "./Profile.module.css"
-import ImageDropzone from "../../components/ImageDropzone/ImageDropzone"
-import {FaGraduationCap, FaLocationDot, FaBriefcase, FaCameraRotate, FaPenToSquare, FaFloppyDisk} from "react-icons/fa6";
-import { AiFillEdit } from "react-icons/ai";
-import Relations from "../../components/Relations/Relations";
-
+import style from "./Profile.module.css";
+import { ImageDropzone, NavBar } from "../../components";
+import {
+  FaGraduationCap,
+  FaLocationDot,
+  FaBriefcase,
+  FaCameraRotate,
+  FaPenToSquare,
+  FaFloppyDisk,
+} from "react-icons/fa6";
 
 
 const Profile = () => {
@@ -137,7 +141,8 @@ const Profile = () => {
         })
     }
 
-    //! -----------------------
+  //! -----------------------
+
 
     return(
 

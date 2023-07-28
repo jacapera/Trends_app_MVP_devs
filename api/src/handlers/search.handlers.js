@@ -31,7 +31,7 @@ const searchUsers = async (req, res) => {
   }
 
   try {
-    const users = await getUsers(queryParams);
+    const users = await getUsers(queryParams, userType);
     if (users && users.error)
       return res.status(500).json({
         error: users.error,
