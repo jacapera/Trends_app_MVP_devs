@@ -1,5 +1,4 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import style from "./Profile.module.css";
 import { ImageDropzone, NavBar } from "../../components";
 import {
