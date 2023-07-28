@@ -23,12 +23,12 @@ import NavBarInicio from "../src/components/NavBarInicio/NavBarInicio";
 
 function App() {
   const location = useLocation();
-  const isLandingPage = location.pathname === "/Trends_app_MVP/";
+  const isLandingPage = location.pathname === "/Trends_app_MVP";
   return (
     <>
     {isLandingPage && <NavBarInicio />}
       <Routes>
-        <Route exact path="/Trends_app_MVP/" element={<LandingPage />} />
+        <Route exact path="/Trends_app_MVP" element={<LandingPage />} />
         <Route path="/Trends_app_MVP/register" element={<RegisterPage />} />
         <Route exact path='/Trends_app_MVP/studentRegister' element={<StudentRegister/>} />
         <Route exact path='/Trends_app_MVP/companyRegister' element={<CompanyRegister/>} />

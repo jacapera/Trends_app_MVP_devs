@@ -1,56 +1,168 @@
-/* Estilos generales para la barra de navegación */
-.navigation {
+/* Estilos base */
+body {
   font-family: "Poppins Medium", sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #232323; /* Modo oscuro */
+}
+
+/* Estilos de la barra de navegación */
+.navigation {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: 100px;
   justify-content: space-between;
-  background-color: #9AC2EF; /* Celeste */
-  padding: 0 20px;
-  font-size: 16px;
+  align-items: center;
+  padding: 1rem;
+  width: 100%; /* Ocupa todo el ancho de la pantalla */
 }
 
-/* Estilos para el logo */
 .logo img {
-  height: 60px;
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
 }
 
-/* Estilos para el contenedor del botón de modo oscuro */
+.logo span {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.login a,
+.SIGN_UP button {
+  font-size: 1rem;
+  text-decoration: none;
+  margin-right: 1rem;
+  padding: 0.5rem 1rem; /* Agregamos padding para que parezca un botón */
+  border: 1px solid #232323; /* Agregamos borde */
+  border-radius: 5px; /* Agregamos esquinas redondeadas */
+  background-color: transparent; /* Hacemos el fondo transparente */
+  color: #5c5c5c; /* Texto en modo oscuro */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.login a:hover,
+.SIGN_UP button:hover {
+  background-color: #fab180; /* Cambiamos el fondo al pasar el ratón */
+  color: white; /* Cambiamos el color del texto al pasar el ratón */
+}
+
+/* Estilos de los botones de registro */
+.SIGN_UP {
+  position: relative;
+}
+
+.SIGN_UP button {
+  background-color: #fab180; /* Naranja */
+  border: none;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.register-options {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  display: none;
+}
+
+.SIGN_UP:hover .register-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-options a {
+  color: #232323; /* Modo oscuro */
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}
+
+.register-options a:hover {
+  background-color: #f2f2f2;
+}
+
+/* Estilos del botón de modo oscuro */
+.dark-mode button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #858585; /* Modo oscuro */
+  cursor: pointer;
+}
+
+/* Estilos del modo oscuro */
 .dark-mode {
   display: flex;
   align-items: center;
 }
 
-/* Estilos para el botón de modo oscuro */
-.dark-mode button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #232323; /* Modo oscuro */
-  font-size: 24px;
-  margin-left: 20px;
+body.dark-mode {
+  color: white; /* Texto en modo oscuro */
+  background-color: #232323; /* Fondo oscuro */
 }
 
-/* Estilos para los enlaces de navegación */
-.login a {
+/* Estilos del menú desplegable */
+.register-options {
+  right: 0;
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.SIGN_UP:hover .register-options {
+  opacity: 1;
+  visibility: visible;
+}
+
+.register-options a {
+  color: #232323; /* Modo oscuro */
+  padding: 0.5rem 1rem;
   text-decoration: none;
-  color: #232323; /* Modo oscuro */
-  transition: color 0.3s;
+  display: block;
 }
 
-/* Estilos al hacer hover en los enlaces */
-.login a:hover {
-  color: #FAB180; /* Naranja */
+.register-options a:hover {
+  background-color: #f2f2f2;
 }
 
-/* Estilos para el modo oscuro */
-.navigation.dark-mode {
-  background-color: #232323; /* Modo oscuro */
-  color: #fff; /* Color del texto en modo oscuro */
-}
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+  .navigation {
+    flex-direction: column;
+  }
 
-/* Estilos para el botón de modo oscuro en modo oscuro */
-.navigation.dark-mode .dark-mode button {
-  color: #9AC2EF; /* Celeste */
+  .login,
+  .SIGN_UP {
+    margin-top: 1rem;
+  }
+
+  .dark-mode {
+    margin-top: 1rem;
+  }
+
+  .register-options {
+    position: static;
+    background-color: transparent;
+    box-shadow: none;
+    flex-direction: row;
+    margin-top: 1rem;
+    display: flex;
+  }
+
+  .register-options a {
+    margin-right: 1rem;
+  }
+
+  .SIGN_UP:hover .register-options {
+    display: flex;
+  }
 }

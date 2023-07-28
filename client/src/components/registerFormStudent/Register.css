@@ -1,68 +1,75 @@
-/* Estilos generales */
-body {
-    font-family: "Poppins", sans-serif;
-    background-color: #9ac2ef; /* Fondo celeste */
-    color: #232323; /* Texto en modo claro */
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Estilos en modo oscuro */
-  body.dark-mode {
-    background-color: #232323; /* Fondo oscuro */
-    color: #ffffff; /* Texto en modo oscuro */
-  }
-  
-  .container {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  /* Estilos para el formulario */
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  input,
-  select,
-  textarea {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .button {
-    padding: 10px 20px;
-    margin: 10px;
-    border: none;
-    border-radius: 5px;
-    background-color: #fab180; /* Botón naranja */
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .button:hover {
-    background-color: #ff7f00; /* Botón naranja en hover */
-  }
-  
-  .progress-icons {
-    display: flex;
-    align-items: center;
-  }
-  
-  .progress-icons svg {
-    margin: 5px;
-  }
-  
-  /* Estilos responsivos */
-  @media (max-width: 768px) {
-    .container {
-      padding: 10px;
-    }
-  }
-  
+/* Estilos específicos para el formulario de registro de estudiante */
+.student-registration-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.student-registration-form h1 {
+  text-align: center;
+}
+
+.student-registration-form .form-group {
+  margin-bottom: 20px;
+}
+
+.student-registration-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.student-registration-form input,
+.student-registration-form select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.student-registration-form button {
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.student-registration-form button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.student-registration-form button:hover {
+  background-color: #0056b3;
+}
+
+.student-registration-form .error-message {
+  color: red;
+}
+
+/* Estilos para los íconos de check y cross */
+.student-registration-form .icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.student-registration-form .icon-container .icon {
+  margin-right: 5px;
+}
+
+.student-registration-form .icon-container .check {
+  color: green;
+}
+
+.student-registration-form .icon-container .cross {
+  color: red;
+}
