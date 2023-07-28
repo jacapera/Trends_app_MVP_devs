@@ -5,14 +5,27 @@ const getUserById = async (id) => {
   try {
     let foundUser = await User.findOne({
       where: { id },
-      attributes: [],
+      attributes: {
+        exclude: ["id", "password"],
+      },
     });
 
     if (!foundUser) {
       return { error: "User not found!" };
     }
 
-    return foundUser;
+    const plainUser = foundUser.toJSON();
+
+    const { type } = plainUser;
+
+    if (type === "student") {
+      delete plainUser.info_company_name;
+      delete plainUser.info_position;
+    } else {
+      delete plainUser.academic_level;
+    }
+
+    return plainUser;
   } catch (error) {
     return { error: "Error searching user!" };
   }
@@ -61,6 +74,15 @@ const getUsers = async (queryParams, userType) => {
 
     const users = await User.findAll({
       where: whereClause,
+      attributes: {
+        exclude: [
+          "id",
+          "password",
+          ...(userType === "student"
+            ? ["info_company_name", "info_position"]
+            : ["academic_level"]),
+        ],
+      },
     });
 
     if (!users.length) return { error: "No users found" };
@@ -68,7 +90,7 @@ const getUsers = async (queryParams, userType) => {
     return users;
   } catch (error) {
     console.error("Error searching users:", error);
-    return { error: error };
+    return { error: error.message };
   }
 };
 

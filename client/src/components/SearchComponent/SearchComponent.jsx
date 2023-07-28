@@ -2,10 +2,14 @@ import style from "./SearchComponent.module.css"
 import { useState } from "react";
 import {FaMagnifyingGlass} from "react-icons/fa6"
 import { useNavigate } from "react-router";
+import { getSearchedUsers, test } from "../../Redux/UsersSlice";
+import {useDispatch} from "react-redux";
+
 
 const SearchComponent = () =>{
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const [searchTerm, setSearchTerm] = useState({
         name: "",
@@ -27,8 +31,13 @@ const SearchComponent = () =>{
     }
 
     const handleSearchButton = () => {
-        {/* AGREGAR ACTION */}
-        navigate("/Trends_app_MVP/home")
+        dispatch(test());
+        dispatch(getSearchedUsers({
+            name: searchTerm.name, 
+            academic_formation: searchTerm.formation,
+            academic_institution: searchTerm.institution
+        }))
+        // navigate("/Trends_app_MVP/home")
     }
 
     return(
@@ -74,8 +83,8 @@ const SearchComponent = () =>{
                         type="text" 
                         placeholder="Institutos, universidades, academias, etc..."
                         className={style.advancedSearchInput} 
-                        value={searchTerm.formation} 
-                        name="formation"
+                        value={searchTerm.institution} 
+                        name="institution"
                         onChange={handleSearchInput}
                     />
                 </div>
