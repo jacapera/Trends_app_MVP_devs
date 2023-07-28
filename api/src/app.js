@@ -8,10 +8,8 @@ const bodyParser = require("body-parser");
 const passport = require("./auth/passport-config");
 const authenticateUser = require("./middlewares/authenticateUser");
 const authRoutes = require("./routes/auth.routes");
-const userRoutes = require("./routes/user.routes");
-const studentRoutes = require("./routes/student.routes");
 const searchRoutes = require("./routes/search.routes");
-// const professionalRoutes = require("./routes/professional.routes");
+const userTestRoutes = require("./routes/userTest.routes");
 
 const app = express();
 
@@ -50,8 +48,7 @@ app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/search", searchRoutes);
 
 // --- solo para pruebas ---
-app.use("/students", studentRoutes);
-// app.use("/professionals", professionalRoutes);
+app.use("/userTest", userTestRoutes);
 
 // -------- Servidor Socket.io-------------------
 const { createServer } = require("http");

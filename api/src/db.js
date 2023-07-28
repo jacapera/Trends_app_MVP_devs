@@ -148,6 +148,7 @@ Professional.belongsTo(InfoProfessional, {
 });
 
 module.exports = {
+
 	...sequelize.models,
 	conn: sequelize,
 };
