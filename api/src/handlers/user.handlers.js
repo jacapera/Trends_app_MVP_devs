@@ -1,11 +1,9 @@
-const { verifyToken } = require("../helpers/jwt");
-const { Student, Profile, Academic, Info } = require("../db");
-
 const profile = async (req, res) => {
-  const { user } = req.user;
+  const { user } = req;
+  // console.log(user);
   try {
     console.log("user profile, route protected.");
-    res.status(200).json({ user: req.user });
+    res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
