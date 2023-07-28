@@ -1,26 +1,20 @@
 const { Op, Sequelize, fn, col } = require("sequelize");
-const { Student, Professional, Profile, Academic, Info, InfoProfessional } = require("../db");
+const { User } = require("../db");
 
 const getUserById = async (id) => {
   try {
-    foundUser = await Student.findByPk(id, {  // faltan professionals
+    let foundUser = await User.findOne({
+      where: { id },
       attributes: [],
-      include: [
-        {
-          model: Profile,
-        },
-        {
-          model: Academic,
-        },
-        {
-          model: Info,
-        },
-      ],
     });
+
+    if (!foundUser) {
+      return { error: "User not found!" };
+    }
 
     return foundUser;
   } catch (error) {
-    return { error: "User not found!" };
+    return { error: "Error searching user!" };
   }
 };
 
@@ -29,89 +23,45 @@ const getUsers = async (queryParams, userType) => {
     const whereClause = {};
     let hasInvalidQuery = false;
 
+    const userAttributes = Object.keys(User.rawAttributes);
+
     Object.keys(queryParams).forEach((param) => {
-      if (
-        [
-          "area",
-          "career",
-          "skills",
-          "goals",
-          "interests",
-          "problematic",
-          "languages",
-        ].includes(param)
-      ) {
-        whereClause[`$info.${param}$`] = {
-          [Op.overlap]: [queryParams[param]],
-        };
-        whereClause[`$info.${param}$`] = Sequelize.where(
-          fn("array_to_string", col(`info.${param}`), ","),
-          {
+      if (userAttributes.includes(param)) {
+        const columnType = User.rawAttributes[param].type.key;
+
+        if (columnType === "ARRAY") {
+          whereClause[param] = {
+            [Op.overlap]: [queryParams[param]],
+          };
+          whereClause[param] = Sequelize.where(
+            fn("array_to_string", col(param), ","),
+            {
+              [Op.iLike]: `%${queryParams[param]}%`,
+            }
+          );
+        } else if (columnType === "STRING") {
+          whereClause[param] = {
             [Op.iLike]: `%${queryParams[param]}%`,
-          }
-        );
-      } else if (Profile.rawAttributes[param]) {
-        whereClause[`$profile.${param}$`] = {
-          [Op.iLike]: `%${queryParams[param]}%`,
-        };
-      } else if (Academic.rawAttributes[param]) {
-        whereClause[`$academic.${param}$`] = {
-          [Op.iLike]: `%${queryParams[param]}%`,
-        };
-      } else if (Info.rawAttributes[param]) {
-        whereClause[`$info.${param}$`] = {
-          [Op.iLike]: `%${queryParams[param]}%`,
-        };
-      } else hasInvalidQuery = true;
+          };
+        }
+      } else {
+        hasInvalidQuery = true;
+      }
     });
 
     if (hasInvalidQuery) {
       return { error: "Invalid query" };
     }
 
-    let users;
-
-    if (userType === "student") {
-      users = await Student.findAll({
-        where: whereClause,
-        include: [
-          {
-            model: Profile,
-            as: "profile",
-          },
-          {
-            model: Academic,
-            as: "academic",
-          },
-          {
-            model: Info,
-            as: "info",
-          },
-        ],
-      });
-    } else if (userType === "professional") {
-      users = await Professional.findAll({
-        where: whereClause,
-        include: [
-          {
-            model: Profile,
-            as: "profile",
-          },
-          {
-            model: Academic,
-            as: "academic",
-          },
-          {
-            model: Info,
-            as: "info",
-          },
-          {
-            model: InfoProfessional,
-            as: "infoProfessional",
-          },
-        ],
-      });
+    if (userType) {
+      whereClause["type"] = {
+        [Op.iLike]: `%${userType}%`,
+      };
     }
+
+    const users = await User.findAll({
+      where: whereClause,
+    });
 
     if (!users.length) return { error: "No users found" };
 

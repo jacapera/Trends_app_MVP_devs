@@ -3,9 +3,8 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/auth.routes");
-const studentRoutes = require("./routes/student.routes");
 const searchRoutes = require("./routes/search.routes");
-const professionalRoutes = require("./routes/professional.routes");
+const userTestRoutes = require("./routes/userTest.routes");
 
 const app = express();
 
@@ -29,7 +28,6 @@ app.use("/api/v1", authRoutes);
 app.use("/api/v1/search", searchRoutes);
 
 // --- solo para pruebas ---
-app.use("/students", studentRoutes);
-// app.use("/professionals", professionalRoutes);
+app.use("/userTest", userTestRoutes);
 
 module.exports = app;
