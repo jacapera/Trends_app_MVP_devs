@@ -10,6 +10,7 @@ const authenticateUser = require("./middlewares/authenticateUser");
 const authRoutes = require("./routes/auth.routes");
 const searchRoutes = require("./routes/search.routes");
 const userTestRoutes = require("./routes/userTest.routes");
+const userRoutes = require("./routes/user.routes");
 
 const app = express();
 
@@ -37,9 +38,9 @@ app.use("/api/v1/search", searchRoutes);
 app.use("/userTest", userTestRoutes);
 
 // -------- Servidor Socket.io-------------------
-const { createServer } = require('http');
+const { createServer } = require("http");
 appSocket = createServer(app);
-const serverSocket = require('./sockets/serverSokect');
+const serverSocket = require("./sockets/serverSokect");
 serverSocket(appSocket);
 
 module.exports = appSocket;
