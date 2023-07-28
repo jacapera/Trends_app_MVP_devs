@@ -12,7 +12,11 @@ module.exports = (sequelize) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
-    company_name: {
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    companyName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

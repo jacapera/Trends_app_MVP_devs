@@ -9,7 +9,12 @@ module.exports = (sequelize) => {
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      jobName: {
+      companyId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      job_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -71,7 +76,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      contratOffered: {
+      contractOffered: {
         type: DataTypes.STRING,
         allowNull: false,
       },
