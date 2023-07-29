@@ -2,39 +2,65 @@
     height: 100vh;
     width: 100vw;
     position: absolute;
-    top: 0;
     left: 0;
     display: flex;
-    align-items: center;
     justify-content: center;
+    z-index: 9999;
 }
 
 .blackContainer{
     position: absolute;
-    height: 100%;
-    width: 100%;
+    height: 100vh;
+    width: 100vw;
     opacity: 50%;
     background-color: black;
     z-index: 19;
 }
 
 .whiteContainer{
+    margin-top: 2rem;
     background-color: white;
-    height: 70vh;
-    width: 70vh;
-    border: 5px solid #232323;
-    border-radius: 40px;
+    height: 42em;
+    width: 50rem;
+    border-radius: .4rem;
+    position: relative;
     z-index: 20;
+}
+.TopContainer {
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: solid 1px #C4C4C4;
+}
+
+.TopContainer button {
+    background-color: transparent;
+    border: 0;
+    font-family: "Rubik-Regular";
+    font-size: 1.5rem;
+}
+
+.Title {
+    margin: 0;
+    height: 4rem;
+    line-height: 4rem;
+}
+
+.ImageContainer {
+    display: block;
+    height: 30rem;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .dropzoneBox{
     display: flex;
-    border: 3px lightgray dashed;
-    border-radius: 20px;
-    margin: 25px;
-    height: 80%;
+    height: 100%;
+    width: 100%;
     align-items: center;
     justify-content: center;
+    margin: 0 auto;
+    border-bottom: solid 1px #C4C4C4;
 }
 
 .dropzoneBox:hover{
@@ -42,23 +68,39 @@
 }
 
 .previewImageContainer{
-    height: 70%;
-    width: 80%;
-    margin: 10%;
+    height: 100%;
+    width: 100%;
+}
+
+.Background {
+    background-color: black;
+}
+
+.Background img {
+    background-color: white;
+    border-radius: 0;
 }
 
 .previewImage{
+    display: block;
+    margin: 0 auto;
     border-radius: 20px;
-    height: 100%;
-    width: 100%;
-    transform: scaleX(1);
+    height: 30rem;
+    width: 30rem;
+}
+
+.Preview {
+    position: absolute;
 }
 
 .previewImageDeleteButton{
     position: absolute;
-    background-color: red;
-    top: 22vh;
-    left: 125vh;
+    background-color: transparent;
+    font-family: "Rubik-Regular";
+    font-size: 1.2rem;
+    color: white;
+    right: 0;
+    top: 4.5rem;
 }
 
 .dropzoneText{
@@ -70,16 +112,93 @@
     width: 100%;
     display: flex;
     justify-content: space-evenly;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .saveButton{
-    background-color: darkgreen;
-    width: 18%;
+    background-color: transparent;
+    width: 10rem;
     border: 2px lightgray solid;
 }
 
 .cancelButton{
-    background-color: darkred;
-    width: 18%;
+    background-color: transparent;
+    width: 10rem;
     border: 2px lightgray solid;
 }
+
+.GeneralContainer {
+    height: fit-content;
+}
+
+.InfoContainer {
+    overflow-y: scroll;
+    padding: 2rem;
+}
+
+.SubTitle {
+    padding: 0;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.Option {
+    margin-bottom: 1rem;
+}
+
+.Option input {
+    display: block;
+    border: black solid 1px;
+    width: 100%;
+    border-radius: .3rem;
+    padding-left: 1rem;
+    font-family: "Rubik-Regular";
+}
+
+.Option input:hover {
+    outline: black solid 1px;
+}
+
+.Option label {
+    font-family: "Rubik-Light";
+}
+
+.BioInput {
+    word-wrap: break-word;
+    display: block;
+    border: black solid 1px;
+    width: 100%;
+    height: 5rem;
+    border-radius: .3rem;
+    padding-left: 1rem;
+    font-family: "Rubik-Regular";
+}
+
+.BioInput:hover {
+    outline: black solid 1px;
+}
+
+:global(.dark-mode) .whiteContainer {
+    background-color: #05050D;
+    color: #CCB5A5;
+}
+
+:global(.dark-mode) .Option input {
+    background-color: #05050D;
+    border: #CCB5A5 solid 1px;
+}
+:global(.dark-mode) .Option input:hover {
+    outline: #CCB5A5 solid 1px;
+}
+
+:global(.dark-mode) .BioInput {
+    background-color: #05050D;
+    border: #CCB5A5 solid 1px;
+}
+
+:global(.dark-mode) .BioInput:hover {
+    outline: #CCB5A5 solid 1px;
+}
+
