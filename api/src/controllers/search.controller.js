@@ -19,8 +19,9 @@ const getUserById = async (id) => {
       },
       include: {
         model: Job,
-        as: "jobs",
-        through: { attributes: [] },
+        attributes: {
+          exclude: ["companyId"],
+        },
       },
     });
 
@@ -97,6 +98,12 @@ const getUsers = async (queryParams, userType) => {
         where: whereClause,
         attributes: {
           exclude: ["password"],
+        },
+        include: {
+          model: Job,
+          attributes: {
+            exclude: ["companyId"],
+          },
         },
       });
 

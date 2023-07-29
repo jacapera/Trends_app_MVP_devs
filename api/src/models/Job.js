@@ -12,7 +12,6 @@ module.exports = (sequelize) => {
       companyId: {
         type: DataTypes.UUID,
         allowNull: false,
-        defaultValue: DataTypes.UUIDV4,
       },
       job_name: {
         type: DataTypes.STRING,

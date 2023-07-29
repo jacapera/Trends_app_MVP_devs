@@ -46,8 +46,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Company, Job } = sequelize.models;
 
-Company.hasMany(Job, { as: "jobs", foreignKey: "companyId" });
-Job.belongsTo(Company, { as: "company", foreignKey: "companyId" })
+Company.hasMany(Job, { foreignKey: "companyId" });
+Job.belongsTo(Company, { foreignKey: "companyId" })
 
 module.exports = {
   ...sequelize.models,
