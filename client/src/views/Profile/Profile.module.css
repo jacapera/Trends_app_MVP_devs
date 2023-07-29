@@ -44,7 +44,9 @@
     border: 0;
     height: fit-content;
     margin-top: auto;
-    margin-right: 1rem;
+    margin-right: 2rem;
+    margin-left: 1rem;
+    margin-bottom: .5rem;
 
 }
 .EditButton:hover {

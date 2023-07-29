@@ -36,6 +36,7 @@
 .TopContainer button {
     background-color: transparent;
     border: 0;
+    width: 2rem;
     font-family: "Rubik-Regular";
     font-size: 1.5rem;
 }
@@ -99,7 +100,7 @@
     font-family: "Rubik-Regular";
     font-size: 1.2rem;
     color: white;
-    right: 0;
+    right: 1.5rem;
     top: 4.5rem;
 }
 
@@ -119,13 +120,16 @@
 .saveButton{
     background-color: transparent;
     width: 10rem;
-    border: 2px lightgray solid;
+    border: 1px lightgray solid;
+    border-radius: .3rem;
 }
 
 .cancelButton{
     background-color: transparent;
     width: 10rem;
-    border: 2px lightgray solid;
+    height: 2.5rem;
+    border: 1px lightgray solid;
+    border-radius: .3rem;
 }
 
 .GeneralContainer {
