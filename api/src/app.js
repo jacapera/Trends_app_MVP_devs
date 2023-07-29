@@ -11,6 +11,7 @@ const authRoutes = require("./routes/auth.routes");
 const searchRoutes = require("./routes/search.routes");
 const userRoutes = require("./routes/user.routes");
 const userTestRoutes = require("./routes/userTest.routes");
+const userRoutes = require("./routes/user.routes")
 
 const app = express();
 
