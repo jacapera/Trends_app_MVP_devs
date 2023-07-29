@@ -135,6 +135,7 @@ const student =[
 
 export const matcherCandidatesJob = (dataJob) => {
     console.log("que trae dataJobs: ", dataJob)
+    //?SOLO PARA USO DE PRUEBAS, CUANDO LAS RUTAS ESTEN SE GUARDAN
     let candidates = [...student];
 
     //!Armo las condiciones para consultar los estudiantes con campos clave
