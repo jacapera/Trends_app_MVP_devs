@@ -71,7 +71,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      contratOffered: {
+      contractOffered: {
         type: DataTypes.STRING,
         allowNull: false,
       },
