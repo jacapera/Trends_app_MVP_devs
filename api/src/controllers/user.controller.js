@@ -1,6 +1,6 @@
 const { getUserById } = require("./search.controller");
 const { matcher } = require("../helpers/matchingAlgorithm/matcher.js");
-const { User } = require("../db");
+const { User, Company, Job } = require("../db");
 
 const getUserFeed = async (id, usersType) => {
   try {
@@ -13,7 +13,9 @@ const getUserFeed = async (id, usersType) => {
     }
 
     // Se obtiene la lista de usuarios con el type especificado
-    const users = await User.findAll({
+    let users;
+
+    users = await User.findAll({
       where: { type: usersType },
       attributes: {
         exclude: [
@@ -26,6 +28,20 @@ const getUserFeed = async (id, usersType) => {
         ],
       },
     });
+
+    if (!users.length) {
+      users = await Company.findAll({
+        attributes: {
+          exclude: ["password"],
+        },
+        include: {
+          model: Job,
+          attributes: {
+            exclude: ["companyId"],
+          },
+        },
+      });
+    }
 
     // Se calcula el feed utilizando el algoritmo de matcheo
     const matches = matcher(users, targetUser);

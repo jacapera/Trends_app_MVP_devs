@@ -16,11 +16,11 @@ const matcher = (users, targetUser) => {
   if (!matches.length) return { error: "No matches" };
 
   // Se retorna un arreglo con los perfiles que hicieron match
-  return matches;
+  const filteredMatches = matches.filter((user) => user.matchScore !== 0);
+  return filteredMatches;
 };
 
 module.exports = { matcher };
-
 
 //--- TEST ---//
 // const { professionals, students } = require("./users.js");

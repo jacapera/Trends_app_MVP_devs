@@ -12,18 +12,20 @@ const getUserById = async (id) => {
       },
     });
 
-    foundUser = await Company.findOne({
-      where: { id },
-      attributes: {
-        exclude: ["password"],
-      },
-      include: {
-        model: Job,
+    if (!foundUser) {
+      foundUser = await Company.findOne({
+        where: { id },
         attributes: {
-          exclude: ["companyId"],
+          exclude: ["password"],
         },
-      },
-    });
+        include: {
+          model: Job,
+          attributes: {
+            exclude: ["companyId"],
+          },
+        },
+      });
+    }
 
     if (!foundUser) return { error: "User not found!" };
 
