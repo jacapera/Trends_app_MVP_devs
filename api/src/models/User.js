@@ -90,7 +90,6 @@ module.exports = (sequelize) => {
       },
       academic_level: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       academic_area: {
         type: DataTypes.ARRAY(DataTypes.STRING),
