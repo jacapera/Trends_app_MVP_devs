@@ -13,7 +13,7 @@ const matcher = (users, targetUser) => {
   // Se ordena las coincidencias según el match score
   matches.sort((a, b) => b.matchScore - a.matchScore);
 
-  if (!matches.length) return { error: "No matches" };
+  if (!matches.length) return matches;
 
   // Se retorna un arreglo con los perfiles que hicieron match
   const filteredMatches = matches.filter((user) => user.matchScore !== 0);
@@ -23,7 +23,7 @@ const matcher = (users, targetUser) => {
 module.exports = { matcher };
 
 //--- TEST ---//
-// const { professionals, students } = require("./users.js");
+// const { professionals, students } = require("./mockUsers.js");
 
 // const matchedProfilesForStudent = matcher(professionals, students[0]);
 // const matchedProfilesForProfessional = matcher(students, professionals[0]);
