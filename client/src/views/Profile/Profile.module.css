@@ -2,18 +2,16 @@
     margin: auto auto;
     width: 80vw;
     height: 100%;
-    background-color: #344C5A;
+    background-color: white;
     text-align: left;
     font-family: "Poppins-Medium";
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     border-radius: .6rem;
-
 }
 
 .BGContainer h2 {
     font-family: "Rubik-Medium";
     font-weight: 100;
-    background-color: #C4C4C4 ;
     border-radius: .2rem;
     width: fit-content;
     font-size: 1.3rem;
@@ -24,12 +22,14 @@
 .BGContainer h3 {
     font-family: "Rubik-Regular";
     border-radius: .2rem;
-    background-color: #C4C4C4;
+    
     width: fit-content;
     padding: 0 1rem;
 }
 
 .BGContainer header {
+    display: flex;
+    justify-content: space-between;
     width: 100%;
     height: 12rem;
     background-color: #9AC2EF ;
@@ -37,6 +37,20 @@
     margin-bottom: 5rem;
     border-radius: .4rem .4rem 0 0;
 
+}
+
+.EditButton {
+    background-color: transparent;
+    border: 0;
+    height: fit-content;
+    margin-top: auto;
+    margin-right: 2rem;
+    margin-left: 1rem;
+    margin-bottom: .5rem;
+
+}
+.EditButton:hover {
+    border: 0;
 }
 
 .BGContainer main {
@@ -96,7 +110,7 @@
 }
 
 .FirstInfo h1, .FirstInfo h3 {
-    background-color: #C4C4C4;
+    
     width: fit-content;
     padding: 0 1rem;
     border-radius: .4rem;
@@ -105,7 +119,6 @@
 }
 
 .Profile > hr {
-    border: #C4C4C4 solid 1px;
     width: 90%;
     margin: 0 auto;
 }
@@ -124,6 +137,20 @@
     gap: 1rem;
 }
 
+.Background {
+    position: absolute;
+    background-color: #C4C4C4;
+    opacity: 0.5;
+    z-index: 9999;
+    height: 100vh;
+    width: 100vw;
+}
+
+.EditPhoto h2 {
+    background-color: initial;
+    margin: 0;
+}
+
 @media screen and (max-width: 845px) {
     .FirstInfo h1 {
         font-size: 2.5rem;
@@ -133,6 +160,23 @@
         font-size: 2rem;
     }
 }
+
+:global(.dark-mode) .BGContainer {
+    background-color: #05050D
+}
+
+:global(.dark-mode) .BGContainer h2, :global(.dark-mode) .BGContainer h3, :global(.dark-mode) .BGContainer h1 {
+    color: #CCB5A5
+}
+
+:global(.dark-mode) .BGContainer header {
+    background-color: #FAB180;
+}
+
+:global(.dark-mode) .BGContainer header h1 {
+    color: #344C5A;
+}
+
 
 @media screen and (max-width: 758px) {
     .Relations {

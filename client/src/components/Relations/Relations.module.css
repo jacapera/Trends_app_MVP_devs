@@ -25,9 +25,5 @@
 }
 
 .BGContainer hr {
-    border: #C4C4C4 solid 1px;
-    width: 70%;
-    margin: 0 auto;
     margin-bottom: 1rem;
-    margin-top: 1.5rem;
 }

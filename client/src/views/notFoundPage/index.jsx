@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
+import './notFoundPage.css'
 
 export default function NotFoundPage() {
   return(
     <main>
       <p>This page does not exist</p>
-      <Link to="/">
+      <Link to="/Trends_app_MVP/">
         Back to home
       </Link>
     </main>

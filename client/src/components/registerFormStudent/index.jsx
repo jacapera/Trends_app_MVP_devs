@@ -18,6 +18,7 @@ import {
   validateExtra,
   errorExtra,
 } from "../../utils/validateStudent";
+import "./Register.css"
 
 export default function StudentRegisterForm() {
   const [isContactComplete, setIsContactComplete] = useState(false);

@@ -49,15 +49,11 @@ module.exports = (sequelize) => {
         type: DataTypes.TEXT,
         allowNull: true,
       },
-      profile_age: {
-        type: DataTypes.INTEGER,
+      profile_birth: {
+        type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 18,
         validate: {
-          isNumeric: true,
-          isInt: true,
-          min: 12,
-          max: 102,
+          len: [10, 10],
         },
       },
       profile_image: {
@@ -94,7 +90,6 @@ module.exports = (sequelize) => {
       },
       academic_level: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       academic_area: {
         type: DataTypes.ARRAY(DataTypes.STRING),

@@ -1,6 +1,6 @@
-const matchAcademicType = (user, targetUser) => {
+const matchAcademicFormation = (user, targetUser) => {
   // Diccionario para matchear los tipos académicos
-  const academicTypes = {
+  const academicFormations = {
     "Secundaria": "Sin Experiencia",
     "Universitario Junior": "Junior",
     "Universitario Intermedio": "Middle",
@@ -8,19 +8,18 @@ const matchAcademicType = (user, targetUser) => {
   };
 
   // Desestructuración de los tipos académicos de los perfiles
-  const {
-    academic: { type: type1 },
-  } = user;
-  const {
-    academic: { type: type2 },
-  } = targetUser;
+  const { academic_formation: formation1 } = user;
+  const { academic_formation: formation2 } = targetUser;
 
   // Se usa el diccionario para matchear el tipo académico
-  if (academicTypes[type2] === type1 || academicTypes[type1] === type2) {
+  if (
+    academicFormations[formation2] === formation1 ||
+    academicFormations[formation1] === formation2
+  ) {
     return 5;
   }
   // Retorna 0 si no hay match
   return 0;
 };
 
-export default matchAcademicType;
+module.exports = { matchAcademicFormation };

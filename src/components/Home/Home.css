@@ -1,0 +1,59 @@
+/* Estilo para el cuerpo de la página */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+  }
+  
+  /* Estilo para el contenedor del logotipo y los botones */
+  .logo-app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Estilo para el logotipo */
+  .logo-app h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  /* Estilo para el saludo */
+  .logo-app h4 {
+    font-size: 24px;
+    color: #555;
+  }
+  
+  /* Estilo para el párrafo */
+  .logo-app p {
+    font-size: 18px;
+    margin-top: 20px;
+    color: #777;
+  }
+  
+  /* Estilo para los botones */
+  .logo-app button {
+    cursor: pointer;
+    font-size: 18px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Estilo para los botones cuando se les pasa el ratón por encima */
+  .logo-app button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Estilo para el margen entre los botones */
+  .logo-app button + button {
+    margin-top: 10px;
+  }
+  
