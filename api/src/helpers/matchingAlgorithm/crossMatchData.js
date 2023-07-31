@@ -13,9 +13,9 @@ const crossMatchData = (user, targetUser) => {
       : null;
   
   // Se verifica que el otro sea un usuario regular
-  let regularUser = ["student", "professinal"].includes(user.type)
+  let regularUser = ["student", "professional"].includes(user.type)
     ? user
-    : ["student", "professinal"].includes(targetUser.type)
+    : ["student", "professional"].includes(targetUser.type)
     ? targetUser
     : null;
 
