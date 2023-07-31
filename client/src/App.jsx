@@ -3,6 +3,7 @@ import StudentRegister from "./components/registerFormStudent";
 import { Route, Routes ,Link} from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import CompanyRegister from "./components/registerFormCompany";
+import ProfessionalRegisterForm from "./components/registerFormProfesional";
 import "./App.css";
 import {
   LandingPage,
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/Trends_app_MVP" element={<LandingPage />} />
         <Route path="/Trends_app_MVP/register" element={<RegisterPage />} />
         <Route exact path='/Trends_app_MVP/studentRegister' element={<StudentRegister/>} />
+        <Route exact path='/Trends_app_MVP/professionalRegister' element={<ProfessionalRegisterForm/>} />
         <Route exact path='/Trends_app_MVP/companyRegister' element={<CompanyRegister/>} />
         <Route path="/Trends_app_MVP/login" element={<LoginPage />} />
         <Route path="/Trends_app_MVP/profile" element={<Profile />} />
