@@ -1,0 +1,13 @@
+const { Job } = require("../db");
+
+const postJob = async (jobData) => {
+  try {
+    const newJob = await Job.create(jobData);
+
+    return newJob;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+module.exports = postJob;
