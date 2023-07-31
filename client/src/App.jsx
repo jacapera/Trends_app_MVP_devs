@@ -14,7 +14,7 @@ import {
   FeedCompany,
   Chat,
 } from "./views/";
-
+import {NavBar} from "./components"
 // Para pruebas del chat despues las podemos remover
 // --------------------------------------------------
 import Register from "./views/Chat/Register/Register";
@@ -44,6 +44,8 @@ function App() {
           <Route path='login-chat' element={ <Login />} />
         </Route>
 
+        {/*RUTA PRUEBA DE NAVBAR Y SEARCHBAR*/}
+        <Route path="/Trends_app_MVP/navbar" element={<NavBar/>}/>
 
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>

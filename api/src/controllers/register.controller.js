@@ -1,27 +1,23 @@
 const {
-  createNewStudent,
-  createNewProfessional,
+  createNewCompany,
+  createNewUser
 } = require("../helpers/createUser");
-const { encryptPassword } = require("../helpers/encryptPassword");
 const { createToken } = require("../helpers/jwt");
 
 const userType = (type) => {
-  if (type === "student") return createNewStudent;
-
-  if (type === "professional") return createNewProfessional;
+  if (type.toLowerCase() === "company") return createNewCompany;
+  return createNewUser;
 };
 
 const registerUser = async (userData) => {
-  const { type, profile } = userData;
+  const { type } = userData;
   try {
-    const hashedPassword = await encryptPassword(profile.password);
-    const createUser = userType(type);
-    const createdUser = await createUser(
-      { ...userData, type: undefined },
-      hashedPassword
-    );
-    if (!createdUser) throw new Error(`Error creating a new user. ${error}`);
-    const token = await createToken({ id: createdUser.id });
+    const createNewAccount = userType(type);
+    const createdAccount = await createNewAccount(userData);
+    if (!createdAccount.id || !createdAccount)
+      throw new Error(`Error creating a new user. ${error}`);
+    // console.log(createdAccount.id);
+    const token = await createToken({ id: createdAccount.id });
     return token;
   } catch (error) {
     throw new Error(error.message);
@@ -29,3 +25,5 @@ const registerUser = async (userData) => {
 };
 
 module.exports = registerUser;
+
+//{ body : {profile: createdUser.profile, academic: createdUser.academic, info: createdUser.info}

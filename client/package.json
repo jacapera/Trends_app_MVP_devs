@@ -1,7 +1,7 @@
 {
 	"name": "trends-mvp",
 	"private": true,
-	"version": "0.0.0",
+	"version": "0.2.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",
@@ -20,6 +20,7 @@
 		"gh": "^2.8.9",
 		"localforage": "^1.10.0",
 		"match-sorter": "^6.3.1",
+		"object-path": "^0.11.8",
 		"react": "^18.2.0",
 		"react-bootstrap": "^2.7.4",
 		"react-dom": "^18.2.0",
@@ -32,10 +33,14 @@
 		"redux": "^4.2.1",
 		"redux-thunk": "^2.4.2",
 		"socket.io-client": "^4.7.1",
+
+    
 		"sort-by": "^1.2.0",
 		"tailwind": "^4.0.0",
 		"tailwind-scrollbar": "^3.0.4",
 		"universal-cookie": "^4.0.4"
+
+    
 	},
 	"devDependencies": {
 		"@types/react": "^18.0.28",
