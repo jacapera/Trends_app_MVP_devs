@@ -915,7 +915,7 @@ const professional6 = {
     "Hacer una especialización",
   ], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English"],
+  info_languages: ["Inglés"],
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -984,7 +984,7 @@ const professional8 = {
   info_interests: ["Data Visualization", "Business Intelligence"],
   info_goals: ["Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English", "Mandarin"],
+  info_languages: ["Inglés", "Mandarín"],
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1160,7 +1160,7 @@ const professional13 = {
   info_interests: ["Renewable Energy", "Biodiversity Conservation"],
   info_goals: ["Conseguir un trabajo", "Hacer una especialización"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de información del mercado laboral"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English"],
+  info_languages: ["Inglés"],
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1193,7 +1193,7 @@ const professional14 = {
   info_interests: ["AR/VR Development", "Mobile UX Design"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English", "Korean"],
+  info_languages: ["Inglés", "Koreano"],
   info_availability: "Full-time",
   info_contract: "Remoto",
 };
@@ -1226,7 +1226,7 @@ const professional15 = {
   info_interests: ["UI/UX Design", "Web Accessibility"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Dificultad para conseguir trabajo"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English", "German"],
+  info_languages: ["Inglés", "Alemán"],
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1259,7 +1259,7 @@ const professional16 = {
   info_interests: ["Natural Language Processing", "Data Visualization"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de información del mercado laboral"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English", "Mandarin"],
+  info_languages: ["Inglés", "Mandarín"],
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1292,7 +1292,7 @@ const professional17 = {
   info_interests: ["Reinforcement Learning", "Ethical AI"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English"],
+  info_languages: ["Inglés"],
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1325,7 +1325,7 @@ const professional18 = {
   info_interests: ["Web Accessibility", "Progressive Web Apps"],
   info_goals: ["Conocer nuevos colegas y oportunidades"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English", "Korean"],
+  info_languages: ["Inglés", "Koreano"],
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -2327,7 +2327,7 @@ const companyJobs8 = [
     creationDate: "2023-10-15",
     closingDate: "2023-11-15",
     active: true,
-    levelRequired: "Advanced", // Beginner - In progress - Advanced
+    levelRequired: "Avanzado",
     studyArea: ["Computer Science", "Game Development"], // Ingeniería Informática - Desarrollo de Videojuegos
     experienceRequired: "6", // years
     industry: ["Electrónica", "Entretenimiento"], // Electrónica - Entretenimiento
@@ -2354,10 +2354,10 @@ const companyJobs8 = [
     creationDate: "2023-11-01",
     closingDate: "2023-11-30",
     active: true,
-    levelRequired: "Advanced", // Beginner - In progress - Advanced
-    studyArea: ["Business Administration"], // Administración de Empresas
+    levelRequired: "Avanzado",
+    studyArea: ["Business Administration"],
     experienceRequired: "7", // years
-    industry: ["Electrónica", "Product Management"], // Electrónica - Gestión de Productos
+    industry: ["Electrónica", "Product Management"],
     benefits: [
       "Health insurance plans",
       "Flexible working hours",

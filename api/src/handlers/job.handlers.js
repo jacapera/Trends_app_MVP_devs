@@ -1,4 +1,4 @@
-const { postJob, deleteJob } = require("../controllers/job.controller");
+const { postJob, putJob, deleteJob } = require("../controllers/job.controller");
 
 const createNewJob = async (req, res) => {
   const jobData = req.body;
@@ -19,6 +19,23 @@ const createNewJob = async (req, res) => {
   }
 };
 
+const editJob = async (req, res) => {
+  const { ...jobData } = req.body;
+  const { id } = req.params;
+
+  try {
+    const editedJob = await putJob(id, jobData);
+
+    if (editJob && editedJob.error) {
+      return res.status(500).json({ error: editJob.error });
+    }
+
+    return res.status(201).json(editedJob);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+};
+
 const removeJob = async (req, res) => {
   const { id } = req.params;
 
@@ -34,4 +51,4 @@ const removeJob = async (req, res) => {
   }
 };
 
-module.exports = { createNewJob, removeJob };
+module.exports = { createNewJob, editJob, removeJob };

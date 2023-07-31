@@ -10,6 +10,17 @@ const postJob = async (jobData) => {
   }
 };
 
+const putJob = async (id, jobData) => {
+  try {
+    const foundJob = await Job.findByPk(id);
+    const updatedJob = await foundJob.update(jobData);
+
+    return updatedJob;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
 const deleteJob = async (id) => {
   try {
     const deletedJob = await Job.destroy({ where: { id } });
@@ -20,4 +31,4 @@ const deleteJob = async (id) => {
   }
 };
 
-module.exports = { postJob, deleteJob };
+module.exports = { postJob, putJob, deleteJob };
