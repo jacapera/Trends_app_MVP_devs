@@ -10,4 +10,14 @@ const postJob = async (jobData) => {
   }
 };
 
-module.exports = postJob;
+const deleteJob = async (id) => {
+  try {
+    const deletedJob = await Job.destroy({ where: { id } });
+
+    return deletedJob;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
+module.exports = { postJob, deleteJob };
