@@ -1,11 +1,8 @@
-import { Button } from "@tremor/react";
 import { useState } from "react";
-import {
-  ProfessionalRegisterForm,
-  StudentRegisterForm,
-  CompanyRegisterForm,
-} from "../../components";
+import { ProfessionalRegisterForm, StudentRegisterForm, CompanyRegisterForm } from "../../components";
 import { useNavigate } from "react-router-dom";
+
+import './register.css';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -16,29 +13,32 @@ export default function RegisterPage() {
   };
 
   return (
-    <main className="flex flex-col items-center justify-center gap-10">
+    <main className="main-container">
       <h2>First of all... How do you want to register?</h2>
       {registerForm === "" && (
-        <section className="flex flex-col items-stretch gap-10 w-28">
-          <Button className="w-full" onClick={() => handleRegister("student")}>
+        <section className="button-section">
+          <button className="register-button" onClick={() => handleRegister("student")}>
             Student
-          </Button>
-          <Button onClick={() => handleRegister("professional")}>
+          </button>
+          <button className="register-button" onClick={() => handleRegister("professional")}>
             Professional
-          </Button>
-          <Button onClick={() => handleRegister("company")}>Company</Button>
+          </button>
+          <button className="register-button" onClick={() => handleRegister("company")}>
+            Company
+          </button>
         </section>
       )}
       {registerForm === "student" && <StudentRegisterForm />}
       {registerForm === "professional" && <ProfessionalRegisterForm />}
-      {registerForm === "company" && <CompanyRegisterForm />}
-      <footer className="self-start">
-        <Button
-          onClick={() => navigate("/Trends_app_MVP/")}
-          variant="secondary"
-        >
-          Go to back
-        </Button>
+      {registerForm === "company" && (
+        <div>
+           <img src="/images/company_image.png" alt="Company" />
+        </div>
+      )}
+      <footer className="footer-container">
+        <button className="back-button" onClick={() => navigate("/Trends_app_MVP/")}>
+          {registerForm === "company" && <CompanyRegisterForm />}
+        </button>
       </footer>
     </main>
   );
