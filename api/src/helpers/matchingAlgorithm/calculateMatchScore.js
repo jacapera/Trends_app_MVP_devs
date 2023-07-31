@@ -4,6 +4,11 @@ const { crossMatchData } = require("./crossMatchData.js");
 const calculateMatchScore = (user, targetUser) => {
   // El "puntaje" de matcheo
   let score = 0;
+  
+  if ((user.type || targetUser.type).includes("company")) {
+    score += crossMatchData(user, targetUser);
+    return score;
+  }
 
   // Se definen los handlers
   // o el "peso" para cada campo del perfil
