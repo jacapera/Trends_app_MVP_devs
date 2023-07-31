@@ -137,6 +137,23 @@ const getUsers = async (queryParams, userType) => {
   }
 };
 
+const getJobById = async (id) => {
+  try {
+    const foundJob = await Job.findOne({
+      where: { id },
+      attributes: {
+        exclude: ["companyId"],
+      },
+    })
+
+    if (!foundJob) return {error: "Job not found"}
+
+    return foundJob
+  } catch (error) {
+    
+  }
+}
+
 const getJobs = async (queryParams) => {
   const whereClause = {};
   let hasInvalidQuery = false;
@@ -182,4 +199,4 @@ const getJobs = async (queryParams) => {
   return jobs;
 };
 
-module.exports = { getUserById, getUsers, getJobs };
+module.exports = { getUserById, getUsers, getJobById, getJobs };
