@@ -31,6 +31,12 @@ module.exports = (sequelize) => {
         isEmail: true,
       },
     },
+    website: {
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: true,
+      },
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -53,11 +59,9 @@ module.exports = (sequelize) => {
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
@@ -71,7 +75,6 @@ module.exports = (sequelize) => {
     },
     bio: {
       type: DataTypes.TEXT,
-      allowNull: true,
     },
   });
 

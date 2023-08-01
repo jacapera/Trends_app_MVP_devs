@@ -3,10 +3,13 @@ import style from "./RegisterFormBase.module.css";
 import { useNavigate } from "react-router-dom";
 import { validationRegister } from "../../utils/ValidationRegister";
 import { Link } from "react-router-dom";
+import axios from "axios";
+const {VITE_URL} = import.meta.env;
 
 const RegisterFormBase = ({type})  => {
     const [validateLogin, setValidateLogin] = useState(null);
     const navigate = useNavigate();
+    const URL = `${VITE_URL}/api/v1/auth/register`;
 
   const [inputs, setInputs] = useState({
     type,
@@ -24,20 +27,34 @@ const RegisterFormBase = ({type})  => {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (inputs.email && inputs.password && inputs.username && inputs.name && type) {
-      const result = validationRegister(inputs.email)
-      if(!result)setValidateLogin(false)
-      else {return result}
+      const validation = validationRegister(inputs.email)
+      if(!validation)setValidateLogin(false)
+      else {
+        try {
+          const fetch = await axios.post(URL, inputs);
+          const result = fetch.data;
+          console.log(result);
+          setValidateLogin(true);
+          navigate("/Trends_app_MVP/login");
+        } catch (error) {
+          console.log(error.response.data.error);
+        }
+      }
   }}
+
+  const capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
 
     return(
         <div className={style.BGContainer}>
       <div className={style.Card}>
         <div className={style.RightContainer}>
           <form onSubmit={handleSubmit}>
-            <h2>Sign Up</h2>
+            <h2>Sign Up {capitalize(type)}</h2>
             <div className={style.Input}>
               <input name="name" onChange={handleInputs} type="text" placeholder="Name" />
             </div>
