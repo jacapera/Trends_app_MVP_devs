@@ -20,6 +20,7 @@ import {NavBar} from "./components"
 import Register from "./views/Chat/Register/Register";
 import Login from "./views/Chat/Login";
 import NavBarInicio from "../src/components/NavBarInicio/NavBarInicio";
+import RegisterFormBase from "./components/RegisterFormBase/RegisterFormBase";
 
 
 function App() {
@@ -31,16 +32,16 @@ function App() {
       <Routes>
         <Route exact path="/Trends_app_MVP" element={<LandingPage />} />
         <Route path="/Trends_app_MVP/register" element={<RegisterPage />} />
-        <Route exact path='/Trends_app_MVP/studentRegister' element={<StudentRegister/>} />
-        <Route exact path='/Trends_app_MVP/professionalRegister' element={<ProfessionalRegisterForm/>} />
-        <Route exact path='/Trends_app_MVP/companyRegister' element={<CompanyRegister/>} />
+        <Route exact path='/Trends_app_MVP/studentRegister' element={<RegisterFormBase type = "student"/>} />
+        <Route exact path='/Trends_app_MVP/professionalRegister' element={<RegisterFormBase type = "professional" />} />
+        <Route exact path='/Trends_app_MVP/companyRegister' element={<RegisterFormBase type = "company" />} />
         <Route path="/Trends_app_MVP/login" element={<LoginPage />} />
         <Route path="/Trends_app_MVP/profile" element={<Profile />} />
         <Route path="/Trends_app_MVP/feedCompany" element={<FeedCompany />} />
 
         {/* RUTAS HIJAS PARA PRUEBAS DEL CHAT DESPUES LAS PODEMOS REMOVER */}
         <Route path="/Trends_app_MVP/chat" element={<Chat />}>
-          <Route path='register-chat' element={ <Register />} />
+          {/* <Route path='register-chat' element={ <Register />} /> */}
           <Route path='login-chat' element={ <Login />} />
         </Route>
 
@@ -56,4 +57,4 @@ function App() {
 
 
 
-export default App;
+export defaul

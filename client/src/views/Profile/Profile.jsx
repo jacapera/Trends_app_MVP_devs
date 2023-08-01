@@ -1,52 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./Profile.module.css"
 import ImageDropzone from "../../components/ImageDropzone/ImageDropzone"
 import { AiFillEdit } from "react-icons/ai";
 import Relations from "../../components/Relations/Relations";
-
+import axios from "axios";
+const {VITE_URL} = import.meta.env;
 
 
 const Profile = () => {
-
-    //A SER REEMPLAZADO POR DATOS DEL USUARIO TRAIDOS DEL BACK
-    const userData = {
-        profile: {
-            name: "Juan Perez",
-            bio: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque at corporis autem quisquam ex corrupti magni minima facere, perferendis nisi pariatur aliquam ad debitis earum voluptatibus animi ullam! Dolorum, consectetur.",
-            image: "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
-            username: "juanperez",
-            email: "juan.perez@example.com",
-            password: "contraseña123",
-            city: "Buenos Aires",
-            country: "Argentina",
-            support: true,
-        },
-        academic: {
-            type: "Universitario Avanzado",
-            institution: "Universidad Nacional de Buenos Aires",
-            level: "En curso",
-            area: ["Ingeniería Informática"],
-            graduation: "2023",
-        },
-        info: {
-            career: ["Desarrollo de Software"],
-            skills: ["Programación en Python", "Desarrollo web", "Bases de datos"],
-            goals: [
-            "Elegir una carrera",
-            "Encontrar una pasantía o trabajo",
-            ],
-            interests: [
-            "Inteligencia Artificial",
-            "Desarrollo de aplicaciones móviles",
-            ],
-            problematic: ["Falta de información del mercado laboral", "Falta de guía profesional"],
-            languages: ["Español", "Inglés"],
-            availability: "Full-time",
-            contract: "Remoto",
-        },
+    const [userData, setUserData] = useState({});
+    const URL = `${VITE_URL}/api/v1/user/profile`;
+    
+    const getData = async () => {
+        try {
+            const getData = await axios.get(URL);
+            const result = getData.data;
+            setUserData(result);
+        } catch (error) {
+            console.log(error.response.data.error);
+        }
     }
 
-    const profileData = userData;
+    useEffect(() => {
+        getData()
+    }, [])
 
     //*No se qué tanta info vamos a tener de la info academica o laboral
     const contactInfo = [{
@@ -89,7 +66,6 @@ const Profile = () => {
     }
 
     return(
-
         <div className={style.BGContainer}>
             {
                 isEditing.image &&
@@ -105,7 +81,7 @@ const Profile = () => {
             }
             <header>
                     <div className={style.ImageContainer} onClick={() => setIsEditing(prevState => ({...prevState, image: !prevState.image}))}>
-                        <img src={userData.profile.image} alt="" />
+                        <img src={userData.profile_image} alt="" />
                         <div className={style.Extra}></div>
                         <div className={style.IconContainer}>
                             <AiFillEdit size="6rem" color="white"/>
@@ -124,9 +100,9 @@ const Profile = () => {
                     <section>
                         <div className={style.About}>
                             <div className={style.FirstInfo}>
-                                <h1>{userData.profile.name}</h1>
-                                <h3>{userData.info.skills.join(" - ")}</h3>
-                                <h3>{userData.profile.city} - {userData.profile.country}</h3>
+                                <h1>{userData.name}</h1>
+                                <h3>{userData.info_skills.join(" - ")}</h3>
+                                <h3>{userData.profile_city} - {userData.profile_country}</h3>
                             </div>
                             
                         </div>
@@ -135,14 +111,14 @@ const Profile = () => {
                     <section>
                         <h2>Biography</h2>
                         <div className={style.Bio}>
-                            <h3>{userData.profile.bio}</h3>
+                            <h3>{userData.profile_bio}</h3>
                         </div>
                     </section>
                     <hr />
                     <section>
                         <h2>Studies</h2>
                         <div className={style.Studies}>
-                            <h3>{userData.academic.institution}</h3>
+                            <h3>{userData.academic_institution}</h3>
                         </div>
 
                     </section>

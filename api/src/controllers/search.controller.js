@@ -27,20 +27,21 @@ const getUserById = async (id) => {
       });
     }
 
-    if (!foundUser) return { error: "User not found!" };
+    if (!foundUser) return null;
 
-    const plainUser = foundUser.toJSON();
+    // const plainUser = foundUser.toJSON();
 
-    const { type } = plainUser;
+    // const { type } = plainUser;
 
-    if (type === "student") {
-      delete plainUser.info_company_name;
-      delete plainUser.info_position;
-    } else if (type === "professional") {
-      delete plainUser.academic_level;
-    }
+    // if (type === "student") {
+    //   delete plainUser.info_company_name;
+    //   delete plainUser.info_position;
+    // } else if (type === "professional") {
+    //   delete plainUser.academic_level;
+    // }
 
-    return plainUser;
+    // return plainUser;
+    return foundUser;
   } catch (error) {
     return { error: "Error searching user!" };
   }
@@ -137,6 +138,20 @@ const getUsers = async (queryParams, userType) => {
   }
 };
 
+const getJobById = async (id) => {
+  try {
+    const foundJob = await Job.findOne({
+      where: { id },
+    });
+
+    if (!foundJob) return null;
+
+    return foundJob;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
 const getJobs = async (queryParams) => {
   const whereClause = {};
   let hasInvalidQuery = false;
@@ -182,4 +197,4 @@ const getJobs = async (queryParams) => {
   return jobs;
 };
 
-module.exports = { getUserById, getUsers, getJobs };
+module.exports = { getUserById, getUsers, getJobById, getJobs };

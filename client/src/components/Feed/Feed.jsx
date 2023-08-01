@@ -4,7 +4,6 @@ import filterIcon from "../../assets/TestIcons/filter.png";
 import { useEffect } from "react";
 import {students, professionals} from "../../utils/users";
 import { useState } from "react";
-//import { matcher } from "../../utils/matchingAlgorithm/matcher";
 
 const Feed = () => {
 
@@ -43,10 +42,8 @@ const Feed = () => {
     }
 
     useEffect(() => {
-        const matchedProfilesForStudent = matcher(professionals, students[1]);
-        const matchedProfilesForProfessionals = matcher(students, professionals[3]);
-        setMatchedProfilesStudents(matchedProfilesForProfessionals);
-        setMatchedProfilesProfessionals(matchedProfilesForStudent);
+    
+        
     }, [])
 
     useEffect(() => {

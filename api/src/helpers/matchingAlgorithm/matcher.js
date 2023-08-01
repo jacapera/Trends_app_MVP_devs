@@ -1,12 +1,12 @@
 const { calculateMatchScore } = require("./calculateMatchScore.js");
 
 // Se toma un array de perfiles y un perfil base
-const matcher = (users, targetUser) => {
+const matcher = (users, target) => {
   const matches = [];
 
   // Por cada perfil del arreglo se llama a calculateMatchScore
   for (const user of users) {
-    const matchScore = calculateMatchScore(user, targetUser);
+    const matchScore = calculateMatchScore(user, target);
     matches.push({ user, matchScore });
   }
 
@@ -21,11 +21,3 @@ const matcher = (users, targetUser) => {
 };
 
 module.exports = { matcher };
-
-//--- TEST ---//
-// const { professionals, students } = require("./mockUsers.js");
-
-// const matchedProfilesForStudent = matcher(professionals, students[0]);
-// const matchedProfilesForProfessional = matcher(students, professionals[0]);
-
-// console.log(matchedProfilesForProfessional);

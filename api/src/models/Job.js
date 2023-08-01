@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
         type: DataTypes.UUID,
         allowNull: false,
       },
-      job_name: {
+      jobName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -43,7 +43,7 @@ module.exports = (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
-      exprienceRequired: {
+      experienceRequired: {
         type: DataTypes.STRING,
         allowNull: false,
       },

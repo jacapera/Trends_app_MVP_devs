@@ -1,12 +1,12 @@
 const { matchAcademicFormation } = require("./matchAcademicFormation.js");
 const { crossMatchData } = require("./crossMatchData.js");
 
-const calculateMatchScore = (user, targetUser) => {
+const calculateMatchScore = (user, target) => {
   // El "puntaje" de matcheo
   let score = 0;
   
-  if ((user.type || targetUser.type).includes("company")) {
-    score += crossMatchData(user, targetUser);
+  if ((user.type || target.type).includes("company") || target.jobName) {
+    score += crossMatchData(user, target);
     return score;
   }
 
@@ -16,7 +16,7 @@ const calculateMatchScore = (user, targetUser) => {
   const fieldHandlers = {
     profile_support: 5,
     academic_area: 5,
-    academic_formation: () => matchAcademicFormation(user, targetUser),
+    academic_formation: () => matchAcademicFormation(user, target),
     info_career: 5,
     info_interests: 5,
     profile_city: 3,
@@ -49,12 +49,12 @@ const calculateMatchScore = (user, targetUser) => {
           "info_languages",
           "academic_area",
         ].includes(currentKey) &&
-        [user, targetUser].every((user) => Array.isArray(user[currentKey]))
+        [user, target].every((user) => Array.isArray(user[currentKey]))
       ) {
         // Se convierte cada array en un set
         // por eficiencia y operaciones de conjunto
         const set1 = new Set(user[currentKey]);
-        const set2 = new Set(targetUser[currentKey]);
+        const set2 = new Set(target[currentKey]);
 
         // Operaciones de conjunto para evaluar la diversidad/complementariedad
         const commonData = new Set([...set1].filter((data) => set2.has(data)));
@@ -80,8 +80,8 @@ const calculateMatchScore = (user, targetUser) => {
         // Las demás propiedades van a ser un solo value (una vez elegido)
       } else if (
         user[currentKey] &&
-        targetUser[currentKey] &&
-        user[currentKey] === targetUser[currentKey]
+        target[currentKey] &&
+        user[currentKey] === target[currentKey]
       ) {
         // Si hay coincidencia se suma al score
         score += currentKey;
@@ -90,7 +90,7 @@ const calculateMatchScore = (user, targetUser) => {
   }
 
   // Para matcheos cruzados se llama a crossMatchData
-  score += crossMatchData(user, targetUser);
+  score += crossMatchData(user, target);
 
   return score;
 };

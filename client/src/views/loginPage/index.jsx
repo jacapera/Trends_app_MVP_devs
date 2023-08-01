@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authLogin } from "../../utils/authLogin";
 import style from "./index.module.css";
 import welcome from "../../assets/TestIcons/welcome.jpeg";
+import axios from "axios";
+import {useDispatch} from "react-redux";
+const {VITE_URL} = import.meta.env;
 
 export default function LoginPage() {
+
+  const dispatch = useDispatch();
   const [validateLogin, setValidateLogin] = useState(null);
   const navigate = useNavigate();
+  const URL = `${VITE_URL}/api/v1/auth/login`;
 
   const [inputs, setInputs] = useState({
     email: "",
@@ -21,12 +26,17 @@ export default function LoginPage() {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit =  async (event) => {
     event.preventDefault();
     if (inputs.email && inputs.password) {
-      const result = authLogin(inputs);
-      setValidateLogin(result);
-      if(result) navigate("/home")
+      try {
+        const fetch = await axios.post(URL, inputs);
+        const result = fetch.data;
+        console.log(result);
+
+      } catch (error) {
+        console.log(error.response.data.error)
+      }
     }
   };
 

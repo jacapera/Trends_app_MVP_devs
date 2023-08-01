@@ -1,4 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+const {VITE_URL} = import.meta.env;
+
+
+const URL = `${VITE_URL}/api/v1/user/profile`;
 
 const initialState = {
     allUsers: [],
@@ -6,9 +11,20 @@ const initialState = {
     students: [],
     professionals: [],
     companies: [],
+    user: {},
     test: false
 };
 
+
+const getUserData = createAsyncThunk("users/getUserData", async() => {
+    try {
+        const getData = await axios.get(URL);
+        const result = getData.data;
+        return result;
+    } catch (error) {
+        console.log(error.response.data.error);
+    }
+})
 
 const getSearchedUsers = createAsyncThunk("users/getSearchedUsers", async({name, academic_formation, academic_institution}) =>{
      try {
@@ -36,11 +52,21 @@ const usersSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getSearchedUsers.pending, (state)=>{
+            .addCase(getSearchedUsers.pending, (state) => {
                 state.searchedUsers = []; //Esto queda vacío porque despues podemos poner que si searchedUsers.length === 0 muestre un símbolo de carga
             })
             .addCase(getSearchedUsers.fulfilled, (state, action)=>{
                 state.searchedUsers = action.payload;
+            })
+            .addCase(getUserData.pending, () => {
+                console.log("cargando");
+            })
+            .addCase(getUserData.fulfilled, (state, action) => {
+                state.user = action.payload
+                console.log(action.payload);
+            })
+            .addCase(getUserData.rejected, (state, action) => {
+                console.log(action);
             })
     }
 })
@@ -48,7 +74,7 @@ const usersSlice = createSlice({
 export default usersSlice.reducer;
 
 // export of the selectors of the global state
-export {getSearchedUsers};
+export {getSearchedUsers, getUserData};
 export const {test} = usersSlice.actions;
 export const selectAllUsers = (state) => state.users.allUsers;
 export const selectSearchedUsers = (state) => state.users.searchedUsers;

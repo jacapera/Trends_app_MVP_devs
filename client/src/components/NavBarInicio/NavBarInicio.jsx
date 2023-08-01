@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from '../../assets/imagenes/1 (3) (2).png';
 import "./NavBarInicio.css";
@@ -42,7 +42,7 @@ function NavBarInicio() {
       </div>
 
       {/* Modo Oscuro */}
-      <div className="dark-mode">
+      <div className="dark-mode-button">
         <button onClick={toggleDarkMode}>
           <i className="fas fa-moon"></i> 
         </button>
