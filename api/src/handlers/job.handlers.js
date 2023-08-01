@@ -26,7 +26,10 @@ const editJob = async (req, res) => {
   try {
     const editedJob = await putJob(job, jobData);
 
-    if (editJob && editedJob.error) {
+    if (!editJob) {
+      return res.status(500).json({ error: "The job couldn't be updated" });
+    }
+    if (editedJob.error) {
       return res.status(500).json({ error: editJob.error });
     }
 

@@ -29,18 +29,19 @@ const getUserById = async (id) => {
 
     if (!foundUser) return null;
 
-    const plainUser = foundUser.toJSON();
+    // const plainUser = foundUser.toJSON();
 
-    const { type } = plainUser;
+    // const { type } = plainUser;
 
-    if (type === "student") {
-      delete plainUser.info_company_name;
-      delete plainUser.info_position;
-    } else if (type === "professional") {
-      delete plainUser.academic_level;
-    }
+    // if (type === "student") {
+    //   delete plainUser.info_company_name;
+    //   delete plainUser.info_position;
+    // } else if (type === "professional") {
+    //   delete plainUser.academic_level;
+    // }
 
-    return plainUser;
+    // return plainUser;
+    return foundUser;
   } catch (error) {
     return { error: "Error searching user!" };
   }

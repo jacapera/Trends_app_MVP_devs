@@ -1,4 +1,4 @@
-const { getUserFeed } = require("../controllers/user.controller");
+const { getUserFeed, putProfile } = require("../controllers/user.controller");
 
 const profile = async (req, res) => {
   const { user } = req;
@@ -8,6 +8,26 @@ const profile = async (req, res) => {
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+};
+
+const editProfile = async (req, res) => {
+  const { ...profileData } = req.body;
+  const { profile } = req;
+
+  try {
+    const editedProfile = await putProfile(profile, profileData);
+
+    if (!editProfile) {
+      return res.status(500).json({ error: "The profile couldn't be updated" });
+    }
+    if (editedProfile.error && !editedProfile.error.message) {
+      return res.status(500).json({ error: editProfile.error });
+    }
+
+    return res.status(201).json(editedProfile);
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
   }
 };
 
@@ -32,4 +52,4 @@ const feed = async (req, res) => {
   }
 };
 
-module.exports = { profile, feed };
+module.exports = { profile, feed, editProfile };
