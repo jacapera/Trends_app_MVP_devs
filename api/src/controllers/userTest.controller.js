@@ -1,14 +1,26 @@
-const { User } = require("../db");
+const { User, Company, Job } = require("../db");
 
-const postUserTest = async (userData) => {
+const postUserTest = async (data) => {
   try {
-    const newUser = await User.create(userData);
+    if (["student", "professional"].includes(data.type)) {
+      const newUser = await User.create(data);
 
-    const user = await User.findOne({
-      where: { id: newUser.id },
-    });
+      const user = await User.findOne({
+        where: { id: newUser.id },
+      });
 
-    return user;
+      return user;
+    }
+
+    if (data.type === "company") {
+      const newCompany = await Company.create(data);
+
+      return newCompany;
+    }
+
+    const newJob = await Job.create(data);
+
+    return newJob;
   } catch (error) {
     console.log(error);
   }

@@ -14,6 +14,8 @@ import {
   SearchCustomSelect,
 } from "./customSelect";
 import { CustomTextInput, CustomMultiTextInput } from "./customTextInput";
+import SearchComponent from "./SearchComponent/SearchComponent";
+import NavBar from "./NavBar/NavBar"
 
 export {
   CompanyRegisterForm,
@@ -31,4 +33,6 @@ export {
   CustomMultiTextInput,
   CompanyJobs,
   JobFormCompany,  
+  SearchComponent,
+  NavBar,
 };

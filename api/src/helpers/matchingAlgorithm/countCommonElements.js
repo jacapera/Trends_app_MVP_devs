@@ -1,4 +1,3 @@
-  
 // helper para contar elementos en común
 
 // Se usa para contar los elementos que no se cuentan
@@ -17,4 +16,4 @@ const countCommonElements = (arr1, arr2) => {
   return count;
 };
 
-export default countCommonElements;
+module.exports = { countCommonElements };

@@ -1,4 +1,4 @@
-import crossMatchDataScore from "./crossMatchDataScore.js";
+const { crossMatchDataScore } = require("./crossMatchDataScore.js");
 
 const crossMatchDataOptions = (
   data,
@@ -9,7 +9,7 @@ const crossMatchDataOptions = (
   skillsCount,
   interestsCount,
   supportCondition
-  ) => {
+) => {
   // Por escalabilidad se define un objeto dataOptions
   // en donde se puedan ir añadiendo más opciones
   const dataOptions = {
@@ -36,4 +36,4 @@ const crossMatchDataOptions = (
   return crossMatchDataScore(data, crossmatchData, dataOptions);
 };
 
-export default crossMatchDataOptions;
+module.exports = { crossMatchDataOptions };

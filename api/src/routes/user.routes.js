@@ -1,8 +1,9 @@
 const { Router } = require("express");
-const { profile } = require("../handlers/user.handlers");
+const { profile, feed } = require("../handlers/user.handlers");
 
 const userRoutes = Router();
 
 userRoutes.get("/profile", profile);
+userRoutes.get("/feed/:id/:usersType", feed);
 
 module.exports = userRoutes

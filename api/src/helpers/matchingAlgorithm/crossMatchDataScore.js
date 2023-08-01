@@ -24,4 +24,4 @@ const crossMatchDataScore = (data, crossMatchData, dataOptions) => {
   return score;
 };
 
-export default crossMatchDataScore;
+module.exports = { crossMatchDataScore };

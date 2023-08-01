@@ -9,13 +9,16 @@ const passport = require("./auth/passport-config");
 const authenticateUser = require("./middlewares/authenticateUser");
 const authRoutes = require("./routes/auth.routes");
 const searchRoutes = require("./routes/search.routes");
-const userTestRoutes = require("./routes/userTest.routes");
 const userRoutes = require("./routes/user.routes");
+const userTestRoutes = require("./routes/userTest.routes");
 
 const app = express();
 
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json());
@@ -32,15 +35,15 @@ app.use(passport.session());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", authenticateUser, userRoutes);
-app.use("/api/v1/search", searchRoutes);
+app.use("/api/v1/search", authenticateUser, searchRoutes);
 
 // --- solo para pruebas ---
 app.use("/userTest", userTestRoutes);
 
 // -------- Servidor Socket.io-------------------
-const { createServer } = require("http");
+const { createServer } = require('http');
 appSocket = createServer(app);
-const serverSocket = require("./sockets/serverSokect");
+const serverSocket = require('./sockets/serverSokect');
 serverSocket(appSocket);
 
 module.exports = appSocket;
