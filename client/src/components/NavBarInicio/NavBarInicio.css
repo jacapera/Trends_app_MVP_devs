@@ -4,15 +4,22 @@ body {
   margin: 0;
   padding: 0;
   color: #232323; /* Modo oscuro */
+  background-color: #f9f9f9; /* Fondo claro */
 }
 
 /* Estilos de la barra de navegación */
 .navigation {
   display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  width: 100%; /* Ocupa todo el ancho de la pantalla */
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 9999; /* Asegura que la barra de navegación esté en la parte superior */
 }
 
 .logo img {
@@ -31,10 +38,10 @@ body {
   font-size: 1rem;
   text-decoration: none;
   margin-right: 1rem;
-  padding: 0.5rem 1rem; /* Agregamos padding para que parezca un botón */
-  border: 1px solid #232323; /* Agregamos borde */
-  border-radius: 5px; /* Agregamos esquinas redondeadas */
-  background-color: transparent; /* Hacemos el fondo transparente */
+  padding: 0.5rem 1rem;
+  border: 1px solid #232323; /* Agregamos borde para modo oscuro */
+  border-radius: 5px;
+  background-color: transparent;
   color: #5c5c5c; /* Texto en modo oscuro */
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -42,47 +49,8 @@ body {
 
 .login a:hover,
 .SIGN_UP button:hover {
-  background-color: #fab180; /* Cambiamos el fondo al pasar el ratón */
-  color: white; /* Cambiamos el color del texto al pasar el ratón */
-}
-
-/* Estilos de los botones de registro */
-.SIGN_UP {
-  position: relative;
-}
-
-.SIGN_UP button {
-  background-color: #fab180; /* Naranja */
-  border: none;
+  background-color: #fab180; /* Naranja para modo claro */
   color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.register-options {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #f9f9f9;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  display: none;
-}
-
-.SIGN_UP:hover .register-options {
-  display: flex;
-  flex-direction: column;
-}
-
-.register-options a {
-  color: #232323; /* Modo oscuro */
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-}
-
-.register-options a:hover {
-  background-color: #f2f2f2;
 }
 
 /* Estilos del botón de modo oscuro */
@@ -90,79 +58,44 @@ body {
   background-color: transparent;
   border: none;
   font-size: 1.2rem;
-  color: #858585; /* Modo oscuro */
+  color: #858585;
   cursor: pointer;
 }
 
 /* Estilos del modo oscuro */
-.dark-mode {
-  display: flex;
-  align-items: center;
-}
-
 body.dark-mode {
-  color: white; /* Texto en modo oscuro */
-  background-color: #232323; /* Fondo oscuro */
+  color: white;
+  background-color: #232323;
 }
 
 /* Estilos del menú desplegable */
+.SIGN_UP {
+  position: relative;
+}
+
 .register-options {
-  right: 0;
-  opacity: 0;
-  visibility: hidden;
   position: absolute;
-  top: 100%;
+  top: calc(100% + 0.5rem);
+  right: 0;
   background-color: #f9f9f9;
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  display: none;
+  z-index: 1;
 }
 
-.SIGN_UP:hover .register-options {
-  opacity: 1;
-  visibility: visible;
+/* Estilos del menú desplegable cuando está visible */
+.SIGN_UP.show .register-options {
+  display: flex;
+  flex-direction: column;
 }
 
 .register-options a {
-  color: #232323; /* Modo oscuro */
+  color: #232323;
   padding: 0.5rem 1rem;
   text-decoration: none;
-  display: block;
 }
 
 .register-options a:hover {
   background-color: #f2f2f2;
-}
-
-/* Estilos responsivos */
-@media screen and (max-width: 768px) {
-  .navigation {
-    flex-direction: column;
-  }
-
-  .login,
-  .SIGN_UP {
-    margin-top: 1rem;
-  }
-
-  .dark-mode {
-    margin-top: 1rem;
-  }
-
-  .register-options {
-    position: static;
-    background-color: transparent;
-    box-shadow: none;
-    flex-direction: row;
-    margin-top: 1rem;
-    display: flex;
-  }
-
-  .register-options a {
-    margin-right: 1rem;
-  }
-
-  .SIGN_UP:hover .register-options {
-    display: flex;
-  }
 }
