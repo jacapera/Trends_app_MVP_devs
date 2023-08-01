@@ -10,41 +10,39 @@ const Profile = () => {
 
     //A SER REEMPLAZADO POR DATOS DEL USUARIO TRAIDOS DEL BACK
     const userData = {
-        profile: {
-            name: "Juan Perez",
-            bio: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque at corporis autem quisquam ex corrupti magni minima facere, perferendis nisi pariatur aliquam ad debitis earum voluptatibus animi ullam! Dolorum, consectetur.",
-            image: "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
-            username: "juanperez",
-            email: "juan.perez@example.com",
-            password: "contraseña123",
-            city: "Buenos Aires",
-            country: "Argentina",
-            support: true,
-        },
-        academic: {
-            type: "Universitario Avanzado",
-            institution: "Universidad Nacional de Buenos Aires",
-            level: "En curso",
-            area: ["Ingeniería Informática"],
-            graduation: "2023",
-        },
-        info: {
-            career: ["Desarrollo de Software"],
-            skills: ["Programación en Python", "Desarrollo web", "Bases de datos"],
-            goals: [
-            "Elegir una carrera",
-            "Encontrar una pasantía o trabajo",
-            ],
-            interests: [
-            "Inteligencia Artificial",
-            "Desarrollo de aplicaciones móviles",
-            ],
-            problematic: ["Falta de información del mercado laboral", "Falta de guía profesional"],
-            languages: ["Español", "Inglés"],
-            availability: "Full-time",
-            contract: "Remoto",
-        },
-    }
+        type: "Professional",
+        email: "juan.perez@example.com",
+        username: "juanperez",
+        password: "contraseña123",
+        name: "Juan Perez",
+        profile_bio: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque at corporis autem quisquam ex corrupti magni minima facere, perferendis nisi pariatur aliquam ad debitis earum voluptatibus animi ullam! Dolorum, consectetur.",
+        profile_age: "23",
+        profile_image: "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+        profile_city: "Buenos Aires",
+        profile_country: "Argentina",
+        profile_support: true,
+        academic_formation: "Universitario Avanzado",
+        academic_institution: "Universidad Nacional de Buenos Aires",
+        academic_level: "En curso",
+        academic_area: ["Ingeniería Informática"],
+        academic_graduation: "2023",
+        info_company_name: "", //Only for professionals
+        info_position: "", //Only for professionals
+        info_career: ["Desarrollo de Software"],
+        info_skills: ["Programación en Python", "Desarrollo web", "Bases de datos"],
+        info_goals: ["Elegir una carrera", "Encontrar una pasantía o trabajo"],
+        info_interests: [
+          "Inteligencia Artificial",
+          "Desarrollo de aplicaciones móviles",
+        ],
+        info_problematic: [
+          "Falta de información del mercado laboral",
+          "Falta de guía profesional",
+        ],
+        info_languages: ["Español", "Inglés"],
+        info_availability: "Full-time",
+        info_contract: "Remoto",
+      };
 
     const profileData = userData;
 
@@ -105,7 +103,7 @@ const Profile = () => {
             }
             <header>
                     <div className={style.ImageContainer} onClick={() => setIsEditing(prevState => ({...prevState, image: !prevState.image}))}>
-                        <img src={userData.profile.image} alt="" />
+                        <img src={userData.profile_image} alt="" />
                         <div className={style.Extra}></div>
                         <div className={style.IconContainer}>
                             <AiFillEdit size="6rem" color="white"/>
@@ -124,9 +122,9 @@ const Profile = () => {
                     <section>
                         <div className={style.About}>
                             <div className={style.FirstInfo}>
-                                <h1>{userData.profile.name}</h1>
-                                <h3>{userData.info.skills.join(" - ")}</h3>
-                                <h3>{userData.profile.city} - {userData.profile.country}</h3>
+                                <h1>{userData.name}</h1>
+                                <h3>{userData.info_skills.join(" - ")}</h3>
+                                <h3>{userData.profile_city} - {userData.profile_country}</h3>
                             </div>
                             
                         </div>
@@ -135,14 +133,14 @@ const Profile = () => {
                     <section>
                         <h2>Biography</h2>
                         <div className={style.Bio}>
-                            <h3>{userData.profile.bio}</h3>
+                            <h3>{userData.profile_bio}</h3>
                         </div>
                     </section>
                     <hr />
                     <section>
                         <h2>Studies</h2>
                         <div className={style.Studies}>
-                            <h3>{userData.academic.institution}</h3>
+                            <h3>{userData.academic_institution}</h3>
                         </div>
 
                     </section>
