@@ -11,12 +11,14 @@ const authRoutes = require("./routes/auth.routes");
 const searchRoutes = require("./routes/search.routes");
 const userRoutes = require("./routes/user.routes");
 const userTestRoutes = require("./routes/userTest.routes");
-const userRoutes = require("./routes/user.routes");
 
 const app = express();
 
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true
+}));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json());
