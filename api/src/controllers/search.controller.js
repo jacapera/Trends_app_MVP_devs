@@ -141,9 +141,6 @@ const getJobById = async (id) => {
   try {
     const foundJob = await Job.findOne({
       where: { id },
-      attributes: {
-        exclude: ["companyId"],
-      },
     });
 
     if (!foundJob) return null;

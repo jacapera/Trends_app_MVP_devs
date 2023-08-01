@@ -21,10 +21,10 @@ const createNewJob = async (req, res) => {
 
 const editJob = async (req, res) => {
   const { ...jobData } = req.body;
-  const { id } = req.params;
+  const { job } = req;
 
   try {
-    const editedJob = await putJob(id, jobData);
+    const editedJob = await putJob(job, jobData);
 
     if (editJob && editedJob.error) {
       return res.status(500).json({ error: editJob.error });

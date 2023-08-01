@@ -10,9 +10,9 @@ const postJob = async (jobData) => {
   }
 };
 
-const putJob = async (id, jobData) => {
+const putJob = async (job, jobData) => {
   try {
-    const foundJob = await Job.findByPk(id);
+    const foundJob = job;
     const updatedJob = await foundJob.update(jobData);
 
     return updatedJob;

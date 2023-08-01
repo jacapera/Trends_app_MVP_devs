@@ -44,10 +44,15 @@ const searchJobById = async (req, res) => {
 
   try {
     const jobById = await getJobById(id);
-    if (jobById && jobById.error)
+
+    if (!jobById) {
+      return res.status(400).json({ error: "Job not found" });
+    }
+    if (jobById.error)
       return res.status(500).json({
         error: jobById.error,
       });
+
     res.status(200).json(jobById);
   } catch (error) {
     return res.status(500).json({
