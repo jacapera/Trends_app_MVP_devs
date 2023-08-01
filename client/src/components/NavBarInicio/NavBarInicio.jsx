@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import Logo from '../../assets/imagenes/1 (3) (2).png';
+import Logo from "../../assets/imagenes/1 (3) (2).png";
 import "./NavBarInicio.css";
 
 function NavBarInicio() {
   const [showMenu, setShowMenu] = useState(false);
-  const [menuSelected, setMenuSelected] = useState(false);
+  const menuTimerRef = useRef(null);
 
   // Función para cambiar el modo entre claro y oscuro
   function toggleDarkMode() {
@@ -18,21 +18,23 @@ function NavBarInicio() {
     setShowMenu((prevState) => !prevState);
   }
 
-  // Función para ocultar el menú desplegable si no se selecciona ninguna opción en 2 segundos
+  // Función para desactivar el menú desplegable después de 2 segundos si no se selecciona ninguna opción
   useEffect(() => {
-    let timer;
-    if (showMenu && !menuSelected) {
-      timer = setTimeout(() => {
+    if (showMenu) {
+      menuTimerRef.current = setTimeout(() => {
         setShowMenu(false);
       }, 2000);
+    } else {
+      clearTimeout(menuTimerRef.current);
     }
-    return () => clearTimeout(timer);
-  }, [showMenu, menuSelected]);
+
+    return () => clearTimeout(menuTimerRef.current);
+  }, [showMenu]);
 
   // Función para manejar la selección de una opción del menú
   function handleMenuOptionClick() {
-    setMenuSelected(true);
     setShowMenu(false);
+    clearTimeout(menuTimerRef.current);
   }
 
   return (
@@ -40,15 +42,15 @@ function NavBarInicio() {
       {/* Logo */}
       <div className="logo">
         <img src={Logo} alt="Logo" />
+        {/*<span>Logo</span>*/}
       </div>
 
-      {/* Login */}
-      <div className="login">
+      {/* Login y Sign Up (Registro) */}
+      <div
+        className={`auth-buttons ${showMenu ? "show-menu" : ""}`}
+        onClick={toggleMenu}
+      >
         <Link to="/Trends_app_MVP/login">Login</Link>
-      </div>
-
-      {/* Sign Up (Registro) */}
-      <div className={`SIGN_UP ${showMenu ? "show" : ""}`} onClick={toggleMenu}>
         <button>Sign up</button>
         <div className="register-options">
           <Link to="/Trends_app_MVP/studentRegister" onClick={handleMenuOptionClick}>
@@ -63,8 +65,8 @@ function NavBarInicio() {
         </div>
       </div>
 
-      {/* Modo Oscuro */}
-      <div className="dark-mode">
+      {/* Botón de Modo Oscuro */}
+      <div className="dark-mode-button">
         <button onClick={toggleDarkMode}>
           <i className="fas fa-moon"></i>
         </button>
