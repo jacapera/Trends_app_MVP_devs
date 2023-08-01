@@ -1,12 +1,15 @@
+
 .BGContainer {
-    margin: auto auto;
+    display: block;
     width: 80vw;
-    height: 100%;
+    height: fit-content;
     background-color: white;
     text-align: left;
     font-family: "Poppins-Medium";
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     border-radius: .6rem;
+    margin: auto auto;
+    margin-top: 1%;
 }
 
 .BGContainer h2 {
@@ -55,7 +58,6 @@
 
 .BGContainer main {
     display: flex;
-    flex-direction: row;
 }
 
 .BGContainer section {
@@ -163,7 +165,7 @@
 }
 
 :global(.dark-mode) .BGContainer {
-    background-color: #05050D
+    background-color: #383636
 }
 
 :global(.dark-mode) .BGContainer h2, :global(.dark-mode) .BGContainer h3, :global(.dark-mode) .BGContainer h1 {
@@ -180,6 +182,7 @@
 
 
 @media screen and (max-width: 758px) {
+
     .Relations {
         display: none;
     }
@@ -201,6 +204,8 @@
     .BGContainer {
         width: 100%;
         border-radius: 0;
+        margin: 0;
+        height: 100vh;
     }
 
     .ImageContainer {
