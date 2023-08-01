@@ -95,8 +95,8 @@ const ImageDropzone = ({type, handleCancelButton, userData}) => {
                             <div className={style.Option}>
                                 <label htmlFor="userName"> Username*</label>
                                 <input
-                                defaultValue={editData.profile.username} 
-                                name="profile.username" 
+                                defaultValue={editData.username} 
+                                name="username" 
                                 id="userName" 
                                 type="text"
                                 onChange={handleOnChange}
@@ -105,8 +105,8 @@ const ImageDropzone = ({type, handleCancelButton, userData}) => {
                             <div className={style.Option}>
                                 <label htmlFor="Name"> Name*</label>
                                 <input 
-                                defaultValue={editData.profile.name} 
-                                name="profile.name" 
+                                defaultValue={editData.name} 
+                                name="name" 
                                 id="Name" 
                                 onChange={handleOnChange}
                                 type="text"
@@ -116,8 +116,8 @@ const ImageDropzone = ({type, handleCancelButton, userData}) => {
                             <div className={style.Option}>
                                 <label htmlFor="skills"> Skills*</label>
                                 <input 
-                                defaultValue={editData.info.skills} 
-                                name="info.skills" 
+                                defaultValue={editData.info_skills} 
+                                name="info_skills" 
                                 onChange={handleOnChange}
                                 id="skills" 
                                 type="text" />
@@ -126,8 +126,8 @@ const ImageDropzone = ({type, handleCancelButton, userData}) => {
                             <div className={style.Option}>
                                 <label htmlFor="country"> Country*</label>
                                 <input 
-                                defaultValue={editData.profile.country} 
-                                name="profile.country" 
+                                defaultValue={editData.profile_country} 
+                                name="profile_country" 
                                 onChange={handleOnChange}
                                 id="country" 
                                 type="text" />
@@ -135,8 +135,8 @@ const ImageDropzone = ({type, handleCancelButton, userData}) => {
                             <div className={style.Option}>
                                 <label htmlFor="city"> City*</label>
                                 <input 
-                                defaultValue={editData.profile.city} 
-                                name="profile.city" 
+                                defaultValue={editData.profile_city} 
+                                name="profile_city" 
                                 onChange={handleOnChange}
                                 id="city" 
                                 type="text" />
@@ -145,8 +145,8 @@ const ImageDropzone = ({type, handleCancelButton, userData}) => {
                                 <label htmlFor="biography">Biography</label>
                                 <textarea
                                 className={style.BioInput} 
-                                defaultValue={editData.profile.bio} 
-                                name="profile.bio" 
+                                defaultValue={editData.profile_bio} 
+                                name="profile_bio" 
                                 onChange={handleOnChange}
                                 id="biography" 
                                 type="text" />
@@ -155,27 +155,27 @@ const ImageDropzone = ({type, handleCancelButton, userData}) => {
                             <div className={style.Option}>
                                 <label htmlFor="type">Type</label>
                                 <input 
-                                defaultValue={editData.academic.type} 
-                                name="academic.type" 
+                                defaultValue={editData.academic_formation} 
+                                name="academic_formation" 
                                 id="type" 
                                 type="text" />
                             </div>
                             <div className={style.Option}>
                                 <label htmlFor="institution">institution</label>
                                 <input 
-                                defaultValue={editData.academic.institution} 
-                                name="academic.institution" 
+                                defaultValue={editData.academic_institution} 
+                                name="academic_institution" 
                                 onChange={handleOnChange}
                                 id="institution" 
                                 type="text" />
                             </div>
                             <div className={style.Option}>
-                                <label htmlFor="institution">Level</label>
+                                <label htmlFor="level">Level</label>
                                 <input 
-                                defaultValue={editData.academic.level} 
-                                name="academic.level" 
+                                defaultValue={editData.academic_level} 
+                                name="academic_level" 
                                 onChange={handleOnChange}
-                                id="institution" 
+                                id="level" 
                                 type="text" />
                             </div>
                     </div>

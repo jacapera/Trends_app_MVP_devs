@@ -55,6 +55,7 @@
 
 .BGContainer main {
     display: flex;
+    flex-direction: row;
 }
 
 .BGContainer section {
