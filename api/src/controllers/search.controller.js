@@ -27,7 +27,7 @@ const getUserById = async (id) => {
       });
     }
 
-    if (!foundUser) return { error: "User not found!" };
+    if (!foundUser) return null;
 
     const plainUser = foundUser.toJSON();
 
@@ -144,15 +144,15 @@ const getJobById = async (id) => {
       attributes: {
         exclude: ["companyId"],
       },
-    })
+    });
 
-    if (!foundJob) return {error: "Job not found"}
+    if (!foundJob) return null;
 
-    return foundJob
+    return foundJob;
   } catch (error) {
-    
+    return { error: error.message };
   }
-}
+};
 
 const getJobs = async (queryParams) => {
   const whereClause = {};

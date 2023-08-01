@@ -1,94 +1,80 @@
-const { searchUserById } = require("../../handlers/search.handlers.js");
 const { countCommonElements } = require("./countCommonElements.js");
 const { crossMatchDataOptions } = require("./crossMatchDataOptions.js");
 
+function countCommonElementsForJob(regularUser, job) {
+  const {
+    academic_area,
+    info_skills,
+    info_languages,
+    info_availability,
+    academic_level,
+    info_contract,
+  } = regularUser;
+
+  const {
+    studyArea,
+    skillsRequired,
+    languagesRequired,
+    availability,
+    levelRequired,
+    contractOffered,
+  } = job;
+
+  let commonElements = 0;
+  commonElements += countCommonElements(academic_area, studyArea);
+  commonElements += countCommonElements(info_skills, skillsRequired);
+  commonElements += countCommonElements(info_languages, languagesRequired);
+  commonElements += countCommonElements(info_availability, availability);
+  commonElements += countCommonElements(academic_level, levelRequired);
+  commonElements += countCommonElements(info_contract, contractOffered);
+
+  return commonElements;
+}
+
 // Se toma al usuario objetivo y a su potencial match
-const crossMatchData = (user, targetUser) => {
+const crossMatchData = (user, target) => {
   // Se verifica si alguno de los usuarios es de tipo empresa
   let company =
-    user.type === "company"
-      ? user
-      : targetUser.type === "company"
-      ? targetUser
-      : null;
-  
+    user.type === "company" ? user : target.type === "company" ? target : null;
+
   // Se verifica que el otro sea un usuario regular
   let regularUser = ["student", "professional"].includes(user.type)
     ? user
-    : ["student", "professional"].includes(targetUser.type)
-    ? targetUser
+    : ["student", "professional"].includes(target.type)
+    ? target
     : null;
 
-  // Se extraen los campos a usar:
+  let job = target.jobName ? target : null;
 
-  if (company && regularUser) {
-    //--- Estudiante o Profesional ---//
-    const {
-      academic_area,
-      info_skills,
-      info_languages,
-      info_availability,
-      academic_level,
-      info_contract,
-    } = regularUser;
+  //--- Se extraen los campos a usar:
 
-    //--- Empresa ---//
+    if ((company && regularUser) || job) {
+      if (!company?.jobs?.length) {
+        if (job) {
+          return countCommonElementsForJob(regularUser, job);
+        } else {
+          return 0;
+        }
+      } else {
+        let commonElements = 0;
+        const jobs = company.jobs;
 
-    // Se verifica que la empresa tenga
-    // puestos de trabajo
-    if (!company.jobs.length) return 0;
-
-    const jobs = company.jobs;
-    let commonElements = 0;
-
-    for (const job of jobs) {
-      const {
-        studyArea,
-        skillsRequired,
-        languagesRequired,
-        availability,
-        levelRequired,
-        contractOffered,
-      } = job;
-
-      // Se cuentan los elementos en común
-      commonElements += countCommonElements(
-        academic_area,
-        studyArea
-      );
-      commonElements += countCommonElements(
-        info_skills,
-        skillsRequired
-      );
-      commonElements += countCommonElements(
-        info_languages,
-        languagesRequired
-      );
-      commonElements += countCommonElements(
-        info_availability,
-        availability
-      );
-      commonElements += countCommonElements(
-        academic_level,
-        levelRequired
-      );
-      commonElements += countCommonElements(
-        info_contract,
-        contractOffered
-      );
+        for (const job of jobs) {
+          commonElements += countCommonElementsForJob(regularUser, job);
+        }
+        return commonElements;
+      }
     }
-    return commonElements;
-  }
 
   //--- Usuario principal ---//
   const {
-    info_problematic: targetUserProblematic,
-    info_goals: targetUserGoals,
-    info_career: targetUserCareer,
-    info_skills: targetUserSkills,
-    info_interests: targetUserInterests,
-    academic_area: targetUserAcademicArea,
-  } = targetUser;
+    info_problematic: targetProblematic,
+    info_goals: targetGoals,
+    info_career: targetCareer,
+    info_skills: targetSkills,
+    info_interests: targetInterests,
+    academic_area: targetAcademicArea,
+  } = target;
 
   //--- Potencial match ---//
   const {
@@ -101,31 +87,28 @@ const crossMatchData = (user, targetUser) => {
   } = user;
 
   // Se cuentan los elementos en común
-  const commonCareerCount = countCommonElements(userCareer, targetUserCareer);
+  const commonCareerCount = countCommonElements(userCareer, targetCareer);
   const commonAcademicAreaCount = countCommonElements(
     userAcademicArea,
-    targetUserAcademicArea
+    targetAcademicArea
   );
-  const commonGoalsCount = countCommonElements(userGoals, targetUserGoals);
-  const commonSkillsCount = countCommonElements(userSkills, targetUserSkills);
+  const commonGoalsCount = countCommonElements(userGoals, targetGoals);
+  const commonSkillsCount = countCommonElements(userSkills, targetSkills);
   const commonInterestsCount = countCommonElements(
     userInterests,
-    targetUserInterests
+    targetInterests
   );
 
   // Se verifican y establecen valores por defecto a los campos
   // a los que se les va a hacer el matcheo cruzado
-  const targetUserData = [
-    ...(targetUserGoals || []),
-    ...(targetUserProblematic || []),
-  ];
+  const targetData = [...(targetGoals || []), ...(targetProblematic || [])];
   const userData = [...(userGoals || []), ...(userProblematic || [])];
 
   // Se definen los puntajes correspondientes:
 
   // Usuario principal
   const scoreTargetUser = crossMatchDataOptions(
-    targetUserData,
+    targetData,
     userData,
     commonCareerCount,
     commonAcademicAreaCount,
@@ -138,13 +121,13 @@ const crossMatchData = (user, targetUser) => {
   // Potencial match
   const scoreUser = crossMatchDataOptions(
     userData,
-    targetUserData,
+    targetData,
     commonCareerCount,
     commonAcademicAreaCount,
     commonGoalsCount,
     commonSkillsCount,
     commonInterestsCount,
-    Number(targetUser.profile_support)
+    Number(target.profile_support)
   );
 
   // Se retorna el máximo entre ambos
