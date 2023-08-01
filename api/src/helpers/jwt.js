@@ -2,8 +2,9 @@ const jwt = require("jsonwebtoken");
 const { JWT_KEY } = require("../../config");
 
 const createToken = async (payload) => {
+  // console.log(payload);
   return new Promise((resolve, reject) => {
-    jwt.sign(payload, JWT_KEY, { expiresIn: "12h" }, (error, token) => {
+    jwt.sign(payload, JWT_KEY, { expiresIn: "4h" }, (error, token) => {
       if (error) reject({ ...error, message: "Could not create token." });
       resolve(token);
     });
