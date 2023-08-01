@@ -59,11 +59,9 @@ module.exports = (sequelize) => {
     },
     city: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     country: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     image: {
       type: DataTypes.STRING,
@@ -77,7 +75,6 @@ module.exports = (sequelize) => {
     },
     bio: {
       type: DataTypes.TEXT,
-      allowNull: true,
     },
   });
 
