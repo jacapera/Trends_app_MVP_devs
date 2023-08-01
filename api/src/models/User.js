@@ -73,7 +73,7 @@ module.exports = (sequelize) => {
       },
       profile_support: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
+        defaultValue: true,
       },
       academic_formation: {
         type: DataTypes.STRING,

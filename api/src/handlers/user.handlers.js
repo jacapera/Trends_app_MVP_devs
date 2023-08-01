@@ -18,11 +18,11 @@ const editProfile = async (req, res) => {
   try {
     const editedProfile = await putProfile(profile, profileData);
 
-    if (!editProfile) {
+    if (!editedProfile) {
       return res.status(500).json({ error: "The profile couldn't be updated" });
     }
     if (editedProfile.error && !editedProfile.error.message) {
-      return res.status(500).json({ error: editProfile.error });
+      return res.status(500).json({ error: editedProfile.error });
     }
 
     return res.status(201).json(editedProfile);
