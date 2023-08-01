@@ -2,6 +2,7 @@ import { useState } from "react";
 import style from "./RegisterFormBase.module.css";
 import { useNavigate } from "react-router-dom";
 import { validationRegister } from "../../utils/ValidationRegister";
+import { Link } from "react-router-dom";
 
 const RegisterFormBase = ({type})  => {
     const [validateLogin, setValidateLogin] = useState(null);
@@ -27,7 +28,8 @@ const RegisterFormBase = ({type})  => {
     event.preventDefault();
     if (inputs.email && inputs.password && inputs.username && inputs.name && type) {
       const result = validationRegister(inputs.email)
-      return result
+      if(!result)setValidateLogin(false)
+      else {return result}
   }}
 
     return(
@@ -38,24 +40,24 @@ const RegisterFormBase = ({type})  => {
             <h2>Sign Up</h2>
             <div className={style.Input}>
               <input name="name" onChange={handleInputs} type="text" placeholder="Name" />
-              <p className={validateLogin === false ? `${style.Error}` : style.NoError}>wrong email or password</p>
             </div>
             <div className={style.Input}>
               <input name="username" onChange={handleInputs} type="text" placeholder="Username" />
-              <p className={validateLogin === false ? `${style.Error}` : style.NoError}>wrong email or password</p>
             </div>
             <div className={style.Input}>
               <input name="email" onChange={handleInputs} type="text" placeholder="Email" />
-              <p className={validateLogin === false ? `${style.Error}` : style.NoError}>wrong email or password</p>
+              <p className={validateLogin === false ? `${style.Error}` : style.NoError}>you must enter a validate email</p>
             </div>
             <div className={style.Input}>
               <input name="password" onChange={handleInputs} type="password" placeholder="Password" />
-              <p className={validateLogin === false ? `${style.Error}` : style.NoError}>wrong email or password</p>
             </div>
             <button disabled={!(inputs.email && inputs.password && inputs.name && inputs.username)} type="submit">Register</button>
             <hr />
             <div className={style.Account}>
-              <span>Already have an account?</span> <span className={style.Bold}>Log in</span>
+              <span>Already have an account?</span>
+              <Link to={"/Trends_app_MVP/login"}>
+                <span className={style.Bold}>Log in</span>
+              </Link>
             </div>
           </form>
         </div>
