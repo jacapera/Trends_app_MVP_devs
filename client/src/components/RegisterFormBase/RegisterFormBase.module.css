@@ -12,12 +12,13 @@
     background-color: white;
     border-radius: .5rem;
     display: flex;
-    width: 51rem;
-    height: 33rem;
+    max-width: 60rem;
+    min-height: 24rem;
     font-family: "Poppins-Medium";
     font-weight: 70%;
     margin: auto auto;
     padding: 2rem;
+    padding-top: 0;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
 }
@@ -69,7 +70,7 @@
 }
 
 .RightContainer {
-    width: 50%;
+    width: 100%;
     padding: 0 1rem;
 }
 
@@ -130,6 +131,7 @@
 .RightContainer form span {
     font-style: italic;
     font-family: "Rubik-Regular";
+    text-align: center;
     font-size: 1rem;
 }
 
@@ -152,6 +154,7 @@
 }
 
 .RightContainer form .NoError {
+    font-size: .9rem;
     display: none;
 }
 
@@ -174,12 +177,12 @@
 }
 
 :global(.dark-mode) .RightContainer button {
-    background-color: #FAB180 ;
     color: white;
+    background-color: #FAB180;
 }
 
 :global(.dark-mode) .RightContainer button:disabled {
-    background-color: rgba(236, 189, 158, 0.348) ;
+    background-color: rgba(236, 189, 158, 0.348);
 }
 
 
@@ -191,8 +194,8 @@
     .Card {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
         justify-content: center;
     }
 
@@ -233,6 +236,7 @@
         padding: 2rem;
         border-radius: .4rem;
         width: 100%;
+        height: 100%;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
     }

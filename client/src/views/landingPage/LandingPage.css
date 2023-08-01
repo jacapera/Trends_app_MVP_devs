@@ -20,7 +20,7 @@ body.dark-mode {
   color: #fff;
 }
 
-main {
+.LandingContainer {
   display: flex;
   justify-content: center;
   align-items: center;

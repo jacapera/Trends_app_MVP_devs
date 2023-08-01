@@ -87,7 +87,6 @@ const Profile = () => {
     }
 
     return(
-
         <div className={style.BGContainer}>
             {
                 isEditing.image &&
