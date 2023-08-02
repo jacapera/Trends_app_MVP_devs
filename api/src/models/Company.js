@@ -26,6 +26,12 @@ module.exports = (sequelize) => {
         isUrl: true,
       },
     },
+    website: {
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: true,
+      },
+    },
     username: {
       type: DataTypes.STRING,
       allowNull: false,

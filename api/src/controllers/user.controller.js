@@ -14,6 +14,17 @@ const putProfile = async (profile, profileData) => {
   }
 };
 
+const putProfile = async (profile, profileData) => {
+  try {
+    const foundProfile = profile;
+    const updatedProfile = await foundProfile.update(profileData);
+    
+    return updatedProfile;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
 const getUserFeed = async (id, usersType) => {
   try {
     let target;
@@ -71,6 +82,7 @@ const getUserFeed = async (id, usersType) => {
 };
 
 
+
 const getUserProfile = async (user) => {
   let foundedUser = null;
   try {
@@ -111,4 +123,5 @@ const changeUserPassword = async (userId, newPassword) => {
 };
 
 module.exports = { getUserFeed, getUserProfile, changeUserPassword };
+
 

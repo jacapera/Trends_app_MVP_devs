@@ -6,6 +6,7 @@ const {
 } = require("../controllers/user.controller");
 
 
+
 const profile = async (req, res) => {
   const { user } = req;
   try {
@@ -17,6 +18,7 @@ const profile = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
 
 const updatePassword = async (req, res) => {
   const { id } = req.user;
@@ -44,6 +46,7 @@ const editProfile = async (req, res) => {
       return res.status(500).json({ error: editedProfile.error });
     }
 
+    
     return res.status(201).json(editedProfile);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -75,4 +78,5 @@ const feed = async (req, res) => {
 // module.exports = { profile, feed, editProfile };
 
 module.exports = { profile, feed, updatePassword };
+
 

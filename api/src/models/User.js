@@ -53,6 +53,7 @@ module.exports = (sequelize) => {
 
         allowNull: true,
 
+
         validate: {
           len: [10, 10],
         },
@@ -82,10 +83,12 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         allowNull: false,
 
+
         defaultValue: true,
       },
       academic_formation: {
         type: DataTypes.STRING,
+
 
         allowNull: true,
       },
@@ -93,13 +96,13 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
 
+
       },
       academic_level: {
         type: DataTypes.STRING,
       },
       academic_area: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-
         
         allowNull: true,
       },
@@ -108,6 +111,7 @@ module.exports = (sequelize) => {
         allowNull: true,
 
         
+
       },
       info_company_name: {
         type: DataTypes.STRING,
@@ -121,6 +125,31 @@ module.exports = (sequelize) => {
       },
       info_career: {
         type: DataTypes.ARRAY(DataTypes.STRING),
+
+        
+      },
+      info_skills: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+      },
+      info_goals: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+      },
+      info_interests: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+      },
+      info_problematic: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+      },
+      info_languages: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+      },
+      info_availability: {
+        type: DataTypes.STRING,
+      },
+      info_contract: {
+        type: DataTypes.STRING,
+
+        
 
         
         allowNull: true,
@@ -152,6 +181,7 @@ module.exports = (sequelize) => {
       info_contract: {
         type: DataTypes.STRING,
         allowNull: true,
+
 
         
       },
