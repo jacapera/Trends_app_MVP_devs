@@ -4,7 +4,7 @@ const validateSchema = require("../middlewares/validateInfo");
 const {
   registerUserSchema,
   loginUserSchema,
-} = require("../schemas/auth.schema");
+} = require("../schemas/index.schemas");
 
 const authRoutes = Router();
 
