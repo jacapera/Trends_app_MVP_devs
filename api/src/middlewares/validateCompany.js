@@ -1,7 +1,7 @@
 const { getUserById } = require("../controllers/search.controller");
 
 const validateCompany = async (req, res, next) => {
-  const { id: UserId } = req.user.dataValues;
+  const { id: UserId } = req.user;
   const currentUser = await getUserById(UserId);
   const currentUserType = currentUser?.dataValues?.type;
 
