@@ -52,4 +52,28 @@ const getUserFeed = async (id, usersType) => {
   }
 };
 
-module.exports = { getUserFeed };
+const getUserProfile = async (user) => {
+  let foundedUser = null;
+  try {
+    if (user.type.toLowerCase() === "company")
+      foundedUser = await Company.scope(
+        "withoutId",
+        "withoutPassword"
+      ).findByPk(user.id);
+    if (user.type.toLowerCase() === "professional")
+      foundedUser = await User.scope("withoutId", "withoutPassword").findByPk(
+        user.id
+      );
+    if (user.type.toLowerCase() === "student")
+      foundedUser = await User.scope(
+        "withoutId",
+        "withoutPassword",
+        "student"
+      ).findByPk(user.id);
+    return foundedUser;
+  } catch (error) {
+    throw new Error("Could not find user in db.");
+  }
+};
+
+module.exports = { getUserFeed, getUserProfile };
