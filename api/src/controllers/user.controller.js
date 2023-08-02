@@ -3,34 +3,65 @@ const { matcher } = require("../helpers/matchingAlgorithm/matcher.js");
 const { User, Company, Job } = require("../db");
 const { findAccount } = require("../helpers/findAccount");
 
-const putProfile = async (profile, profileData) => {
+const getUserProfile = async (user) => {
+  let foundedUser = null;
+  try {
+    if (user.type.toLowerCase() === "company")
+      foundedUser = await Company.scope(
+        "withoutId",
+        "withoutPassword"
+      ).findByPk(user.id);
+    if (user.type.toLowerCase() === "professional")
+      foundedUser = await User.scope("withoutId", "withoutPassword").findByPk(
+        user.id
+      );
+    if (user.type.toLowerCase() === "student")
+      foundedUser = await User.scope(
+        "withoutId",
+        "withoutPassword",
+        "student"
+      ).findByPk(user.id);
+    return foundedUser;
+  } catch (error) {
+    throw new Error("Could not find user in db.");
+  }
+};
+
+const changeUserPassword = async (userId, newPassword, currentPassword) => {
+  try {
+    const foundedUser = await findAccount({ id: userId });
+    if (!foundedUser)
+      throw new Error("No valid user found to change password.");
+    if (!(await foundedUser.comparePassword(currentPassword)))
+      throw new Error(
+        "The entered password does not match the saved password."
+      );
+    if (currentPassword === newPassword)
+      throw new Error(
+        "The current password has to be different from the previous one."
+      );
+    return await foundedUser.update({ password: newPassword });
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+const putUserProfile = async (profile, profileData) => {
   try {
     const foundProfile = profile;
     const updatedProfile = await foundProfile.update(profileData);
-    
+
     return updatedProfile;
   } catch (error) {
     return { error: error.message };
   }
 };
 
-const putProfile = async (profile, profileData) => {
+const deleteUserProfile = async (id) => {
   try {
-    const foundProfile = profile;
-    const updatedProfile = await foundProfile.update(profileData);
-    
-    return updatedProfile;
-  } catch (error) {
-    return { error: error.message };
-  }
-};
+    const deletedProfile = await User.destroy({ where: { id } });
 
-const putProfile = async (profile, profileData) => {
-  try {
-    const foundProfile = profile;
-    const updatedProfile = await foundProfile.update(profileData);
-    
-    return updatedProfile;
+    return deletedProfile;
   } catch (error) {
     return { error: error.message };
   }
@@ -92,46 +123,10 @@ const getUserFeed = async (id, usersType) => {
   }
 };
 
-
-
-const getUserProfile = async (user) => {
-  let foundedUser = null;
-  try {
-    if (user.type.toLowerCase() === "company")
-      foundedUser = await Company.scope(
-        "withoutId",
-        "withoutPassword"
-      ).findByPk(user.id);
-    if (user.type.toLowerCase() === "professional")
-      foundedUser = await User.scope("withoutId", "withoutPassword").findByPk(
-        user.id
-      );
-    if (user.type.toLowerCase() === "student")
-      foundedUser = await User.scope(
-        "withoutId",
-        "withoutPassword",
-        "student"
-      ).findByPk(user.id);
-    return foundedUser;
-  } catch (error) {
-    throw new Error("Could not find user in db.");
-  }
+module.exports = {
+  getUserFeed,
+  getUserProfile,
+  putUserProfile,
+  deleteUserProfile,
+  changeUserPassword,
 };
-
-const changeUserPassword = async (userId, newPassword) => {
-  try {
-    const foundedUser = await findAccount({ id: userId });
-    if (!foundedUser)
-      throw new Error("No valid user found to change password.");
-    if (await foundedUser.comparePassword(newPassword))
-      throw new Error(
-        "The current password has to be different from the previous one."
-      );
-    return await foundedUser.update({ password: newPassword });
-  } catch (error) {
-    throw new Error(error);
-  }
-};
-
-module.exports = { getUserFeed, getUserProfile, changeUserPassword };
-
