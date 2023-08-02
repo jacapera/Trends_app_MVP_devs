@@ -10,7 +10,7 @@ const findAccount = async (prop) => {
     });
     // console.log(`findAccount: ${foundedCompany}`);
     // console.log(`findAccount: ${foundedUser}`);
-    if (!foundedCompany && !foundedUser) return;
+    // if (!foundedCompany && !foundedUser) return;
     return foundedUser || foundedCompany;
   } catch (error) {
     throw error;
