@@ -47,9 +47,8 @@ h1 {
 	line-height: 1.1;
 }
 
-.darkMode {
-	background-color: #1a1a1a;
-
+body .dark-mode {
+	background-color: #24242424;
 }
 
 
