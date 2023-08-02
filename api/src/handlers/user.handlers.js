@@ -84,5 +84,5 @@ const feed = async (req, res) => {
 
 // module.exports = { profile, feed, editProfile };
 
-module.exports = { profile, feed, updatePassword };
+module.exports = { profile, feed, updatePassword, editProfile };
 
