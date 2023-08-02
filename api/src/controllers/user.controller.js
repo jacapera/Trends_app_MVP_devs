@@ -91,9 +91,9 @@ const getUserFeed = async (id, usersType) => {
       attributes: {
         exclude: [
           "password",
-          ...(usersType === "student"
+          ...(usersType.toLowerCase() === "student"
             ? ["info_company_name", "info_position"]
-            : usersType === "professional"
+            : usersType.toLowerCase() === "professional"
             ? ["academic_level"]
             : []),
         ],

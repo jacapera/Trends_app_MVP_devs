@@ -21,7 +21,7 @@ const searchUsers = async (req, res) => {
   const queryParams = { ...req.query };
   const userType = queryParams?.type;
 
-  if (!["student", "professional", "company"].includes(userType)) {
+  if (!["student", "professional", "company"].includes(userType.toLowerCase())) {
     return res.status(400).json({ error: "Invalid user type" });
   }
 

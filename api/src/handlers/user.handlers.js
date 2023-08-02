@@ -68,7 +68,7 @@ const removeProfile = async (req, res) => {
 const feed = async (req, res) => {
   const { id, usersType } = req.params;
 
-  if (!["student", "professional", "company"].includes(usersType)) {
+  if (!["student", "professional", "company"].includes(usersType.toLowerCase())) {
     return res.status(400).json({ error: "Invalid user type" });
   }
 

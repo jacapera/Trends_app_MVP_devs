@@ -12,10 +12,14 @@ const authRoutes = require("./routes/auth.routes");
 const searchRoutes = require("./routes/search.routes");
 const userRoutes = require("./routes/user.routes");
 const jobRoutes = require("./routes/job.routes");
+const imageRoutes = require("./routes/image.routes");
+const multer = require("multer");
+const upload = require("./helpers/imageUploader");
 const userTestRoutes = require("./routes/userTest.routes");
 
 const app = express();
 
+app.use(upload.single("image"));
 app.use(morgan("dev"));
 app.use(
   cors({
@@ -24,6 +28,7 @@ app.use(
   })
 );
 app.use(helmet());
+app.use(upload.single("image"));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json());
@@ -42,6 +47,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
+app.use("/api/v1/images", imageRoutes);
 
 // --- solo para pruebas ---
 app.use("/userTest", userTestRoutes);
