@@ -915,10 +915,7 @@ const professional6 = {
     "Hacer una especialización",
   ], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-
-  info_languages: ["English"],
-
-  
+  info_languages: ["Inglés"],
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -987,10 +984,7 @@ const professional8 = {
   info_interests: ["Data Visualization", "Business Intelligence"],
   info_goals: ["Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-
-  info_languages: ["English", "Mandarin"],
-
-  
+  info_languages: ["Inglés", "Mandarín"],
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1166,10 +1160,7 @@ const professional13 = {
   info_interests: ["Renewable Energy", "Biodiversity Conservation"],
   info_goals: ["Conseguir un trabajo", "Hacer una especialización"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de información del mercado laboral"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-
-  
   info_languages: ["Inglés"],
-
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1203,7 +1194,6 @@ const professional14 = {
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
   info_languages: ["Inglés", "Koreano"],
-
   info_availability: "Full-time",
   info_contract: "Remoto",
 };
@@ -1236,10 +1226,7 @@ const professional15 = {
   info_interests: ["UI/UX Design", "Web Accessibility"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Dificultad para conseguir trabajo"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-
   info_languages: ["Inglés", "Alemán"],
-
-  
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1272,9 +1259,7 @@ const professional16 = {
   info_interests: ["Natural Language Processing", "Data Visualization"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de información del mercado laboral"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-
   info_languages: ["Inglés", "Mandarín"],
-
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1307,9 +1292,7 @@ const professional17 = {
   info_interests: ["Reinforcement Learning", "Ethical AI"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-
   info_languages: ["Inglés"],
-
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1342,10 +1325,7 @@ const professional18 = {
   info_interests: ["Web Accessibility", "Progressive Web Apps"],
   info_goals: ["Conocer nuevos colegas y oportunidades"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-
   info_languages: ["Inglés", "Koreano"],
-
-  
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1423,7 +1403,7 @@ const professional20 = {
 
 const company1 = {
   type: "company",
-  name: "The Coca-Cola Company",
+  companyName: "The Coca-Cola Company",
   email: "contact@coca-cola.com",
   username: "cocacola_official",
   password: "C0caC0laP@ss",
@@ -1437,7 +1417,7 @@ const company1 = {
 
 const company2 = {
   type: "company",
-  name: "Apple Inc.",
+  companyName: "Apple Inc.",
   email: "apple.inc@example.com",
   username: "apple",
   password: "apple123",
@@ -1451,7 +1431,7 @@ const company2 = {
 
 const company3 = {
   type: "company",
-  name: "Samsung Electronics",
+  companyName: "Samsung Electronics",
   email: "samsung@example.com",
   username: "samsung",
   password: "samsung123",
@@ -1465,7 +1445,7 @@ const company3 = {
 
 const company4 = {
   type: "company",
-  name: "Amazon",
+  companyName: "Amazon",
   email: "amazon@example.com",
   username: "amazon",
   password: "amazon123",
@@ -1479,7 +1459,7 @@ const company4 = {
 
 const company5 = {
   type: "company",
-  name: "Google",
+  companyName: "Google",
   email: "google@example.com",
   username: "google",
   password: "google123",
@@ -1493,7 +1473,7 @@ const company5 = {
 
 const company6 = {
   type: "company",
-  name: "Microsoft",
+  companyName: "Microsoft",
   email: "microsoft@example.com",
   username: "microsoft",
   password: "microsoft123",
@@ -1507,7 +1487,7 @@ const company6 = {
 
 const company7 = {
   type: "company",
-  name: "Facebook",
+  companyName: "Facebook",
   email: "facebook@example.com",
   username: "facebook",
   password: "facebook123",
@@ -1521,7 +1501,7 @@ const company7 = {
 
 const company8 = {
   type: "company",
-  name: "Tesla, Inc.",
+  companyName: "Tesla, Inc.",
   email: "tesla@example.com",
   username: "tesla",
   password: "tesla123",
@@ -1535,7 +1515,7 @@ const company8 = {
 
 const company9 = {
   type: "company",
-  name: "Netflix",
+  companyName: "Netflix",
   email: "netflix@example.com",
   username: "netflix",
   password: "netflix123",
@@ -1549,7 +1529,7 @@ const company9 = {
 
 const company10 = {
   type: "company",
-  name: "Uber",
+  companyName: "Uber",
   email: "uber@example.com",
   username: "uber",
   password: "uber123",
@@ -1562,7 +1542,7 @@ const company10 = {
 };
 const company11 = {
   type: "company",
-  name: "Nike",
+  companyName: "Nike",
   email: "nike@example.com",
   username: "nike",
   password: "nike123",
@@ -1576,7 +1556,7 @@ const company11 = {
 
 const company12 = {
   type: "company",
-  name: "Toyota Motor Corporation",
+  companyName: "Toyota Motor Corporation",
   email: "toyota@example.com",
   username: "toyota",
   password: "toyota123",
@@ -1590,7 +1570,7 @@ const company12 = {
 
 const company13 = {
   type: "company",
-  name: "Adobe Inc.",
+  companyName: "Adobe Inc.",
   email: "adobe@example.com",
   username: "adobe",
   password: "adobe123",
@@ -1604,7 +1584,7 @@ const company13 = {
 
 const company14 = {
   type: "company",
-  name: "Walt Disney Company",
+  companyName: "Walt Disney Company",
   email: "disney@example.com",
   username: "disney",
   password: "disney123",
@@ -1618,7 +1598,7 @@ const company14 = {
 
 const company15 = {
   type: "company",
-  name: "Intel Corporation",
+  companyName: "Intel Corporation",
   email: "intel@example.com",
   username: "intel",
   password: "intel123",
@@ -1632,7 +1612,7 @@ const company15 = {
 
 const company16 = {
   type: "company",
-  name: "XYZ Tech Solutions",
+  companyName: "XYZ Tech Solutions",
   email: "contact@xyztech.com",
   username: "xyztech",
   password: "xyz1234",
@@ -1646,7 +1626,7 @@ const company16 = {
 
 const company17 = {
   type: "company",
-  name: "PepsiCo",
+  companyName: "PepsiCo",
   email: "pepsico@example.com",
   username: "pepsico",
   password: "pepsico123",
@@ -1660,7 +1640,7 @@ const company17 = {
 
 const company18 = {
   type: "company",
-  name: "IBM",
+  companyName: "IBM",
   email: "ibm@example.com",
   username: "ibm",
   password: "ibm123",
@@ -1674,7 +1654,7 @@ const company18 = {
 
 const company19 = {
   type: "company",
-  name: "McDonald's Corporation",
+  companyName: "McDonald's Corporation",
   email: "mcdonalds@example.com",
   username: "mcdonalds",
   password: "mcdonalds123",
@@ -1688,7 +1668,7 @@ const company19 = {
 
 const company20 = {
   type: "company",
-  name: "Sony Corporation",
+  companyName: "Sony Corporation",
   email: "sony@example.com",
   username: "sony",
   password: "sony123",
@@ -2347,10 +2327,7 @@ const companyJobs8 = [
     creationDate: "2023-10-15",
     closingDate: "2023-11-15",
     active: true,
-
-//    levelRequired: "Avanzado",
-    levelRequired: "Advanced", // Beginner - In progress - Advanced
-
+    levelRequired: "Avanzado",
     studyArea: ["Computer Science", "Game Development"], // Ingeniería Informática - Desarrollo de Videojuegos
     experienceRequired: "6", // years
     industry: ["Electrónica", "Entretenimiento"], // Electrónica - Entretenimiento
@@ -2377,13 +2354,10 @@ const companyJobs8 = [
     creationDate: "2023-11-01",
     closingDate: "2023-11-30",
     active: true,
-
     levelRequired: "Avanzado",
     studyArea: ["Business Administration"],
     experienceRequired: "7", // years
     industry: ["Electrónica", "Product Management"],
-
-    
     benefits: [
       "Health insurance plans",
       "Flexible working hours",
@@ -2406,7 +2380,7 @@ const companyJobs8 = [
   },
 ];
 
-export const professionals = [
+const professionals = [
   professional1,
   professional2,
   professional3,
@@ -2429,7 +2403,7 @@ export const professionals = [
   professional20,
 ];
 
-export const students = [
+const students = [
   student1,
   student2,
   student3,
@@ -2452,7 +2426,7 @@ export const students = [
   student20,
 ];
 
-export const companies = [
+const companies = [
   company1,
   company2,
   company3,
@@ -2475,7 +2449,7 @@ export const companies = [
   company20,
 ];
 
-export const jobs = [
+const jobs = [
   companyJobs1,
   companyJobs2,
   companyJobs3,
@@ -2485,3 +2459,6 @@ export const jobs = [
   companyJobs7,
   companyJobs8,
 ];
+
+
+module.exports = {professionals, students, companies, jobs}
