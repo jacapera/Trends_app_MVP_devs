@@ -13,6 +13,16 @@ const putProfile = async (profile, profileData) => {
   }
 };
 
+const deleteProfile = async (id) => {
+  try {
+    const deletedProfile = await User.destroy({ where: { id } });
+
+    return deletedProfile;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
 const getUserFeed = async (id, usersType) => {
   try {
     let target;
@@ -69,4 +79,4 @@ const getUserFeed = async (id, usersType) => {
   }
 };
 
-module.exports = { getUserFeed, putProfile };
+module.exports = { getUserFeed, putProfile, deleteProfile };

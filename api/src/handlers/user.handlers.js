@@ -1,4 +1,4 @@
-const { getUserFeed, putProfile } = require("../controllers/user.controller");
+const { getUserFeed, putProfile, deleteProfile } = require("../controllers/user.controller");
 
 const profile = async (req, res) => {
   const { user } = req;
@@ -31,6 +31,22 @@ const editProfile = async (req, res) => {
   }
 };
 
+const removeProfile = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const removedProfile = await deleteProfile(id);
+
+    if (removedProfile === 0)
+      return res.status(400).json({ error: "User not found" });
+
+    res.status(200).json({ message: "Profile successfully removed" });
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
+
 const feed = async (req, res) => {
   const { id, usersType } = req.params;
 
@@ -52,4 +68,4 @@ const feed = async (req, res) => {
   }
 };
 
-module.exports = { profile, feed, editProfile };
+module.exports = { profile, feed, editProfile, removeProfile };

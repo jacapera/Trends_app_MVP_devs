@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    companyName: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

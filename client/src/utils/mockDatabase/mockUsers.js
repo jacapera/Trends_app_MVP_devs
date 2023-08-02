@@ -1403,7 +1403,7 @@ const professional20 = {
 
 const company1 = {
   type: "company",
-  companyName: "The Coca-Cola Company",
+  name: "The Coca-Cola Company",
   email: "contact@coca-cola.com",
   username: "cocacola_official",
   password: "C0caC0laP@ss",
@@ -1417,7 +1417,7 @@ const company1 = {
 
 const company2 = {
   type: "company",
-  companyName: "Apple Inc.",
+  name: "Apple Inc.",
   email: "apple.inc@example.com",
   username: "apple",
   password: "apple123",
@@ -1431,7 +1431,7 @@ const company2 = {
 
 const company3 = {
   type: "company",
-  companyName: "Samsung Electronics",
+  name: "Samsung Electronics",
   email: "samsung@example.com",
   username: "samsung",
   password: "samsung123",
@@ -1445,7 +1445,7 @@ const company3 = {
 
 const company4 = {
   type: "company",
-  companyName: "Amazon",
+  name: "Amazon",
   email: "amazon@example.com",
   username: "amazon",
   password: "amazon123",
@@ -1459,7 +1459,7 @@ const company4 = {
 
 const company5 = {
   type: "company",
-  companyName: "Google",
+  name: "Google",
   email: "google@example.com",
   username: "google",
   password: "google123",
@@ -1473,7 +1473,7 @@ const company5 = {
 
 const company6 = {
   type: "company",
-  companyName: "Microsoft",
+  name: "Microsoft",
   email: "microsoft@example.com",
   username: "microsoft",
   password: "microsoft123",
@@ -1487,7 +1487,7 @@ const company6 = {
 
 const company7 = {
   type: "company",
-  companyName: "Facebook",
+  name: "Facebook",
   email: "facebook@example.com",
   username: "facebook",
   password: "facebook123",
@@ -1501,7 +1501,7 @@ const company7 = {
 
 const company8 = {
   type: "company",
-  companyName: "Tesla, Inc.",
+  name: "Tesla, Inc.",
   email: "tesla@example.com",
   username: "tesla",
   password: "tesla123",
@@ -1515,7 +1515,7 @@ const company8 = {
 
 const company9 = {
   type: "company",
-  companyName: "Netflix",
+  name: "Netflix",
   email: "netflix@example.com",
   username: "netflix",
   password: "netflix123",
@@ -1529,7 +1529,7 @@ const company9 = {
 
 const company10 = {
   type: "company",
-  companyName: "Uber",
+  name: "Uber",
   email: "uber@example.com",
   username: "uber",
   password: "uber123",
@@ -1542,7 +1542,7 @@ const company10 = {
 };
 const company11 = {
   type: "company",
-  companyName: "Nike",
+  name: "Nike",
   email: "nike@example.com",
   username: "nike",
   password: "nike123",
@@ -1556,7 +1556,7 @@ const company11 = {
 
 const company12 = {
   type: "company",
-  companyName: "Toyota Motor Corporation",
+  name: "Toyota Motor Corporation",
   email: "toyota@example.com",
   username: "toyota",
   password: "toyota123",
@@ -1570,7 +1570,7 @@ const company12 = {
 
 const company13 = {
   type: "company",
-  companyName: "Adobe Inc.",
+  name: "Adobe Inc.",
   email: "adobe@example.com",
   username: "adobe",
   password: "adobe123",
@@ -1584,7 +1584,7 @@ const company13 = {
 
 const company14 = {
   type: "company",
-  companyName: "Walt Disney Company",
+  name: "Walt Disney Company",
   email: "disney@example.com",
   username: "disney",
   password: "disney123",
@@ -1598,7 +1598,7 @@ const company14 = {
 
 const company15 = {
   type: "company",
-  companyName: "Intel Corporation",
+  name: "Intel Corporation",
   email: "intel@example.com",
   username: "intel",
   password: "intel123",
@@ -1612,7 +1612,7 @@ const company15 = {
 
 const company16 = {
   type: "company",
-  companyName: "XYZ Tech Solutions",
+  name: "XYZ Tech Solutions",
   email: "contact@xyztech.com",
   username: "xyztech",
   password: "xyz1234",
@@ -1626,7 +1626,7 @@ const company16 = {
 
 const company17 = {
   type: "company",
-  companyName: "PepsiCo",
+  name: "PepsiCo",
   email: "pepsico@example.com",
   username: "pepsico",
   password: "pepsico123",
@@ -1640,7 +1640,7 @@ const company17 = {
 
 const company18 = {
   type: "company",
-  companyName: "IBM",
+  name: "IBM",
   email: "ibm@example.com",
   username: "ibm",
   password: "ibm123",
@@ -1654,7 +1654,7 @@ const company18 = {
 
 const company19 = {
   type: "company",
-  companyName: "McDonald's Corporation",
+  name: "McDonald's Corporation",
   email: "mcdonalds@example.com",
   username: "mcdonalds",
   password: "mcdonalds123",
@@ -1668,7 +1668,7 @@ const company19 = {
 
 const company20 = {
   type: "company",
-  companyName: "Sony Corporation",
+  name: "Sony Corporation",
   email: "sony@example.com",
   username: "sony",
   password: "sony123",
