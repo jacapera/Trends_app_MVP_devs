@@ -34,11 +34,8 @@ function countCommonElementsForJob(regularUser, job) {
 // Se toma al usuario objetivo y a su potencial match
 const crossMatchData = (user, target) => {
   // Se verifica si alguno de los usuarios es de tipo empresa
-  let company = user.type === "company" 
-    ? user 
-    : target.type === "company" 
-      ? target 
-      : null;
+  let company =
+    user.type === "company" ? user : target.type === "company" ? target : null;
 
   // Se verifica que el otro sea un usuario regular
   let regularUser = ["student", "professional"].includes(user.type)

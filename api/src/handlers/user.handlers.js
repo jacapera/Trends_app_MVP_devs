@@ -1,11 +1,37 @@
-const { getUserFeed, putProfile, deleteProfile } = require("../controllers/user.controller");
+
+// const { getUserFeed, putProfile } = require("../controllers/user.controller");
+
+
+const {
+  getUserFeed,
+  getUserProfile,
+  changeUserPassword,
+} = require("../controllers/user.controller");
+
+
+
+
 
 const profile = async (req, res) => {
   const { user } = req;
-  // console.log(user);
   try {
     console.log("user profile, route protected.");
-    res.status(200).json(user);
+    const foundedUser = await getUserProfile(user);
+    if (!foundedUser) throw new Error("User not found.");
+    res.status(200).json(foundedUser);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+const updatePassword = async (req, res) => {
+  const { id } = req.user;
+  const { newPassword, currentPassword } = req.body;
+  try {
+    const result = await changeUserPassword(id, newPassword, currentPassword);
+    if (!result) throw new Error("Could not update password.");
+    res.status(200).json("Password updated successfully.");
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -25,27 +51,13 @@ const editProfile = async (req, res) => {
       return res.status(500).json({ error: editedProfile.error });
     }
 
+    
+
     return res.status(201).json(editedProfile);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
-
-const removeProfile = async (req, res) => {
-  const { id } = req.params;
-
-  try {
-    const removedProfile = await deleteProfile(id);
-
-    if (removedProfile === 0)
-      return res.status(400).json({ error: "User not found" });
-
-    res.status(200).json({ message: "Profile successfully removed" });
-
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-}
 
 const feed = async (req, res) => {
   const { id, usersType } = req.params;
@@ -68,4 +80,9 @@ const feed = async (req, res) => {
   }
 };
 
-module.exports = { profile, feed, editProfile, removeProfile };
+
+
+// module.exports = { profile, feed, editProfile };
+
+module.exports = { profile, feed, updatePassword, editProfile };
+

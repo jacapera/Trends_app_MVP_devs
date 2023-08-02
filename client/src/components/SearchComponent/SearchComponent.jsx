@@ -1,7 +1,7 @@
 import style from "./SearchComponent.module.css"
 import { useState } from "react";
 import {FaMagnifyingGlass} from "react-icons/fa6"
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { getSearchedUsers, test } from "../../Redux/UsersSlice";
 import {useDispatch} from "react-redux";
 
