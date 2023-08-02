@@ -12,7 +12,7 @@ const RegisterFormBase = ({type})  => {
     const URL = `${VITE_URL}/api/v1/auth/register`;
 
   const [inputs, setInputs] = useState({
-    support: false,
+    profile_support: false,
     type,
     email: "",
     password: "",
