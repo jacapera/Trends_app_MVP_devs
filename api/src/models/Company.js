@@ -18,41 +18,26 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
-    },
-    website: {
-      type: DataTypes.STRING,
-      validate: {
-        isUrl: true,
+      website: {
+        type: DataTypes.STRING,
+        validate: {
+          isUrl: true,
+        },
       },
-    },
-    website: {
-      type: DataTypes.STRING,
-      validate: {
-        isUrl: true,
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          len: [3, 33],
+        },
       },
-    },
-    website: {
-      type: DataTypes.STRING,
-      validate: {
-        isUrl: true,
-      },
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        len: [3, 33],
-                  },
-
       name: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
           len: [2, 55],
         },
-
       },
       email: {
         type: DataTypes.STRING,
@@ -60,41 +45,6 @@ module.exports = (sequelize) => {
         unique: true,
         validate: {
           isEmail: true,
-        },
-      },
-        
-        /*
-        
-
-    },
-    city: {
-      type: DataTypes.STRING,
-    },
-    country: {
-      type: DataTypes.STRING,
-    },
-    image: {
-      type: DataTypes.STRING,
-      allowNull: true,
-      defaultValue: DEFAULT_IMG,
-      validate: { isUrl: true },
-      set(value) {
-        // Si el valor es un string vacío, lo convierte a null
-        this.setDataValue("image", value || DEFAULT_IMG);
-      },
-    },
-    bio: {
-      type: DataTypes.TEXT,
-    },
-  });
-  */
-
-      username: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-          len: [3, 33],
         },
       },
       password: {
@@ -140,12 +90,10 @@ module.exports = (sequelize) => {
         },
         withoutPassword: {
           attributes: { exclude: ["password"] },
-        }
+        },
       },
     }
   );
-
-
 
   Company.beforeSave(async (company) => {
     if (company.changed("password"))

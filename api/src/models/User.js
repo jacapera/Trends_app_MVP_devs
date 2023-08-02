@@ -47,15 +47,11 @@ module.exports = (sequelize) => {
       },
       profile_bio: {
         type: DataTypes.TEXT,
+        allowNull: true,
       },
       profile_birth: {
         type: DataTypes.STRING,
-
         allowNull: true,
-
-
-
-        
         validate: {
           len: [10, 10],
         },
@@ -73,10 +69,6 @@ module.exports = (sequelize) => {
       },
       profile_city: {
         type: DataTypes.STRING,
-
-        
-
-        
         allowNull: true,
       },
       profile_country: {
@@ -86,40 +78,27 @@ module.exports = (sequelize) => {
       profile_support: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-
-
-
         defaultValue: true,
       },
       academic_formation: {
         type: DataTypes.STRING,
-
-
-
         allowNull: true,
       },
       academic_institution: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING, 
         allowNull: true,
-
-
-
-       
       },
       academic_level: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       academic_area: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        
         allowNull: true,
       },
       academic_graduation: {
         type: DataTypes.STRING,
         allowNull: true,
-
-        
-
       },
       info_company_name: {
         type: DataTypes.STRING,
@@ -133,31 +112,6 @@ module.exports = (sequelize) => {
       },
       info_career: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-
-        
-      },
-      info_skills: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-      },
-      info_goals: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-      },
-      info_interests: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-      },
-      info_problematic: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-      },
-      info_languages: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-      },
-      info_availability: {
-        type: DataTypes.STRING,
-      },
-      info_contract: {
-        type: DataTypes.STRING,
-
-        
         allowNull: true,
       },
       info_skills: {
@@ -187,10 +141,34 @@ module.exports = (sequelize) => {
       info_contract: {
         type: DataTypes.STRING,
         allowNull: true,
-
-
-
-        
+      },
+      info_skills: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_goals: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_interests: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_problematic: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_languages: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_availability: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      info_contract: {
+        type: DataTypes.STRING,
+        allowNull: true, 
       },
     },
     {
