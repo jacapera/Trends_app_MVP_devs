@@ -1,6 +1,7 @@
 .mainDiv{
     height: 100vh;
-    width: 100vw;
+    width: 98vw;
+    background-color: transparent;
     position: absolute;
     left: 0;
     display: flex;
@@ -185,12 +186,12 @@
 }
 
 :global(.dark-mode) .whiteContainer {
-    background-color: #05050D;
+    background-color: #383636;
     color: #CCB5A5;
 }
 
 :global(.dark-mode) .Option input {
-    background-color: #05050D;
+    background-color: transparent;
     border: #CCB5A5 solid 1px;
 }
 :global(.dark-mode) .Option input:hover {
@@ -198,7 +199,7 @@
 }
 
 :global(.dark-mode) .BioInput {
-    background-color: #05050D;
+    background-color: transparent;
     border: #CCB5A5 solid 1px;
 }
 
