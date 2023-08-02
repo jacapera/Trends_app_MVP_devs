@@ -88,7 +88,7 @@ const changeUserPassword = async (userId, newPassword) => {
       );
     return await foundedUser.update({ password: newPassword });
   } catch (error) {
-    throw new Error(error);
+    throw new Error(error.message);
   }
 };
 
