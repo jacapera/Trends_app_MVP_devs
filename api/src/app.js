@@ -1,5 +1,8 @@
 const { JWT_KEY } = require("../config");
 const express = require("express");
+
+
+//<----------------------------Middlewares libraries---------------------------->//
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -7,19 +10,28 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const passport = require("./auth/passport-config");
+const multer = require("multer");
+const upload = require("./helpers/imageUploader");
+//<----------------------------------------------------------------------------->//
+
+
+//<-----------------------------Custom Middlewares----------------------------->//
 const authenticateUser = require("./middlewares/authenticateUser");
+//<---------------------------------------------------------------------------->//
+
+
+//<-----------------------------------Routes----------------------------------->//
 const authRoutes = require("./routes/auth.routes");
 const searchRoutes = require("./routes/search.routes");
 const userRoutes = require("./routes/user.routes");
 const jobRoutes = require("./routes/job.routes");
 const imageRoutes = require("./routes/image.routes");
-const multer = require("multer");
-const upload = require("./helpers/imageUploader");
 const userTestRoutes = require("./routes/userTest.routes");
+const adminRoutes = require("./routes/admin.routes");
+//<---------------------------------------------------------------------------->//
+
 
 const app = express();
-
-app.use(upload.single("image"));
 app.use(morgan("dev"));
 app.use(
   cors({
@@ -48,6 +60,7 @@ app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
 app.use("/api/v1/images", imageRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 // --- solo para pruebas ---
 app.use("/userTest", userTestRoutes);
