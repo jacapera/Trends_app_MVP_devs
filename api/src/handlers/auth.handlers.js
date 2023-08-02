@@ -1,11 +1,16 @@
 const { NODE_ENV } = require("../../config");
 const validateUser = require("../controllers/login.controller");
 const registerUser = require("../controllers/register.controller");
+const { findAccount } = require("../helpers/findAccount");
 
 const register = async (req, res) => {
   //FALTAN LAS VALIDACIONES
   const newUser = req.body;
   try {
+    const foundedEmail = await findAccount({ email: newUser.email });
+    const foundedUsername = await findAccount({ username: newUser.username });
+    if (foundedEmail) throw new Error("this email is already used.");
+    if (foundedUsername) throw new Error("this username is already used.");
     const token = await registerUser(newUser);
     res.cookie("token", token, {
       httpOnly: true,

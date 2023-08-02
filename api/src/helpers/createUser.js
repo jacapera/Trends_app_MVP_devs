@@ -11,8 +11,13 @@ const createNewUser = async (userData) => {
 };
 
 const createNewCompany = async (companyData) => {
+
+  // const { data } = companyData;
   try {
+    // console.log(data);
     const newCompany = await Company.create(companyData);
+    console.log(newCompany);
+
     return newCompany;
   } catch (error) {
     throw new Error(`Company could not be created. ${error}`);

@@ -1,7 +1,7 @@
-const { User, Company } = require("../db");
+// const { User, Company } = require("../db");
+// const LocalStrategy = require("passport-local").Strategy;
 const passport = require("passport");
 const JWTStrategy = require("passport-jwt").Strategy;
-const LocalStrategy = require("passport-local").Strategy;
 const { JWT_KEY } = require("../../config");
 const { findAccount } = require("../helpers/findAccount");
 
