@@ -4,9 +4,7 @@ const initialState = {
   user_id:"",
   userName:"",
   image:"",
-  access:false,
   rol:"",
-  token:"",
   allUsersChat:[],
 }
 
@@ -15,13 +13,17 @@ const usersChatSlice = createSlice({
   initialState,
   reducers: {
     setUserChat: (state, action) => {
-      const {user_id, userName, image, access, rol, token} = action.payload;
+      const {user_id, userName, image, rol} = action.payload;
       state.user_id = user_id;
       state.userName = userName;
       state.image = image;
-      state.access = access;
       state.rol = rol;
-      state.token = token;
+    },
+    setUserName:(state, action) => {
+      state.userName = action.payload;
+    },
+    setUserImage:(state, action) => {
+      state.image = action.payload;
     },
     setAllUsersChat: (state, action) => {
       state.allUsersChat = action.payload;
@@ -30,6 +32,6 @@ const usersChatSlice = createSlice({
   }
 })
 
-export const { setUserChat, setAllUsersChat } = usersChatSlice.actions;
+export const { setUserChat, setAllUsersChat, setUserName, setUserImage } = usersChatSlice.actions;
 export default usersChatSlice.reducer;
 export const selectAllUsersChat = (state) => state.usersChat.allUsersChat;

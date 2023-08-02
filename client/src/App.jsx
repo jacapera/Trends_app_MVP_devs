@@ -41,7 +41,7 @@ function App() {
 
         {/* RUTAS HIJAS PARA PRUEBAS DEL CHAT DESPUES LAS PODEMOS REMOVER */}
         <Route path="/Trends_app_MVP/chat" element={<Chat />}>
-          {/* <Route path='register-chat' element={ <Register />} /> */}
+          <Route path='register-chat' element={ <Register />} />
           <Route path='login-chat' element={ <Login />} />
         </Route>
 
@@ -55,6 +55,4 @@ function App() {
 
 }
 
-
-
-export defaul
+export default App;

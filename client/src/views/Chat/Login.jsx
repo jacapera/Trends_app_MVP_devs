@@ -4,14 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import validation from './validationLogin';
 import axios from 'axios';
 import styleRegister from './Register/styleRegister.css';
-import { setUserChat } from '../../Redux/usersChatSlice';
+import { students } from '../../utils/users'
+import { selectAllUsersChat, setAllUsersChat, setUserChat, setUserImage, setUserName } from '../../Redux/usersChatSlice';
 
 
 const Login = () => {
 
   const [formRegister, setFormRegister] = useState({
-    email:"",
-    password:"",
   });
   const [formValid, setFormValid] = useState(false);
   const [formErrors, setFormErrors] = useState({});
@@ -21,20 +20,30 @@ const Login = () => {
 
   const userName = useSelector(state => state.usersChat.userName);
   const usersChat = useSelector(state => state.usersChat);
+  const allUsers = useSelector(selectAllUsersChat);
+  const avatars = useSelector(state => state.usersChat.avatars);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
 
   const handleChange = event => {
     const { value, name } = event.target;
+    const selectedUser = JSON.parse(value);
+    console.log("value: ", selectedUser)
     setFormRegister({
-      ...formRegister,
-      [name]: value
-    });
-    setFormErrors(validation({
-      ...formRegister,
-      [name]: value
-    }))
+      user_id: selectedUser.user_id,
+      userName: selectedUser.username,
+      image: selectedUser.profile_image,
+      rol: selectedUser.type,
+    })
+    // setFormRegister({
+    //   ...formRegister,
+    //   [name]: value
+    // });
+    // setFormErrors(validation({
+    //   ...formRegister,
+    //   [name]: value
+    // }))
   };
 
   const handleBlur = (event) => {
@@ -47,57 +56,52 @@ const Login = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    let auxErrors = Object.values(formErrors).every(value => value === "");
-    if(auxErrors){
-      await axios.post('http://localhost:3007/api/v1/users/login', formRegister)
-        .then(({data}) => {
-          console.log(data)
-          dispatch(setUserChat(data))
-          // if(response.data.user.session === session){
-          //   console.log('SESSION:', session)
-          //   setMessage('ya iniciaste session en otra pestaña');
-          //   console.log(message)
-          //   openModal();
-          //   dispatch(setIsLogin(false))
-          //   //navigate('/Trens_app_MVP/login');
-          // }
-          //navigate('/Trends_app_MVP/chat')
-        }).catch(error => {
-          console.log(error)
-          setMessage(error.response.data.message);
-          openModal();
-        })
-    }
+    //let auxErrors = Object.values(formErrors).every(value => value === "");
+    //if(auxErrors){
+      //dispatch(setUserName(formRegister.userName));
+      //dispatch(setUserImage(formRegister.avatar));
+      dispatch(setUserChat(formRegister));
+      navigate('/Trends_app_MVP/chat')
+   // }
   };
-
-
 
   const openModal = () => { setIsModalOpen(true) };
   const closeModal = () => {
     setIsModalOpen(false)
     setMessage('');
-    //isLogin && navigate('/Trends_app_MVP/')
   };
 
   useEffect(() => {
-    //console.log("Form: " , formRegister);
-    const errors = validation(formRegister);
-    //console.log("TOUCH: ", touchedFields)
+    console.log("Form: " , formRegister);
+  //   const errors = validation(formRegister);
+  //   //console.log("TOUCH: ", touchedFields)
 
-    if(Object.keys(touchedFields).length  > 0){
-      setFormErrors({
-        "email": errors.email || "",
-        "password": errors.password || "",
-      });
-    }
-    //console.log("FORMERROR: " , formErrors);
-    if(Object.keys(errors).length === 0) setFormValid(true);
-    else setFormValid(false);
+  //   if(Object.keys(touchedFields).length  > 0){
+  //     setFormErrors({
+  //       "userName": errors.userName || "",
+  //     });
+  //   }
+  //   //console.log("FORMERROR: " , formErrors);
+  //   if(Object.keys(errors).length === 0) setFormValid(true);
+  //   else setFormValid(false);
   }, [formRegister, touchedFields]);
+
+  const addIds = (students, id) => {
+    return students.map((usuario, index) => ({
+      ...usuario,
+      user_id: id + index
+    }))
+  }
+
+  useEffect(() => {
+    const allUsersIds = addIds(students, 1);
+    console.log("allUserIds: ", allUsersIds)
+    dispatch(setAllUsersChat(allUsersIds));
+  }, []);
 
   useEffect(()=> {
     //if()
-    console.log('access LOGIN: ', usersChat.access)
+    console.log('userName LOGIN: ', userName)
     console.log('message LOGIN: ', message)
     console.log('USER: ', usersChat)
   },[message, usersChat])
@@ -109,36 +113,43 @@ const Login = () => {
         <form  onSubmit={handleSubmit}
           className='flex flex-col border-2 p-[20px] rounded-md w-full h-[fit-content] justify-center itme'
         >
-          <div className='flex flex-col shadow-white ' >
-              <label className='mt-[8px]' >Email</label>
+          {/* <div className='flex flex-col shadow-white ' >
+              <label className='mt-[8px] text-left' >Username</label>
               <input
                 className='rounded-md h-[40px] p-[5px] shadow-white  '
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formRegister.email}
+                value={formRegister.userName}
                 autoComplete='off'
-                name='email' type="text" placeholder='escriba email aquí'
+                name='userName' type="text" placeholder='escriba userName aquí'
               />
           </div>
-          {touchedFields.email && formErrors.email && <p className='text-red-600' >{formErrors.email}</p>}
-          <div className='flex flex-col'>
-              <label className='mt-[8px]' >Password</label>
-              <input
-                className='rounded-md h-[40px] p-[5px]  '
-                onChange={handleChange} value={formRegister.password}
-                onBlur={handleBlur}
-                name='password' type="password"
-                autoComplete='off'
-                placeholder='escriba password aquí'
-              />
+          {touchedFields.userName && formErrors.userName && <p className='text-red-600' >{formErrors.userName}</p>} */}
+
+          <div className='flex gap-[5px] flex-col  text-black items-center '>
+            <label className='text-left w-[100%]'>Escoge un usuario</label>
+            <select value="default" name="formRegister" onChange={handleChange} onBlur={handleBlur}
+              className='text-black w-[100%] rounded-md p-[3px] '
+            >
+              <option className='rounded-sm' value="default" hidden >{formRegister.userName}</option>
+              {
+                allUsers.map((item, index) => (<option key={index} value={JSON.stringify(item)}>{item.username}</option>))
+              }
+            </select>
+            {/* <div>
+              <img className='h-[200px] object-cover' src={`${formRegister.avatar}`} alt="avatar" />
+            </div> */}
           </div>
-          {touchedFields.password && formErrors.password && <p className='text-red-600' >{formErrors.password}</p>}
+          {touchedFields.rol && formErrors.rol && <p className='text-red-600 text-left' >{formErrors.rol}</p>}
+
+
           {/*//* BOTON DE ENVIAR */}
           <div className='flex justify-center'>
             <button
               className={`flex w-[fit-content] text-blue-400 p-[8px] rounded-lg mt-[10px]
                 bg-blue-950 hover:bg-blue-500 hover:text-blue-950 transform hover:scale-105 transition duration-300 buttonRegister`}
-              type='submit'  disabled={!formValid}
+              type='submit'
+              // disabled={!formValid}
             >Entrar</button>
           </div>
         </form>
