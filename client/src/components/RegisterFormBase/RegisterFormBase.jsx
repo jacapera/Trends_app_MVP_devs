@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./RegisterFormBase.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { validationRegister } from "../../utils/ValidationRegister";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -10,6 +10,7 @@ const RegisterFormBase = ({type})  => {
     const [validateLogin, setValidateLogin] = useState(null);
     const navigate = useNavigate();
     const URL = `${VITE_URL}/api/v1/auth/register`;
+    
 
   const [inputs, setInputs] = useState({
     profile_support: false,
@@ -19,6 +20,9 @@ const RegisterFormBase = ({type})  => {
     name: "",
     username: ""
   });
+
+  useEffect(() => {
+      }, [])
 
   const handleInputs = (event) => {
     const { value, name } = event.target;

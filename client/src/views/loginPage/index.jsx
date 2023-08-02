@@ -28,7 +28,7 @@ export default function LoginPage() {
     event.preventDefault();
     if (inputs.email && inputs.password) {
       try {
-        const fetch = await axios.post(URL, inputs);
+        const fetch = await axios.post(URL, inputs, {withCredentials: "include"});
         const result = fetch.data;
         console.log(result);
       } catch (error) {
