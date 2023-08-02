@@ -1,7 +1,6 @@
-import axios from "axios";
-import { students, professionals, companies, jobs } from "./mockUsers.js";
+const axios = require("axios");
+const { students, professionals, companies, jobs } = require("./mockUsers.js");
 const users = [...students, ...professionals];
-
 
 // Función para extraer el token de la cookie del usuario
 function extractTokenFromSetCookie(setCookie) {
@@ -10,7 +9,6 @@ function extractTokenFromSetCookie(setCookie) {
   const token = setCookie.slice(tokenStartIndex, tokenEndIndex);
   return token;
 }
-
 
 (async () => {
   // Se crean los usuarios
@@ -25,7 +23,6 @@ function extractTokenFromSetCookie(setCookie) {
   for (let i = 0; i < companyCount; i++) {
     const company = companies[i];
     const createdCompany = await axios.post(
-
       `http://localhost:3001/api/v1/auth/register`,
       company
     );
@@ -33,13 +30,11 @@ function extractTokenFromSetCookie(setCookie) {
     // Se recupera el id desde la cookie
     const cookieHeader = createdCompany.headers["set-cookie"][0];
     const companyToken = extractTokenFromSetCookie(cookieHeader);
-    const companyId = await axios.get(
-      `http://localhost:3001/userTest/${companyToken}`,
-      company
-    ).then((data) => data.data.id);
+    const companyId = await axios
+      .get(`http://localhost:3001/userTest/${companyToken}`, company)
+      .then((data) => data.data.id);
 
     // Se asocian trabajos al azar a la empresa actual
-
     const randomJobIndex = i % jobKeys.length;
     const randomJobKey = jobKeys[randomJobIndex];
     const randomCompanyJobs = jobs[randomJobKey];

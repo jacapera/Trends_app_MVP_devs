@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const student =[
     {
         type: "student",
@@ -133,29 +135,49 @@ const student =[
       }
 ];
 
-export const matcherCandidatesJob = (dataJob) => {
+export const matcherCandidatesJob = async(dataJob) => {
     console.log("que trae dataJobs: ", dataJob)
     //?SOLO PARA USO DE PRUEBAS, CUANDO LAS RUTAS ESTEN SE GUARDAN
-    let candidates = [...student];
+    let candidates = [];
 
     //!Armo las condiciones para consultar los estudiantes con campos clave
     let strStudentHigh='';
     // >>/search/users?type=student&info_skills=Desarrollo web,Bases de datos    
-    if(dataJob.academic.level_required) strStudentHigh += '&level='+dataJob.academic.level_required;
-    if(dataJob.academic.study_area) strStudentHigh+='&area='+dataJob.academic.study_area;
-    if(dataJob.info.benefits) strStudentHigh+='&interests='+dataJob.info.benefits.join(',');
-    if(dataJob.info.skills_required) strStudentHigh+='&skills='+dataJob.info.skills_required.join(',');
-    if(dataJob.info.job_goal) strStudentHigh+='&goals='+dataJob.info.job_goal.join(',');
+    if(dataJob.levelRequired) strStudentHigh += '&academic_level='+dataJob.levelRequired;
+    //if(dataJob.studyArea) strStudentHigh+='&academic_area='+dataJob.studyArea;
+    //if(dataJob.benefits) strStudentHigh+='&info_interests='+dataJob.benefits.join(',');
+    //if(dataJob.skillsRequired) strStudentHigh+='&info_skills='+dataJob.skillsRequired.join(',');
+    //if(dataJob.jobGoal) strStudentHigh+='&info_goals='+dataJob.jobGoal.join(',');
     //console.log("que tiene level_required: ", dataJob.academic.level_required);
-    console.log("condiciones estudiantes Alta: ", strStudentHigh);
+    
+    let query = `http://localhost:3001/api/v1/search/users?type=student`;
+    query += strStudentHigh;
+
+    console.log("como arma query: ", query);
+
+      try{
+        const response = (await axios.get(query)).data;
+        console.log("que trae response <matcherCandidatesJob>: ", response);
+
+        response
+          ?candidates = [...response]
+          :candidates =[]
+
+      }catch(error){
+        console.log("error al traer datos de estudiantes <matcherCandidates>: ", error.message);
+      }
+    
+
+
 
     //!Armo las condiciones para consultar estudiantes con campos de media
-    let strStudentLow='';
-    if(dataJob.info.availability) strStudentLow += '&availability='+dataJob.info.availability;
-    if(dataJob.info.languages_required) strStudentLow += '&languages='+dataJob.info.languages_required;
-    if(dataJob.info.job_description) strStudentLow += '&interests='+dataJob.info.job_description;
-    //if(dataJob.info.job_description) strStudentLow += '&city='+dataJob.info.job_description;
-    console.log("condiciones estudiantes media: ", strStudentLow);
+    // let strStudentLow='';
+    // if(dataJob.info.availability) strStudentLow += '&availability='+dataJob.info.availability;
+    // if(dataJob.info.languages_required) strStudentLow += '&languages='+dataJob.info.languages_required;
+    // if(dataJob.info.job_description) strStudentLow += '&interests='+dataJob.info.job_description;
+    // //if(dataJob.info.job_description) strStudentLow += '&city='+dataJob.info.job_description;
+    // console.log("condiciones estudiantes media: ", strStudentLow);
 
     return candidates;
+    
 };

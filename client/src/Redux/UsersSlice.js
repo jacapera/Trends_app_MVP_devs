@@ -32,7 +32,11 @@ const usersSlice = createSlice({
     reducers: {
         test:(state) =>{
             state.test = !state.test;
-        }
+        },
+        //?SE AGREGA ACCION PARA CARGAR LA COMPAÑIA Y SUS TRABAJOS EN EL STORE GLOBAL
+        addCompany:(state,action)=>{
+            state.companies=action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -49,7 +53,7 @@ export default usersSlice.reducer;
 
 // export of the selectors of the global state
 export {getSearchedUsers};
-export const {test} = usersSlice.actions;
+export const {test, addCompany} = usersSlice.actions;
 export const selectAllUsers = (state) => state.users.allUsers;
 export const selectSearchedUsers = (state) => state.users.searchedUsers;
 export const selectStudents = (state) => state.users.students;

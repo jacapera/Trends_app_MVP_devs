@@ -1,6 +1,7 @@
 .container{
     margin-left: 5vw;
     margin-right: 5vw;
+    /* border: 1px solid red; */
 }
 .dateContainer{
     display: flex;
