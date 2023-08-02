@@ -39,11 +39,17 @@
     gap: 1vw;
     /* border: 1px solid red; */
 }
+.nameIcon p{
+    font-weight: bold;
+}
 .cardProfile{
     width: 85%;
     /* border: 1px solid black; */
     text-align: left;
     margin-left: 1vw;
+}
+.cardProfile p{
+    font-size: medium;
 }
 .subtitle{
     font-weight: bold;
@@ -56,4 +62,6 @@
     padding-top: 0;
     padding-bottom: 0;
     border: 1px solid black;
+    padding-left: 1vw;
+    padding-right: 1vw;    
 }

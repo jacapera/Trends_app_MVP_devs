@@ -85,19 +85,21 @@ body {
   background-color: #f2f2f2;
 }
 
-/* Estilos del botón de modo oscuro */
-.dark-mode button {
-  background-color: transparent;
-  border: none;
-  font-size: 1.2rem;
-  color: #858585; /* Modo oscuro */
-  cursor: pointer;
-}
 
 /* Estilos del modo oscuro */
 .dark-mode {
   display: flex;
   align-items: center;
+}
+
+/* Estilos del botón de modo oscuro */
+.dark-mode-button {
+  background-color: transparent;
+  border: none;
+  font-size: 1.2rem;
+  color: #858585; /* Modo oscuro */
+  cursor: pointer;
+  background-color: transparent;
 }
 
 body.dark-mode {
