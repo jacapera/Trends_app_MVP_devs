@@ -3,27 +3,27 @@ const { matcher } = require("../helpers/matchingAlgorithm/matcher.js");
 const { User, Company, Job } = require("../db");
 const { findAccount } = require("../helpers/findAccount");
 
-const putProfile = async (profile, profileData) => {
-  try {
-    const foundProfile = profile;
-    const updatedProfile = await foundProfile.update(profileData);
+// const putProfile = async (profile, profileData) => {
+//   try {
+//     const foundProfile = profile;
+//     const updatedProfile = await foundProfile.update(profileData);
     
-    return updatedProfile;
-  } catch (error) {
-    return { error: error.message };
-  }
-};
+//     return updatedProfile;
+//   } catch (error) {
+//     return { error: error.message };
+//   }
+// };
 
-const putProfile = async (profile, profileData) => {
-  try {
-    const foundProfile = profile;
-    const updatedProfile = await foundProfile.update(profileData);
+// const putProfile = async (profile, profileData) => {
+//   try {
+//     const foundProfile = profile;
+//     const updatedProfile = await foundProfile.update(profileData);
     
-    return updatedProfile;
-  } catch (error) {
-    return { error: error.message };
-  }
-};
+//     return updatedProfile;
+//   } catch (error) {
+//     return { error: error.message };
+//   }
+// };
 
 const putProfile = async (profile, profileData) => {
   try {
