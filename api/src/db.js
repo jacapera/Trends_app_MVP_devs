@@ -51,5 +51,8 @@ Job.belongsTo(Company, { foreignKey: "companyId" })
 
 module.exports = {
   ...sequelize.models,
+  conn: sequelize,
+
+	...sequelize.models,
 	conn: sequelize,
 };

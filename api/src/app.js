@@ -2,7 +2,6 @@ const { JWT_KEY } = require("../config");
 const express = require("express");
 const morgan = require("morgan");
 const cors = require("cors");
-const helmet = require("helmet");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
@@ -17,13 +16,7 @@ const userTestRoutes = require("./routes/userTest.routes");
 const app = express();
 
 app.use(morgan("dev"));
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
-);
-app.use(helmet());
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json());
@@ -47,9 +40,9 @@ app.use("/api/v1/search", authenticateUser, searchRoutes);
 app.use("/userTest", userTestRoutes);
 
 // -------- Servidor Socket.io-------------------
-const { createServer } = require("http");
+const { createServer } = require('http');
 appSocket = createServer(app);
-const serverSocket = require("./sockets/serverSokect");
+const serverSocket = require('./sockets/serverSokect');
 serverSocket(appSocket);
 
 module.exports = appSocket;
