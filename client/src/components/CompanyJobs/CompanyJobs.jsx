@@ -1,9 +1,9 @@
 import { Title } from "@tremor/react";
 import style from "./CompanyJobs.module.css"
 
-
+ 
 const CompanyJobs = ({jobs, handlePageEditJob,handlePageCandidates})=>{
-    console.log("que trae jobs: ", jobs)
+    console.log("que trae jobs <CompanyJobs>: ", jobs)
 
     return(
         <div>
@@ -19,11 +19,11 @@ const CompanyJobs = ({jobs, handlePageEditJob,handlePageCandidates})=>{
                 <div>
                     {
                         jobs?.map((job)=>(
-                            <div key={job.datajob.id} className={style.postJob}>
+                            <div key={job.id} className={style.postJob}>
                                 {console.log("que tiene job <map>: ", job)}
-                                <p>#{job.datajob.id} - {job.datajob.jobName}</p>
-                                <p>Fecha de Creacion: {job.datajob.creationDate}</p>
-                                <p>Oferta: {job.datajob.active ?"Activa" :"Cerrada"} / Fecha de cierre: {job.datajob.closingDate}</p>
+                                <p>#{job.jobName}</p>
+                                <p>Fecha de Creacion: {job.creationDate}</p>
+                                <p>Oferta: {job.active ?"Activa" :"Cerrada"} / Fecha de cierre: {job.closingDate}</p>
                                 {/* BOTON PARA VER PERFILES DE CANDIDATOS */}
                                 <button
                                     onClick={()=>handlePageCandidates("Candidates",job)}

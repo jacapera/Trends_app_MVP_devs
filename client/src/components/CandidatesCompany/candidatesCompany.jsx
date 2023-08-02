@@ -3,7 +3,7 @@ import style from './candidatesCompany.module.css';
 import { useEffect, useState } from "react";
 import {HiAcademicCap,HiBriefcase} from 'react-icons/hi';
 
-
+ 
 const candidatesCompany = ({jobName,arraycandidates}) => {
     console.log("que recibe jobName <candidatesCompany>: ", jobName)
     console.log("que recibe arraycandidates <candidatesCompany>: ", arraycandidates);
@@ -75,7 +75,7 @@ const candidatesCompany = ({jobName,arraycandidates}) => {
                                 <div className={style.nameIcon}>
                                     <Title>{candidate.name}</Title>{candidate.type==="student" ?<HiAcademicCap/> :<HiBriefcase/>}
                                 </div>
-                                <p className={style.subtitle}>{calcularEdad(candidate.birth)} Años - {candidate.info_career.join(',')}</p>
+                                <p className={style.subtitle}>{calcularEdad(candidate.profile_birth)} Años - {candidate.info_career.join(',')}</p>
                                 <p>{candidate.profile_bio}</p>
                                 <div className={style.cardButtons}>
                                     <button

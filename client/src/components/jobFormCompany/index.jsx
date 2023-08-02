@@ -2,9 +2,12 @@ import { Select, SelectItem, Subtitle, TextInput, Title , Button} from "@tremor/
 import { useEffect, useState } from "react";
 import DataJobCompany from "./dataJobCompany/dataJobCompany";
 import InfoJobCompany from "./infoJobCompany/infoJobCompany";
+import style from "./index.module.css";
 
 
-const JobFormCompany = ({jobEdit})=>{
+const JobFormCompany = ({jobEdit,companyId})=>{
+    console.log("que ingresa por jobEdit <jobFormCompany>: ", jobEdit)
+    console.log("que ingresa por companyId <jobFormCompany>: ", companyId)
     
 const[isFormComplete, setIsFormComplete] = useState(false);
 
@@ -113,27 +116,22 @@ const handlePageForm = (event) =>{
     const formatJob = (data) =>{
         console.log("que tiene data: ", data)
         const format = {
-            datajob:{
-                jobName:data.jobName,
-                creationDate:data.creationDate,
-                closingDate:data.closingDate,
-                active:data.active,
-            },
-            academic:{
-                level_required:data.level_required,
-                study_area:data.study_area.split(','),//[]
-                experience_required:data.experience_required,
-                industry:data.industry.split(','),//[],
-            },
-            info:{
-                benefits:data.benefits.split(','),//[],
-                skills_required:data.skills_required.split(','),//[],
-                job_description:data.job_description.split(','),//[],
-                job_goal:data.job_goal.split(','),//[],
-                languages_required:data.languages_required.split(','),//[],
-                availability:data.availability,
-                contract_offered:data.contract_offered,
-            }
+            companyId:companyId,
+            jobName:data.jobName,
+            creationDate:data.creationDate,
+            closingDate:data.closingDate,
+            active:data.active, //true / false
+            level_required:data.level_required,
+            study_area:data.study_area.split(','),//[],
+            experience_required:data.experience_required,
+            industry:data.industry.split(','),//[],    
+            benefits:data.benefits.split(','),//[],
+            skills_required:data.skills_required.split(','),//[],
+            job_description:data.job_description.split(','),//[],
+            job_goal:data.job_goal.split(','),//[],
+            languages_required:data.languages_required.split(','),//[],
+            availability:data.availability,
+            contract_offered:data.contract_offered
         };
     
         return format;
@@ -144,12 +142,13 @@ const handlePageForm = (event) =>{
         const envioData = formatJob(formJob);
         console.log("como envia datos job: ", envioData)
         //!PIDE DE NUEVO A BACK JOBS Y RENDERIZA DE NUEVO.
+        const URL="http://localhost:3001"
 
     };
 
     const validateForm = (data) =>{
         for(let propiedad in data){
-            if(data[propiedad] === "" || data[propiedad].length ===0) return false;
+            if((data[propiedad] === "" || data[propiedad].length ===0)&&propiedad!=="closingDate") return false;
         }
         return true;
     };
@@ -159,6 +158,7 @@ const handlePageForm = (event) =>{
         setIsFormComplete(validateForm(formJob));
     },[formJob]);
 
+
     //?AL MONTARSE EL COMPONENTE|
     useEffect(()=>{
         console.log(">> AL MONTAR JOB-FORM")
@@ -166,21 +166,21 @@ const handlePageForm = (event) =>{
         if(jobEdit){
             console.log(">> jobEdit tiene datos")
             setFormJob({
-                jobName:jobEdit.datajob.jobName,
-                creationDate:jobEdit.datajob.creationDate,
-                closingDate:jobEdit.datajob.closingDate,
-                active:jobEdit.datajob.active,
-                level_required:jobEdit.academic.level_required,
-                study_area:jobEdit.academic.study_area.join(','),
-                experience_required:jobEdit.academic.experience_required,
-                industry:jobEdit.academic.industry.join(','),
-                benefits:jobEdit.info.benefits.join(','),
-                skills_required:jobEdit.info.skills_required.join(','),
-                job_description:jobEdit.info.job_description.join(','),
-                job_goal:jobEdit.info.job_goal.join(','),
-                languages_required:jobEdit.info.languages_required.join(','),
-                availability:jobEdit.info.availability,
-                contract_offered:jobEdit.info.contract_offered,
+                jobName:jobEdit.jobName,
+                creationDate:jobEdit.creationDate,
+                closingDate:jobEdit.closingDate,
+                active:jobEdit.active,
+                level_required:jobEdit.levelRequired,
+                study_area:jobEdit.studyArea.join(','),
+                experience_required:jobEdit.experienceRequired,
+                industry:jobEdit.industry.join(','),
+                benefits:jobEdit.benefits.join(','),
+                skills_required:jobEdit.skillsRequired.join(','),
+                job_description:jobEdit.jobDescription.join(','),
+                job_goal:jobEdit.jobGoal.join(','),
+                languages_required:jobEdit.languagesRequired.join(','),
+                availability:jobEdit.availability,
+                contract_offered:jobEdit.contractOffered,
             })
 
         }else{
@@ -191,7 +191,7 @@ const handlePageForm = (event) =>{
     },[])
 
     return(
-        <div>
+        <div className={style.container}>
             {
                 jobEdit 
                     ?<Title>Modificacion de Oferta Laboral</Title>
@@ -222,7 +222,7 @@ const handlePageForm = (event) =>{
                         disabled={!isFormComplete}
                         type="submit"
                         style={{ margin: 10, padding: 10 }}
-                    >Cargar Oferta Laboral</Button>
+                    >{jobEdit ?"Modificar" :"Cargar"} Oferta Laboral</Button>
                 </div>
             </form>
             {/* BOTONES NAVEGACION */}
