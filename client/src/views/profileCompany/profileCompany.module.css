@@ -27,11 +27,13 @@
     -webkit-box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
-    /* border: 1px solid blue; */
+    border: 1px solid blue;
 }
 
 .header p{
-    margin: 17vh 0 0 30vw;
+    margin: 8vh 0 0 15vw;
+    font-weight: bold;
+    font-size: x-large;
 }
 
 .profilePictureBasicInfoContainer{
@@ -40,7 +42,7 @@
     /* width: 80%; */
     flex-direction: column;
     /* padding-top: 8vh; */
-    /* border: 1px solid black; */
+    /* border: 1px solid red; */
 }
 .container{
     display: flex;
@@ -74,7 +76,7 @@
 .userBasicInfoContainer{
     /* width: 80vw; */
     /* margin: 8vh auto 0 auto; */
-    margin-top: 15vh;
+    margin-top: 12vh;
     padding-left: 1.8vw;
     padding-right: 2vw;
     /* display: flex; */
@@ -135,6 +137,12 @@
     height: 1.2rem;
     font-size: 1.2rem;
 }
+.headerEditionTextarea{
+    height: 20vh;
+    width: 70vw;
+    border-radius: 10px;
+    padding: 5px;
+}
 
 .infoDiv{
     background-color: #e8e8e8;
@@ -152,6 +160,16 @@
 }
 
 .editionButton{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.saveButton{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.cancelButton{
     width: 60px;
     height: 60px;
     border-radius: 50%;
@@ -197,3 +215,21 @@
     font-size: 40px;
     margin: auto 20px;
 }
+
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+    .profilePictureContainer{
+        position: absolute;
+        z-index: 2;
+        margin-top: 20vw;
+        margin-left: 3vh;
+        width: fit-content;
+        /* border: 1px solid black; */
+    }
+    .profilePicture{
+        height: 13vh;
+        min-width: 7vw;
+        border-radius: 50%;
+        border: 5px solid white;
+    }    
+  }

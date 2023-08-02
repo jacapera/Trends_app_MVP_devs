@@ -11,6 +11,7 @@ const authenticateUser = require("./middlewares/authenticateUser");
 const authRoutes = require("./routes/auth.routes");
 const searchRoutes = require("./routes/search.routes");
 const userRoutes = require("./routes/user.routes");
+const jobRoutes = require("./routes/job.routes");
 const userTestRoutes = require("./routes/userTest.routes");
 
 const app = express();
@@ -39,6 +40,7 @@ app.use(passport.session());
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", authenticateUser, userRoutes);
+app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
 
 // --- solo para pruebas ---

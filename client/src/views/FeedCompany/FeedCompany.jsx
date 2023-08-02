@@ -7,8 +7,15 @@ import {HiUser,HiChat} from 'react-icons/hi';
 import { Title } from "@tremor/react";
 import CandidatesCompany from "../../components/CandidatesCompany/candidatesCompany";
 import { matcherCandidatesJob } from "../../utils/matcherCandidatesJob";
- 
+import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
+import { addCompany } from "../../Redux/UsersSlice";
+
+
 const feedCompany = () =>{
+
+    //?DEL STORE GLOBAL
+    const companyDataSG = useSelector((state)=>state.users.companies);
 
     const[companyData, setCompanyData] = useState();
     const[jobs, setJobs] = useState();
@@ -103,10 +110,36 @@ const feedCompany = () =>{
         ]        
     };
 
-    
+    const dispatch = useDispatch();
+
     useEffect(()=>{
         setCompanyData(company1.profile);
-        setJobs(company1.jobs);
+        //setJobs(company1.jobs);
+        //?REALIZO EL GET PARA TRAER COMPAÑIA CARGADA EN BD
+        //!ESTE GET SE DEBE CAMBIAR HACIA EL LOGIN
+        //!SE CREA ACA A MODO DE PRUEBA DE COMPONENTE INDIVIDUAL
+        const fetchCompany = async () =>{
+            const URL = 'http://localhost:3001/api/v1/search/user';
+            const ID = 'e6a7cbda-ad96-410e-9a15-a6182c462528';
+            try{
+                const {data} = await axios.get(`${URL}/${ID}`);
+                //dispatch()
+                console.log("que trae data: ", data)
+        
+                dispatch(addCompany(data));
+
+                setJobs(data.jobs);
+            }catch(error){
+                console.log("error al cargar datos empresa: ", error.message);
+            }
+
+        };
+        fetchCompany();
+
+        console.log("que trae companyDataSG: ",companyDataSG)
+        console.log("que tiene jobs de data: ", companyDataSG.jobs)
+        console.log(">>> qeu tiene Store Local Jobs: ", jobs);
+
     },[])
 
     const[page, setPage] = useState("companyJobs");
@@ -128,13 +161,15 @@ const feedCompany = () =>{
     const[arraycandidates, setArrayCandidates] = useState();
     const[jobName,setJobName] = useState();
 
-    const handlePageCandidates = (namepage,data) =>{
+    const handlePageCandidates = async(namepage,data) =>{
         console.log("que recibe data <handlePageCandidates>: ", data)
         
         //!EJECUTO ALGORITMO MATCHEO Y ENVIO RESULTADOS A COMPONENTE
-        setArrayCandidates(matcherCandidatesJob(data));
-        const nameJob='#'+data.datajob.id+' - '+data.datajob.jobName;
+        setArrayCandidates(await matcherCandidatesJob(data));
+        const nameJob='#'+data.jobName;
         setJobName(nameJob);
+
+        console.log("que tiene arraycandidates <feedCompany>: ",arraycandidates)
 
 
         handlePage(namepage);
@@ -164,9 +199,13 @@ const feedCompany = () =>{
                 <p>Mis Chats</p>
             </div>
             <div className={style.right}>
+                {/* PAGINA CON BUSQUEDAS LABORALES DE COMPAÑIA */}
                 {page === "companyJobs" && <CompanyJobs jobs={jobs} handlePageEditJob={handlePageEditJob} handlePageCandidates={handlePageCandidates}/> }
-                {page === "jobForm" && <JobFormCompany jobEdit={jobEdit}/>}
+                {/* PAGINA QUE CREA O MODIFICA UNA OFERTA LABORAL */}
+                {page === "jobForm" && <JobFormCompany jobEdit={jobEdit} companyId={companyDataSG.id}/>}
+                {/* PAGINA DE CANDIDATOS QUE APLICAN A UN PUESTO LABORAL */}
                 {page === "Candidates" && <CandidatesCompany jobName={jobName} arraycandidates={arraycandidates}/>}
+                {/* PAGINA DEL PERFIL DE EMPRESA */}
                 {page === "profileCompany" && <ProfileCompany/>}
                 {page === "Chats"}
             </div>

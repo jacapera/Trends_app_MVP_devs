@@ -1,16 +1,33 @@
-const { getUserById } = require("./search.controller");
+const { getUserById, getJobById } = require("./search.controller");
 const { matcher } = require("../helpers/matchingAlgorithm/matcher.js");
 const { User, Company, Job } = require("../db");
 const { findAccount } = require("../helpers/findAccount");
 
+const putProfile = async (profile, profileData) => {
+  try {
+    const foundProfile = profile;
+    const updatedProfile = await foundProfile.update(profileData);
+    
+    return updatedProfile;
+  } catch (error) {
+    return { error: error.message };
+  }
+};
+
 const getUserFeed = async (id, usersType) => {
   try {
-    // Se obtiene el usuario objetivo por su id
-    const targetUser = await getUserById(id);
+    let target;
 
-    // Se verifica que targetUser exista
-    if (targetUser && targetUser.error) {
-      return { error: targetUser.error };
+    // Se obtiene el usuario objetivo por su id
+    target = await getUserById(id);
+
+    // Si el id no corresponde a un usuario
+    // se verifica si es de un trabajo
+    if (!target) {
+      target = await getJobById(id);
+    }
+    if (!target) {
+      return { error: "Nothing found!" };
     }
 
     // Se obtiene la lista de usuarios con el type especificado
@@ -45,13 +62,14 @@ const getUserFeed = async (id, usersType) => {
     }
 
     // Se calcula el feed utilizando el algoritmo de matcheo
-    const matches = matcher(users, targetUser);
+    const matches = matcher(users, target);
 
     return matches;
   } catch (error) {
     return { error: error.message };
   }
 };
+
 
 const getUserProfile = async (user) => {
   let foundedUser = null;
@@ -93,3 +111,4 @@ const changeUserPassword = async (userId, newPassword) => {
 };
 
 module.exports = { getUserFeed, getUserProfile, changeUserPassword };
+
