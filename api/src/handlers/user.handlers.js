@@ -1,11 +1,10 @@
-
 const {
   getUserFeed,
   getUserProfile,
+  putUserProfile,
+  deleteUserProfile,
   changeUserPassword,
 } = require("../controllers/user.controller");
-
-
 
 const profile = async (req, res) => {
   const { user } = req;
@@ -19,12 +18,11 @@ const profile = async (req, res) => {
   }
 };
 
-
 const updatePassword = async (req, res) => {
   const { id } = req.user;
-  const newPassword = req.body.password;
+  const { newPassword, currentPassword } = req.body;
   try {
-    const result = await changeUserPassword(id, newPassword);
+    const result = await changeUserPassword(id, newPassword, currentPassword);
     if (!result) throw new Error("Could not update password.");
     res.status(200).json("Password updated successfully.");
   } catch (error) {
@@ -37,7 +35,7 @@ const editProfile = async (req, res) => {
   const { profile } = req;
 
   try {
-    const editedProfile = await putProfile(profile, profileData);
+    const editedProfile = await putUserProfile(profile, profileData);
 
     if (!editedProfile) {
       return res.status(500).json({ error: "The profile couldn't be updated" });
@@ -46,10 +44,24 @@ const editProfile = async (req, res) => {
       return res.status(500).json({ error: editedProfile.error });
     }
 
-    
     return res.status(201).json(editedProfile);
   } catch (error) {
     return res.status(500).json({ error: error.message });
+  }
+};
+
+const removeProfile = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const removedProfile = await deleteUserProfile(id);
+
+    if (removedProfile === 0)
+      return res.status(400).json({ error: "User not found" });
+
+    res.status(200).json({ message: "Profile successfully removed" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -74,9 +86,4 @@ const feed = async (req, res) => {
   }
 };
 
-
-// module.exports = { profile, feed, editProfile };
-
-module.exports = { profile, feed, updatePassword };
-
-
+module.exports = { profile, feed, updatePassword, editProfile, removeProfile };

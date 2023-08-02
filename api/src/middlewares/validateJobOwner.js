@@ -1,7 +1,7 @@
 const { getJobById } = require("../controllers/search.controller");
 
 const validateJobOwner = async (req, res, next) => {
-  const { id: companyId } = req.user.dataValues;
+  const { id: companyId } = req.user;
   const { id: jobId } = req.params;
   const jobToEditOrDelete = await getJobById(jobId);
 
