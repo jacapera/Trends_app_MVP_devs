@@ -54,6 +54,8 @@ module.exports = (sequelize) => {
         allowNull: true,
 
 
+
+        
         validate: {
           len: [10, 10],
         },
@@ -73,6 +75,8 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
 
         
+
+        
         allowNull: true,
       },
       profile_country: {
@@ -84,10 +88,12 @@ module.exports = (sequelize) => {
         allowNull: false,
 
 
+
         defaultValue: true,
       },
       academic_formation: {
         type: DataTypes.STRING,
+
 
 
         allowNull: true,
@@ -97,6 +103,8 @@ module.exports = (sequelize) => {
         allowNull: true,
 
 
+
+       
       },
       academic_level: {
         type: DataTypes.STRING,
@@ -150,8 +158,6 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
 
         
-
-        
         allowNull: true,
       },
       info_skills: {
@@ -181,6 +187,7 @@ module.exports = (sequelize) => {
       info_contract: {
         type: DataTypes.STRING,
         allowNull: true,
+
 
 
         

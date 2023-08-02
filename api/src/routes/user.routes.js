@@ -1,5 +1,6 @@
 const { Router } = require("express");
 
+
 const { profile, feed, editProfile } = require("../handlers/user.handlers");
 const validateId = require("../middlewares/validateId");
 const validateProfileOwner = require("../middlewares/validateProfileOwner");
@@ -11,8 +12,6 @@ const { profile, feed, editProfile } = require("../handlers/user.handlers");
 const validateId = require("../middlewares/validateId");
 const validateProfileOwner = require("../middlewares/validateProfileOwner");
 */
-
-
 
 
 const userRoutes = Router();

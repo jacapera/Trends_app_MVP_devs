@@ -2,12 +2,12 @@ const { postJob, putJob, deleteJob } = require("../controllers/job.controller");
 
 const createNewJob = async (req, res) => {
 
-=======
   const { id } = req.user.dataValues;
   const jobData = req.body;
 
   try {
     const newJob = await postJob({...jobData, companyId: id});
+
     //    const newJob = await postJob(jobData);
 
 

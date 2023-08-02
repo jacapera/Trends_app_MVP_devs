@@ -11,11 +11,17 @@ const createNewUser = async (userData) => {
 };
 
 
-  // const { data } = companyData;
+const createNewCompany = async (companyData) => {
   try {
-    // console.log(data);
     const newCompany = await Company.create(companyData);
-    console.log(newCompany);
+
+
+  // const { data } = companyData;
+//  try {
+    // console.log(data);
+ //   const newCompany = await Company.create(companyData);
+  //  console.log(newCompany);
+
 
 
     return newCompany;

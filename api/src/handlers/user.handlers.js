@@ -1,9 +1,14 @@
 
+// const { getUserFeed, putProfile } = require("../controllers/user.controller");
+
+
 const {
   getUserFeed,
   getUserProfile,
   changeUserPassword,
 } = require("../controllers/user.controller");
+
+
 
 
 
@@ -47,6 +52,7 @@ const editProfile = async (req, res) => {
     }
 
     
+
     return res.status(201).json(editedProfile);
   } catch (error) {
     return res.status(500).json({ error: error.message });
@@ -75,8 +81,8 @@ const feed = async (req, res) => {
 };
 
 
+
 // module.exports = { profile, feed, editProfile };
 
 module.exports = { profile, feed, updatePassword };
-
 

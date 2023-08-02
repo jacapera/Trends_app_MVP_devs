@@ -5,11 +5,11 @@ const { createNewJob, editJob, removeJob } = require("../handlers/job.handlers")
 const validateCompany = require("../middlewares/validateCompany");
 
 
+
 const validateId = require("../middlewares/validateId");
 const validateJobOwner = require("../middlewares/validateJobOwner");
 
 const jobRoutes = Router();
-
 
 
 jobRoutes.post("/", validateCompany, createNewJob);
