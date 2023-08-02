@@ -142,6 +142,7 @@ const handlePageForm = (event) =>{
         const envioData = formatJob(formJob);
         console.log("como envia datos job: ", envioData)
         //!PIDE DE NUEVO A BACK JOBS Y RENDERIZA DE NUEVO.
+        const URL="http://localhost:3001"
 
     };
 
@@ -156,6 +157,7 @@ const handlePageForm = (event) =>{
         console.log("que tiene formJob: ", formJob);
         setIsFormComplete(validateForm(formJob));
     },[formJob]);
+
 
     //?AL MONTARSE EL COMPONENTE|
     useEffect(()=>{
