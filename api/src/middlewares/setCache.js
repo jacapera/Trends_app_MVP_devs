@@ -1,5 +1,5 @@
 const setCache = function (req, res, next) {
-  const period = 60 * 33; // 33 minutos
+  const period = 60 * 12; // 12 minutos
 
   // Solo se van a cachear las peticiones GET
   if (req.method == "GET") {

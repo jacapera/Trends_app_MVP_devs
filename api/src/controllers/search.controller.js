@@ -133,7 +133,6 @@ const getUsers = async (queryParams, userType) => {
 
     return users;
   } catch (error) {
-    console.error("Error searching users:", error);
     return { error: error.message };
   }
 };

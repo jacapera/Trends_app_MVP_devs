@@ -46,8 +46,8 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { User, Company, Job, Image } = sequelize.models;
 
-Company.hasMany(Job, { foreignKey: "companyId" });
-Job.belongsTo(Company, { foreignKey: "companyId" });
+Company.hasMany(Job);
+Job.belongsTo(Company);
 
 User.hasMany(Image);
 Image.belongsTo(User);

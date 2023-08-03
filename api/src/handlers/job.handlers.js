@@ -5,9 +5,13 @@ const createNewJob = async (req, res) => {
   const jobData = req.body;
 
   try {
-    const newJob = await postJob({ ...jobData, companyId: id });
+    const newJob = await postJob({ companyId: id, ...jobData });
 
-    if (newJob && newJob.error)
+    if (!newJob) {
+      return res.status(500).json({ error: "The job couldn't be created" });
+    }
+
+    if (newJob.error)
       return res.status(500).json({
         error: newJob.error,
       });
