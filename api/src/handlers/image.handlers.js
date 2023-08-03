@@ -1,25 +1,34 @@
-const { Image } = require("../db");
+const { getImages, postImage } = require("../controllers/image.controller");
 
 const images = async (req, res) => {
-  Image.findAll()
-    .then((images) => {
-      res.status(200).json(images);
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "Failed to fetch images" });
-    });
+  try {
+    const foundImages = await getImages();
+
+    if (foundImages?.error) {
+      return res.status(400).json({ error: foundImages.error });
+    }
+
+    res.status(200).json(foundImages);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch images" });
+  }
 };
 
 const uploadImage = async (req, res) => {
-  console.log("req: ", req.file)
+  const { id, type } = req.user;
   const { filename, path } = req.file;
-  Image.create({ filename, filepath: path })
-    .then(() => {
-      res.status(200).json({ message: "Image uploaded successfully" });
-    })
-    .catch((error) => {
-      res.status(500).json({ error: "Failed to upload image" });
-    });
+
+  try {
+    const uploadedImage = await postImage(id, type, filename, path);
+
+    if (uploadedImage?.error) {
+      return res.status(400).json({ error: uploadedImage.error });
+    }
+
+    res.status(200).json(uploadedImage);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to upload image" });
+  }
 };
 
 module.exports = { images, uploadImage };

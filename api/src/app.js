@@ -10,13 +10,12 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const passport = require("./auth/passport-config");
-const multer = require("multer");
-const upload = require("./helpers/imageUploader");
 //<----------------------------------------------------------------------------->//
 
 
 //<-----------------------------Custom Middlewares----------------------------->//
 const authenticateUser = require("./middlewares/authenticateUser");
+const setCache = require("./middlewares/setCache");
 //<---------------------------------------------------------------------------->//
 
 
@@ -33,6 +32,7 @@ const adminRoutes = require("./routes/admin.routes");
 
 const app = express();
 app.use(morgan("dev"));
+app.use(setCache);
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -40,7 +40,6 @@ app.use(
   })
 );
 app.use(helmet());
-app.use(upload.single("image"));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json());
@@ -59,7 +58,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
-app.use("/api/v1/images", imageRoutes);
+app.use("/api/v1/images", authenticateUser, imageRoutes);
 app.use("/api/v1/admin", adminRoutes);
 
 // --- solo para pruebas ---
