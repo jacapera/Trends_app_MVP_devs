@@ -22,7 +22,16 @@ const RegisterFormBase = ({type})  => {
   });
 
   useEffect(() => {
-      }, [])
+    if(window.location.href.indexOf("studentRegister") > -1) {
+      inputs.type = "student"
+    }
+    if(window.location.href.indexOf("professionalRegister") > -1) {
+      inputs.type = "professional"
+    }
+    if(window.location.href.indexOf("companyRegister") > -1) {
+      inputs.type = "company"
+    }
+  }, [])
 
   const handleInputs = (event) => {
     const { value, name } = event.target;

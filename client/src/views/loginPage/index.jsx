@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { authLogin } from "../../utils/authLogin";
 import style from "./index.module.css";
@@ -29,13 +29,13 @@ export default function LoginPage() {
     if (inputs.email && inputs.password) {
       try {
         const fetch = await axios.post(URL, inputs, {withCredentials: "include"});
-        const result = fetch.data;
-        console.log(result);
+        navigate("/Trends_app_MVP/feedCompany");
       } catch (error) {
         console.log(error.response.data.error)
       }
     }
   };
+
 
   // useEffect(() => {
   //   if(validateLogin) {
