@@ -47,28 +47,19 @@ const changeUserPassword = async (userId, newPassword, currentPassword) => {
 };
 
 const putUserProfile = async (profile, profileData) => {
-  try {
-    const foundProfile = profile;
-    const updatedProfile = await foundProfile.update(profileData);
+  const foundProfile = profile;
+  const updatedProfile = await foundProfile.update(profileData);
 
-    return updatedProfile;
-  } catch (error) {
-    return { error: error.message };
-  }
+  return updatedProfile;
 };
 
 const deleteUserProfile = async (id) => {
-  try {
     const deletedProfile = await User.destroy({ where: { id } });
 
     return deletedProfile;
-  } catch (error) {
-    return { error: error.message };
-  }
 };
 
 const getUserFeed = async (id, usersType) => {
-  try {
     let target;
 
     // Se obtiene el usuario objetivo por su id
@@ -114,13 +105,14 @@ const getUserFeed = async (id, usersType) => {
       });
     }
 
+    if (!users.length) {
+      return { error: "No users of the specified type were found" };
+    }
+
     // Se calcula el feed utilizando el algoritmo de matcheo
     const matches = matcher(users, target);
 
     return matches;
-  } catch (error) {
-    return { error: error.message };
-  }
 };
 
 module.exports = {

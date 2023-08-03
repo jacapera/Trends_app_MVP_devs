@@ -40,13 +40,10 @@ const editProfile = async (req, res) => {
     if (!editedProfile) {
       return res.status(500).json({ error: "The profile couldn't be updated" });
     }
-    if (editedProfile.error && !editedProfile.error.message) {
-      return res.status(500).json({ error: editedProfile.error });
-    }
 
     return res.status(201).json(editedProfile);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: "Database error" });
   }
 };
 
@@ -56,12 +53,13 @@ const removeProfile = async (req, res) => {
   try {
     const removedProfile = await deleteUserProfile(id);
 
-    if (removedProfile === 0)
+    if (removedProfile === 0) {
       return res.status(400).json({ error: "User not found" });
+    }
 
     res.status(200).json({ message: "Profile successfully removed" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "The profile couldn't be deleted" });
   }
 };
 
@@ -74,10 +72,18 @@ const feed = async (req, res) => {
 
   try {
     const userFeed = await getUserFeed(id, usersType);
-    if (userFeed && userFeed.error)
+
+    if (!userFeed) {
+      return res.status(500).json({
+        error: "Error loading the feed"
+      })
+    }
+
+    if (userFeed.error)
       return res.status(500).json({
         error: userFeed.error,
       });
+      
     res.status(200).json(userFeed);
   } catch (error) {
     return res.status(500).json({

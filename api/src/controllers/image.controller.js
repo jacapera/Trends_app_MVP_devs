@@ -1,21 +1,12 @@
 const { Image } = require("../db");
 
 const getImages = async () => {
-  try {
-    const dbImages = await Image.findAll();
+  const dbImages = await Image.findAll();
 
-    if (!dbImages) {
-      return { error: "No images found" };
-    }
-
-    return dbImages;
-  } catch (error) {
-    return { error: "Database error" };
-  }
+  return dbImages;
 };
 
 const postImage = async (id, type, filename, path) => {
-  try {
     let typeOfId;
 
     if (["student", "professional"].includes(type.toLowerCase())) {
@@ -33,9 +24,6 @@ const postImage = async (id, type, filename, path) => {
     }
 
     return { message: "Image uploaded successfully" };
-  } catch (error) {
-    return { error: error.message };
-  }
 };
 
 module.exports = { getImages, postImage };

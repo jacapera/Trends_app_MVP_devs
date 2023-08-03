@@ -11,15 +11,10 @@ const createNewJob = async (req, res) => {
       return res.status(500).json({ error: "The job couldn't be created" });
     }
 
-    if (newJob.error)
-      return res.status(500).json({
-        error: newJob.error,
-      });
-
     return res.status(201).json(newJob);
   } catch (error) {
     return res.status(500).json({
-      error: error.message,
+      error: "Database error",
     });
   }
 };
@@ -31,16 +26,13 @@ const editJob = async (req, res) => {
   try {
     const editedJob = await putJob(job, jobData);
 
-    if (!editJob) {
+    if (!editedJob) {
       return res.status(500).json({ error: "The job couldn't be updated" });
-    }
-    if (editedJob.error) {
-      return res.status(500).json({ error: editJob.error });
     }
 
     return res.status(201).json(editedJob);
   } catch (error) {
-    return res.status(500).json({ error: error.message });
+    return res.status(500).json({ error: "Database error" });
   }
 };
 
@@ -55,7 +47,7 @@ const removeJob = async (req, res) => {
 
     res.status(200).json({ message: "Job successfully removed" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "Database error" });
   }
 };
 

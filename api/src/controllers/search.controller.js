@@ -2,7 +2,6 @@ const { Op, Sequelize, fn, col } = require("sequelize");
 const { User, Company, Job } = require("../db");
 
 const getUserById = async (id) => {
-  try {
     let foundUser;
 
     foundUser = await User.findOne({
@@ -42,9 +41,6 @@ const getUserById = async (id) => {
 
     // return plainUser;
     return foundUser;
-  } catch (error) {
-    return { error: "Error searching user!" };
-  }
 };
 
 const getUsers = async (queryParams, userType) => {
@@ -138,7 +134,6 @@ const getUsers = async (queryParams, userType) => {
 };
 
 const getJobById = async (id) => {
-  try {
     const foundJob = await Job.findOne({
       where: { id },
     });
@@ -146,9 +141,6 @@ const getJobById = async (id) => {
     if (!foundJob) return null;
 
     return foundJob;
-  } catch (error) {
-    return { error: error.message };
-  }
 };
 
 const getJobs = async (queryParams) => {

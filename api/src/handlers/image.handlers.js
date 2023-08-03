@@ -4,8 +4,8 @@ const images = async (req, res) => {
   try {
     const foundImages = await getImages();
 
-    if (foundImages?.error) {
-      return res.status(400).json({ error: foundImages.error });
+    if (!foundImages) {
+      return { error: "No images found" };
     }
 
     res.status(200).json(foundImages);
@@ -21,7 +21,11 @@ const uploadImage = async (req, res) => {
   try {
     const uploadedImage = await postImage(id, type, filename, path);
 
-    if (uploadedImage?.error) {
+    if (!uploadImage) {
+      return res.status(500).json({ error: "Database error" })
+    }
+
+    if (uploadedImage.error) {
       return res.status(400).json({ error: uploadedImage.error });
     }
 
