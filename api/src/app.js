@@ -1,5 +1,8 @@
 const { JWT_KEY } = require("../config");
 const express = require("express");
+
+
+//<----------------------------Middlewares libraries---------------------------->//
 const morgan = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -7,16 +10,29 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const bodyParser = require("body-parser");
 const passport = require("./auth/passport-config");
+//<----------------------------------------------------------------------------->//
+
+
+//<-----------------------------Custom Middlewares----------------------------->//
 const authenticateUser = require("./middlewares/authenticateUser");
+const setCache = require("./middlewares/setCache");
+//<---------------------------------------------------------------------------->//
+
+
+//<-----------------------------------Routes----------------------------------->//
 const authRoutes = require("./routes/auth.routes");
 const searchRoutes = require("./routes/search.routes");
 const userRoutes = require("./routes/user.routes");
 const jobRoutes = require("./routes/job.routes");
+const imageRoutes = require("./routes/image.routes");
 const userTestRoutes = require("./routes/userTest.routes");
+const adminRoutes = require("./routes/admin.routes");
+//<---------------------------------------------------------------------------->//
+
 
 const app = express();
-
 app.use(morgan("dev"));
+app.use(setCache);
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -42,6 +58,8 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
+app.use("/api/v1/images", authenticateUser, imageRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 // --- solo para pruebas ---
 app.use("/userTest", userTestRoutes);

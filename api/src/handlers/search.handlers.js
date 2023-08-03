@@ -5,14 +5,17 @@ const searchUserById = async (req, res) => {
 
   try {
     const userById = await getUserById(id);
-    if (userById && userById.error)
-      return res.status(500).json({
-        error: userById.error,
-      });
+
+    if (!userById) {
+      return res.status(400).json({
+        error: "No user with that id found"
+      })
+    }
+
     res.status(200).json(userById);
   } catch (error) {
     return res.status(500).json({
-      error: error.message,
+      error: "Error searching user!",
     });
   }
 };
@@ -21,7 +24,7 @@ const searchUsers = async (req, res) => {
   const queryParams = { ...req.query };
   const userType = queryParams?.type;
 
-  if (!["student", "professional", "company"].includes(userType)) {
+  if (!["student", "professional", "company"].includes(userType.toLowerCase())) {
     return res.status(400).json({ error: "Invalid user type" });
   }
 
@@ -48,10 +51,6 @@ const searchJobById = async (req, res) => {
     if (!jobById) {
       return res.status(400).json({ error: "Job not found" });
     }
-    if (jobById.error)
-      return res.status(500).json({
-        error: jobById.error,
-      });
 
     res.status(200).json(jobById);
   } catch (error) {
@@ -66,10 +65,18 @@ const searchJobs = async (req, res) => {
 
   try {
     const jobs = await getJobs(queryParams);
-    if (jobs && jobs.error)
+
+    if (!jobs) {
+      return res.status(500).json({
+        error: "Error retrieving jobs from the database"
+      })
+    }
+
+    if (jobs.error)
       return res.status(500).json({
         error: jobs.error,
       });
+      
     res.status(200).json(jobs);
   } catch (error) {
     return res.status(500).json({
