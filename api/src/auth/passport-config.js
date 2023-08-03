@@ -14,6 +14,16 @@ const { findAccount } = require("../helpers/findAccount");
 // );
 
 //---------------------Auth JWT PASSPORT---------------------//
+const bearerTokenExtractor = (req) => {
+  if (req) {
+    const authHeader = req.headers.authorization;
+    // console.log(authHeader.split(" ")[1]);
+    if (authHeader) return authHeader.split(" ")[1];
+    return null;
+  }
+  return null;
+};
+
 const cookieExtractor = (req) => {
   if (req && req.cookies) {
     return req.cookies.token;
