@@ -10,6 +10,7 @@ import { matcherCandidatesJob } from "../../utils/matcherCandidatesJob";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import { addCompany } from "../../Redux/UsersSlice";
+const {VITE_URL} = import.meta.env;
 
 
 const feedCompany = () =>{
@@ -17,120 +18,125 @@ const feedCompany = () =>{
     //?DEL STORE GLOBAL
     const companyDataSG = useSelector((state)=>state.users.companies);
 
-    const[companyData, setCompanyData] = useState();
+    //?Store Local temporal para modo claro y oscuro
+    const [mode, setMode]=useState('light-mode');
+
+    //const[companyData, setCompanyData] = useState();
     const[jobs, setJobs] = useState();
     
     //!SE VA A CAMBIAR POR DISPATCH QUE TRAIGA DATOS DESDE BACK
-    const company1 = {
-        profile: {
-            company_name: "Coca Cola",
-            cuit: "27303255418",
-            website: "https://cocacola.com.ar",
-            bio: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque at corporis autem quisquam ex corrupti magni minima facere, perferendis nisi pariatur aliquam ad debitis earum voluptatibus animi ullam! Dolorum, consectetur.",
-            image: "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
-            username: "juanperez",
-            email: "coca.cola@example.com",
-            password: "contraseña123",
-            city: "Buenos Aires",
-            country: "Argentina",
-        },
-        jobs:[
-            {
-            datajob:{
-                id:"1",
-                jobName:"Programador Senior en Python",
-                creationDate:"2023-07-20",
-                closingDate:"",
-                active:true,
-            },
-            academic: {
-                level_required: "Avanzado", //Nivel educacion requerida
-                study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
-                experience_required: "3", //Experiencia requerida
-                industry: ["Finanzas y Banca","TI"], //Industria/Sector
-                },
-            info: {
-                benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
-                skills_required: ["Programación en Python", "Desarrollo web", "Bases de datos"],
-                job_description: ["Inteligencia Artificial","Desarrollo de aplicaciones móviles"],
-                job_goal: ["Obtener una pasantía en una empresa de tecnología","Desarrollar habilidades de liderazgo"],
-                languages_required: ["Español", "Inglés"],
-                availability: "Full-Time",
-                contract_offered: "Remoto",
-                },    
-            },
-            {
-            datajob:{
-                id:"2",
-                jobName:"Arquitecto de Aplicaciones",
-                creationDate:"2023-07-07",
-                closingDate:"",
-                active:true,
-            },
-            academic: {
-                level_required: "Avanzado", //Nivel educacion requerida
-                study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
-                experience_required: "5", //Experiencia requerida
-                industry: ["Servicios TI","Consultoria de TI"], //Industria/Sector
-                },
-            info: {
-                benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
-                skills_required: ["C#", ".NET", "Java", "UML"],
-                job_description: ["Arquitecto de Aplicación", "Experiencia en metodologías Agiles y DevSecOps"],
-                job_goal: ["liderazgo", "atencion al detalle", "calidad del software"],
-                languages_required: ["Español", "Inglés"],
-                availability: "Full-Time",
-                contract_offered: "Presencial",
-                },    
-            },  
-            {
-            datajob:{
-                id:"3",
-                jobName:"RPA Developer",
-                creationDate:"2023-02-07",
-                closingDate:"2023-07-01",
-                active:false,
-            },
-            academic: {
-                level_required: "Avanzado", //Nivel educacion requerida
-                study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
-                experience_required: "5", //Experiencia requerida
-                industry: ["Servicios TI","Consultoria de TI"], //Industria/Sector
-                },
-            info: {
-                benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
-                skills_required: ["Mainframe knowledge", "AS400 preferred"],
-                job_description: ["Arquitecto de Aplicación", "Experiencia en metodologías Agiles y DevSecOps"],
-                job_goal: ["liderazgo", "atencion al detalle", "calidad del software"],
-                languages_required: ["Español", "Inglés"],
-                availability: "Full-Time",
-                contract_offered: "Presencial",
-                },    
-            },             
-        ]        
-    };
+    // const company1 = {
+    //     profile: {
+    //         company_name: "Coca Cola",
+    //         cuit: "27303255418",
+    //         website: "https://cocacola.com.ar",
+    //         bio: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque at corporis autem quisquam ex corrupti magni minima facere, perferendis nisi pariatur aliquam ad debitis earum voluptatibus animi ullam! Dolorum, consectetur.",
+    //         image: "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+    //         username: "juanperez",
+    //         email: "coca.cola@example.com",
+    //         password: "contraseña123",
+    //         city: "Buenos Aires",
+    //         country: "Argentina",
+    //     },
+    //     jobs:[
+    //         {
+    //         datajob:{
+    //             id:"1",
+    //             jobName:"Programador Senior en Python",
+    //             creationDate:"2023-07-20",
+    //             closingDate:"",
+    //             active:true,
+    //         },
+    //         academic: {
+    //             level_required: "Avanzado", //Nivel educacion requerida
+    //             study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
+    //             experience_required: "3", //Experiencia requerida
+    //             industry: ["Finanzas y Banca","TI"], //Industria/Sector
+    //             },
+    //         info: {
+    //             benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
+    //             skills_required: ["Programación en Python", "Desarrollo web", "Bases de datos"],
+    //             job_description: ["Inteligencia Artificial","Desarrollo de aplicaciones móviles"],
+    //             job_goal: ["Obtener una pasantía en una empresa de tecnología","Desarrollar habilidades de liderazgo"],
+    //             languages_required: ["Español", "Inglés"],
+    //             availability: "Full-Time",
+    //             contract_offered: "Remoto",
+    //             },    
+    //         },
+    //         {
+    //         datajob:{
+    //             id:"2",
+    //             jobName:"Arquitecto de Aplicaciones",
+    //             creationDate:"2023-07-07",
+    //             closingDate:"",
+    //             active:true,
+    //         },
+    //         academic: {
+    //             level_required: "Avanzado", //Nivel educacion requerida
+    //             study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
+    //             experience_required: "5", //Experiencia requerida
+    //             industry: ["Servicios TI","Consultoria de TI"], //Industria/Sector
+    //             },
+    //         info: {
+    //             benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
+    //             skills_required: ["C#", ".NET", "Java", "UML"],
+    //             job_description: ["Arquitecto de Aplicación", "Experiencia en metodologías Agiles y DevSecOps"],
+    //             job_goal: ["liderazgo", "atencion al detalle", "calidad del software"],
+    //             languages_required: ["Español", "Inglés"],
+    //             availability: "Full-Time",
+    //             contract_offered: "Presencial",
+    //             },    
+    //         },  
+    //         {
+    //         datajob:{
+    //             id:"3",
+    //             jobName:"RPA Developer",
+    //             creationDate:"2023-02-07",
+    //             closingDate:"2023-07-01",
+    //             active:false,
+    //         },
+    //         academic: {
+    //             level_required: "Avanzado", //Nivel educacion requerida
+    //             study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
+    //             experience_required: "5", //Experiencia requerida
+    //             industry: ["Servicios TI","Consultoria de TI"], //Industria/Sector
+    //             },
+    //         info: {
+    //             benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
+    //             skills_required: ["Mainframe knowledge", "AS400 preferred"],
+    //             job_description: ["Arquitecto de Aplicación", "Experiencia en metodologías Agiles y DevSecOps"],
+    //             job_goal: ["liderazgo", "atencion al detalle", "calidad del software"],
+    //             languages_required: ["Español", "Inglés"],
+    //             availability: "Full-Time",
+    //             contract_offered: "Presencial",
+    //             },    
+    //         },             
+    //     ]        
+    // };
 
     const dispatch = useDispatch();
 
+    //?AL MONTAR COMPONENTE
     useEffect(()=>{
-        setCompanyData(company1.profile);
+        //body.classList.add(mode);
+        //setCompanyData(company1.profile);
         //setJobs(company1.jobs);
         //?REALIZO EL GET PARA TRAER COMPAÑIA CARGADA EN BD
         //!ESTE GET SE DEBE CAMBIAR HACIA EL LOGIN
         //!SE CREA ACA A MODO DE PRUEBA DE COMPONENTE INDIVIDUAL
         const fetchCompany = async () =>{
-            const URL = 'http://localhost:3001/api/v1/search/user';
-            const ID = 'e6a7cbda-ad96-410e-9a15-a6182c462528';
+            const URL = `${VITE_URL}/api/v1/search/user`;
+            const ID = '4bc83986-8b48-43b5-9c81-9ef4a05d2695';
             try{
                 const {data} = await axios.get(`${URL}/${ID}`);
                 //dispatch()
-                console.log("que trae data: ", data)
+                console.log("que trae data <FeedCompany>: ", data)
         
                 dispatch(addCompany(data));
 
                 setJobs(data.jobs);
             }catch(error){
-                console.log("error al cargar datos empresa: ", error.message);
+                console.log(error.message);
             }
 
         };
