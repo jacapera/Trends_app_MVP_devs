@@ -71,8 +71,16 @@ body.dark-mode .auth-buttons a {
   color: #ffffff;
 }
 
+
+/* Estilos del modo oscuro */
+.dark-mode {
+  display: flex;
+  align-items: center;
+}
+
 /* Estilos del botón de modo oscuro */
 .dark-mode-button button {
+.dark-mode-button {
   background-color: transparent;
   border: none;
   font-size: 1.2rem;
@@ -82,9 +90,10 @@ body.dark-mode .auth-buttons a {
 }
 
 /* Estilos del modo oscuro */
-body.dark-mode {
+  body.dark-mode {
   color: #fab180;
   background-color: #383636;
+  background-color: transparent;
 }
 
 /* Estilos del menú desplegable */

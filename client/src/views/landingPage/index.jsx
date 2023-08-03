@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function LandingPage() {
   return (
-    <main>
+    <main className="LandingContainer">
       <article>
         <section className="card">
           <h1>

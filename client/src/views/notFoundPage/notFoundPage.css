@@ -8,6 +8,8 @@ body {
   
   /* Estilo para el contenedor principal */
   main {
+  .NotFoundContainer {
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;

@@ -51,7 +51,7 @@ module.exports = (sequelize) => {
       },
       profile_birth: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
         validate: {
           len: [10, 10],
         },
@@ -69,35 +69,36 @@ module.exports = (sequelize) => {
       },
       profile_city: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       profile_country: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       profile_support: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-        defaultValue: false,
+        defaultValue: true,
       },
       academic_formation: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       academic_institution: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        type: DataTypes.STRING, 
+        allowNull: true,
       },
       academic_level: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       academic_area: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+        allowNull: true,
       },
       academic_graduation: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       info_company_name: {
         type: DataTypes.STRING,
@@ -111,35 +112,63 @@ module.exports = (sequelize) => {
       },
       info_career: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+        allowNull: true,
       },
       info_skills: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+        allowNull: true,
       },
       info_goals: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+        allowNull: true,
       },
       info_interests: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+        allowNull: true,
       },
       info_problematic: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+        allowNull: true,
       },
       info_languages: {
         type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
+        allowNull: true,
       },
       info_availability: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
       info_contract: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
+      },
+      info_skills: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_goals: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_interests: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_problematic: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_languages: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: true,
+      },
+      info_availability: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      info_contract: {
+        type: DataTypes.STRING,
+        allowNull: true, 
       },
     },
     {

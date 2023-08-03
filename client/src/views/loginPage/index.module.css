@@ -157,7 +157,7 @@
 
 :global(.dark-mode) .Card, :global(.dark-mode) .RightContainer form, :global(.dark-mode) .LeftContainer > div, :global(.dark-mode) .RightContainer h2, :global(.dark-mode) .RightContainer .Bold {
     color: white;
-    background-color: #05050D;
+    background-color: #383636;
 }
 
 :global(.dark-mode) .RightContainer input, :global(.dark-mode) .RightContainer input::placeholder {
@@ -171,6 +171,15 @@
 
 :global(.dark-mode) .LeftContainer h3 {
     color: #CCB5A5;
+}
+
+:global(.dark-mode) .RightContainer button {
+    background-color: #FAB180 ;
+    color: white;
+}
+
+:global(.dark-mode) .RightContainer button:disabled {
+    background-color: rgba(236, 189, 158, 0.348) ;
 }
 
 

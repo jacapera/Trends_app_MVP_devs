@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../assets/imagenes/1 (3) (2).png";
 import "./NavBarInicio.css";
-
 function NavBarInicio() {
   const [showMenu, setShowMenu] = useState(false);
   const menuTimerRef = useRef(null);
@@ -64,6 +64,7 @@ function NavBarInicio() {
           </Link>
         </div>
       </div>
+
 
       {/* Botón de Modo Oscuro */}
       <div className="dark-mode-button">
