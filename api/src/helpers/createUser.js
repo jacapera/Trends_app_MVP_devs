@@ -1,4 +1,5 @@
-const { User, Company, conn } = require("../db");
+const { ADMIN_USERNAME, ADMIN_PASSWORD } = require("../../config");
+const { User, Company, Admin } = require("../db");
 
 const createNewUser = async (userData) => {
   try {
@@ -10,19 +11,15 @@ const createNewUser = async (userData) => {
   }
 };
 
-
 const createNewCompany = async (companyData) => {
   try {
     const newCompany = await Company.create(companyData);
 
-
-  // const { data } = companyData;
-//  try {
+    // const { data } = companyData;
+    //  try {
     // console.log(data);
- //   const newCompany = await Company.create(companyData);
-  //  console.log(newCompany);
-
-
+    //   const newCompany = await Company.create(companyData);
+    //  console.log(newCompany);
 
     return newCompany;
   } catch (error) {
@@ -30,7 +27,18 @@ const createNewCompany = async (companyData) => {
   }
 };
 
+const addAdmin = async () => {
+  const admins = await Admin.findAll();
+  if (admins.length === 0)
+    await Admin.create({
+      type: "admin",
+      username: ADMIN_USERNAME,
+      password: ADMIN_PASSWORD,
+    });
+};
+
 module.exports = {
   createNewCompany,
   createNewUser,
+  addAdmin,
 };

@@ -9,7 +9,7 @@ const getImages = async () => {
 const postImage = async (id, type, filename, path) => {
     let typeOfId;
 
-    if (["student", "professional"].includes(type.toLowerCase())) {
+    if (["student", "professional"].includes(type)) {
       typeOfId = "userId";
     } else typeOfId = "companyId";
 

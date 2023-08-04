@@ -12,7 +12,7 @@ const { jobSchema } = require("../schemas/index.schemas");
 
 const jobRoutes = Router();
 
-jobRoutes.post("/", validateCompany, validateSchema(jobSchema), createNewJob);
+jobRoutes.post("/:id", validateId, validateCompany, validateSchema(jobSchema), createNewJob);
 jobRoutes.put("/:id", validateId, validateJobOwner, validateSchema(jobSchema), editJob);
 jobRoutes.delete("/:id", validateId, validateJobOwner, removeJob);
 

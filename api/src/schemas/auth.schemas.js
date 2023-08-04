@@ -49,14 +49,11 @@ module.exports = (z) => {
     });
 
   const loginUserSchema = z.object({
-    email: z
+    user: z
       .string({
-        required_error: "prop: 'email' is required.",
+        required_error: "prop: 'user' is required.",
       })
-      .trim()
-      .email({
-        message: "Invalid email address.",
-      }),
+      .trim(),
     password: z.string({
       required_error: "prop: 'password' is required",
     }),
