@@ -2,3 +2,35 @@
     /* border: 1px solid greenyellow; */
     width: 80vw;
 }
+.header h1{
+    font-family: "Rubik-Medium";
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+
+.button{
+    background-color: #FAB180;
+    color: white;
+    border-radius: 25px;
+    margin: 10px;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+.buttonForm button{
+    background-color: #FAB180;
+    color: white;
+    border-radius: 25px;
+    margin: 10px;
+    padding-left: 1vw;
+    padding-right: 1vw;    
+}
+.textButtonForm{
+    white-space: nowrap;
+}
+:global(.dark-mode) .button{
+    color: #383636;
+}
+:global(.dark-mode) .header h1{
+    color: #CCB5A5;
+}

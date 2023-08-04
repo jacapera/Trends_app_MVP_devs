@@ -4,6 +4,8 @@ import ImageDropzone from "../../components/ImageDropzone/ImageDropzone"
 import {FaGraduationCap, FaLocationDot, FaBriefcase, FaCameraRotate, FaPenToSquare, FaFloppyDisk , FaRectangleXmark} from "react-icons/fa6";
 import { Select, SelectItem, Subtitle, TextInput, Title } from "@tremor/react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+const {VITE_URL} = import.meta.env;
 
 
 export default function profileCompany() {
@@ -29,22 +31,43 @@ export default function profileCompany() {
             ...isEditing,
             profile: true
         })
+    };
+
+    const formatData = () => {
+        const data={
+            name: companyData.name,
+            cuit: companyData.cuit,
+            website: companyData.website,
+            bio: companyData.bio,
+            image: companyData.image,
+            username: companyData.username,
+            email: companyData.email,
+            password: "123",
+            city: companyData.city,
+            country: companyData.country            
+        };
+
+        return data;
     }
 
     //?AL PRESIONAR GUARDAR ENVIO DATOS A BACK PARA ACTUALIZAR
     const handleSaveButton = async(buttonName) =>{
-        const URL = 'http://localhost:3001/api/v1/search/user';
-        const ID = 'e6a7cbda-ad96-410e-9a15-a6182c462528';
+        //const URL = `${VITE_URL}/api/v1/search/user`;
+        const ID = companyData.id;
+        const URL = `${VITE_URL}/api/v1/user/${ID}`;
+        //formateo los datos a enviar
+        const data = formatData();
         //envio datos
         try{
-            console.log("ACTUALIZO DATOS EMPRESA", companyData)
-            //await axios.put(`${URL}/...`,companyData)
-            //.then(async res=>{
-            //    alert(res.data)
-            //})
+            console.log("ACTUALIZO DATOS EMPRESA", data)
+            console.log("como envia a put: ", URL)
+            await axios.put(URL,data)
+            .then(async res=>{
+               alert(res.data) 
+            })
             
         }catch(error){
-            console.log("error al enviar put empresa: ", error.message);
+            console.log(error.message);
         }
 
         //cambio a false edicion de perfil
@@ -108,7 +131,7 @@ export default function profileCompany() {
       console.log("que tiene companyData:", companyData);
 
     }, []);    
-
+  
     return(
         <div className={style.mainDiv}>
 
@@ -117,12 +140,12 @@ export default function profileCompany() {
             <div className={style.profilePictureBasicInfoContainer}>
                 {/* ENCABEZADO */}
                 <div className={style.header}>
-                    <Title>{companyData.companyName}</Title>
+                    <h1>Company</h1>
                 </div>
                 {/* IMAGEN */}
-                <div className={style.profilePictureContainer}>
+                <div className={style.imageContainer}>
                     <img 
-                        src={companyData.image} 
+                        src={companyData.image ?companyData.image :null} 
                         alt="gatito" 
                         className={style.profilePicture}/>
                     {/* {isProfileOwner && <button className={style.imageChangeButton} onClick={() => handleImageChangeButton()}><FaCameraRotate className={style.buttonIcon}/></button>} */}
@@ -136,25 +159,29 @@ export default function profileCompany() {
                                 <TextInput 
                                 //className={style.headerEditionInput} 
                                 type="text" name="profile.company_name" 
-                                value={companyData.companyName} 
+                                value={companyData.name} 
                             onChange={handleInputChange}/> */}
-                            <label>Nombre de empresa: </label><br/>
+                            <h3>Nombre de empresa: </h3>
                                 <TextInput 
-                                    type="text" name="companyName" 
-                                    value={companyData.companyName} 
+                                    className={style.input}
+                                    type="text" name="name" 
+                                    value={companyData.name} 
                                     onChange={handleInputChange}/>
-                            <label>Nombre de usuario: </label><br/>
+                            <h3>Nombre de usuario: </h3>
                                 <TextInput 
+                                    className={style.input}
                                     type="text" name="username" 
                                     value={companyData.username} 
                                     onChange={handleInputChange}/>
-                            <label>Ciudad: </label><br/>
+                            <h3>Ciudad: </h3>
                                 <TextInput 
+                                    className={style.input}
                                     type="text" name="city" 
                                     value={companyData.city} 
                                     onChange={handleInputChange}/>
-                            <label>Pais: </label><br/>
+                            <h3>Pais: </h3>
                                 <Select
+                                    className={style.input}
                                     name="country"
                                     value={companyData.country}
                                     onValueChange={(value)=>handleSelectChange("country",value)}
@@ -168,45 +195,49 @@ export default function profileCompany() {
                                     ))
                                     }
                                 </Select>                                    
-                            <label>Sitio Web: </label><br/>        
+                            <h3>Sitio Web: </h3>
                                 <TextInput 
+                                    className={style.input}
                                     type="text" name="profile.website" 
                                     //value={userData.profile.website} 
                                     //onChange={handleInputChange}
                                     />
-                            <label>Cuit: </label><br/>
+                            <h3>Cuit: </h3>
                                 <TextInput 
+                                    className={style.input}
                                     type="text" name="cuit" 
                                     value={companyData.cuit} 
                                     onChange={handleInputChange}/>
-                            <label>Email: </label><br/>
+                            <h3>Email: </h3>
                                 <TextInput 
+                                    className={style.input}
                                     type="text" name="email" 
                                     value={companyData.email} 
                                     onChange={handleInputChange}/>
-                            <label>Url Imagen: </label><br/>
+                            <h3>Url Imagen: </h3>
                                 <TextInput 
+                                    className={style.input}
                                     type="text" name="image" 
                                     value={companyData.image} 
                                     onChange={handleInputChange}/>
-                            <label>Bio de la empresa: </label><br/>
+                            <h3>Bio de la empresa: </h3>
                                 <textarea
                                 className={style.headerEditionTextarea} 
                                 name="bio" 
                                 value={companyData.bio} 
-                                onChange={handleInputChange}/><br/>
+                                onChange={handleInputChange}/>
                             
                         </div>
                     ):(
                         //MODO VISUALIZACION DE DATOS
                         <div className={style.infoContainer}>
-                            {/* <p className={style.userInfoName}>{companyDataSG.companyName}</p> */}
-                            <Subtitle>Informacion de la empresa:</Subtitle>
-                            <p>{companyData.city}, {companyData.country}</p>
+                            <h1>{companyData.name}</h1>
+                            <h3>{companyData.city}, {companyData.country}</h3>
                             {/* <p>{companyDataSG.website}</p> */}
-                            <p>cuit: {companyData.cuit}</p>
-                            <p>email : {companyData.email}</p>
-                            <p>"bio: {companyData.bio}"</p>
+                            <h3>cuit: {companyData.cuit}</h3>
+                            <h3>email : {companyData.email}</h3>
+                            <hr></hr>
+                            <h3>{companyData.bio}</h3>
                         </div>
                     )}
 

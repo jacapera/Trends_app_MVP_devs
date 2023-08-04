@@ -15,28 +15,28 @@ function extractTokenFromSetCookie(setCookie) {
 (async () => {
   // Se crean los usuarios
   for (const user of users) {
-    await axios.post(`http://localhost:3001/api/v1/auth/register`, user);
+    await axios.post(`http://localhost:3001/userTest`, user);
   }
 
   // Se crean las empresas y se les asocian trabajos al azar
   const jobKeys = Object.keys(jobs);
   const companyCount = companies.length;
+  let companyId;
 
   for (let i = 0; i < companyCount; i++) {
     const company = companies[i];
     const createdCompany = await axios.post(
-
-      `http://localhost:3001/api/v1/auth/register`,
+      `http://localhost:3001/userTest`,
       company
-    );
+    ).then((data) => companyId = data.data.id)
 
-    // Se recupera el id desde la cookie
-    const cookieHeader = createdCompany.headers["set-cookie"][0];
-    const companyToken = extractTokenFromSetCookie(cookieHeader);
-    const companyId = await axios.get(
-      `http://localhost:3001/userTest/${companyToken}`,
-      company
-    ).then((data) => data.data.id);
+    // // Se recupera el id desde la cookie
+    // const cookieHeader = createdCompany.headers["set-cookie"][0];
+    // const companyToken = extractTokenFromSetCookie(cookieHeader);
+    // const companyId = await axios.get(
+    //   `http://localhost:3001/userTest/${companyToken}`,
+    //   company
+    // ).then((data) => data.data.id);
 
     // Se asocian trabajos al azar a la empresa actual
 

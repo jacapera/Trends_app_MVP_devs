@@ -7,3 +7,26 @@
     display: flex;
     justify-content: center;
 }
+.container h1 {
+    font-family: "Rubik-Medium";
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+.container h3 {
+    text-align: center;
+    font-family: "Rubik-Regular";
+    /* border-radius: .2rem; */
+    /* width: fit-content; */
+    padding: 0px;
+    margin: 0px;
+}
+:global(.dark-mode) .container h1, .container h3{
+    color: #CCB5A5;
+}
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+    .dateContainer{
+        display: block;
+    }    
+  }

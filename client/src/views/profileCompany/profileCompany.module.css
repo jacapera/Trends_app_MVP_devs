@@ -3,6 +3,7 @@
     width: 100%;
     height: 100%;
     color: #344C5A;
+    font-family: "Poppins-Medium";
     /* border: 1px solid red; */
     /* display: flex; */
 }
@@ -21,19 +22,23 @@
 .header{
     position: relative;
     z-index: 1;
-    height: 20vh;
+    height: 25vh;
     width: 100%;
     background-color: #9AC2EF;
     -webkit-box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
-.header p{
-    margin: 8vh 0 0 15vw;
-    font-weight: bold;
-    font-size: x-large;
+.header h1{
+    font-size: 2.6rem;
+    text-align: center;
+    width: fit-content;
+    margin-left: 20rem;
+    padding-top: 6rem;
+    color: black;
+    /* margin: 8vh 0 0 15vw; */
 }
 
 .profilePictureBasicInfoContainer{
@@ -42,26 +47,32 @@
     /* width: 80%; */
     flex-direction: column;
     /* padding-top: 8vh; */
-    /* border: 1px solid red; */
+    /* border: 1px solid greenyellow; */
+    /* overflow: auto; */
+    position: relative;
 }
-.container{
+/* .container{
     display: flex;
-}
+} */
 
-.profilePictureContainer{
+.imageContainer{
+    border-radius: 90%;
+    width: 14rem;
+    height: 14rem;    
     position: absolute;
+    /* position: fixed; */
     z-index: 2;
-    margin-top: 5vw;
+    margin-top: 3rem;
     margin-left: 5vh;
-    width: fit-content;
-    /* border: 1px solid black; */
+    /* width: fit-content; */
+    cursor: pointer;
+    /* border: 1px solid greenyellow; */
 }
-
-.profilePicture{
-    height: 20vh;
-    min-width: 10vw;
-    border-radius: 50%;
-    border: 5px solid white;
+.imageContainer img{
+    border: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 90%;    
 }
 
 .imageChangeButton{
@@ -76,18 +87,52 @@
 .userBasicInfoContainer{
     /* width: 80vw; */
     /* margin: 8vh auto 0 auto; */
-    margin-top: 12vh;
+    padding-top: 13vh;
+    
     padding-left: 1.8vw;
     padding-right: 2vw;
-    /* display: flex; */
+
     /* justify-content: space-between; */
     /* align-items: flex-start; */
     /* z-index: 1; */
-    /* border: 1px solid black; */
+    /* border: 1px solid red; */
+    height: 75vh;
+    /* overflow: auto; */
+    
+
+}
+.userBasicInfoContainer h1{
+    padding: 0 1rem;
+    margin: 0;
+    margin-bottom: 1rem;
+    width: fit-content;
+    border-radius: .4rem;
+    color: black;
+}
+.userBasicInfoContainer h3{
+    color: black;
+}
+
+
+.input{
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+
+.infoContainer > hr {
+    margin: 0 auto;
+    margin-bottom: 1rem;
 }
 
 .infoContainer{
     text-align: left;
+    font-family: "Rubik-Regular";
+    border-radius: .2rem;
+    width: fit-content;
+    padding: 0 1rem;
+}
+.infoContainer h3{
+    color: black;
 }
 .infoContainer p{
     margin-top: 5px;
@@ -233,3 +278,44 @@
         border: 5px solid white;
     }    
   }
+
+:global(.dark-mode) .header{
+    background-color: #FAB180;
+}
+:global(.dark-mode) .header h1{
+    color: #344C5A ;
+}
+:global(.dark-mode) .infoContainer h1{
+    color: #CCB5A5;
+}
+:global(.dark-mode) .infoContainer h3{
+    color: #CCB5A5;
+}
+:global(.dark-mode) .profilePictureBasicInfoContainer{
+    background-color: #383636;
+}
+:global(.dark-mode) .userBasicInfoContainer {
+    background-color: #383636;
+}
+:global(.dark-mode) .userBasicInfoContainer h1, .userBasicInfoContainer h3{
+    color: #CCB5A5;
+}
+
+@media screen and (max-width: 758px){
+    .header h1{
+        display: none;
+    }
+    .imageContainer{
+        justify-content: center;
+        width: fit-content;
+        cursor: pointer;
+        margin-top: 2rem;
+        margin-left: 3.5rem;
+        
+    }
+    .infoContainer h3, .infoContainer h1{
+        text-align: center;
+        margin: 0 auto;
+        margin-bottom: 1rem;
+    }
+}
