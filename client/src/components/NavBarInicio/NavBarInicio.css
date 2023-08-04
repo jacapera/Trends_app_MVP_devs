@@ -42,8 +42,7 @@ body.dark-mode .navigation {
 }
 
 /* Estilos del botón de autenticación en modo claro y oscuro */
-.auth-buttons button,
-.auth-buttons a {
+.auth-buttons button, .auth-buttons a {
   font-size: 1rem;
   text-decoration: none;
   margin-right: 1rem;
@@ -79,7 +78,7 @@ body.dark-mode .auth-buttons a {
 }
 
 /* Estilos del botón de modo oscuro */
-.dark-mode-button button {
+
 .dark-mode-button {
   background-color: transparent;
   border: none;

@@ -7,7 +7,6 @@ body {
   }
   
   /* Estilo para el contenedor principal */
-  main {
   .NotFoundContainer {
     display: flex;
     flex-direction: column;
