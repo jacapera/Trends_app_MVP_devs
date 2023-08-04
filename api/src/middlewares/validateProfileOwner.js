@@ -1,19 +1,20 @@
 const { getUserById } = require("../controllers/search.controller");
 
 const validateProfileOwner = async (req, res, next) => {
-  const { id: UserId } = req.user;
-  const { id: ProfileId } = req.params;
-  const profileToEdit = await getUserById(ProfileId);
+  const { id: userId } = req.user;
+  const { id: profileId } = req.params;
+  // const { type: userType } = req.user;
+  
+  const profileToEdit = await getUserById(profileId);
 
   if (!profileToEdit)
     return res.status(400).json({ error: "User not found" });
 
-  if (profileToEdit.error)
-    return res.status(500).json({
-      error: profileToEdit.error,
-    });
+  // if (userType === "admin") {
+  //   next();
+  // }
 
-  if (profileToEdit.id !== UserId) {
+  if (profileToEdit.id !== userId) {
     return res.status(400).json({ error: "Not authorized" });
   }
 
