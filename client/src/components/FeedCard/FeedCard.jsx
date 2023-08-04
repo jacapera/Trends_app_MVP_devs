@@ -3,7 +3,6 @@ import detailIcon from "../../assets/TestIcons/detailsIcon.png"
 
 
 const FeedCard = ({user}) => {
-    console.log(user);
     return (
         <div className={style.Card}>
             <div className={style.PhotoContainer}>
@@ -14,15 +13,11 @@ const FeedCard = ({user}) => {
                 <h1>{user.name}</h1>
                 <h2>{user.academic_area}</h2>
                 <h2>{user.info_skills}</h2>
-
-                <h3>{`${user.profile_city} - ${user.profile_country}`}</h3>
+                {user.profile_city || user.profile_country ? 
+                    <h3>{`${user.profile_city} - ${user.profile_country}`} </h3>:
+                    null
+                }
             </div>
-
-            <div className={style.LastContainer}>
-                <h3>{user.type}</h3>
-                <img src={detailIcon} alt="" />
-            </div>
-
         </div>
     )
 }
