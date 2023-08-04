@@ -49,7 +49,7 @@ const getUsers = async (queryParams, userType) => {
     let hasInvalidQuery = false;
     let userAttributes;
 
-    ["student", "professional"].includes(userType.toLowerCase()) &&
+    ["student", "professional"].includes(userType) &&
       (userAttributes = Object.keys(User.rawAttributes));
 
     userType === "company" &&
@@ -92,7 +92,7 @@ const getUsers = async (queryParams, userType) => {
       };
     }
 
-    if (userType.toLowerCase() === "company") {
+    if (userType === "company") {
       const companies = await Company.findAll({
         where: whereClause,
         attributes: {
@@ -110,15 +110,15 @@ const getUsers = async (queryParams, userType) => {
 
       return companies;
     }
-
+    
     const users = await User.findAll({
       where: whereClause,
       attributes: {
         exclude: [
           "password",
-          ...(userType.toLowerCase() === "student"
+          ...(userType === "student"
             ? ["info_company_name", "info_position"]
-            : userType.toLowerCase() === "professional"
+            : userType === "professional"
             ? ["academic_level"]
             : []),
         ],

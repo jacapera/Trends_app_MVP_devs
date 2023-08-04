@@ -10,7 +10,7 @@ const { jobSchema } = jobSchemas(z);
 module.exports = {
   loginUserSchema,
   registerUserSchema,
-  companyProfileSchema,
+  // companyProfileSchema,
   userProfileSchema,
   jobSchema,
 };

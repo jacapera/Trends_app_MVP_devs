@@ -52,6 +52,7 @@ const {
   Image: initImage,
 } = sequelize.models;
 
+// Se setea la configuración del caché de Sequelize
 const cache = new SequelizeSimpleCache({
   User: { ttl: 15 * 60 }, // 15 minutos
   Company: { ttl: 15 * 60 },
@@ -59,6 +60,7 @@ const cache = new SequelizeSimpleCache({
   Image: { ttl: 60 * 60 },
 });
 
+// Se inicializan los modelos con el caching activado
 const User = cache.init(initUser);
 const Company = cache.init(initCompany);
 const Job = cache.init(initJob);
