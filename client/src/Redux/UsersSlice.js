@@ -1,4 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+const {VITE_URL} = import.meta.env;
 
 const initialState = {
     allUsers: [],
@@ -6,9 +8,30 @@ const initialState = {
     students: [],
     professionals: [],
     companies: [],
+    user: {},
     test: false
 };
 
+const getMatchedUsers = createAsyncThunk("users/getMatchedUsers", async () => {
+    try {
+        const URL = `${VITE_URL}/api/v1/search/users?type=student`;
+        const fetch = await axios.get(URL, {withCredentials: "include"});
+        const data = fetch.data;
+        return data;
+    } catch (error) {
+        return error.response.data.error
+    }
+})
+const getUserInfo = createAsyncThunk("users/getUserInfo", async () => {
+    try {
+        const URL = `${VITE_URL}/api/v1/user/profile`;
+        const fetch = await axios.get(URL, {withCredentials: "include"});
+        const data = fetch.data;
+        return data;
+    } catch (error) {
+        return error.response.data.error;
+    }
+} )
 
 const getSearchedUsers = createAsyncThunk("users/getSearchedUsers", async({name, academic_formation, academic_institution}) =>{
      try {
@@ -46,16 +69,32 @@ const usersSlice = createSlice({
             .addCase(getSearchedUsers.fulfilled, (state, action)=>{
                 state.searchedUsers = action.payload;
             })
+            .addCase(getUserInfo.pending, () => {
+                console.log("cargando");
+            })
+            .addCase(getUserInfo.fulfilled, (state, action) => {
+                state.user = action.payload;
+            })
+            .addCase(getMatchedUsers.pending, () => {
+                console.log("cargando");
+            })
+            .addCase(getMatchedUsers.fulfilled, (state, action) => {
+                state.allUsers = action.payload; 
+            })
+            .addCase(getMatchedUsers.rejected, (state, action) => {
+                console.log(action.payload);
+            })
     }
 })
 
 export default usersSlice.reducer;
 
 // export of the selectors of the global state
-export {getSearchedUsers};
+export {getSearchedUsers, getUserInfo, getMatchedUsers};
 export const {test, addCompany} = usersSlice.actions;
 export const selectAllUsers = (state) => state.users.allUsers;
 export const selectSearchedUsers = (state) => state.users.searchedUsers;
 export const selectStudents = (state) => state.users.students;
 export const selectProfessionals = (state) => state.users.professionals;
 export const selectCompanies = (state) => state.users.companies;
+export const selectUserProfile = (state) => state.users.user;

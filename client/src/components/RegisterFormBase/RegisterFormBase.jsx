@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./RegisterFormBase.module.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { validationRegister } from "../../utils/ValidationRegister";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -10,14 +10,28 @@ const RegisterFormBase = ({type})  => {
     const [validateLogin, setValidateLogin] = useState(null);
     const navigate = useNavigate();
     const URL = `${VITE_URL}/api/v1/auth/register`;
+    
 
   const [inputs, setInputs] = useState({
+    profile_support: false,
     type,
     email: "",
     password: "",
     name: "",
     username: ""
   });
+
+  useEffect(() => {
+    if(window.location.href.indexOf("studentRegister") > -1) {
+      inputs.type = "student"
+    }
+    if(window.location.href.indexOf("professionalRegister") > -1) {
+      inputs.type = "professional"
+    }
+    if(window.location.href.indexOf("companyRegister") > -1) {
+      inputs.type = "company"
+    }
+  }, [])
 
   const handleInputs = (event) => {
     const { value, name } = event.target;
@@ -26,6 +40,13 @@ const RegisterFormBase = ({type})  => {
       [name]: value,
     }));
   };
+
+  const handleIsCheck = () => {
+    setInputs((prevState) => ({
+      ...prevState,
+      profile_support: !inputs.profile_support
+    }))
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -67,6 +88,12 @@ const RegisterFormBase = ({type})  => {
             </div>
             <div className={style.Input}>
               <input name="password" onChange={handleInputs} type="password" placeholder="Password" />
+            </div>
+            <div className={style.Options}>
+              <div>
+                <input id="remember" type="checkbox" checked={inputs.support} onChange={handleIsCheck}/>
+                <label htmlFor="remember">  Support?</label>
+              </div>
             </div>
             <button disabled={!(inputs.email && inputs.password && inputs.name && inputs.username)} type="submit">Register</button>
             <hr />

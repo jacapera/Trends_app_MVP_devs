@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authLogin } from "../../utils/authLogin";
-import style from "./index.module.css";
+import style from "./loginPage.module.css";
 import welcome from "../../assets/TestIcons/welcome.jpeg";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { getUserInfo } from "../../Redux/UsersSlice";
 const {VITE_URL} = import.meta.env;
 
 export default function LoginPage() {
   const [validateLogin, setValidateLogin] = useState(null);
   const navigate = useNavigate();
   const URL = `${VITE_URL}/api/v1/auth/login`;
+  const dispatch = useDispatch()
 
   const [inputs, setInputs] = useState({
     email: "",
@@ -28,14 +30,17 @@ export default function LoginPage() {
     event.preventDefault();
     if (inputs.email && inputs.password) {
       try {
-        const fetch = await axios.post(URL, inputs);
-        const result = fetch.data;
-        console.log(result);
+        await axios.post(URL, inputs, {withCredentials: "include"});
+        dispatch(getUserInfo());
+        navigate("/Trends_app_MVP/feed");
       } catch (error) {
         console.log(error.response.data.error)
       }
     }
   };
+
+  
+
 
   // useEffect(() => {
   //   if(validateLogin) {
