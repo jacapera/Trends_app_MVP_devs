@@ -1,4 +1,4 @@
-const { Company, User } = require("../db");
+const { Company, User, Admin } = require("../db");
 
 const findAllUsers = async () => {
   try {
@@ -10,4 +10,14 @@ const findAllUsers = async () => {
   }
 };
 
-module.exports = { findAllUsers };
+const createNewAdmin = async (userData) => {
+  try {
+    if (await Admin.findOne({ where: { username: userData.username } }))
+      throw new Error("This username already exists.");
+    return await Admin.create(userData);
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
+
+module.exports = { findAllUsers, createNewAdmin };
