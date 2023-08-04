@@ -192,12 +192,13 @@ const handlePageForm = (event) =>{
 
     return(
         <div className={style.container}>
+            <div className={style.header}>
             {
                 jobEdit 
-                    ?<Title>Modificacion de Oferta Laboral</Title>
-                    :<Title>Carga de Nueva Oferta Laboral</Title>
+                    ?<h1>Modificacion de Oferta Laboral</h1>
+                    :<h1>Carga de Nueva Oferta Laboral</h1>
             }
-            
+            </div>
             <form onSubmit={submitHandler}>
                 {/* DATOS DE OFERTA LABORAL*/}
                 <div hidden={pageForm.div_data}>
@@ -217,12 +218,14 @@ const handlePageForm = (event) =>{
                     />
                 </div>
                 {/* BOTON GUARDAR */}
-                <div>
-                    <Button
-                        disabled={!isFormComplete}
+                <div className={style.buttonForm}>
+                    <button
+                        name="submit"
+                        hidden={!isFormComplete}
                         type="submit"
-                        style={{ margin: 10, padding: 10 }}
-                    >{jobEdit ?"Modificar" :"Cargar"} Oferta Laboral</Button>
+                        // style={{ margin: 10, padding: 10 }}
+                        className={style.button}
+                    ><div className={style.textButtonForm}>{jobEdit ?"Modificar" :"Cargar"} Oferta Laboral</div></button>
                 </div>
             </form>
             {/* BOTONES NAVEGACION */}
@@ -231,13 +234,15 @@ const handlePageForm = (event) =>{
                     name="Anterior"
                     hidden={pageForm.button1_hide}
                     onClick={handlePageForm}
-                    style={{ margin: 10, padding: 10 }}
+                    className={style.button}
+                    // style={{ margin: 10, padding: 10 }}
                 >{pageForm.button1}</button>
                 <button
                     name="Continuar"
                     hidden={pageForm.button2_hide}
                     onClick={handlePageForm}
-                    style={{ margin: 10, padding: 10 }}
+                    className={style.button}
+                    // style={{ margin: 10, padding: 10 }}
                 >{pageForm.button2}</button>
             </div>
         </div>

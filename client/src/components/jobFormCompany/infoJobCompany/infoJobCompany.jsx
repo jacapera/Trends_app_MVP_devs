@@ -24,8 +24,9 @@ const infoJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
     return(
         <div>
             <div className={style.container}>
-                <Subtitle>Informacion Adicional de la Oferta</Subtitle>
-                    <label>Beneficios otorgados: </label><br/>
+                <hr/><br></br>
+                <h1>Informacion Adicional de la Oferta</h1>
+                    <h3>Beneficios otorgados: </h3>
                     <TextInput
                         name="benefits"
                         type="text"
@@ -39,7 +40,7 @@ const infoJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     )} */}
                     <br />
 
-                    <label>Habilidades requeridas: </label><br/>
+                    <h3>Habilidades requeridas: </h3>
                     <TextInput
                         name="skills_required"
                         type="text"
@@ -52,7 +53,7 @@ const infoJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     )} */}
                     <br />
 
-                    <label>Descripcion y Responsabilidades del puesto: </label><br/>
+                    <h3>Descripcion y Responsabilidades del puesto: </h3>
                     <TextInput
                         name="job_description"
                         type="text"
@@ -65,7 +66,7 @@ const infoJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     )} */}
                     <br />
 
-                    <label>Objetivos y metas del trabajo propuesto: </label><br/>
+                    <h3>Objetivos y metas del trabajo propuesto: </h3>
                     <TextInput
                         name="job_goal"
                         type="text"
@@ -78,7 +79,7 @@ const infoJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     )} */}
                     <br />
 
-                    <label>Idiomas Requeridos: </label><br/>
+                    <h3>Idiomas Requeridos: </h3>
                     <TextInput
                         name="languages_required"
                         type="text"
@@ -91,7 +92,7 @@ const infoJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     )} */}
                     <br />
 
-                    <label>Disponibilidad: </label><br/>
+                    <h3>Disponibilidad: </h3>
                     <Select
                         name="availability"
                         value={formJob.availability}
@@ -109,7 +110,7 @@ const infoJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     )} */}
                     <br />
 
-                    <label>Tipo de Contratacion Ofrecida: </label><br/>
+                    <h3>Tipo de Contratacion Ofrecida: </h3>
                     <Select
                         name="contract_offered"
                         value={formJob.contract_offered}

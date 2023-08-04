@@ -13,7 +13,7 @@ import LIstUsers from './LIstUsers';
 import Login from './Login';
 import Register from './Register/Register';
 
-const socket = io('http://localhost:3007');
+const socket = io('http://localhost:3001');
 
 const Chat = () => {
   // ?======================================

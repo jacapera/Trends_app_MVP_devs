@@ -28,7 +28,7 @@
     -webkit-box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 46px -22px rgba(0,0,0,0.75);
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
 }
 
 .header h1{
@@ -37,6 +37,7 @@
     width: fit-content;
     margin-left: 20rem;
     padding-top: 6rem;
+    color: black;
     /* margin: 8vh 0 0 15vw; */
 }
 
@@ -46,22 +47,26 @@
     /* width: 80%; */
     flex-direction: column;
     /* padding-top: 8vh; */
-    border: 1px solid greenyellow;
+    /* border: 1px solid greenyellow; */
+    /* overflow: auto; */
+    position: relative;
 }
-.container{
+/* .container{
     display: flex;
-}
+} */
 
 .imageContainer{
     border-radius: 90%;
     width: 14rem;
     height: 14rem;    
     position: absolute;
+    /* position: fixed; */
     z-index: 2;
     margin-top: 3rem;
     margin-left: 5vh;
-    width: fit-content;
+    /* width: fit-content; */
     cursor: pointer;
+    /* border: 1px solid greenyellow; */
 }
 .imageContainer img{
     border: 0px;
@@ -90,17 +95,25 @@
     /* justify-content: space-between; */
     /* align-items: flex-start; */
     /* z-index: 1; */
-    border: 1px solid red;
+    /* border: 1px solid red; */
     height: 75vh;
+    /* overflow: auto; */
+    
 
 }
-.userBasicInfoContainer h1, .userBasicInfoContainer h3{
+.userBasicInfoContainer h1{
     padding: 0 1rem;
     margin: 0;
     margin-bottom: 1rem;
     width: fit-content;
     border-radius: .4rem;
+    color: black;
 }
+.userBasicInfoContainer h3{
+    color: black;
+}
+
+
 .input{
     margin-top: -1rem;
     margin-bottom: 1rem;
@@ -115,9 +128,11 @@
     text-align: left;
     font-family: "Rubik-Regular";
     border-radius: .2rem;
-    
     width: fit-content;
     padding: 0 1rem;
+}
+.infoContainer h3{
+    color: black;
 }
 .infoContainer p{
     margin-top: 5px;

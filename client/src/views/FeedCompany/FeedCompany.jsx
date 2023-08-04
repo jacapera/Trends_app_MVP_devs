@@ -25,99 +25,152 @@ const feedCompany = () =>{
     const[jobs, setJobs] = useState();
     
     //!SE VA A CAMBIAR POR DISPATCH QUE TRAIGA DATOS DESDE BACK
-    // const company1 = {
-    //     profile: {
-    //         company_name: "Coca Cola",
-    //         cuit: "27303255418",
-    //         website: "https://cocacola.com.ar",
-    //         bio: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Itaque at corporis autem quisquam ex corrupti magni minima facere, perferendis nisi pariatur aliquam ad debitis earum voluptatibus animi ullam! Dolorum, consectetur.",
-    //         image: "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
-    //         username: "juanperez",
-    //         email: "coca.cola@example.com",
-    //         password: "contraseña123",
-    //         city: "Buenos Aires",
-    //         country: "Argentina",
-    //     },
-    //     jobs:[
-    //         {
-    //         datajob:{
-    //             id:"1",
-    //             jobName:"Programador Senior en Python",
-    //             creationDate:"2023-07-20",
-    //             closingDate:"",
-    //             active:true,
-    //         },
-    //         academic: {
-    //             level_required: "Avanzado", //Nivel educacion requerida
-    //             study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
-    //             experience_required: "3", //Experiencia requerida
-    //             industry: ["Finanzas y Banca","TI"], //Industria/Sector
-    //             },
-    //         info: {
-    //             benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
-    //             skills_required: ["Programación en Python", "Desarrollo web", "Bases de datos"],
-    //             job_description: ["Inteligencia Artificial","Desarrollo de aplicaciones móviles"],
-    //             job_goal: ["Obtener una pasantía en una empresa de tecnología","Desarrollar habilidades de liderazgo"],
-    //             languages_required: ["Español", "Inglés"],
-    //             availability: "Full-Time",
-    //             contract_offered: "Remoto",
-    //             },    
-    //         },
-    //         {
-    //         datajob:{
-    //             id:"2",
-    //             jobName:"Arquitecto de Aplicaciones",
-    //             creationDate:"2023-07-07",
-    //             closingDate:"",
-    //             active:true,
-    //         },
-    //         academic: {
-    //             level_required: "Avanzado", //Nivel educacion requerida
-    //             study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
-    //             experience_required: "5", //Experiencia requerida
-    //             industry: ["Servicios TI","Consultoria de TI"], //Industria/Sector
-    //             },
-    //         info: {
-    //             benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
-    //             skills_required: ["C#", ".NET", "Java", "UML"],
-    //             job_description: ["Arquitecto de Aplicación", "Experiencia en metodologías Agiles y DevSecOps"],
-    //             job_goal: ["liderazgo", "atencion al detalle", "calidad del software"],
-    //             languages_required: ["Español", "Inglés"],
-    //             availability: "Full-Time",
-    //             contract_offered: "Presencial",
-    //             },    
-    //         },  
-    //         {
-    //         datajob:{
-    //             id:"3",
-    //             jobName:"RPA Developer",
-    //             creationDate:"2023-02-07",
-    //             closingDate:"2023-07-01",
-    //             active:false,
-    //         },
-    //         academic: {
-    //             level_required: "Avanzado", //Nivel educacion requerida
-    //             study_area: ["Ingeniería Informática"], //Que areas la empresa esta buscando incorporar personal?
-    //             experience_required: "5", //Experiencia requerida
-    //             industry: ["Servicios TI","Consultoria de TI"], //Industria/Sector
-    //             },
-    //         info: {
-    //             benefits: ["Planes de seguro de salud","Flexibilidad laboral"],
-    //             skills_required: ["Mainframe knowledge", "AS400 preferred"],
-    //             job_description: ["Arquitecto de Aplicación", "Experiencia en metodologías Agiles y DevSecOps"],
-    //             job_goal: ["liderazgo", "atencion al detalle", "calidad del software"],
-    //             languages_required: ["Español", "Inglés"],
-    //             availability: "Full-Time",
-    //             contract_offered: "Presencial",
-    //             },    
-    //         },             
-    //     ]        
-    // };
+    const data={
+        "id": "209d1a11-ad07-4f04-952b-65c076f5cf54",
+        "type": "company",
+        "website": "https://cocacola.com.ar/",
+        "username": "coca",
+        "name": "Coca Cola LOLA MORA",
+        "email": "coca.cola@example.com",
+        "cuit": "27303255415",
+        "city": "Buenos Aires",
+        "country": "Argentina",
+        "image": "https://images.unsplash.com/photo-1595433707802-6b2626ef1c91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D&w=1000&q=80",
+        "bio": "The Coca-Cola Company is a multinational beverage corporation that manufactures and markets a wide range of non-alcoholic beverages, including Coca-Cola, Diet Coke, Sprite, Fanta, and more. Our mission is to refresh the world, inspire moments of happiness, and create value for our stakeholders.",
+        "createdAt": "2023-08-03T18:07:49.969Z",
+        "updatedAt": "2023-08-03T18:09:17.887Z",
+        "jobs": [
+          {
+            "id": "9eecdae0-6ec7-4505-a77c-f74c33d6a916",
+            "jobName": "Senior Software Engineer",
+            "creationDate": "2023-10-01",
+            "closingDate": "2023-10-31",
+            "active": true,
+            "levelRequired": "Avanzado",
+            "studyArea": [
+              "Computer Science"
+            ],
+            "experienceRequired": "5",
+            "industry": [
+              "Bebidas",
+              "Tecnología"
+            ],
+            "benefits": [
+              "Planes de seguro de salud",
+              "Horarios de trabajo flexibles",
+              "Opciones de acciones"
+            ],
+            "skillsRequired": [
+              "JavaScript",
+              "React",
+              "Node.js",
+              "MongoDB",
+              "AWS"
+            ],
+            "jobDescription": [
+              "Diseñar y desarrollar soluciones de software escalables",
+              "Colaborar con equipos multidisciplinarios",
+              "Optimizar el rendimiento de las aplicaciones"
+            ],
+            "jobGoal": [
+              "Contribuir al desarrollo de tecnologías innovadoras para bebidas"
+            ],
+            "languagesRequired": [
+              "Inglés",
+              "Español"
+            ],
+            "availability": "Full-time",
+            "contractOffered": "Híbrido"
+          },
+          {
+            "id": "5ceedfdc-a015-4e02-8342-54cd15487757",
+            "jobName": "Abogado Corporativo",
+            "creationDate": "2023-11-01",
+            "closingDate": "2023-11-30",
+            "active": true,
+            "levelRequired": "Avanzado",
+            "studyArea": [
+              "Abogacía"
+            ],
+            "experienceRequired": "7",
+            "industry": [
+              "Bebidas",
+              "Legal"
+            ],
+            "benefits": [
+              "Planes de seguro de salud",
+              "Horarios de trabajo flexibles",
+              "Subsidio para desarrollo profesional"
+            ],
+            "skillsRequired": [
+              "Derecho Corporativo",
+              "Negociación de contratos",
+              "Asesoría legal"
+            ],
+            "jobDescription": [
+              "Brindar asesoramiento legal a la empresa en diversos temas",
+              "Redactar y revisar contratos y acuerdos",
+              "Garantizar el cumplimiento de leyes y regulaciones pertinentes"
+            ],
+            "jobGoal": [
+              "Proteger los intereses legales de The Coca-Cola Company"
+            ],
+            "languagesRequired": [
+              "Inglés",
+              "Español"
+            ],
+            "availability": "Full-time",
+            "contractOffered": "Híbrido"
+          },
+          {
+            "id": "01eaaef9-d783-47e8-9cac-ef3655956684",
+            "jobName": "Gerente de Marketing",
+            "creationDate": "2023-12-01",
+            "closingDate": "2023-12-31",
+            "active": true,
+            "levelRequired": "Avanzado",
+            "studyArea": [
+              "Administración de Empresas"
+            ],
+            "experienceRequired": "8",
+            "industry": [
+              "Bebidas",
+              "Marketing"
+            ],
+            "benefits": [
+              "Planes de seguro de salud",
+              "Horarios de trabajo flexibles",
+              "Membresía de gimnasio"
+            ],
+            "skillsRequired": [
+              "Estrategia de Marketing",
+              "Gestión de Marca",
+              "Marketing Digital"
+            ],
+            "jobDescription": [
+              "Desarrollar e implementar estrategias de marketing",
+              "Gestionar la posición de la marca y las campañas",
+              "Analizar tendencias de mercado e insights de consumidores"
+            ],
+            "jobGoal": [
+              "Impulsar el crecimiento y éxito de los productos de bebidas de Coca-Cola"
+            ],
+            "languagesRequired": [
+              "Inglés",
+              "Español"
+            ],
+            "availability": "Full-time",
+            "contractOffered": "Híbrido"
+          }
+        ]
+      };
 
     const dispatch = useDispatch();
 
+
     //?AL MONTAR COMPONENTE
     useEffect(()=>{
+        
         //body.classList.add(mode);
         //setCompanyData(company1.profile);
         //setJobs(company1.jobs);
@@ -126,17 +179,16 @@ const feedCompany = () =>{
         //!SE CREA ACA A MODO DE PRUEBA DE COMPONENTE INDIVIDUAL
         const fetchCompany = async () =>{
             const URL = `${VITE_URL}/api/v1/search/user`;
-            const ID = '4bc83986-8b48-43b5-9c81-9ef4a05d2695';
+            const ID = '209d1a11-ad07-4f04-952b-65c076f5cf54';
+
             try{
-                const {data} = await axios.get(`${URL}/${ID}`);
+                //const {data} = await axios.get(`${URL}/${ID}`);
                 //dispatch()
                 console.log("que trae data <FeedCompany>: ", data)
-        
                 dispatch(addCompany(data));
-
                 setJobs(data.jobs);
             }catch(error){
-                console.log(error.message);
+                console.log("error al cargar datos a SG <FeedCompany>: ",error.message);
             }
 
         };
@@ -181,6 +233,12 @@ const feedCompany = () =>{
         handlePage(namepage);
     }
     
+    // Función para cambiar el modo entre claro y oscuro
+    function toggleDarkMode() {
+        const body = document.body;
+        body.classList.toggle("dark-mode");
+    }
+
     return(
         <>
         <div className={style.container}>
@@ -191,7 +249,7 @@ const feedCompany = () =>{
                     className={style.button}
                 ><AiFillHome  size={35} color="#9AC2EF" /></button>
                 <p>Inicio</p>
-
+ 
                 <button 
                     onClick={()=>handlePage("profileCompany")}
                     className={style.button}
@@ -203,6 +261,13 @@ const feedCompany = () =>{
                     className={style.button}
                 ><HiChat size={35} color="#9AC2EF" /></button>
                 <p>Mis Chats</p>
+
+                {/* Modo Oscuro */}
+                <div className="dark-mode-button">
+                    <button onClick={toggleDarkMode}>
+                    <i className="fas fa-moon"></i> 
+                    </button>
+                </div>
             </div>
             <div className={style.right}>
                 {/* PAGINA CON BUSQUEDAS LABORALES DE COMPAÑIA */}

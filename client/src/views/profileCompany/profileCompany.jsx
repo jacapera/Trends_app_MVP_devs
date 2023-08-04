@@ -31,6 +31,23 @@ export default function profileCompany() {
             ...isEditing,
             profile: true
         })
+    };
+
+    const formatData = () => {
+        const data={
+            name: companyData.name,
+            cuit: companyData.cuit,
+            website: companyData.website,
+            bio: companyData.bio,
+            image: companyData.image,
+            username: companyData.username,
+            email: companyData.email,
+            password: "123",
+            city: companyData.city,
+            country: companyData.country            
+        };
+
+        return data;
     }
 
     //?AL PRESIONAR GUARDAR ENVIO DATOS A BACK PARA ACTUALIZAR
@@ -38,11 +55,13 @@ export default function profileCompany() {
         //const URL = `${VITE_URL}/api/v1/search/user`;
         const ID = companyData.id;
         const URL = `${VITE_URL}/api/v1/user/${ID}`;
+        //formateo los datos a enviar
+        const data = formatData();
         //envio datos
         try{
-            console.log("ACTUALIZO DATOS EMPRESA", companyData)
+            console.log("ACTUALIZO DATOS EMPRESA", data)
             console.log("como envia a put: ", URL)
-            await axios.put(URL,companyData)
+            await axios.put(URL,data)
             .then(async res=>{
                alert(res.data) 
             })
@@ -112,7 +131,7 @@ export default function profileCompany() {
       console.log("que tiene companyData:", companyData);
 
     }, []);    
-
+  
     return(
         <div className={style.mainDiv}>
 
@@ -121,12 +140,12 @@ export default function profileCompany() {
             <div className={style.profilePictureBasicInfoContainer}>
                 {/* ENCABEZADO */}
                 <div className={style.header}>
-                    <h1>Company</h1>                    
+                    <h1>Company</h1>
                 </div>
                 {/* IMAGEN */}
                 <div className={style.imageContainer}>
                     <img 
-                        src={companyData.image} 
+                        src={companyData.image ?companyData.image :null} 
                         alt="gatito" 
                         className={style.profilePicture}/>
                     {/* {isProfileOwner && <button className={style.imageChangeButton} onClick={() => handleImageChangeButton()}><FaCameraRotate className={style.buttonIcon}/></button>} */}
