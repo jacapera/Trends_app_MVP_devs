@@ -3,7 +3,7 @@
 const passport = require("passport");
 const JWTStrategy = require("passport-jwt").Strategy;
 const { JWT_KEY } = require("../../config");
-const { findAccount } = require("../helpers/findAccount");
+const { findAccountById } = require("../helpers/findAccount");
 
 //--------------------Auth SingUp PASSPORT--------------------//
 // passport.use(
@@ -39,7 +39,7 @@ passport.use(
   new JWTStrategy(options, async function (payload, done) {
     try {
       // console.log(payload.id);
-      const foundedAccount = await findAccount({ id: payload.id });
+      const foundedAccount = await findAccountById(payload.id);
       // console.log(`passport-config: ${foundedAccount}`);
       if (foundedAccount) return done(null, foundedAccount);
       return done(null, false);
