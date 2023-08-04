@@ -14,6 +14,7 @@ const passport = require("./auth/passport-config");
 //<-----------------------------Custom Middlewares----------------------------->//
 const authenticateAdmin = require("./middlewares/authenticateAdmin");
 const authenticateUser = require("./middlewares/authenticateUser");
+const setCache = require("./middlewares/setCache");
 //<---------------------------------------------------------------------------->//
 
 //<-----------------------------------Routes----------------------------------->//
@@ -21,12 +22,15 @@ const authRoutes = require("./routes/auth.routes");
 const searchRoutes = require("./routes/search.routes");
 const userRoutes = require("./routes/user.routes");
 const jobRoutes = require("./routes/job.routes");
+const imageRoutes = require("./routes/image.routes");
 const userTestRoutes = require("./routes/userTest.routes");
 const adminRoutes = require("./routes/admin.routes");
+const chatroomRoutes = require("./routes/chatroom.routes");
 //<---------------------------------------------------------------------------->//
 
 const app = express();
 app.use(morgan("dev"));
+app.use(setCache);
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -53,6 +57,8 @@ app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
 app.use("/api/v1/admin", authenticateAdmin, adminRoutes);
+app.use("/api/v1/images", authenticateUser, imageRoutes);
+app.use("/api/v1/chatroom", authenticateUser, chatroomRoutes);
 
 // --- solo para pruebas ---
 app.use("/userTest", userTestRoutes);
