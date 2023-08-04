@@ -3,9 +3,12 @@ const { calculateMatchScore } = require("./calculateMatchScore.js");
 // Se toma un array de perfiles y un perfil base
 const matcher = (users, target) => {
   const matches = [];
+  
+  // Se filtra al propio usuario para no matchear consigo mismo
+  const filteredUsers = users.filter(user => user.id !== target.id);
 
   // Por cada perfil del arreglo se llama a calculateMatchScore
-  for (const user of users) {
+  for (const user of filteredUsers) {
     const matchScore = calculateMatchScore(user, target);
     matches.push({ user, matchScore });
   }
