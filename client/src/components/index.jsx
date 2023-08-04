@@ -16,6 +16,14 @@ import {
 import { CustomTextInput, CustomMultiTextInput } from "./customTextInput";
 import SearchComponent from "./SearchComponent/SearchComponent";
 import NavBar from "./NavBar/NavBar"
+import ChatButton from "./ChatButton/ChatButton";
+import ChatList from "./ChatList/ChatList";
+import ChatUnselected from "./ChatUnselected/ChatUnselected";
+import ChatMessages from "./ChatMessages/ChatMessages";
+import ChatListContactContainer from "./ChatListContactContainer/ChatListContactContainer";
+import ChatListContact from "./ChatListContact/ChatListContact";
+import ChatMeessageContainer from "./ChatMessageContainer/ChatMessageContainer";
+import ChatNewChat from "./ChatNewChat/ChatNewChat";
 
 export {
   CompanyRegisterForm,
@@ -35,4 +43,12 @@ export {
   JobFormCompany,  
   SearchComponent,
   NavBar,
+  ChatButton,
+  ChatList,
+  ChatUnselected,
+  ChatMessages,
+  ChatListContactContainer,
+  ChatListContact,
+  ChatMeessageContainer,
+  ChatNewChat
 };

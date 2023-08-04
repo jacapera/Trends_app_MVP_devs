@@ -27,6 +27,7 @@ const jobRoutes = require("./routes/job.routes");
 const imageRoutes = require("./routes/image.routes");
 const userTestRoutes = require("./routes/userTest.routes");
 const adminRoutes = require("./routes/admin.routes");
+const chatroomRoutes = require("./routes/chatroom.routes");
 //<---------------------------------------------------------------------------->//
 
 
@@ -60,6 +61,7 @@ app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
 app.use("/api/v1/images", authenticateUser, imageRoutes);
 app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/chatroom", authenticateUser, chatroomRoutes);
 
 // --- solo para pruebas ---
 app.use("/userTest", userTestRoutes);

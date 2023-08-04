@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .head{
     padding-top: 2vh;
     border: 1px solid blue;
@@ -22,4 +23,24 @@
     margin: 10px;
     padding-left: 1vw;
     padding-right: 1vw;
+=======
+.head{
+    padding-top: 2vh;
+}
+.body{
+    /* border: 1px solid blue; */
+    border-top: 3px solid black;
+    padding-top: 2vh;
+}
+.postJob{
+    border: 1px solid black;
+    margin: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.button{
+    background-color: #FAB180;
+    color: white;
+    border-radius: 25px;
+    margin: 10px;
+>>>>>>> 728f5c71647795b98123287a044f5c0ec788a558
 }

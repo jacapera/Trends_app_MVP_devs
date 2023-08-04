@@ -50,6 +50,8 @@ const {
   Company: initCompany,
   Job: initJob,
   Image: initImage,
+  Chat: initChat,
+  Message: initMessage,
 } = sequelize.models;
 
 // Se setea la configuración del caché de Sequelize
@@ -58,6 +60,8 @@ const cache = new SequelizeSimpleCache({
   Company: { ttl: 15 * 60 },
   Job: { ttl: 30 * 60 },
   Image: { ttl: 60 * 60 },
+  Chat: { ttl: 60 },
+  Message: { ttl: 33 },
 });
 
 // Se inicializan los modelos con el caching activado
@@ -65,6 +69,8 @@ const User = cache.init(initUser);
 const Company = cache.init(initCompany);
 const Job = cache.init(initJob);
 const Image = cache.init(initImage);
+const Chat = cache.init(initChat);
+const Message = cache.init(initMessage);
 
 Company.hasMany(Job);
 Job.belongsTo(Company);
@@ -75,10 +81,28 @@ Image.belongsTo(User);
 Company.hasMany(Image);
 Image.belongsTo(Company);
 
+// ------- Relaciones para el chat --------------
+// Definición de la relación entre User y Chat
+User.hasMany(Chat, { foreignKey: 'user1_id', as: 'ChatsSent', onDelete: 'CASCADE' });
+User.hasMany(Chat, { foreignKey: 'user2_id', as: 'ChatsReceived', onDelete: 'CASCADE' });
+Chat.belongsTo(User, { foreignKey: 'user1_id', as: 'UserSent' });
+Chat.belongsTo(User, { foreignKey: 'user2_id', as: 'UserReceived' });
+
+// Definición de la relación entre Chat y Message
+Chat.hasMany(Message, { foreignKey: 'chat_id', onDelete: 'CASCADE' });
+Message.belongsTo(Chat, { foreignKey: 'chat_id', onDelete: 'CASCADE' });
+Message.belongsTo(User, { foreignKey: 'sender_id', onDelete: 'CASCADE' });
+
+//User.belongsToMany(Chat, { through: 'group_participants', foreignKey: 'user_id', otherKey: 'group_id', as: 'GroupChats' });
+
+//Chat.belongsToMany(User, { through: 'group_participants', foreignKey: 'group_id', otherKey: 'id', as: 'Participants' });
+
 module.exports = {
   User,
   Company,
   Job,
   Image,
+  Chat,
+  Message,
   conn: sequelize,
 };
