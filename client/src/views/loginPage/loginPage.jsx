@@ -1,6 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authLogin } from "../../utils/authLogin";
 import style from "./loginPage.module.css";
 import welcome from "../../assets/TestIcons/welcome.jpeg";
 import axios from "axios";
@@ -12,9 +11,7 @@ export default function LoginPage() {
   const [validateLogin, setValidateLogin] = useState(null);
   const navigate = useNavigate();
   const URL = `${VITE_URL}/api/v1/auth/login`;
-  const URL_PROFILE = `${VITE_URL}/api/v1/user/profile`
   const dispatch = useDispatch()
-  const [profile, setProfile] = useState({})
 
   const [inputs, setInputs] = useState({
     email: "",
@@ -34,7 +31,8 @@ export default function LoginPage() {
     if (inputs.email && inputs.password) {
       try {
         await axios.post(URL, inputs, {withCredentials: "include"});
-        navigate("/Trends_app_MVP/feed")
+        dispatch(getUserInfo());
+        navigate("/Trends_app_MVP/feed");
       } catch (error) {
         console.log(error.response.data.error)
       }
