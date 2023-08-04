@@ -915,7 +915,10 @@ const professional6 = {
     "Hacer una especialización",
   ], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
+
   info_languages: ["English"],
+
+  
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -984,7 +987,10 @@ const professional8 = {
   info_interests: ["Data Visualization", "Business Intelligence"],
   info_goals: ["Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
+
   info_languages: ["English", "Mandarin"],
+
+  
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1160,7 +1166,10 @@ const professional13 = {
   info_interests: ["Renewable Energy", "Biodiversity Conservation"],
   info_goals: ["Conseguir un trabajo", "Hacer una especialización"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de información del mercado laboral"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English"],
+
+  
+  info_languages: ["Inglés"],
+
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1193,7 +1202,8 @@ const professional14 = {
   info_interests: ["AR/VR Development", "Mobile UX Design"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English", "Korean"],
+  info_languages: ["Inglés", "Koreano"],
+
   info_availability: "Full-time",
   info_contract: "Remoto",
 };
@@ -1226,7 +1236,10 @@ const professional15 = {
   info_interests: ["UI/UX Design", "Web Accessibility"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Dificultad para conseguir trabajo"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English", "German"],
+
+  info_languages: ["Inglés", "Alemán"],
+
+  
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1259,7 +1272,9 @@ const professional16 = {
   info_interests: ["Natural Language Processing", "Data Visualization"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de información del mercado laboral"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English", "Mandarin"],
+
+  info_languages: ["Inglés", "Mandarín"],
+
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1292,7 +1307,9 @@ const professional17 = {
   info_interests: ["Reinforcement Learning", "Ethical AI"],
   info_goals: ["Conocer nuevos colegas y oportunidades", "Emprender"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English"],
+
+  info_languages: ["Inglés"],
+
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1325,7 +1342,10 @@ const professional18 = {
   info_interests: ["Web Accessibility", "Progressive Web Apps"],
   info_goals: ["Conocer nuevos colegas y oportunidades"], // Conseguir un trabajo - Conocer más sobre el mercado laboral de mi profesión - Conocer nuevos colegas y oportunidades - Hacer una especialización - Emprender
   info_problematic: ["Falta de guía profesional"], // Falta de información del mercado laboral - Falta de guía profesional - Dificultad para conseguir trabajo
-  info_languages: ["English", "Korean"],
+
+  info_languages: ["Inglés", "Koreano"],
+
+  
   info_availability: "Full-time",
   info_contract: "Presencial",
 };
@@ -1403,7 +1423,7 @@ const professional20 = {
 
 const company1 = {
   type: "company",
-  companyName: "The Coca-Cola Company",
+  name: "The Coca-Cola Company",
   email: "contact@coca-cola.com",
   username: "cocacola_official",
   password: "C0caC0laP@ss",
@@ -1417,7 +1437,7 @@ const company1 = {
 
 const company2 = {
   type: "company",
-  companyName: "Apple Inc.",
+  name: "Apple Inc.",
   email: "apple.inc@example.com",
   username: "apple",
   password: "apple123",
@@ -1431,7 +1451,7 @@ const company2 = {
 
 const company3 = {
   type: "company",
-  companyName: "Samsung Electronics",
+  name: "Samsung Electronics",
   email: "samsung@example.com",
   username: "samsung",
   password: "samsung123",
@@ -1445,7 +1465,7 @@ const company3 = {
 
 const company4 = {
   type: "company",
-  companyName: "Amazon",
+  name: "Amazon",
   email: "amazon@example.com",
   username: "amazon",
   password: "amazon123",
@@ -1459,7 +1479,7 @@ const company4 = {
 
 const company5 = {
   type: "company",
-  companyName: "Google",
+  name: "Google",
   email: "google@example.com",
   username: "google",
   password: "google123",
@@ -1473,7 +1493,7 @@ const company5 = {
 
 const company6 = {
   type: "company",
-  companyName: "Microsoft",
+  name: "Microsoft",
   email: "microsoft@example.com",
   username: "microsoft",
   password: "microsoft123",
@@ -1487,7 +1507,7 @@ const company6 = {
 
 const company7 = {
   type: "company",
-  companyName: "Facebook",
+  name: "Facebook",
   email: "facebook@example.com",
   username: "facebook",
   password: "facebook123",
@@ -1501,7 +1521,7 @@ const company7 = {
 
 const company8 = {
   type: "company",
-  companyName: "Tesla, Inc.",
+  name: "Tesla, Inc.",
   email: "tesla@example.com",
   username: "tesla",
   password: "tesla123",
@@ -1515,7 +1535,7 @@ const company8 = {
 
 const company9 = {
   type: "company",
-  companyName: "Netflix",
+  name: "Netflix",
   email: "netflix@example.com",
   username: "netflix",
   password: "netflix123",
@@ -1529,7 +1549,7 @@ const company9 = {
 
 const company10 = {
   type: "company",
-  companyName: "Uber",
+  name: "Uber",
   email: "uber@example.com",
   username: "uber",
   password: "uber123",
@@ -1542,7 +1562,7 @@ const company10 = {
 };
 const company11 = {
   type: "company",
-  companyName: "Nike",
+  name: "Nike",
   email: "nike@example.com",
   username: "nike",
   password: "nike123",
@@ -1556,7 +1576,7 @@ const company11 = {
 
 const company12 = {
   type: "company",
-  companyName: "Toyota Motor Corporation",
+  name: "Toyota Motor Corporation",
   email: "toyota@example.com",
   username: "toyota",
   password: "toyota123",
@@ -1570,7 +1590,7 @@ const company12 = {
 
 const company13 = {
   type: "company",
-  companyName: "Adobe Inc.",
+  name: "Adobe Inc.",
   email: "adobe@example.com",
   username: "adobe",
   password: "adobe123",
@@ -1584,7 +1604,7 @@ const company13 = {
 
 const company14 = {
   type: "company",
-  companyName: "Walt Disney Company",
+  name: "Walt Disney Company",
   email: "disney@example.com",
   username: "disney",
   password: "disney123",
@@ -1598,7 +1618,7 @@ const company14 = {
 
 const company15 = {
   type: "company",
-  companyName: "Intel Corporation",
+  name: "Intel Corporation",
   email: "intel@example.com",
   username: "intel",
   password: "intel123",
@@ -1612,7 +1632,7 @@ const company15 = {
 
 const company16 = {
   type: "company",
-  companyName: "XYZ Tech Solutions",
+  name: "XYZ Tech Solutions",
   email: "contact@xyztech.com",
   username: "xyztech",
   password: "xyz1234",
@@ -1626,7 +1646,7 @@ const company16 = {
 
 const company17 = {
   type: "company",
-  companyName: "PepsiCo",
+  name: "PepsiCo",
   email: "pepsico@example.com",
   username: "pepsico",
   password: "pepsico123",
@@ -1640,7 +1660,7 @@ const company17 = {
 
 const company18 = {
   type: "company",
-  companyName: "IBM",
+  name: "IBM",
   email: "ibm@example.com",
   username: "ibm",
   password: "ibm123",
@@ -1654,7 +1674,7 @@ const company18 = {
 
 const company19 = {
   type: "company",
-  companyName: "McDonald's Corporation",
+  name: "McDonald's Corporation",
   email: "mcdonalds@example.com",
   username: "mcdonalds",
   password: "mcdonalds123",
@@ -1668,7 +1688,7 @@ const company19 = {
 
 const company20 = {
   type: "company",
-  companyName: "Sony Corporation",
+  name: "Sony Corporation",
   email: "sony@example.com",
   username: "sony",
   password: "sony123",
@@ -2327,7 +2347,10 @@ const companyJobs8 = [
     creationDate: "2023-10-15",
     closingDate: "2023-11-15",
     active: true,
+
+//    levelRequired: "Avanzado",
     levelRequired: "Advanced", // Beginner - In progress - Advanced
+
     studyArea: ["Computer Science", "Game Development"], // Ingeniería Informática - Desarrollo de Videojuegos
     experienceRequired: "6", // years
     industry: ["Electrónica", "Entretenimiento"], // Electrónica - Entretenimiento
@@ -2354,10 +2377,13 @@ const companyJobs8 = [
     creationDate: "2023-11-01",
     closingDate: "2023-11-30",
     active: true,
-    levelRequired: "Advanced", // Beginner - In progress - Advanced
-    studyArea: ["Business Administration"], // Administración de Empresas
+
+    levelRequired: "Avanzado",
+    studyArea: ["Business Administration"],
     experienceRequired: "7", // years
-    industry: ["Electrónica", "Product Management"], // Electrónica - Gestión de Productos
+    industry: ["Electrónica", "Product Management"],
+
+    
     benefits: [
       "Health insurance plans",
       "Flexible working hours",

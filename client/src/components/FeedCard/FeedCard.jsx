@@ -1,5 +1,4 @@
 import style from "./FeedCard.module.css";
-import detailIcon from "../../assets/TestIcons/detailsIcon.png"
 
 
 const FeedCard = ({user}) => {
