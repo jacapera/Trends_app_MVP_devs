@@ -1,19 +1,18 @@
 .BGContainer {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    text-align: left;
+    margin: auto;
+    padding-top: 5rem;
+    display: block;
 }
 
-
+.BGContainer input {
+    border: 0;
+}
 
 .Card {
     background-color: white;
     border-radius: .5rem;
     display: flex;
     width: 51rem;
-    height: 33rem;
     font-family: "Poppins-Medium";
     font-weight: 70%;
     margin: auto auto;
@@ -47,7 +46,7 @@
 }
 
 .LeftContainer > div {
-    background-color: white;
+    background-color: transparent;
 }
 
 .LeftContainer h1 {
@@ -55,10 +54,13 @@
     text-align: left;
     margin-bottom: 1.2rem;
     padding-left: 1rem;
+    color: black;
 }
 .LeftContainer h3 {
     color: #4B5965;
     font-size: .9rem;
+    font-weight: 200;
+    width: 95%;
     margin-bottom: 1rem;
 }
 
@@ -71,6 +73,7 @@
 .RightContainer {
     width: 50%;
     padding: 0 1rem;
+    padding-top: 2rem;
 }
 
 .RightContainer h2 {
@@ -105,6 +108,9 @@
 
 .RightContainer button {
     background-color: #56CCF2;
+    border: 0;
+    font-size: 1.1rem;
+    cursor: pointer;
     width: 100%;
     height: 3rem;
     border-radius: .4rem;
@@ -124,7 +130,7 @@
 
 .RightContainer form {
     margin-top: 13%;
-    background-color: white;
+    background-color: transparent;
 }
 
 .RightContainer form span {
@@ -191,8 +197,7 @@
     .Card {
         display: flex;
         flex-direction: column;
-        width: 100%;
-        height: 100%;
+        width: 90vw;
         justify-content: center;
     }
 
@@ -200,14 +205,14 @@
     .LeftContainer , .RightContainer {
         margin: 0 auto;
         width: 100%;
+        padding: 0;
     }
 
     .LeftContainer > div {
         border-radius: .4rem;
         margin: 0 auto;
-        width: 100%;
-        padding: 1rem;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        padding: 0 2%;
 
     }
 
@@ -230,11 +235,19 @@
     .RightContainer form {
         margin: 0 auto;
         margin-top: 1rem;
-        padding: 2rem;
         border-radius: .4rem;
-        width: 100%;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        padding: 0 2%;
+        padding-bottom: 1rem;
 
+    }
+
+    .RightContainer input {
+        margin-right: 2rem;
+    }
+
+    .RightContainer .Input {
+        width: 100%;
     }
 
     .RightContainer .Account span {

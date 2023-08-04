@@ -3,16 +3,31 @@ body {
   font-family: "Poppins Medium", sans-serif;
   margin: 0;
   padding: 0;
-  color: #232323; /* Modo oscuro */
+  color: #232323;
+  background-color: #f1f1f1;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 /* Estilos de la barra de navegación */
 .navigation {
   display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
   justify-content: space-between;
   align-items: center;
   padding: 1rem;
-  width: 100%; /* Ocupa todo el ancho de la pantalla */
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 9999;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* Estilos de la barra de navegación en modo oscuro */
+body.dark-mode .navigation {
+  background-color: #383636;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 .logo img {
@@ -26,63 +41,33 @@ body {
   font-weight: bold;
 }
 
-.login a,
-.SIGN_UP button {
+/* Estilos del botón de autenticación en modo claro y oscuro */
+.auth-buttons button, .auth-buttons a {
   font-size: 1rem;
   text-decoration: none;
   margin-right: 1rem;
-  padding: 0.5rem 1rem; /* Agregamos padding para que parezca un botón */
-  border: 1px solid #232323; /* Agregamos borde */
-  border-radius: 5px; /* Agregamos esquinas redondeadas */
-  background-color: transparent; /* Hacemos el fondo transparente */
-  color: #5c5c5c; /* Texto en modo oscuro */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.login a:hover,
-.SIGN_UP button:hover {
-  background-color: #fab180; /* Cambiamos el fondo al pasar el ratón */
-  color: white; /* Cambiamos el color del texto al pasar el ratón */
-}
-
-/* Estilos de los botones de registro */
-.SIGN_UP {
-  position: relative;
-}
-
-.SIGN_UP button {
-  background-color: #fab180; /* Naranja */
-  border: none;
-  color: white;
   padding: 0.5rem 1rem;
+  border: 1px solid #9ac2ef00;
   border-radius: 5px;
+  background-color: #9ac2ef;
+  color: #ffffff;
   cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  
 }
 
-.register-options {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  background-color: #f9f9f9;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  display: none;
+/* Estilos del botón de autenticación en modo oscuro */
+body.dark-mode .auth-buttons button,
+body.dark-mode .auth-buttons a {
+  background-color: #fab180;
+  color: #383636;
 }
 
-.SIGN_UP:hover .register-options {
-  display: flex;
-  flex-direction: column;
-}
-
-.register-options a {
-  color: #232323; /* Modo oscuro */
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-}
-
-.register-options a:hover {
-  background-color: #f2f2f2;
+/* Estilos del botón de autenticación en modo claro y oscuro al pasar el ratón */
+.auth-buttons button:hover,
+.auth-buttons a:hover {
+  background-color: #fab180;
+  color: #ffffff;
 }
 
 
@@ -93,78 +78,64 @@ body {
 }
 
 /* Estilos del botón de modo oscuro */
+
 .dark-mode-button {
   background-color: transparent;
   border: none;
   font-size: 1.2rem;
-  color: #858585; /* Modo oscuro */
+  color: #9ac2ef;
   cursor: pointer;
+  transition: color 0.3s;
+}
+
+/* Estilos del modo oscuro */
+  body.dark-mode {
+  color: #fab180;
+  background-color: #383636;
   background-color: transparent;
 }
 
-body.dark-mode {
-  color: white; /* Texto en modo oscuro */
-  background-color: #232323; /* Fondo oscuro */
+/* Estilos del menú desplegable */
+.auth-buttons {
+  position: relative;
 }
 
 /* Estilos del menú desplegable */
 .register-options {
+  position: absolute;
+  top: calc(100% + 0.5rem);
   right: 0;
+  left: 50%; 
+  transform: translateX(-50%); 
+  background-color: transparent; 
+  border-radius: 5px;
+  display: none;
+  z-index: 1;
+  transition: opacity 0.3s, visibility 0.3s, background-color 0.3s;
   opacity: 0;
   visibility: hidden;
-  position: absolute;
-  top: 100%;
-  background-color: #f9f9f9;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  width: 200px; 
 }
 
-.SIGN_UP:hover .register-options {
+/* Estilos del menú desplegable cuando está visible */
+.auth-buttons.show-menu .register-options {
+  display: flex;
+  flex-direction: column;
   opacity: 1;
   visibility: visible;
+  background-color: #00000000;
 }
 
+
 .register-options a {
-  color: #232323; /* Modo oscuro */
+  color: #ffffff;
   padding: 0.5rem 1rem;
   text-decoration: none;
-  display: block;
+  transition: background-color 0.3s;
+  margin:0;
+  margin-bottom: 0.5rem;
 }
 
 .register-options a:hover {
   background-color: #f2f2f2;
-}
-
-/* Estilos responsivos */
-@media screen and (max-width: 768px) {
-  .navigation {
-    flex-direction: column;
-  }
-
-  .login,
-  .SIGN_UP {
-    margin-top: 1rem;
-  }
-
-  .dark-mode {
-    margin-top: 1rem;
-  }
-
-  .register-options {
-    position: static;
-    background-color: transparent;
-    box-shadow: none;
-    flex-direction: row;
-    margin-top: 1rem;
-    display: flex;
-  }
-
-  .register-options a {
-    margin-right: 1rem;
-  }
-
-  .SIGN_UP:hover .register-options {
-    display: flex;
-  }
 }

@@ -1,5 +1,6 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
+const SequelizeSimpleCache = require("sequelize-simple-cache");
 const fs = require("fs");
 const path = require("path");
 const {
@@ -44,12 +45,38 @@ sequelize.models = Object.fromEntries(capsEntries);
 
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
-const { Company, Job } = sequelize.models;
+const {
+  User: initUser,
+  Company: initCompany,
+  Job: initJob,
+  Image: initImage,
+} = sequelize.models;
 
-Company.hasMany(Job, { foreignKey: "companyId" });
-Job.belongsTo(Company, { foreignKey: "companyId" })
+const cache = new SequelizeSimpleCache({
+  User: { ttl: 15 * 60 }, // 15 minutos
+  Company: { ttl: 15 * 60 },
+  Job: { ttl: 30 * 60 },
+  Image: { ttl: 60 * 60 },
+});
+
+const User = cache.init(initUser);
+const Company = cache.init(initCompany);
+const Job = cache.init(initJob);
+const Image = cache.init(initImage);
+
+Company.hasMany(Job);
+Job.belongsTo(Company);
+
+User.hasMany(Image);
+Image.belongsTo(User);
+
+Company.hasMany(Image);
+Image.belongsTo(Company);
 
 module.exports = {
-  ...sequelize.models,
-	conn: sequelize,
+  User,
+  Company,
+  Job,
+  Image,
+  conn: sequelize,
 };

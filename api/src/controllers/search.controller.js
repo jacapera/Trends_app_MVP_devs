@@ -2,7 +2,6 @@ const { Op, Sequelize, fn, col } = require("sequelize");
 const { User, Company, Job } = require("../db");
 
 const getUserById = async (id) => {
-  try {
     let foundUser;
 
     foundUser = await User.findOne({
@@ -42,9 +41,6 @@ const getUserById = async (id) => {
 
     // return plainUser;
     return foundUser;
-  } catch (error) {
-    return { error: "Error searching user!" };
-  }
 };
 
 const getUsers = async (queryParams, userType) => {
@@ -53,7 +49,7 @@ const getUsers = async (queryParams, userType) => {
     let hasInvalidQuery = false;
     let userAttributes;
 
-    ["student", "professional"].includes(userType) &&
+    ["student", "professional"].includes(userType.toLowerCase()) &&
       (userAttributes = Object.keys(User.rawAttributes));
 
     userType === "company" &&
@@ -96,7 +92,7 @@ const getUsers = async (queryParams, userType) => {
       };
     }
 
-    if (userType === "company") {
+    if (userType.toLowerCase() === "company") {
       const companies = await Company.findAll({
         where: whereClause,
         attributes: {
@@ -120,9 +116,9 @@ const getUsers = async (queryParams, userType) => {
       attributes: {
         exclude: [
           "password",
-          ...(userType === "student"
+          ...(userType.toLowerCase() === "student"
             ? ["info_company_name", "info_position"]
-            : userType === "professional"
+            : userType.toLowerCase() === "professional"
             ? ["academic_level"]
             : []),
         ],
@@ -133,13 +129,11 @@ const getUsers = async (queryParams, userType) => {
 
     return users;
   } catch (error) {
-    console.error("Error searching users:", error);
     return { error: error.message };
   }
 };
 
 const getJobById = async (id) => {
-  try {
     const foundJob = await Job.findOne({
       where: { id },
     });
@@ -147,9 +141,6 @@ const getJobById = async (id) => {
     if (!foundJob) return null;
 
     return foundJob;
-  } catch (error) {
-    return { error: error.message };
-  }
 };
 
 const getJobs = async (queryParams) => {
