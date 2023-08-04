@@ -1,7 +1,6 @@
 const { JWT_KEY } = require("../config");
 const express = require("express");
 
-
 //<----------------------------Middlewares libraries---------------------------->//
 const morgan = require("morgan");
 const cors = require("cors");
@@ -12,12 +11,11 @@ const bodyParser = require("body-parser");
 const passport = require("./auth/passport-config");
 //<----------------------------------------------------------------------------->//
 
-
 //<-----------------------------Custom Middlewares----------------------------->//
+const authenticateAdmin = require("./middlewares/authenticateAdmin");
 const authenticateUser = require("./middlewares/authenticateUser");
 const setCache = require("./middlewares/setCache");
 //<---------------------------------------------------------------------------->//
-
 
 //<-----------------------------------Routes----------------------------------->//
 const authRoutes = require("./routes/auth.routes");
@@ -29,7 +27,6 @@ const userTestRoutes = require("./routes/userTest.routes");
 const adminRoutes = require("./routes/admin.routes");
 const chatroomRoutes = require("./routes/chatroom.routes");
 //<---------------------------------------------------------------------------->//
-
 
 const app = express();
 app.use(morgan("dev"));
@@ -59,8 +56,8 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
+app.use("/api/v1/admin", authenticateAdmin, adminRoutes);
 app.use("/api/v1/images", authenticateUser, imageRoutes);
-app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/chatroom", authenticateUser, chatroomRoutes);
 
 // --- solo para pruebas ---

@@ -1,10 +1,10 @@
 const { findAccount } = require("../helpers/findAccount");
 const { createToken } = require("../helpers/jwt");
 
-const validateUser = async (user) => {
-  const { email, password } = user;
+const validateUser = async (userData) => {
+  const { user, password } = userData;
   try {
-    const foundedAccount = await findAccount({ email: email });
+    const foundedAccount = await findAccount(user);
     // console.log(foundedAccount);
     if (!foundedAccount) return;
     const isCorrectPassword = await foundedAccount.comparePassword(password);

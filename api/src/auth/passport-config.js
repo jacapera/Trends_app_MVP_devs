@@ -3,7 +3,7 @@
 const passport = require("passport");
 const JWTStrategy = require("passport-jwt").Strategy;
 const { JWT_KEY } = require("../../config");
-const { findAccount } = require("../helpers/findAccount");
+const { findAccountById } = require("../helpers/findAccount");
 
 //--------------------Auth SingUp PASSPORT--------------------//
 // passport.use(
@@ -14,6 +14,16 @@ const { findAccount } = require("../helpers/findAccount");
 // );
 
 //---------------------Auth JWT PASSPORT---------------------//
+const bearerTokenExtractor = (req) => {
+  if (req) {
+    const authHeader = req.headers.authorization;
+    // console.log(authHeader.split(" ")[1]);
+    if (authHeader) return authHeader.split(" ")[1];
+    return null;
+  }
+  return null;
+};
+
 const cookieExtractor = (req) => {
   if (req && req.cookies) {
     return req.cookies.token;
@@ -29,7 +39,7 @@ passport.use(
   new JWTStrategy(options, async function (payload, done) {
     try {
       // console.log(payload.id);
-      const foundedAccount = await findAccount({ id: payload.id });
+      const foundedAccount = await findAccountById(payload.id);
       // console.log(`passport-config: ${foundedAccount}`);
       if (foundedAccount) return done(null, foundedAccount);
       return done(null, false);

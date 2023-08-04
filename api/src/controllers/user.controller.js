@@ -1,6 +1,6 @@
 const { getUserById, getJobById } = require("./search.controller");
 const { matcher } = require("../helpers/matchingAlgorithm/matcher.js");
-const { User, Company, Job } = require("../db");
+const { User, Company, Job, Admin } = require("../db");
 const { findAccount } = require("../helpers/findAccount");
 
 const getUserProfile = async (user) => {
@@ -21,6 +21,10 @@ const getUserProfile = async (user) => {
         "withoutPassword",
         "student"
       ).findByPk(user.id);
+    if (user.type.toLowerCase() === "admin")
+      foundedUser = await Admin.scope("withoutId", "withoutPassword").findByPk(
+        user.id
+      );
     return foundedUser;
   } catch (error) {
     throw new Error("Could not find user in db.");

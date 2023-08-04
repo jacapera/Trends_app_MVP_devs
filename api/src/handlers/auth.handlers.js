@@ -4,11 +4,11 @@ const registerUser = require("../controllers/register.controller");
 const { findAccount } = require("../helpers/findAccount");
 
 const register = async (req, res) => {
-  //FALTAN LAS VALIDACIONES
   const newUser = req.body;
+  // console.log(newUser);
   try {
-    const foundedEmail = await findAccount({ email: newUser.email });
-    const foundedUsername = await findAccount({ username: newUser.username });
+    const foundedEmail = await findAccount(newUser.email);
+    const foundedUsername = await findAccount(newUser.username);
     if (foundedEmail) throw new Error("this email is already used.");
     if (foundedUsername) throw new Error("this username is already used.");
     const token = await registerUser(newUser);
@@ -25,9 +25,9 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  const user = req.body;
+  const userData = req.body;
   try {
-    const token = await validateUser(user);
+    const token = await validateUser(userData);
     if (!token) {
       res.cookie("token", "", {
         expires: new Date(0),

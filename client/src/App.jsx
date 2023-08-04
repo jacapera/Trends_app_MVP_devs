@@ -22,6 +22,7 @@ import Register from "./views/Chat/Register/Register";
 import Login from "./views/Chat/Login";
 import NavBarInicio from "../src/components/NavBarInicio/NavBarInicio";
 import RegisterFormBase from "./components/RegisterFormBase/RegisterFormBase";
+import AdminPage from "./views/admin";
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <Route path="/Trends_app_MVP/login" element={<LoginPage />} />
         <Route path="/Trends_app_MVP/profile" element={<Profile />} />
         <Route path="/Trends_app_MVP/feedCompany" element={<FeedCompany />} />
+        <Route path="/Trends_app_MVP/admin" element={<AdminPage />}/>
 
         {/* RUTAS HIJAS PARA PRUEBAS DEL CHAT DESPUES LAS PODEMOS REMOVER */}
         <Route path="/Trends_app_MVP/chat" element={<Chat />}>

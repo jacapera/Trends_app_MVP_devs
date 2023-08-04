@@ -16,6 +16,7 @@ const authenticateUser = (req, res, next) => {
     // console.log(user);
     req.user = { id: user.id, type: user.type };
     next();
+    // console.log(req.user)
   })(req, res, next);
 };
 
