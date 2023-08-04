@@ -2,11 +2,14 @@ import { useCallback } from "react";
 import style from "./ImageDropzone.module.css"
 import { useState } from 'react';
 import { useDropzone } from "react-dropzone";
+import { useSelector } from "react-redux";
+import { selectUserProfile } from "../../Redux/UsersSlice";
 
-const ImageDropzone = ({type, handleCancelButton, userData}) => {
+const ImageDropzone = ({type, handleCancelButton}) => {
     const [image, setImage] = useState(null);
+    const userData = useSelector(selectUserProfile);
     const [editData, setEditData] = useState(userData);
-
+    
     const onDrop = useCallback(acceptedFiles => {
         const selectedImage = acceptedFiles[0]; // Get the first image from the accepted files array
         setImage({
@@ -34,7 +37,6 @@ const ImageDropzone = ({type, handleCancelButton, userData}) => {
     const saveChanges = (event) => {
         event.preventDefault();
         console.log("save");
-        userData = editData
     }
 
     const handleOnChange = (event) => {

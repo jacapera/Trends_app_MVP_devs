@@ -44,7 +44,7 @@ const RegisterFormBase = ({type})  => {
   const handleIsCheck = () => {
     setInputs((prevState) => ({
       ...prevState,
-      support: !inputs.support
+      profile_support: !inputs.profile_support
     }))
   }
 

@@ -4,6 +4,8 @@ import filterIcon from "../../assets/TestIcons/filter.png";
 import { useEffect } from "react";
 import {students, professionals} from "../../utils/users";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getMatchedUsers, selectAllUsers } from "../../Redux/UsersSlice";
 
 //import { matcher } from "../../utils/matchingAlgorithm/matcher";
 
@@ -11,50 +13,11 @@ import { useState } from "react";
 
 const Feed = () => {
 
-    const [matchedProfilesStudents, setMatchedProfilesStudents] = useState([]);
-    const [matchedProfilesProfessionals, setMatchedProfilesProfessionals] = useState([]);
-    const [allUsers, setAllUsers] = useState([])
-
-    //function for join the 2 diferents arrays of users, the order is 5 professionals and 2 students (this could be change)
-    function showProfessionalsAndStudents(professionals, students) {
-        let combinedArray = [];
-        let professionalsIndex = 0;
-        let studentsIndex = 0;
-        const professionalsPerGroup = 3;
-        const studentsPerGroup = 2;
-      
-        while (professionalsIndex < professionals.length || studentsIndex < students.length) {
-
-          // Show 5 professionals
-          for (let i = 0; i < professionalsPerGroup; i++) {
-            if (professionalsIndex < professionals.length) {
-              combinedArray.push({...professionals[professionalsIndex], type: "professional"})
-              professionalsIndex++;
-            }
-          }
-      
-          // Show 2 students
-          for (let i = 0; i < studentsPerGroup; i++) {
-            if (studentsIndex < students.length) {
-              combinedArray.push({...students[studentsIndex], type: "student"})
-              studentsIndex++;
-            }
-          }
-        }
-
-        return combinedArray;
-    }
-
+    const allUsers = useSelector(selectAllUsers);
+    const dispatch = useDispatch()
     useEffect(() => {
-    
-        
-    }, [])
-
-    useEffect(() => {
-        const users = showProfessionalsAndStudents(matchedProfilesProfessionals, matchedProfilesStudents);
-        setAllUsers(users);
-    }, [matchedProfilesProfessionals, matchedProfilesStudents])
-
+       dispatch(getMatchedUsers()) 
+    }, []);
 
     //function to divide in groups of 3 users (for the cards)
     const divideProfilesIntoGroups = (profiles) => {
