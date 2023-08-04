@@ -1,21 +1,35 @@
-<<<<<<< HEAD
 .head{
     padding-top: 2vh;
-    border: 1px solid blue;
+    /* border: 1px solid red; */
+    color: #232323;
+}
+.head h1, .body h1{
+    font-family: "Rubik-Medium";
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+    color: #232323;
 }
 .body{
-    border: 1px solid blue;
-    border-top: 3px solid black;
+    /* border: 1px solid blue; */
+    border-top: 1px solid #232323;
     padding-top: 2vh;
+    color: #232323;
+}
+.body h3{
+    font-family: "Rubik-Regular";
+    text-align: left;
+    padding: 0 1rem 0 1rem;
+    color: #232323;
 }
 .postJob{
     border: 1px solid black;
     margin: 10px;
+    padding-top: 1rem;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #232323;
 }
-.postJob p{
-    font-size: medium;
-}
+
 .button{
     background-color: #FAB180;
     color: white;
@@ -23,24 +37,26 @@
     margin: 10px;
     padding-left: 1vw;
     padding-right: 1vw;
-=======
-.head{
-    padding-top: 2vh;
 }
-.body{
-    /* border: 1px solid blue; */
-    border-top: 3px solid black;
-    padding-top: 2vh;
+:global(.dark-mode) .head{
+    background-color: #383636;
 }
-.postJob{
-    border: 1px solid black;
+:global(.dark-mode) .body{
+    background-color: #383636;
+    border-top: 1px solid #CCB5A5;
+}
+:global(.dark-mode) .head {
+    background-color: #383636;
+}
+:global(.dark-mode) .head h1, .body h1, .body h3{
+    color: #CCB5A5;
+}
+:global(.dark-mode) .button{
+    color: #383636
+}
+:global(.dark-mode) .postJob{
+    border: 1px solid #C4C4C4;
     margin: 10px;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-.button{
-    background-color: #FAB180;
-    color: white;
-    border-radius: 25px;
-    margin: 10px;
->>>>>>> 728f5c71647795b98123287a044f5c0ec788a558
+    padding-top: 1rem;
+    box-shadow: 2px 2px 4px rgba(196, 196, 196, 0.5);
 }

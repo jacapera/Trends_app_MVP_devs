@@ -4,17 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import validation from './validation';
 import axios from 'axios';
 import adjuntarIcon from '../../../assets/TestIcons/adjuntar.png';
-//import { VisibilityOffOutlined, VisibilityOutlined } from '@mui/icons-material';
 import styleRegister from './styleRegister.css'
 
 const Register = () => {
   // Estados Locales
   // -------------------------------------------------------
   const [formRegister, setFormRegister] = useState({
-    full_name:"",
     email:"",
     userName:"",
-    rol:"",
     password:"",
     image:{},
   });
@@ -23,7 +20,6 @@ const Register = () => {
   const [touchedFields, setTouchedFields] = useState({});
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
 
   // Variables
   // ---------------------------------------------------------
@@ -62,11 +58,6 @@ const Register = () => {
     }
   };
 
-  const handleTogglePasswordVisibility = (event) => {
-    event.preventDefault();
-    setShowPassword(!showPassword);
-  };
-
    // Enviar el archivo al estado local
    const handleFilechange = (event) => {
     const file = event.target.files[0];
@@ -97,10 +88,8 @@ const Register = () => {
     if(auxErrors){
       try {
         const formData = new FormData();
-        formData.append('full_name', formRegister.full_name);
         formData.append('email', formRegister.email);
         formData.append('userName', formRegister.userName);
-        formData.append('rol', formRegister.rol);
         formData.append('password', formRegister.password);
         formData.append('image', formRegister.image);
 
@@ -109,12 +98,11 @@ const Register = () => {
         openModal();
         setFormErrors({});
         setFormRegister({
-          full_name:"",
           email:"",
           userName:"",
           password:"",
         });
-        navigate('/Trends_app_MVP/chat/login-chat');
+        navigate('/Trends_app_MVP/login');
       } catch (error) {
         setMessage(error.message);
         openModal();
@@ -135,6 +123,8 @@ const Register = () => {
     }
   };
 
+
+
   const openModal = () => { setIsModalOpen(true) };
   const closeModal = () => {
     setIsModalOpen(false)
@@ -149,10 +139,8 @@ const Register = () => {
 
     if(Object.keys(touchedFields).length  > 0){
       setFormErrors({
-        "full_name": errors.full_name || "",
         "userName": errors.userName || "",
         "email": errors.email || "",
-        "rol": errors.rol || "",
         "password": errors.password || "",
       });
     }
@@ -162,26 +150,14 @@ const Register = () => {
   }, [formRegister, touchedFields]);
 
   return (
-    <div className='flex w-[100%] h-[calc(100vh-80px)] overflow-auto justify-center items-start fixed top-[80px] left-0  '>
+    <div className='flex w-[100%] h-[calc(100vh-80px)] overflow-auto justify-center fixed top-[80px] left-0  '>
       <div className='flex flex-col w-[400px] h-[fit-content] justify-center items-center border-2 border-blue-950 bg-blue-600 shadow-2xl p-[30px] rounded-md mt-[20px] '>
         <h1 className='text-[aqua] text-xl mb-[5px]  '>Sign Up</h1>
         <form  onSubmit={handleSubmit}
           className='flex flex-col border-2 p-[20px] rounded-md w-full h-[fit-content] justify-center itme'
         >
           <div className='flex flex-col shadow-white ' >
-              <label className='mt-[8px] text-left' >Full Name</label>
-              <input
-                className='rounded-md h-[40px] p-[5px] shadow-white  '
-                onChange={handleChange}
-                onBlur={handleBlur}
-                value={formRegister.full_name}
-                autoComplete='off'
-                name='full_name' type="text" placeholder='escriba nombre completo aquí'
-              />
-          </div>
-          {touchedFields.full_name && formErrors.full_name && <p className='text-red-600 text-left' >{formErrors.full_name}</p>}
-          <div className='flex flex-col shadow-white ' >
-              <label className='mt-[8px] text-left' >Email</label>
+              <label className='mt-[8px]' >Email</label>
               <input
                 className='rounded-md h-[40px] p-[5px] shadow-white  '
                 onChange={handleChange}
@@ -191,9 +167,9 @@ const Register = () => {
                 name='email' type="text" placeholder='escriba email aquí'
               />
           </div>
-          {touchedFields.email && formErrors.email && <p className='text-red-600 text-left' >{formErrors.email}</p>}
+          {touchedFields.email && formErrors.email && <p className='text-red-600' >{formErrors.email}</p>}
           <div className='flex flex-col' >
-              <label className='mt-[8px] text-left' >Username</label>
+              <label className='mt-[8px]' >Username</label>
               <input
                 className='rounded-md h-[40px] p-[5px]  '
                 onChange={handleChange}
@@ -203,11 +179,11 @@ const Register = () => {
                 name='userName' type="text" placeholder='escriba username aquí'
               />
           </div>
-          {touchedFields.userName && formErrors.userName && <p className='text-red-600 text-left' >{formErrors.userName}</p>}
+          {touchedFields.userName && formErrors.userName && <p className='text-red-600' >{formErrors.userName}</p>}
           {/* ADJUNTAR IMAGEN */}
           <div className='flex flex-col m-[10px]'>
-            <label className='text-left'>Adjuntar una imagen</label>
-            <div className='flex'>
+            <label>Adjuntar una imagen</label>
+            <div>
               <label className='custom-file-upload flex justify-center mr-[4px] w-[45px] h-[50px] items-center px-[4px] py-[2px] bg-blue-500 text-white rounded md cursor-pointer'>
                 <input
                   className='hidden'
@@ -224,34 +200,19 @@ const Register = () => {
               </div>
             </div>
           </div>
-          <div className='flex gap-[5px] text-black items-center '>
-            <label className='text-left'>Escoge un Rol</label>
-            <select value={formRegister.rol} name="rol" onChange={handleChange} onBlur={handleBlur}
-              className='text-black rounded-md p-[3px] '
-            >
-              <option className='rounded-sm' value="default" hidden >selecciona aquí</option>
-              <option value="student" >student</option>
-              <option value="professional" >professional</option>
-            </select>
-          </div>
-          {touchedFields.rol && formErrors.rol && <p className='text-red-600 text-left' >{formErrors.rol}</p>}
           {/* INPUT PASSWORD */}
-          <div className='flex flex-col relative '>
-              <label className='mt-[8px] text-left' >Password</label>
+          <div className='flex flex-col'>
+              <label className='mt-[8px]' >Password</label>
               <input
-                className='rounded-md h-[40px] p-[5px] pr-[30px]  '
+                className='rounded-md h-[40px] p-[5px]  '
                 onChange={handleChange} value={formRegister.password}
                 onBlur={handleBlur}
-                name='password'
-                type={showPassword ? "text" : "password"}
+                name='password' type="password"
                 autoComplete='off'
                 placeholder='escriba password aquí'
               />
-              <button onClick={handleTogglePasswordVisibility}
-                className='flex justify-center items-center w-[30px] h-[30px] bg-transparent relative top-[-35px] right-[-86%] '
-              >{showPassword ? <VisibilityOffOutlined /> : <VisibilityOutlined />}</button>
           </div>
-          {touchedFields.password && formErrors.password && <p className='text-red-600 text-left' >{formErrors.password}</p>}
+          {touchedFields.password && formErrors.password && <p className='text-red-600' >{formErrors.password}</p>}
           {/*//* BOTON DE ENVIAR */}
           <div className='flex justify-center'>
             <button
