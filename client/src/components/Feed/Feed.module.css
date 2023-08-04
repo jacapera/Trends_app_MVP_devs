@@ -7,6 +7,7 @@
 
 .BGContainer header {
     background-color: #9AC2EF;
+    font-family: "Rubik-Regular";
     height: 6rem;
     display: flex;
     align-items: center;
@@ -15,7 +16,7 @@
 
 .BGContainer header h1 {
     color: rgb(58, 58, 58);
-    font-family: "Rubik-Medium";
+    margin: 0;
 }
 
 .Feed {
@@ -74,4 +75,9 @@
 }
 :global(.dark-mode) .Feed {
     background-color: #383636;
+}
+@media screen and (max-width: 650px ) {
+    .BGContainer {
+        width: 100vw
+    }
 }

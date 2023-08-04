@@ -73,6 +73,7 @@
 .RightContainer {
     width: 50%;
     padding: 0 1rem;
+    padding-top: 2rem;
 }
 
 .RightContainer h2 {
@@ -107,6 +108,9 @@
 
 .RightContainer button {
     background-color: #56CCF2;
+    border: 0;
+    font-size: 1.1rem;
+    cursor: pointer;
     width: 100%;
     height: 3rem;
     border-radius: .4rem;
