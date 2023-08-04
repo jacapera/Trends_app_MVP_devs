@@ -2,10 +2,13 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   user_id:"",
-  userName:"",
+  username:"",
   image:"",
   rol:"",
+  token:"",
   allUsersChat:[],
+  filteredUsersChat: [],
+  shownUser:{},
 }
 
 const usersChatSlice = createSlice({
@@ -13,25 +16,41 @@ const usersChatSlice = createSlice({
   initialState,
   reducers: {
     setUserChat: (state, action) => {
-      const {user_id, userName, image, rol} = action.payload;
+      const {user_id, username, image, rol} = action.payload;
       state.user_id = user_id;
-      state.userName = userName;
+      state.username = username;
       state.image = image;
       state.rol = rol;
     },
-    setUserName:(state, action) => {
-      state.userName = action.payload;
+    setShownUser: (state, action) => {
+      state.allUsersChat.filter((user) => {
+        if(user.user_id === action.payload) {
+          state.shownUser = user;
+        }
+      });
+    },
+    setFilteredUsersChat: (state, action) => {
+      console.log(action.payload);
+      state.filteredUsersChat = state.allUsersChat.filter(user => user.name.toLowerCase().includes(action.payload.toLowerCase()));
+    },
+    setUsername:(state, action) => {
+      state.username = action.payload;
     },
     setUserImage:(state, action) => {
       state.image = action.payload;
     },
     setAllUsersChat: (state, action) => {
       state.allUsersChat = action.payload;
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
     }
 
   }
 })
 
-export const { setUserChat, setAllUsersChat, setUserName, setUserImage } = usersChatSlice.actions;
+export const { setFilteredUsersChat, setShownUser, setUserChat, setAllUsersChat, setUsername, setUserImage, setToken } = usersChatSlice.actions;
 export default usersChatSlice.reducer;
+export const selectFilteredUsersChat = (state) => state.usersChat.filteredUsersChat;
+export const selectShownUser = (state) => state.usersChat.shownUser;
 export const selectAllUsersChat = (state) => state.usersChat.allUsersChat;

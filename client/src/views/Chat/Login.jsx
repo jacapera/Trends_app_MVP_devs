@@ -5,7 +5,7 @@ import validation from './validationLogin';
 import axios from 'axios';
 import styleRegister from './Register/styleRegister.css';
 import { students } from '../../utils/users'
-import { selectAllUsersChat, setAllUsersChat, setUserChat, setUserImage, setUserName } from '../../Redux/usersChatSlice';
+import { selectAllUsersChat, setAllUsersChat, setUserChat, setUserImage, setUsername } from '../../Redux/usersChatSlice';
 
 
 const Login = () => {
@@ -18,7 +18,7 @@ const Login = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [message, setMessage] = useState('');
 
-  const userName = useSelector(state => state.usersChat.userName);
+  const username = useSelector(state => state.usersChat.username);
   const usersChat = useSelector(state => state.usersChat);
   const allUsers = useSelector(selectAllUsersChat);
   const avatars = useSelector(state => state.usersChat.avatars);
@@ -32,7 +32,7 @@ const Login = () => {
     console.log("value: ", selectedUser)
     setFormRegister({
       user_id: selectedUser.user_id,
-      userName: selectedUser.username,
+      username: selectedUser.username,
       image: selectedUser.profile_image,
       rol: selectedUser.type,
     })
@@ -58,7 +58,7 @@ const Login = () => {
     event.preventDefault();
     //let auxErrors = Object.values(formErrors).every(value => value === "");
     //if(auxErrors){
-      //dispatch(setUserName(formRegister.userName));
+      //dispatch(setusername(formRegister.username));
       //dispatch(setUserImage(formRegister.avatar));
       dispatch(setUserChat(formRegister));
       navigate('/Trends_app_MVP/chat')
@@ -78,7 +78,7 @@ const Login = () => {
 
   //   if(Object.keys(touchedFields).length  > 0){
   //     setFormErrors({
-  //       "userName": errors.userName || "",
+  //       "username": errors.username || "",
   //     });
   //   }
   //   //console.log("FORMERROR: " , formErrors);
@@ -101,7 +101,7 @@ const Login = () => {
 
   useEffect(()=> {
     //if()
-    console.log('userName LOGIN: ', userName)
+    console.log('username LOGIN: ', username)
     console.log('message LOGIN: ', message)
     console.log('USER: ', usersChat)
   },[message, usersChat])
@@ -114,24 +114,24 @@ const Login = () => {
           className='flex flex-col border-2 p-[20px] rounded-md w-full h-[fit-content] justify-center itme'
         >
           {/* <div className='flex flex-col shadow-white ' >
-              <label className='mt-[8px] text-left' >Username</label>
+              <label className='mt-[8px] text-left' >username</label>
               <input
                 className='rounded-md h-[40px] p-[5px] shadow-white  '
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={formRegister.userName}
+                value={formRegister.username}
                 autoComplete='off'
-                name='userName' type="text" placeholder='escriba userName aquí'
+                name='username' type="text" placeholder='escriba username aquí'
               />
           </div>
-          {touchedFields.userName && formErrors.userName && <p className='text-red-600' >{formErrors.userName}</p>} */}
+          {touchedFields.username && formErrors.username && <p className='text-red-600' >{formErrors.username}</p>} */}
 
           <div className='flex gap-[5px] flex-col  text-black items-center '>
             <label className='text-left w-[100%]'>Escoge un usuario</label>
             <select value="default" name="formRegister" onChange={handleChange} onBlur={handleBlur}
               className='text-black w-[100%] rounded-md p-[3px] '
             >
-              <option className='rounded-sm' value="default" hidden >{formRegister.userName}</option>
+              <option className='rounded-sm' value="default" hidden >{formRegister.username}</option>
               {
                 allUsers.map((item, index) => (<option key={index} value={JSON.stringify(item)}>{item.username}</option>))
               }

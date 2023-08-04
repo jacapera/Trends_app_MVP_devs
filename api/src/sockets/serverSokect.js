@@ -1,88 +1,53 @@
+const { postMessage } = require('../controllers/chatroom.controller');
+
 module.exports = serverSocket => {
   const { Server } = require('socket.io');
   const io = new Server(serverSocket, {cors:{origin:'*'}});
 
-
-  const messagesServer = [];
-
   // Almacenar clientes que se vayan conectando
   let onLineUsers = [];
 
-  const addNewUser = (userName, socketId) => {
-    !onLineUsers.some(user => user.userName === userName) &&
-      onLineUsers.push({userName, socketId});
+  const addNewUser = (username, socketId) => {
+    !onLineUsers.some(user => user.username === username) &&
+      onLineUsers.push({username, socketId});
   };
 
   const removeUser = (socketId) => {
     onLineUsers = onLineUsers.filter(user => user.socketId !== socketId);
   };
 
-  const getUser = (userName) => {
-    return  onLineUsers.find(user => user.userName === userName);
+  const getUser = (username) => {
+    return  onLineUsers.find(user => user.username === username);
   };
-
-
 
   // --------- Escuchando cuando se conecte un cliente ----------------
   io.on('connection', socket => {
     //console.log('Cliente conectado: ', socket.id);
 
-    socket.on("newUser", userName => {
-      addNewUser(userName, socket.id);
-      //const usuario = getUser(userName)
-      //console.log("USUARIO: ", usuario);
-      //enviarMensajesPendientes(userName, usuario )
+    socket.on("newUser", username => {
+      addNewUser(username, socket.id);
       console.log('onLineUsers: ', onLineUsers);
     });
-    //socket.emit("actualizar-mensajes", filtered);
 
     // =============== Chat Individual v2 ================================
     socket.on("private-message",
     ({
-      userNameReceptor, emisor, receptor, message, userNameEmisor,
-      imageEmisor, imageReceptor, fecha, file
+      sender_id, receiver_id, content, file, userNameReceptor, userNameEmisor
     }) => {
+
+      postMessage(sender_id, receiver_id, content)
       const receiver = getUser(userNameReceptor);
-
-      messagesServer.push({
-        userNameReceptor, emisor, receptor, message, userNameEmisor,
-        imageEmisor, imageReceptor, fecha, file
-      })
-
-let filtered =[]
-
-    
-      const mensajesFiltrados = messagesServer.forEach( item =>{
-        if(item.emisor === emisor){
-          filtered.push(item)
-        }
-        if(item.receptor === emisor){
-          filtered.push(item)
-        }
-        //io.to(receiver?.socketId).emit("mensaje-recibido", filtered);
-        //socket.emit("mensaje-recibido", filtered);
-      })
-      const filter = messagesServer.filter( item =>
-        (item.emisor === emisor && item.receptor === receptor) ||
-        (item.emisor === receptor && item.receptor === emisor)
-        )
-
-
-      //socket.emit("mensaje-recibido", filtered);
- 
-      //socket.emit("actualizar-mensajes", messages);
-      console.log("MESSAGES: ", messagesServer, messagesServer.length);
-      //console.log("MESSAGESFILTER: ", filtered, filtered.length,messagesServer.length);
-      const sender = getUser(userNameEmisor)
-
-   
-
+      const sender = getUser(userNameEmisor);
+      let listChats = []
+      getChatsByUser(receiver_id)
+        .then(response => {
+          io.to(receiver?.socketId).emit("mensaje-recibido", response);
+          io.to(sender?.socketId).emit("mensaje-recibido", response);
+          console.log("mensaje enviado")
+        }).catch(error => console.log(error));
 
       console.log('reciver: ', receiver, message);
-
-      
-        io.to(receiver?.socketId).emit("mensaje-recibido", messagesServer);
-      console.log('mensaje recibido: ', `emisor: ${userNameEmisor}`, `receptor: ${userNameReceptor}`, message);
+      console.log('mensaje recibido: ', `emisor: ${usernameEmisor}`, `receptor: ${usernameReceptor}`, message);
     });
 
     socket.on("disconnect", () => {

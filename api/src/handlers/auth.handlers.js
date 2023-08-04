@@ -8,7 +8,7 @@ const register = async (req, res) => {
   try {
     const token = await registerUser(newUser);
     res.cookie("token", token, {
-      httpOnly: true,
+      httpOnly: false,
       secure: NODE_ENV === "production",
       sameSite: "strict",
     });
@@ -34,8 +34,8 @@ const login = async (req, res) => {
       secure: NODE_ENV === "production",
       sameSite: "strict",
     });
-    res.status(200).json("Login successfully.");
-    // res.status(200).json(token);
+    res.status(200).json({message:"Login successfully.",});
+    //res.status(200).json(token);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

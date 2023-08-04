@@ -4,6 +4,7 @@ import style from "./index.module.css";
 import welcome from "../../assets/TestIcons/welcome.jpeg";
 import axios from "axios";
 import {useDispatch} from "react-redux";
+import { setToken, setUserChat } from "../../Redux/usersChatSlice";
 const {VITE_URL} = import.meta.env;
 
 export default function LoginPage() {
@@ -30,12 +31,24 @@ export default function LoginPage() {
     event.preventDefault();
     if (inputs.email && inputs.password) {
       try {
-        const fetch = await axios.post(URL, inputs);
-        const result = fetch.data;
-        console.log(result);
+        const fetch = await axios.post(URL, inputs, { withCredentials: "include"});
+        const result = fetch;
+        console.log("result: ", result);
+        console.log("result: ", result.request);
+        //!----------------------------------
+
+        // dispatch(setToken(result.token))
+        // dispatch(setUserChat({
+        //   user_id:result.foundedAccount.id,
+        //   username:result.foundedAccount.username,
+        //   image:result.foundedAccount.profile_image,
+        // }))
+        //window.localStorage.setItem('loggedChatUser', JSON.stringify(result));
+        navigate('/Trends_app_MVP/chat2')
+        //!-------------------------------------
 
       } catch (error) {
-        console.log(error.response.data.error)
+        console.log(error)
       }
     }
   };

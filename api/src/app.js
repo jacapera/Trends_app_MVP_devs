@@ -12,11 +12,17 @@ const searchRoutes = require("./routes/search.routes");
 const userRoutes = require("./routes/user.routes");
 const jobRoutes = require("./routes/job.routes");
 const userTestRoutes = require("./routes/userTest.routes");
+const chatroomRoutes = require("./routes/chatroom.routes");
+
 
 const app = express();
 
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({
+  //origin: ['http://127.0.0.1:5175','http://127.0.0.1:5174'],
+  origin: 'http://localhost:5174',
+  credentials: true,
+}));
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json());
@@ -35,6 +41,8 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
+// ---------- Rutas para el Chat -------------------------
+app.use("/api/v1/chatroom", authenticateUser, chatroomRoutes)
 
 // --- solo para pruebas ---
 app.use("/userTest", userTestRoutes);
