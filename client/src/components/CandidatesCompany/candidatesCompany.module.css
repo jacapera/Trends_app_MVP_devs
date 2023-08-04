@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .head{
     height: 10vh;
     padding: 2px;
@@ -65,3 +66,64 @@
     padding-left: 1vw;
     padding-right: 1vw;    
 }
+=======
+.head{
+    height: 10vh;
+    padding: 2px;
+    border-bottom: 3px solid black;
+}
+.selectContainer{
+    padding-left: 30vw;
+    padding-right: 30vw;
+}
+.cardContainer{
+    overflow: auto;
+    /* border: 1px solid red; */
+    height: 90vh;
+}
+.card{
+    display: flex;
+    flex-direction: row;
+    /* border: 1px solid blue; */
+    margin: 10px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+.cardImage{
+    height: 100%;
+    width: 15%;
+    overflow: hidden;
+    align-items: center;
+    /* border: 1px solid red; */
+}
+.cardImage img{
+    border-radius: 50%;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+.nameIcon{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1vw;
+    /* border: 1px solid red; */
+}
+.cardProfile{
+    width: 85%;
+    /* border: 1px solid black; */
+    text-align: left;
+    margin-left: 1vw;
+}
+.subtitle{
+    font-weight: bold;
+}
+.buttons{
+    background-color: #FAB180;
+    color: black;
+    border-radius: 25px;
+    margin: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+    border: 1px solid black;
+}
+>>>>>>> 728f5c71647795b98123287a044f5c0ec788a558

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .container{
     display: inline-flex;
     flex-direction: row;
@@ -53,3 +54,44 @@
         padding: 1.5vw;
     }    
 }
+=======
+.container{
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+.left{
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    width: 5vw;
+    height: 100vh;
+    min-width: 100px;
+    background-color: #9AC2EF;
+    align-items: center;
+    padding-top: 10px;
+}
+.left p{
+    color: white;
+    margin-bottom: 10px;
+}
+.right{
+    border: 1px solid black;
+    width: 80vw;
+    height: 100vh;
+    /* padding-top: 2vh; */
+}
+.button{
+    border-radius: 50%;
+    margin-top: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    height: 6vh;
+    width: 3vw;
+    min-width: 43px;
+    padding: 3px;
+}
+>>>>>>> 728f5c71647795b98123287a044f5c0ec788a558
