@@ -1,7 +1,7 @@
 const { postJob, putJob, deleteJob } = require("../controllers/job.controller");
 
 const createNewJob = async (req, res) => {
-  const { id } = req.user;
+  const { id } = req.params;
   const jobData = req.body;
 
   try {
@@ -14,25 +14,24 @@ const createNewJob = async (req, res) => {
     return res.status(201).json(newJob);
   } catch (error) {
     return res.status(500).json({
-      error: "Database error",
+      error: "Internal server error",  
     });
   }
 };
 
 const editJob = async (req, res) => {
-  const { ...jobData } = req.body;
+  const jobData = req.body;
   const { job } = req;
-
   try {
     const editedJob = await putJob(job, jobData);
-
+    
     if (!editedJob) {
       return res.status(500).json({ error: "The job couldn't be updated" });
     }
 
     return res.status(201).json(editedJob);
   } catch (error) {
-    return res.status(500).json({ error: "Database error" });
+    return res.status(500).json({ error: error.message });
   }
 };
 

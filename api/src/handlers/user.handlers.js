@@ -31,8 +31,9 @@ const updatePassword = async (req, res) => {
 };
 
 const editProfile = async (req, res) => {
-  const { ...profileData } = req.body;
+  const profileData = req.body;
   const { profile } = req;
+  console.log(profile)
 
   try {
     const editedProfile = await putUserProfile(profile, profileData);
