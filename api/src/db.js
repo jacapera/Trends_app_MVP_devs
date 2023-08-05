@@ -53,6 +53,9 @@ const {
   Chat: initChat,
   Message: initMessage,
   Admin: initAdmin,
+  ChatGroup: initChatGroup,
+  UserChatGroup: initUserChatGroup,
+  MessageChatGroup: initMessageChatGroup,
 } = sequelize.models;
 
 // Se setea la configuración del caché de Sequelize
@@ -64,6 +67,9 @@ const cache = new SequelizeSimpleCache({
   Chat: { ttl: 60 },
   Message: { ttl: 33 },
   Admin: { ttl: 15 },
+  ChatGroup: { ttl: 5 * 60 },
+  UserChatGroup: { ttl: 5 * 60 },
+  MessageChatGroup: { ttl: 5 * 60 },
 });
 
 // Se inicializan los modelos con el caching activado
@@ -74,6 +80,9 @@ const Image = cache.init(initImage);
 const Chat = cache.init(initChat);
 const Message = cache.init(initMessage);
 const Admin = cache.init(initAdmin);
+const ChatGroup = cache.init(initChatGroup);
+const UserChatGroup = cache.init(initUserChatGroup);
+const MessageChatGroup = cache.init(initMessageChatGroup);
 
 Company.hasMany(Job);
 Job.belongsTo(Company);
@@ -96,9 +105,17 @@ Chat.hasMany(Message, { foreignKey: 'chat_id', onDelete: 'CASCADE' });
 Message.belongsTo(Chat, { foreignKey: 'chat_id', onDelete: 'CASCADE' });
 Message.belongsTo(User, { foreignKey: 'sender_id', onDelete: 'CASCADE' });
 
-//User.belongsToMany(Chat, { through: 'group_participants', foreignKey: 'user_id', otherKey: 'group_id', as: 'GroupChats' });
+// Definiciones de la relación entre User y ChatGroup
+User.belongsToMany(ChatGroup, { through: UserChatGroup });
+ChatGroup.belongsToMany(User, { through: UserChatGroup });
 
-//Chat.belongsToMany(User, { through: 'group_participants', foreignKey: 'group_id', otherKey: 'id', as: 'Participants' });
+// Relación entre Usuario y Mensaje de grupo (un usuario puede enviar varios mensajes)
+User.hasMany(MessageChatGroup);
+MessageChatGroup.belongsTo(User);
+
+// Relación entre Grupo de Chat y Mensaje de grupo (un mensaje pertenece a un grupo de chat)
+ChatGroup.hasMany(MessageChatGroup);
+MessageChatGroup.belongsTo(ChatGroup);
 
 module.exports = {
   User,
@@ -108,5 +125,8 @@ module.exports = {
   Chat,
   Message,
   Admin,
+  ChatGroup,
+  UserChatGroup,
+  MessageChatGroup,
   conn: sequelize,
 };
