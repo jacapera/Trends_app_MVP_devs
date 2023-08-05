@@ -1,21 +1,22 @@
 .BGContainer {
-    width: 100vw;
-    height: 100vh;
+    margin: auto;
     padding-top: 5rem;
-    margin: 0 auto;
+    display: block;
+}
+
+.BGContainer input {
+    border: 0;
 }
 
 .Card {
     background-color: white;
     border-radius: .5rem;
     display: flex;
-    width: 30rem;
-    min-height: 34rem;
+    width: 51rem;
     font-family: "Poppins-Medium";
     font-weight: 70%;
     margin: auto auto;
     padding: 2rem;
-    padding-top: 0;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
 }
@@ -45,7 +46,7 @@
 }
 
 .LeftContainer > div {
-    background-color: white;
+    background-color: transparent;
 }
 
 .LeftContainer h1 {
@@ -53,10 +54,13 @@
     text-align: left;
     margin-bottom: 1.2rem;
     padding-left: 1rem;
+    color: black;
 }
 .LeftContainer h3 {
     color: #4B5965;
     font-size: .9rem;
+    font-weight: 200;
+    width: 95%;
     margin-bottom: 1rem;
 }
 
@@ -67,8 +71,9 @@
 }
 
 .RightContainer {
-    width: 100%;
+    width: 50%;
     padding: 0 1rem;
+    padding-top: 2rem;
 }
 
 .RightContainer h2 {
@@ -84,12 +89,11 @@
     font-size: 1rem;
     font-family: "Rubik-Light";
     font-style: italic;
-    border: 0;
     color: #4D4D4D;
     padding-left: 1rem;
     font-weight: 100;
     height: 3rem;
-    width: 95%;
+    width: 100%;
     background-color: #E4E4E4;
     border-radius: .5rem;
 }
@@ -104,15 +108,15 @@
 
 .RightContainer button {
     background-color: #56CCF2;
+    border: 0;
+    font-size: 1.1rem;
+    cursor: pointer;
     width: 100%;
     height: 3rem;
     border-radius: .4rem;
-    font-size: 1.1rem;
     color: white;
     font-style: italic;
-    border: 0;
     font-family: "Rubik-Regular";
-    cursor: pointer;
 }
 
 .RightContainer button:disabled {
@@ -126,13 +130,12 @@
 
 .RightContainer form {
     margin-top: 13%;
-    background-color: white;
+    background-color: transparent;
 }
 
 .RightContainer form span {
     font-style: italic;
     font-family: "Rubik-Regular";
-    text-align: center;
     font-size: 1rem;
 }
 
@@ -155,24 +158,12 @@
 }
 
 .RightContainer form .NoError {
-    font-size: .9rem;
     display: none;
 }
 
-.Account a {
-    text-decoration: none;
-    display: inline-block;
-    padding-left: .5rem;
-}
-
 :global(.dark-mode) .Card, :global(.dark-mode) .RightContainer form, :global(.dark-mode) .LeftContainer > div, :global(.dark-mode) .RightContainer h2, :global(.dark-mode) .RightContainer .Bold {
-    background-color: #383636;
     color: white;
-}
-
-:global(.dark-mode) .RightContainer h2 {
-    font-family: "Rubik-Regular";
-    font-size: 1.5rem;
+    background-color: #383636;
 }
 
 :global(.dark-mode) .RightContainer input, :global(.dark-mode) .RightContainer input::placeholder {
@@ -189,34 +180,39 @@
 }
 
 :global(.dark-mode) .RightContainer button {
+    background-color: #FAB180 ;
     color: white;
-    background-color: #FAB180;
 }
 
 :global(.dark-mode) .RightContainer button:disabled {
-    background-color: rgba(236, 189, 158, 0.348);
+    background-color: rgba(236, 189, 158, 0.348) ;
 }
 
 
 
 @media screen and (max-width: 700px ) {
-
-    .Card {
-        width: 89vw;
-        height: 100vh;
-        border-radius: 0;
+    :global(.dark-mode) .Card {
+        background-color: transparent;
     }
+    .Card {
+        display: flex;
+        flex-direction: column;
+        width: 90vw;
+        justify-content: center;
+    }
+
 
     .LeftContainer , .RightContainer {
         margin: 0 auto;
+        width: 100%;
+        padding: 0;
     }
 
     .LeftContainer > div {
         border-radius: .4rem;
         margin: 0 auto;
-        width: 100%;
-        padding: 1rem;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        padding: 0 2%;
 
     }
 
@@ -236,29 +232,28 @@
         margin: 0 auto;
     }
 
-    .RightContainer {
-        width: 100%;
-        height: 100%;
-    }
-
     .RightContainer form {
         margin: 0 auto;
         margin-top: 1rem;
-        padding: 2rem;
         border-radius: .4rem;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+        padding: 0 2%;
+        padding-bottom: 1rem;
+
+    }
+
+    .RightContainer input {
+        margin-right: 2rem;
+    }
+
+    .RightContainer .Input {
+        width: 100%;
     }
 
     .RightContainer .Account span {
         display: block;
         width: fit-content;
         margin: 0 auto;
-    }
-
-    .Account a {
-        display: block;
-        margin: 0 auto;
-        padding: 0;
     }
 
 }

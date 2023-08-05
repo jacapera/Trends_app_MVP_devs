@@ -52,6 +52,7 @@ const {
   Image: initImage,
   Chat: initChat,
   Message: initMessage,
+  Admin: initAdmin,
 } = sequelize.models;
 
 // Se setea la configuración del caché de Sequelize
@@ -62,6 +63,7 @@ const cache = new SequelizeSimpleCache({
   Image: { ttl: 60 * 60 },
   Chat: { ttl: 60 },
   Message: { ttl: 33 },
+  Admin: { ttl: 15 },
 });
 
 // Se inicializan los modelos con el caching activado
@@ -71,6 +73,7 @@ const Job = cache.init(initJob);
 const Image = cache.init(initImage);
 const Chat = cache.init(initChat);
 const Message = cache.init(initMessage);
+const Admin = cache.init(initAdmin);
 
 Company.hasMany(Job);
 Job.belongsTo(Company);
@@ -104,5 +107,6 @@ module.exports = {
   Image,
   Chat,
   Message,
+  Admin,
   conn: sequelize,
 };

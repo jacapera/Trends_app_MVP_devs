@@ -29,9 +29,6 @@
   z-index: 100%;
 }
 
-.chat-minimized{
-  /* z-index: 999; */
-}
 
 .li-message{
   position: relative;

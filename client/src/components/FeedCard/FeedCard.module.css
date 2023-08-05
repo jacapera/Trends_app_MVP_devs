@@ -2,7 +2,9 @@
     display: flex;
     align-items: center;
     cursor: pointer;
-    position: relative;
+    padding-left: 1rem;
+    background-color: transparent;
+    width: 100%;
 }
 
 .PhotoContainer {
@@ -73,3 +75,8 @@
     width: 5rem;
     line-height: 1.8rem;
 }
+
+:global(.dark-mode) .AttributesContainer h1 {
+    color:#ddaf8f
+}
+

@@ -23,8 +23,9 @@ const dataJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
     return(
         <div>
             <div className={style.container}>
-                <Subtitle>Datos de la Oferta Laboral</Subtitle>
-                    <label>Nombre del puesto: </label><br/>
+                <hr></hr><br/>
+                <h1>Datos de la Oferta Laboral</h1><br/>
+                    <h3>Nombre del puesto: </h3>
                     <TextInput
                         name="jobName"
                         type="text"
@@ -34,26 +35,26 @@ const dataJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     ></TextInput><br/>
                     <div className={style.dateContainer}>
                         <div>
-                            <label>Fecha de Creacion: </label><br/>
+                            <h3>Fecha de Creacion: </h3>
                             <TextInput
                                 name="creationDate"
                                 type="date"
                                 value={formJob.creationDate}
                                 onChange={handleChangeForm}
-                            ></TextInput><br/>                            
+                            ></TextInput><br/>                  
                         </div>
                         <div>
-                            <label>¿Oferta Activa?</label>
+                            <h3>¿Oferta Activa?</h3>
                             <TextInput
                                 name="active"
                                 type="checkbox"
                                 checked={formJob.active}
                                 //value={formJob.active}
                                 onChange={handleChangeForm}
-                            />
+                            /><br/>
                         </div>
                         <div>
-                            <label>Fecha de Cierre: </label><br/>
+                            <h3>Fecha de Cierre: </h3>
                             <TextInput
                                 name="closingDate"
                                 type="date"
@@ -62,10 +63,10 @@ const dataJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                             ></TextInput><br/>                            
                         </div>
                     </div>
+                <hr></hr><br/>
+                <h1>Requisitos Academicos</h1>
 
-                <Subtitle>Requisitos Academicos</Subtitle>
-
-                    <label>Nivel educativo requerido: </label><br/>
+                    <h3>Nivel educativo requerido: </h3>
                     <Select
                         name="level_required"
                         value={formJob.level_required}
@@ -83,8 +84,7 @@ const dataJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     )} */}
                     <br />
 
-                    <label>¿Que areas la empresa busca incorporar personal? </label>
-                    <br />
+                    <h3>¿Que areas la empresa busca incorporar personal? </h3>
                     <TextInput
                         name="study_area"
                         type="text"
@@ -97,8 +97,7 @@ const dataJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     )} */}
                     <br />
 
-                    <label>Experiencia requerida: </label>
-                    <br />
+                    <h3>Experiencia requerida: </h3>
                     <TextInput
                         name="experience_required"
                         type="number"
@@ -110,8 +109,7 @@ const dataJobCompany = ({formJob,handleChangeForm,handleChangeSelect})=>{
                     )} */}
                     <br />
 
-                    <label>Area/Industria: </label>
-                    <br />
+                    <h3>Area/Industria: </h3>
                     <TextInput
                         name="industry"
                         type="text"

@@ -4,10 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectAllUsersChat, setAllUsersChat } from '../../Redux/usersChatSlice';
 import { setError } from '../../Redux/chatSlice';
 import { Link } from 'react-router-dom';
-import { students } from '../../utils/users'
-const viteUrl = import.meta.env.VITE_URL;
 
-const ListUsers = ({ onUserSelect }) => {
+const LIstUsers = ({ onUserSelect }) => {
 
   // Estados Globales
   // -------------------
@@ -16,34 +14,24 @@ const ListUsers = ({ onUserSelect }) => {
   const user = useSelector(state => state.usersChat);
   const dispatch = useDispatch();
 
-  const addIds = (students, id) => {
-    return students.map((usuario, index) => ({
-      ...usuario,
-      user_id: id + index
-    }))
-  }
-  
-  console.log(allUsers)
   useEffect(() => {
-    const allUsersIds = addIds(students, 1);
-    //allUsersIds.filter(item => item.user_id !== user.user_id);
-    dispatch(setAllUsersChat(allUsersIds.filter(item => item.user_id !== user.user_id)));
-  }, []);
-
-  useEffect(() => {
-    if(usersChat){
-      axios.get(`${viteUrl}/api/v1/search/user`, {withCredentials:"include"})
+    if(user.access){
+      axios.get('http://localhost:3007/api/v1/users', {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      })
         .then(({data}) => {
           console.log('allUsers: ', data)
-          // const users = data.filter(item => item.user_id !== user.user_id)
-          // dispatch(setAllUsersChat(users));
-          // dispatch(setError(""));
+          const users = data.filter(item => item.user_id !== user.user_id)
+          dispatch(setAllUsersChat(users));
+          dispatch(setError(""));
         }).catch(error => {
-          console.log(error)
-          //dispatch(setError(error.response.data.response))
+          dispatch(setError(error.response.data.response))
         })
     }
-  },[usersChat])
+  },[user.access])
 
   return (
     <div className='flex flex-col w-[100%] h-[auto] mt-[50px] '>
@@ -56,12 +44,12 @@ const ListUsers = ({ onUserSelect }) => {
           >
             <div className='flex w-7 h-7 ml-[5px] rounded-full bg-gray-500'>
               <Link>
-                <img className='w-full h-full object-cover rounded-full' src={`${user.profile_image}`} alt='imagen de perfil' />
+                <img className='w-full h-full object-cover rounded-full' src={`http://localhost:3007/${user.image}`} alt='imagen de perfil' />
               </Link>
             </div>
             <h2
               className=" text-black"
-              key={user.user_id}>{user.username}
+              key={user.user_id}>{user.userName}
             </h2>
           </div>
         ))
@@ -70,4 +58,4 @@ const ListUsers = ({ onUserSelect }) => {
   )
 }
 
-export default ListUsers
+export default LIstUsers
