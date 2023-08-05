@@ -32,10 +32,10 @@ const app = express();
 app.use(morgan("dev"));
 app.use(setCache);
 app.use(
-  cors({
-    origin: "http://localhost:5173",
-    credentials: true,
-  })
+	cors({
+		origin: "http://localhost:5173",
+		credentials: true,
+	})
 );
 app.use(helmet());
 app.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
@@ -43,11 +43,11 @@ app.use(bodyParser.json({ limit: "50mb" }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(
-  session({
-    secret: JWT_KEY,
-    resave: false,
-    saveUninitialized: false,
-  })
+	session({
+		secret: JWT_KEY,
+		resave: false,
+		saveUninitialized: false,
+	})
 );
 app.use(passport.initialize());
 app.use(passport.session());
@@ -56,7 +56,9 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
+
 app.use("/api/v1/admin", authenticateAdmin, adminRoutes);
+
 app.use("/api/v1/images", authenticateUser, imageRoutes);
 app.use("/api/v1/chatroom", authenticateUser, chatroomRoutes);
 
