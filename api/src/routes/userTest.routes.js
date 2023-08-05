@@ -5,7 +5,7 @@ const userTestRoutes = Router();
 
 userTestRoutes.post("/", async (req, res) => {
   try {
-    return res.status(200).json(await postUserTest(req.body));
+    return res.status(201).json(await postUserTest(req.body));
   } catch (error) {
     return error.statusCode
       ? res.status(error.statusCode).json({ message: error.message })

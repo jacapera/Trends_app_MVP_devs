@@ -31,7 +31,7 @@ const updatePassword = async (req, res) => {
 };
 
 const editProfile = async (req, res) => {
-  const { ...profileData } = req.body;
+  const profileData = req.body;
   const { profile } = req;
 
   try {
@@ -43,11 +43,9 @@ const editProfile = async (req, res) => {
 
     return res.status(201).json(editedProfile);
   } catch (error) {
-    return res.status(500).json({ error: "Database error" });
+    return res.status(500).json({ error: "Error updating the database" });
   }
 };
-
-
 
 const removeProfile = async (req, res) => {
   const { id } = req.params;
@@ -55,12 +53,13 @@ const removeProfile = async (req, res) => {
   try {
     const removedProfile = await deleteUserProfile(id);
 
-    if (removedProfile === 0)
+    if (removedProfile === 0) {
       return res.status(400).json({ error: "User not found" });
+    }
 
     res.status(200).json({ message: "Profile successfully removed" });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: "The profile couldn't be deleted" });
   }
 };
 
@@ -88,7 +87,7 @@ const feed = async (req, res) => {
     res.status(200).json(userFeed);
   } catch (error) {
     return res.status(500).json({
-      error: error.message,
+      error: "Error retrieving the feed data",
     });
   }
 };
