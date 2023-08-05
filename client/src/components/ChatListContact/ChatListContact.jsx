@@ -16,7 +16,7 @@ const ChatListContact = ({id, name, profile_bio, profile_image}) => {
     }
     
   return (
-    <div className={shownUser?.user_id === id ? style.mainContainerActive : style.mainContainer} onClick={clickHandler}>
+    <div className={shownUser?.id === id ? style.mainContainerActive : style.mainContainer} onClick={clickHandler}>
       <img src={profile_image} className={style.image}/>
       <div className="flex flex-col justify-center">
         <p className={style.name}>{name}</p>

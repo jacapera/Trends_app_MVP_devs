@@ -11,7 +11,7 @@ const viteUrl = import.meta.env.VITE_URL;
 
 const ChatList = () => {
   const dispatch = useDispatch();
-  const usersChat = useSelector(state => state.usersChat)
+  const user= useSelector(state => state.users.user)
 
   useEffect(()=> {
     dispatch(setFilteredUsersChat(""))
@@ -29,28 +29,15 @@ const ChatList = () => {
     dispatch(setFilteredUsersChat(event.target.value));
   }
 
-  useEffect(() => {
-    if(usersChat){
-      axios.get(`${viteUrl}/api/v1/search/users?type=student`, {withCredentials: "include"}) //
-        .then(({data}) => {
-          console.log('allUsers: ', data)
-          //const users = data.filter(item => item.id !== userChat.user_id)
-          // dispatch(setAllUsersChat(users));
-          // dispatch(setError(""));
-        }).catch(error => {
-          console.log(error.response.data)
-          //dispatch(setError(error.response.data.response))
-        })
-    }
-  },[usersChat])
   
   return (
     <div className={style.mainContainer}>
       <div className={style.chatListHeader}>
         <div>
-          <img src="https://www.marthastewart.com/thmb/g-FunKfdiZombJQ7pB4wb8BF4C8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/cat-kitten-138468381-4cd82b91d7be45cb9f9aa8366e10bce4.jpg" className={style.headerImage}/>
+          <img src={user.profile_image} className={style.headerImage}/>
         </div>
-        <div className="flex gap-2 px-4">
+        <span className={style.headerUsername}>{user.username}</span>
+        <div className={style.headerContainerIcons}>
           <div className={style.headerIcon} onClick={handleNewChat}>
             <BsFillPersonPlusFill/>
           </div>

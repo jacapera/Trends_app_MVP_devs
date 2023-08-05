@@ -9,6 +9,7 @@ const initialState = {
   allUsersChat:[],
   filteredUsersChat: [],
   shownUser:{},
+  selectedUser:{},
 }
 
 const usersChatSlice = createSlice({
@@ -24,10 +25,13 @@ const usersChatSlice = createSlice({
     },
     setShownUser: (state, action) => {
       state.allUsersChat.filter((user) => {
-        if(user.user_id === action.payload) {
+        if(user.id === action.payload) {
           state.shownUser = user;
         }
       });
+    },
+    setSelectedUser: (state, action) => {
+      state.selectedUser = action.payload;
     },
     setFilteredUsersChat: (state, action) => {
       console.log(action.payload);
@@ -49,7 +53,7 @@ const usersChatSlice = createSlice({
   }
 })
 
-export const { setFilteredUsersChat, setShownUser, setUserChat, setAllUsersChat, setUsername, setUserImage, setToken } = usersChatSlice.actions;
+export const { setFilteredUsersChat, setShownUser, setUserChat, setAllUsersChat, setUsername, setUserImage, setToken, setSelectedUser } = usersChatSlice.actions;
 export default usersChatSlice.reducer;
 export const selectFilteredUsersChat = (state) => state.usersChat.filteredUsersChat;
 export const selectShownUser = (state) => state.usersChat.shownUser;

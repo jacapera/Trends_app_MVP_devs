@@ -70,13 +70,13 @@ const usersSlice = createSlice({
                 state.searchedUsers = action.payload;
             })
             .addCase(getUserInfo.pending, () => {
-                console.log("cargando");
+                //console.log("cargando");
             })
             .addCase(getUserInfo.fulfilled, (state, action) => {
                 state.user = action.payload;
             })
             .addCase(getMatchedUsers.pending, () => {
-                console.log("cargando");
+                //console.log("cargando");
             })
             .addCase(getMatchedUsers.fulfilled, (state, action) => {
                 state.allUsers = action.payload;

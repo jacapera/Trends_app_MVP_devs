@@ -12,6 +12,7 @@ import PDFPreview from './PDFPreview';
 import Login from './Login';
 import Register from './Register/Register';
 import ListUsers from './ListUsers';
+import style from './index.module.css'
 
 const Chat = () => {
   //* ============ ESTADOS LOCALES =======================
@@ -277,216 +278,208 @@ const Chat = () => {
 
 
   return (
-    <div>
+    <div className={style.container}>
       {
-        !userName ? <Login /> :
-        (
-          <div className={`flex w-[100%] border-2 ${usersChat.access && "hidden"}`}>
-            {
-              !isMinimized ? (
-                // *================================================
-                // *CONTENEDOR PRINCIPAL EN PAGINA COMPLETA DEL CHAT
-                // *================================================
-                <div className='container-chat w-[100%] h-[100%] flex items-center justify-center border-2'>
-                  {/* //*CONTENEDOR PRINCIPAL PANEL IZQUIERDO */}
-                  <div className='flex flex-col bg-white border-2 border-slate-400 w-[30%] h-full '>
-                    {/* ENCABEZADO IZQUIERDO (mi foto y username)*/}
-                    <div className='flex items-center left-[4px] top-[70] gap-3 bg-slate-400 w-[30%] h-[50px] fixed'>
-                      <div className='flex w-7 h-7 ml-[5px] rounded-full bg-gray-500'>
-                        <img className='w-full h-full object-cover rounded-full' src={`${usersChat.image}`} alt='imagen de perfil' />
-                      </div>
-                      <h2 className='my-2'>{usersChat.userName}</h2>
-                    </div>
-                    <div>
-                      <ListUsers onUserSelect= {handleUserSelection} />
-                    </div>
-                    <div></div>
-                  </div>
-      
-                  {/* //* CONTENEDOR PRINCIPAL PANEL DERECHO */}
-                  <div className='flex flex-col w-[70%] h-[calc(100vh-70px)] relative bottom-[36px] pb-[0px] border-2 border-slate-500 bg-white'>
-                    {/* ENCABEZADO DERECHO (foto y nombre del Chat actual, ya se grupal o individual) */}
-                    <div className='flex justify-between items-center pr-[15px] gap-1 bg-slate-500 w-[100%] h-[50px] '>
-                      <div className='flex items-center  ml-[5px] gap-3'>
-                        <div className='flex w-7 h-7 rounded-full bg-gray-500'>
-                          {/* Foto del grupo o usuario al que se le envia mensajes */}
-                          <img className='w-full h-full object-cover rounded-full' src={`${imageToShow}`} alt='foto de perfil' />
-                        </div>
-                        <h2 className='my-2'>{selectedUser?.username}</h2>
-                      </div>
-                      {/* BOTONES CHAT */}
-                      <div className='flex gap-3 p-2'>
-                        {/* minimizar chat*/}
-                        <button
-                          onClick={toggleMinimize}
-                          className='flex justify-center items-center border-l border-r h-5 w-5 bg-gray-400 border-blue-950 rounded-md'
-                        ><h1 className='text-lg text-black'>-</h1></button>
-                        {/* cerrar chat*/}
-                        <button
-                          onClick={exitChat}
-                          className='flex justify-center items-center border-l border-r h-5 w-5 bg-gray-400 border-blue-950 rounded-md'
-                        ><h1 className='text-lg text-black'>x</h1></button>
-                      </div>
-                    </div>
-                    {/* //*CONTENEDOR DEL CHAT */}
-                    <div
-                      className='text-white flex-col w-full h-[calc(100%-60px)] flex'
-                    >
-                      {/* cuerpo del chat aca se renderizan todos los mensajes */}
-                      <ul ref={messagesRef} className={`w-[100%] h-[calc(100%-60px)] pl-[40px] pr-[10px] bg-white items-end flex-col overflow-y-auto custom-scrollbar`}>
-                        {
-                          activeChatMessages.map((message, index) => (
-                            // *CONTENEDOR PRINCIPAL DE CADA MENSAJE INDIVIDUAL
-                            //*-------------------------------------------------
-                            <li key={index}
-                              className={` my-[2px] mx-[3px] p-1 table text-sm w-[auto] max-w-[60%] rounded-md
-                                ${message.userNameEmisor === usersChat.userName ? "bg-blue-200 text-blue-900 ml-auto": "li-message mr-auto rounded-tl-[0%]"}
-                              `}>
-                              {/* //*Contenedor para la imagen de perfil, userName, hora mensaje */}
-                              <div className='flex items-center w-full gap-2 px-1 mt-0 mb-1'>
-                                { /** validación mostrar foto de quien envia mensaje */
-                                  message.userNameEmisor !== usersChat.userName && <div className='flex w-7 h-7 rounded-full bg-gray-500 relative right-[46px]'>
-                                    <img className='w-full h-full object-cover rounded-full' src={`${message.image}`} alt='foto de perfil' />
-                                  </div>
-                                }
-                                { /** Validación para mostrar userName de quien envia mensaje */
-                                  message.userNameEmisor !== usersChat.userName &&
-                                    <span
-                                      className='text-[18px] font-bold text-slate-300 flex relative right-[37px]'
-                                    >{message.userNameEmisor}</span>
-                                }
-                                {/** mostrar hora mensaje, validación para ajustar ubicación mensaje recibido */}
-                                <span
-                                  className={`text-sm text-slate-500 flex relative ${message.userNameEmisor !== usersChat.userName && "right-[37px]"}`}
-                                >{message.fecha}</span>
-                              </div>
-                              {/* <PDFPreview src={`data:${message.file.type};base64,${arrayBufferToBase64(message.file.data)}`} name={message.file.name}/> */}
-                              { /** Validación si vienen archivo adjunto se renderize */
-                                message.file?.data &&
-                                (
-                                  <div className='flex flex-col justify-center items-center w-[100%] h-[30%]'>
-                                    {
-                                      message.file.type === "application/pdf" && message.file.data instanceof ArrayBuffer ?
-                                        <PDFPreview src={arrayBufferToUrl(message.file?.data, message.file?.type)} name={message.file.name}/>:
-                                        <img
-                                          src={message.file && message.file.data instanceof ArrayBuffer ? `data:${message.file.type};base64,${arrayBufferToBase64(message.file.data)}`: filePreview}
-                                          alt={message.file.name}
-                                          className='flex w-[auto] object-scale-down'
-                                        />
-                                    }
-                                    {/** descargar archivo adjunto */}
-                                    <button  onClick={(event) => {downloadFile(event,message.file)}}
-                                      className='flex text-black w-[auto] h-[10px] bg-blue-300-500 p-[8px] mt-[5px] rounded-md items-center'
-                                    >Download</button>
-                                  </div>
-                                )
-                              }
-                              {/** rederizar mensaje */}
-                              <span className='ml-[5px] text-md  flex text-justify'>{message.message}</span>
-                            </li>
-                          ))
-                        }
-                        { /** Validación para renderizar si se va enviar archivo adjunto */
-                          preview &&
-                            (  // *CONTENEDOR PRINCIPAL PREVISUALIZACION ENVIO ARCHIVO ADJUNTO
-                              <div className='flex flex-col w-[100%] h-[80%] border-[3px] p-3 rounded-md my-2 justify-around items-center'>
-                                {/** cerrar o cancelar previsualización */}
-                                <div className='flex mb-[5px] w-[100%]'>
-                                  <button
-                                    className='flex justify-center items-center w-[20px] h-[20px] font-bold bg-red-500 rounded-md'
-                                    onClick={handleCancelUpload}
-                                  >x</button>
-                                </div>
-                                {/** previsualización de archivo adjunto */}
-                                {/* <PDFPreview url={filePreview} name={selectedFile.name} /> */}
-                                {
-                                  selectedFile && (selectedFile.type === "application/pdf") ?
-                                      <PDFPreview url={filePreview} name={selectedFile.name} /> :
-                                      <img src={filePreview}
-                                        className='w-[100%] h-[80%] object-scale-down'
-                                      />
-                                }
-                                {/** icono de enviar */}
-                                <div className='flex justify-end w-[100%]'>
-                                  <button
-                                    className='flex justify-center items-center w-[auto] h-[auto] p-[4px] font-bold bg-green-400 rounded-[50%]'
-                                    onClick={handleSubmitFile}
-                                  >
-                                    <img src={enviarIcon} className='w-[40px] h-[40px] mr-[6px]' />
-                                  </button>
-                                </div>
-                              </div>
-                            )
-                        }
-                      </ul>
-                    </div>
-                      {/** //*CONTENEDOR DE INPUT PARA TIPEAR MENSAJE */}
-                      {/** //*-------------------------------------------- */}
-                      <form onSubmit={handleSubmit} className='flex justify-center' >
-                        <div className={`flex w-[69%] justify-center h-[60px] mt-[10px] fixed bottom-[3px] p-2 bg-gray-500 ${preview && "hidden"}`}>
-                          { // Validación
-                            !selectedFile &&
-                            (
-                              <label className='custom-file-upload flex justify-center mr-[4px]  items-center px-[4px] py-[2px] bg-blue-500 text-white rounded md cursor-pointer'>
-                                <input
-                                  className='hidden'
-                                  onKeyDown={handleKeyDow}
-                                  ref={fileInputRef}
-                                  type='file' onChange={handleFilechange}
-                                />
-                                <img src={adjuntarIcon} alt="adjuntar archivo"
-                                  className='w-[30px] h-[60px] object-cover'
-                                />
-                              </label>
-                            )
-                          }
-                          <input
-                            type="text"
-                            onChange={handleChange}
-                            onKeyDown={handleKeyDow}
-                            autoComplete='off'
-                            placeholder='write your message' name='message' value={message}
-                            className='border-2 border-zinc-500 p-2 w-full text-black rounded-lg'
-                          />
-                          <button
-                            type='submit'
-                            className='bg-green-500 px-[8px] py-[9px] rounded-[50%] mx-2 hover:scale-110 flex justify-center items-center'
-                          >
-                            <img src={enviarIcon} className='w-[40px] h-[40px] mr-[6px]' />
-                          </button>
-                        </div>
-                      </form>
-
-                  </div>
-                  {
-                    isModalOpen && (
-                      <div className='flex h-full w-full fixed border-2 bg-zinc-900/90 inset-y-0 inset-x-0 items-center justify-center'>
-                          <div className='bg-white flex flex-col border-2 justify-center items-center p-20 w-auto h-28 rounded-lg'>
-                              <h1 className='text-blue-950 my-2'>{message}</h1>
-                          <button onClick={closeModal} className='rounded-lg my-2 p-3 text-blue-100 bg-blue-600 w-min ' >Cerrar</button>
-                          </div>
-                      </div>
-                    )
-                  }
+        !isMinimized ? (
+          // *================================================
+          // *CONTENEDOR PRINCIPAL EN PAGINA COMPLETA DEL CHAT
+          // *================================================
+          <div className={style.containerChat}>
+            {/* //*CONTENEDOR PRINCIPAL PANEL IZQUIERDO */}
+            <div className={style.containerChatLeft}>
+              {/* ENCABEZADO IZQUIERDO (mi foto y username)*/}
+              <div className={style.containerChatLeftHead}>
+                <div className={style.containerChatLeftHeadImg}>
+                  <img className={style.imgUserLoged} src={`${usersChat.image}`} alt='imagen de perfil' />
                 </div>
-              ) :
-              (
-                // *================================================
-                // *             CHAT MINIMIZADO
-                // *================================================
-                <div className='flex justify-around  fixed items-center border-2 bg-white border-blue-950 rounded-md bottom-10 right-10 w-32 h-10'>
-                  <span className='font-bold text-black'>Chat</span>
+                <h2 className='my-2'>{usersChat.userName}</h2>
+              </div>
+              <div>
+                <ListUsers onUserSelect= {handleUserSelection} />
+              </div>
+              <div></div>
+            </div>
+
+            {/* //* CONTENEDOR PRINCIPAL PANEL DERECHO */}
+            <div className={style.containerChatRight}>
+              {/* ENCABEZADO DERECHO (foto y nombre del Chat actual, ya se grupal o individual) */}
+              <div className='flex justify-between items-center pr-[15px] gap-1 bg-slate-500 w-[100%] h-[50px] '>
+                <div className='flex items-center  ml-[5px] gap-3'>
+                  <div className='flex w-7 h-7 rounded-full bg-gray-500'>
+                    {/* Foto del grupo o usuario al que se le envia mensajes */}
+                    <img className='w-full h-full object-cover rounded-full' src={`${imageToShow}`} alt='foto de perfil' />
+                  </div>
+                  <h2 className='my-2'>{selectedUser?.username}</h2>
+                </div>
+                {/* BOTONES CHAT */}
+                <div className='flex gap-3 p-2'>
+                  {/* minimizar chat*/}
                   <button
                     onClick={toggleMinimize}
-                    className='flex justify-center items-center border-2 h-5 w-5 border-blue-950 cursor-pointer'
-                  ></button>
+                    className='flex justify-center items-center border-l border-r h-5 w-5 bg-gray-400 border-blue-950 rounded-md'
+                  ><h1 className='text-lg text-black'>-</h1></button>
+                  {/* cerrar chat*/}
+                  <button
+                    onClick={exitChat}
+                    className='flex justify-center items-center border-l border-r h-5 w-5 bg-gray-400 border-blue-950 rounded-md'
+                  ><h1 className='text-lg text-black'>x</h1></button>
+                </div>
+              </div>
+              {/* //*CONTENEDOR DEL CHAT */}
+              <div
+                className='text-white flex-col w-full h-[calc(100%-60px)] flex'
+              >
+                {/* cuerpo del chat aca se renderizan todos los mensajes */}
+                <ul ref={messagesRef} className={`w-[100%] h-[calc(100%-60px)] pl-[40px] pr-[10px] bg-white items-end flex-col overflow-y-auto custom-scrollbar`}>
+                  {
+                    activeChatMessages.map((message, index) => (
+                      // *CONTENEDOR PRINCIPAL DE CADA MENSAJE INDIVIDUAL
+                      //*-------------------------------------------------
+                      <li key={index}
+                        className={` my-[2px] mx-[3px] p-1 table text-sm w-[auto] max-w-[60%] rounded-md
+                          ${message.userNameEmisor === usersChat.userName ? "bg-blue-200 text-blue-900 ml-auto": "li-message mr-auto rounded-tl-[0%]"}
+                        `}>
+                        {/* //*Contenedor para la imagen de perfil, userName, hora mensaje */}
+                        <div className='flex items-center w-full gap-2 px-1 mt-0 mb-1'>
+                          { /** validación mostrar foto de quien envia mensaje */
+                            message.userNameEmisor !== usersChat.userName && <div className='flex w-7 h-7 rounded-full bg-gray-500 relative right-[46px]'>
+                              <img className='w-full h-full object-cover rounded-full' src={`${message.image}`} alt='foto de perfil' />
+                            </div>
+                          }
+                          { /** Validación para mostrar userName de quien envia mensaje */
+                            message.userNameEmisor !== usersChat.userName &&
+                              <span
+                                className='text-[18px] font-bold text-slate-300 flex relative right-[37px]'
+                              >{message.userNameEmisor}</span>
+                          }
+                          {/** mostrar hora mensaje, validación para ajustar ubicación mensaje recibido */}
+                          <span
+                            className={`text-sm text-slate-500 flex relative ${message.userNameEmisor !== usersChat.userName && "right-[37px]"}`}
+                          >{message.fecha}</span>
+                        </div>
+                        {/* <PDFPreview src={`data:${message.file.type};base64,${arrayBufferToBase64(message.file.data)}`} name={message.file.name}/> */}
+                        { /** Validación si vienen archivo adjunto se renderize */
+                          message.file?.data &&
+                          (
+                            <div className='flex flex-col justify-center items-center w-[100%] h-[30%]'>
+                              {
+                                message.file.type === "application/pdf" && message.file.data instanceof ArrayBuffer ?
+                                  <PDFPreview src={arrayBufferToUrl(message.file?.data, message.file?.type)} name={message.file.name}/>:
+                                  <img
+                                    src={message.file && message.file.data instanceof ArrayBuffer ? `data:${message.file.type};base64,${arrayBufferToBase64(message.file.data)}`: filePreview}
+                                    alt={message.file.name}
+                                    className='flex w-[auto] object-scale-down'
+                                  />
+                              }
+                              {/** descargar archivo adjunto */}
+                              <button  onClick={(event) => {downloadFile(event,message.file)}}
+                                className='flex text-black w-[auto] h-[10px] bg-blue-300-500 p-[8px] mt-[5px] rounded-md items-center'
+                              >Download</button>
+                            </div>
+                          )
+                        }
+                        {/** rederizar mensaje */}
+                        <span className='ml-[5px] text-md  flex text-justify'>{message.message}</span>
+                      </li>
+                    ))
+                  }
+                  { /** Validación para renderizar si se va enviar archivo adjunto */
+                    preview &&
+                      (  // *CONTENEDOR PRINCIPAL PREVISUALIZACION ENVIO ARCHIVO ADJUNTO
+                        <div className='flex flex-col w-[100%] h-[80%] border-[3px] p-3 rounded-md my-2 justify-around items-center'>
+                          {/** cerrar o cancelar previsualización */}
+                          <div className='flex mb-[5px] w-[100%]'>
+                            <button
+                              className='flex justify-center items-center w-[20px] h-[20px] font-bold bg-red-500 rounded-md'
+                              onClick={handleCancelUpload}
+                            >x</button>
+                          </div>
+                          {/** previsualización de archivo adjunto */}
+                          {/* <PDFPreview url={filePreview} name={selectedFile.name} /> */}
+                          {
+                            selectedFile && (selectedFile.type === "application/pdf") ?
+                                <PDFPreview url={filePreview} name={selectedFile.name} /> :
+                                <img src={filePreview}
+                                  className='w-[100%] h-[80%] object-scale-down'
+                                />
+                          }
+                          {/** icono de enviar */}
+                          <div className='flex justify-end w-[100%]'>
+                            <button
+                              className='flex justify-center items-center w-[auto] h-[auto] p-[4px] font-bold bg-green-400 rounded-[50%]'
+                              onClick={handleSubmitFile}
+                            >
+                              <img src={enviarIcon} className='w-[40px] h-[40px] mr-[6px]' />
+                            </button>
+                          </div>
+                        </div>
+                      )
+                  }
+                </ul>
+              </div>
+                {/** //*CONTENEDOR DE INPUT PARA TIPEAR MENSAJE */}
+                {/** //*-------------------------------------------- */}
+                <form onSubmit={handleSubmit} className={style.formMessages} >
+                  <div className={`${style.containerInputText}`}>
+                    { // Validación
+                      !selectedFile &&
+                      (
+                        <label className={style.labelAdjuntarArchivo}>
+                          <input
+                            className={style.imputFile}
+                            onKeyDown={handleKeyDow}
+                            ref={fileInputRef}
+                            type='file' onChange={handleFilechange}
+                          />
+                          <img src={adjuntarIcon} alt="adjuntar archivo"
+                            className={style.imgAdjuntarArchivo}
+                          />
+                        </label>
+                      )
+                    }
+                    <input
+                      type="text"
+                      onChange={handleChange}
+                      onKeyDown={handleKeyDow}
+                      autoComplete='off'
+                      placeholder='write your message' name='message' value={message}
+                      className={style.imputText}
+                    />
+                    <button
+                      type='submit'
+                      className={style.buttonEnviar}
+                    >
+                      <img src={enviarIcon} className={style.imgEnviar} />
+                    </button>
+                  </div>
+                </form>
+
+            </div>
+            {
+              isModalOpen && (
+                <div className='flex h-full w-full fixed border-2 bg-zinc-900/90 inset-y-0 inset-x-0 items-center justify-center'>
+                    <div className='bg-white flex flex-col border-2 justify-center items-center p-20 w-auto h-28 rounded-lg'>
+                        <h1 className='text-blue-950 my-2'>{message}</h1>
+                    <button onClick={closeModal} className='rounded-lg my-2 p-3 text-blue-100 bg-blue-600 w-min ' >Cerrar</button>
+                    </div>
                 </div>
               )
             }
           </div>
+        ) :
+        (
+          // *================================================
+          // *             CHAT MINIMIZADO
+          // *================================================
+          <div className='flex justify-around  fixed items-center border-2 bg-white border-blue-950 rounded-md bottom-10 right-10 w-32 h-10'>
+            <span className='font-bold text-black'>Chat</span>
+            <button
+              onClick={toggleMinimize}
+              className='flex justify-center items-center border-2 h-5 w-5 border-blue-950 cursor-pointer'
+            ></button>
+          </div>
         )
       }
-      <Outlet />
     </div>
   )
 }

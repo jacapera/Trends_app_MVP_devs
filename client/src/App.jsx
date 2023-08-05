@@ -29,21 +29,6 @@ import { setToken, setUserChat } from "./Redux/usersChatSlice";
 
 
 function App() {
-//!-----------------------------
-  // const dispatch = useDispatch()
-  // const loggedUserJSON = window.localStorage.getItem('loggedChatUser')
-  // useEffect(() => {
-  //   if (loggedUserJSON){
-  //     const user = JSON.parse(loggedUserJSON);
-  //     dispatch(setToken(user.token))
-  //     dispatch(setUserChat({
-  //       user_id:user?.foundedAccount?.id,
-  //       username:user.foundedAccount?.username,
-  //       image:user.foundedAccount?.profile_image,
-  //     }));
-  //   }
-  // }, []);
-//!----------------------------
 
   const location = useLocation();
   const isLandingPage = location.pathname === "/Trends_app_MVP";
@@ -59,13 +44,9 @@ function App() {
         <Route path="/Trends_app_MVP/login" element={<LoginPage />} />
         <Route path="/Trends_app_MVP/profile" element={<Profile />} />
         <Route path="/Trends_app_MVP/feedCompany" element={<FeedCompany />} />
-        <Route path="/Trends_app_MVP/chat2" element={<Chatx />}/>
 
-        {/* RUTAS HIJAS PARA PRUEBAS DEL CHAT DESPUES LAS PODEMOS REMOVER */}
-        <Route path="/Trends_app_MVP/chat" element={<Chat />}>
-          <Route path='register-chat' element={ <Register />} />
-          <Route path='login-chat' element={ <Login />} />
-        </Route>
+        <Route path="/Trends_app_MVP/chat2" element={<Chatx />}/>
+        <Route path="/Trends_app_MVP/chat" element={<Chat />}/>
 
         {/*RUTA PRUEBA DE NAVBAR Y SEARCHBAR*/}
         <Route path="/Trends_app_MVP/navbar" element={<NavBar/>}/>

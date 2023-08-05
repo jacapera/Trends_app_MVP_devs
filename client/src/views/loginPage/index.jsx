@@ -4,7 +4,7 @@ import style from "./loginPage.module.css";
 import welcome from "../../assets/TestIcons/welcome.jpeg";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { getUserInfo } from "../../Redux/UsersSlice";
+import { getMatchedUsers, getUserInfo } from "../../Redux/UsersSlice";
 const {VITE_URL} = import.meta.env;
 
 export default function LoginPage() {
@@ -14,7 +14,7 @@ export default function LoginPage() {
   const dispatch = useDispatch()
 
   const [inputs, setInputs] = useState({
-    email: "",
+    user: "",
     password: "",
   });
 
@@ -28,13 +28,13 @@ export default function LoginPage() {
 
   const handleSubmit =  async (event) => {
     event.preventDefault();
-    if (inputs.email && inputs.password) {
+    if (inputs.user && inputs.password) {
       try {
         await axios.post(URL, inputs, {withCredentials: "include"});
         dispatch(getUserInfo());
         navigate("/Trends_app_MVP/feed");
       } catch (error) {
-        console.log(error.response.data.error)
+        console.log(error)
       }
     }
   };
@@ -71,7 +71,7 @@ export default function LoginPage() {
           <form onSubmit={handleSubmit}>
             <h2>Log In</h2>
             <div className={style.Input}>
-              <input name="email" onChange={handleInputs} type="text" placeholder="Email" />
+              <input name="user" onChange={handleInputs} type="text" placeholder="Email" />
               <p className={validateLogin === false ? `${style.Error}` : style.NoError}>wrong email or password</p>
             </div>
             <div className={style.Input}>
@@ -85,7 +85,7 @@ export default function LoginPage() {
               </div>
               <div>forgot Password</div>
             </div>
-            <button disabled={!(inputs.email && inputs.password)} type="submit">Sign In</button>
+            <button disabled={!(inputs.user && inputs.password)} type="submit">Sign In</button>
             <hr />
             <div className={style.Account}>
               <span>Doesn&apos;t have an account?</span> <span className={style.Bold}>Create Account</span>

@@ -7,18 +7,21 @@ import {FaWindowMinimize} from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
 import {setIsMinimized} from "../../Redux/chatSlice"
 import { selectAllUsersChat, selectShownUser } from "../../Redux/usersChatSlice"
-import { useState } from "react"
-import { messagePrivate } from "../../utils/functionsChat"
+import { useEffect, useState } from "react"
+import { selectAllUsers } from "../../Redux/UsersSlice"
 
-const ChatMessages = ({token}) => {
-
-  const dispatch = useDispatch();
-
-  const shownUser = useSelector(selectShownUser);
-  const userChat = useSelector(selectAllUsersChat);
-  console.log("shownUser: ", shownUser)
-
+const ChatMessages = ({socket}) => {
+  
   const [message, setMessage] = useState("");
+
+  
+  const shownUser = useSelector(selectShownUser);
+  const allUsers = useSelector(selectAllUsers)
+  
+  const user = useSelector(state => state.users.user);
+  const selectedUser = useSelector(state => state.usersChat.selectedUser)
+  
+  const dispatch = useDispatch();
 
   const handleMinimize = () =>{
     dispatch(setIsMinimized(true))
@@ -32,17 +35,48 @@ const ChatMessages = ({token}) => {
   const handleKeyDown = (event) => {
     if(event.key === 'Enter'){
       event.preventDefault();
-      message.trim() !== '' && messagePrivate(userChat, shownUser, socket, event);
+      message.trim() !== '' && sendMessage(event);
     }
   }
 
-  const handleSumit = (event) => {
+  const sendMessage = (event) => {
     event.preventDefault();
-    messagePrivate(userChat, shownUser, socket, event);
+    if(message !== '' ){
+      const sender_id = user.id;
+      const receiver_id = selectedUser?.UserReceived?.user_id === user.id
+        ? selectedUser.UserSent?.user_id : selectedUser?.UserSent?.user_id === user.id
+        ? selectedUser?.UserReceived?.user_id : selectedUser?.id !== user.id && selectedUser?.id;
+      const content = message;
+      const userNameReceptor =
+        selectedUser?.UserReceived?.userName === user.userName
+        ? selectedUser?.UserSent?.userName : selectedUser?.UserSent?.userName === user.userName
+        ? selectedUser?.UserReceived?.userName : selectedUser?.userName !== user.userName
+        && selectedUser?.username;
+      //const imageReceptor = selectedUser?.image;
+      const userNameEmisor = user.username;
+      //const imageEmisor = image;
+      // dispatch(setMessages([...messages,
+      //   {
+      //     emisor, receptor, message, userNameEmisor, userNameReceptor, imageEmisor, imageReceptor, fecha
+      //   }
+      // ]));
+      socket?.emit("private-message",
+        {
+          sender_id, receiver_id, content, userNameReceptor, userNameEmisor
+        });
+      setMessage("");
+      //setPreview(false);
+    }
+    
   }
 
+  useEffect(() => {
+    console.log("sender_id: ",user)
+    console.log("receiver_id: ",selectedUser?.username)
+  }, [user, selectedUser])
+
   const handleSend = () =>{
-    alert("enviado el mensaje: '" + message + "' a " + shownUser.name);
+    alert("enviado el mensaje: '" + message + "' a " + selectedUser.name);
     setMessage("");
   }
 
@@ -50,9 +84,9 @@ const ChatMessages = ({token}) => {
     <div className={style.mainContainer}>
       <div className={style.chatHeader}>
         <div className={style.infoDiv}>
-            <img src={shownUser?.profile_image} className={style.profileImage}/>
+            <img src={selectedUser?.profile_image} className={style.profileImage}/>
             <div>
-                <p className={style.userName}>{shownUser?.name}</p>
+                <p className={style.userName}>{selectedUser?.name}</p>
                 <p className={style.status}> online/offline</p>
             </div>
         </div>
@@ -70,10 +104,10 @@ const ChatMessages = ({token}) => {
             <AiOutlinePaperClip className={style.messageBarIcon}/>
         </div>
         {/* INPUT MENSAJE TEXTO */}
-        <form onSubmit={handleSumit} className={style.messageBarInputDiv}>
+        <form onSubmit={sendMessage} className={style.messageBarInputDiv}>
             <input className={style.messageBarInput} type="text" value={message} onChange={handleChange} onKeyDown={handleKeyDown}/>
             <button className={style.messageBarInputButton} type="submit">
-              <TbSend  onClick={handleSumit}/>
+              <TbSend  onClick={sendMessage}/>
             </button>
         </form>
       </div>
