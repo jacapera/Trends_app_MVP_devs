@@ -51,10 +51,9 @@ const changeUserPassword = async (userId, newPassword, currentPassword) => {
 };
 
 const putUserProfile = async (profile, profileData) => {
-  const foundProfile = profile;
-  const updatedProfile = await foundProfile.update(profileData);
+    const updatedProfile = await profile.update(profileData);
 
-  return updatedProfile;
+    return updatedProfile;
 };
 
 const deleteUserProfile = async (id) => {
@@ -86,9 +85,9 @@ const getUserFeed = async (id, usersType) => {
       attributes: {
         exclude: [
           "password",
-          ...(usersType.toLowerCase() === "student"
+          ...(usersType === "student"
             ? ["info_company_name", "info_position"]
-            : usersType.toLowerCase() === "professional"
+            : usersType === "professional"
             ? ["academic_level"]
             : []),
         ],
@@ -110,7 +109,7 @@ const getUserFeed = async (id, usersType) => {
     }
 
     if (!users.length) {
-      return { error: "No users of the specified type were found" };
+      return { error: "No users of the specified type were found" }
     }
 
     // Se calcula el feed utilizando el algoritmo de matcheo
