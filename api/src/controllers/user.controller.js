@@ -8,21 +8,21 @@ const getUserProfile = async (user) => {
   try {
     if (user.type.toLowerCase() === "company")
       foundedUser = await Company.scope(
-        "withoutId",
+        
         "withoutPassword"
       ).findByPk(user.id);
     if (user.type.toLowerCase() === "professional")
-      foundedUser = await User.scope("withoutId", "withoutPassword").findByPk(
+      foundedUser = await User.scope("withoutPassword").findByPk(
         user.id
       );
     if (user.type.toLowerCase() === "student")
       foundedUser = await User.scope(
-        "withoutId",
+        
         "withoutPassword",
         "student"
       ).findByPk(user.id);
     if (user.type.toLowerCase() === "admin")
-      foundedUser = await Admin.scope("withoutId", "withoutPassword").findByPk(
+      foundedUser = await Admin.scope("withoutPassword").findByPk(
         user.id
       );
     return foundedUser;

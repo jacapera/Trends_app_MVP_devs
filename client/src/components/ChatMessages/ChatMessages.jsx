@@ -9,6 +9,7 @@ import {setIsMinimized} from "../../Redux/chatSlice"
 import { selectAllUsersChat, selectShownUser } from "../../Redux/usersChatSlice"
 import { useEffect, useState } from "react"
 import { selectAllUsers } from "../../Redux/UsersSlice"
+import { ChatMeessageContainer } from ".."
 
 const ChatMessages = ({socket}) => {
   
@@ -86,7 +87,7 @@ const ChatMessages = ({socket}) => {
         <div className={style.infoDiv}>
             <img src={selectedUser?.profile_image} className={style.profileImage}/>
             <div>
-                <p className={style.userName}>{selectedUser?.name}</p>
+                <p className={style.userName}>{selectedUser?.username}</p>
                 <p className={style.status}> online/offline</p>
             </div>
         </div>
@@ -95,9 +96,9 @@ const ChatMessages = ({socket}) => {
             <button className={style.headerIcon} onClick={handleMinimize}><FaWindowMinimize className="text-base"/></button>
         </div>
       </div>
-      <div className={style.chatContainer}>
-        {/* CHAT CONTAINER PLACEHOLDER */}
-      </div>
+
+      <ChatMeessageContainer className={style.chatContainer} />
+
       <div className={style.messageBar}>
         <div className={style.messageBarIconDiv}>
             <VscSmiley className={style.messageBarIcon}/>

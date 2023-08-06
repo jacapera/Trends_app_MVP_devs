@@ -1,4 +1,4 @@
-const { postMessage } = require('../controllers/chatroom.controller');
+const { postMessage, getChatsByUser } = require('../controllers/chatroom.controller');
 
 module.exports = serverSocket => {
   const { Server } = require('socket.io');
@@ -41,13 +41,13 @@ module.exports = serverSocket => {
       let listChats = []
       getChatsByUser(receiver_id)
         .then(response => {
+          console.log("mensaje enviado", response)
           io.to(receiver?.socketId).emit("mensaje-recibido", response);
           io.to(sender?.socketId).emit("mensaje-recibido", response);
-          console.log("mensaje enviado")
         }).catch(error => console.log(error));
 
-      console.log('reciver: ', receiver, message);
-      console.log('mensaje recibido: ', `emisor: ${usernameEmisor}`, `receptor: ${usernameReceptor}`, message);
+      console.log('reciver: ', receiver, content);
+      console.log('mensaje recibido: ', `emisor: ${userNameEmisor}`, `receptor: ${userNameReceptor}`, content);
     });
 
     socket.on("disconnect", () => {

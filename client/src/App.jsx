@@ -17,19 +17,13 @@ import {
 import {NavBar} from "./components"
 // Para pruebas del chat despues las podemos remover
 // --------------------------------------------------
-import Register from "./views/Chat/Register/Register";
-import Login from "./views/Chat/Login";
 import NavBarInicio from "../src/components/NavBarInicio/NavBarInicio";
 import RegisterFormBase from "./components/RegisterFormBase/RegisterFormBase";
 import Chatx from "./views/Chat/Chat";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { setToken, setUserChat } from "./Redux/usersChatSlice";
 
 
 
 function App() {
-
   const location = useLocation();
   const isLandingPage = location.pathname === "/Trends_app_MVP";
   return (

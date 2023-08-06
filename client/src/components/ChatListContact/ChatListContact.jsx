@@ -1,14 +1,19 @@
 import style from "./ChatListContact.module.css"
 import { useDispatch, useSelector } from "react-redux"
-import { selectShownUser, setShownUser } from "../../Redux/usersChatSlice";
+import { selectShownUser, setSelectedUser, setShownUser } from "../../Redux/usersChatSlice";
 
 const ChatListContact = ({id, name, profile_bio, profile_image}) => {
   const dispatch = useDispatch();
 
   const shownUser = useSelector(selectShownUser);
 
-  const clickHandler = () =>{
+  const clickHandler = (user) =>{
     dispatch(setShownUser(id));
+    dispatch(setSelectedUser({
+      id,
+      username: name,
+      profile_image
+    }));
   }
 
     const clipString = (string) =>{
