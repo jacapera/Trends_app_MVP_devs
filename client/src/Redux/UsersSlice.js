@@ -34,18 +34,18 @@ const getUserInfo = createAsyncThunk("users/getUserInfo", async () => {
 } )
 
 const getSearchedUsers = createAsyncThunk("users/getSearchedUsers", async({name, academic_formation, academic_institution}) =>{
-     try {
-        console.log("ACTION OK")
-        let query = `http://localhost:3001/api/v1/search/users?name=${name}`
-        if (academic_formation) query += `&academic_formation=${academic_formation}`
-        if (academic_institution) query += `&academic_institution=${academic_institution}`
-        console.log("Query: " + query)
-        const searchedUsers = (await axios.get(query)).data
-        console.log(searchedUsers);
-        return searchedUsers;
-     } catch (error) {
-        throw new Error(error.message);
-     }
+    try {
+    console.log("ACTION OK")
+    let query = `http://localhost:3001/api/v1/search/users?name=${name}`
+    if (academic_formation) query += `&academic_formation=${academic_formation}`
+    if (academic_institution) query += `&academic_institution=${academic_institution}`
+    console.log("Query: " + query)
+    const searchedUsers = (await axios.get(query)).data
+    console.log(searchedUsers);
+    return searchedUsers;
+    } catch (error) {
+    throw new Error(error.message);
+    }
 })
 
 
@@ -70,16 +70,16 @@ const usersSlice = createSlice({
                 state.searchedUsers = action.payload;
             })
             .addCase(getUserInfo.pending, () => {
-                console.log("cargando");
+                //console.log("cargando");
             })
             .addCase(getUserInfo.fulfilled, (state, action) => {
                 state.user = action.payload;
             })
             .addCase(getMatchedUsers.pending, () => {
-                console.log("cargando");
+                //console.log("cargando");
             })
             .addCase(getMatchedUsers.fulfilled, (state, action) => {
-                state.allUsers = action.payload; 
+                state.allUsers = action.payload;
             })
             .addCase(getMatchedUsers.rejected, (state, action) => {
                 console.log(action.payload);

@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const {
+  ownJobs,
   createNewJob,
   editJob,
   removeJob,
@@ -12,6 +13,7 @@ const { jobSchema } = require("../schemas/index.schemas");
 
 const jobRoutes = Router();
 
+jobRoutes.get("/", ownJobs);
 jobRoutes.post("/:id", validateId, validateCompany, validateSchema(jobSchema), createNewJob);
 jobRoutes.put("/:id", validateId, validateJobOwner, validateSchema(jobSchema), editJob);
 jobRoutes.delete("/:id", validateId, validateJobOwner, removeJob);

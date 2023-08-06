@@ -6,9 +6,8 @@ const {
 } = require("../controllers/search.controller");
 
 const searchUserById = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
     const userById = await getUserById(id);
 
     if (!userById) {
@@ -53,9 +52,8 @@ const searchUsers = async (req, res) => {
 };
 
 const searchJobById = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
     const jobById = await getJobById(id);
 
     if (!jobById) {

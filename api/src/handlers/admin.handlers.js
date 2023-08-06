@@ -1,4 +1,5 @@
 const { findAllUsers, createNewAdmin } = require("../controllers/admin.controllers");
+const { getAllGroups } = require("../controllers/chatroom.controller");
 
 const createAdmin = async (req, res) => {
   const newAdmin = req.body;
@@ -20,7 +21,15 @@ const getUsers = async (req, res) => {
   }
 };
 
-const getGroups = (req, res) => {};
+const getGroups = async (req, res) => {
+  try {
+    const allGroups = await getAllGroups(null, "admin");
+
+    res.status(200).json(allGroups);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
 
 const getMessages = (req, res) => {};
 

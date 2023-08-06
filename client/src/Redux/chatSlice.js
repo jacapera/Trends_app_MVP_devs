@@ -4,6 +4,7 @@ const initialState = {
   isMinimized: false,
   error:"",
   message:"",
+  listChats:[],
 }
 
 export const chatSlice = createSlice({
@@ -19,10 +20,13 @@ export const chatSlice = createSlice({
     setMessage: (state, action) => {
       state.message = action.payload;
     },
+    setListChats: (state, action) => {
+      state.listChats = action.payload;
+    },
   }
 })
 
-export const { setIsMinimized, setError, setMessage } = chatSlice.actions;
+export const { setIsMinimized, setError, setMessage, setListChats } = chatSlice.actions;
 export default chatSlice.reducer;
 export const selectIsMinimized = (state) => state.chat.isMinimized;
 export const selectError = (state) => state.chat.error;
