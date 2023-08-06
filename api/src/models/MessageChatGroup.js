@@ -7,6 +7,10 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    messageStatus: {
+      type: DataTypes.STRING,
+      defaultValue: "sent",
+    },
   });
   
   return MessageChatGroup;

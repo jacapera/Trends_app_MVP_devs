@@ -1,6 +1,7 @@
 const {
   postMessage,
   getChatsByUser,
+  getMessagesByChat,
   postGroup,
   putGroup,
   deleteGroup,
@@ -12,12 +13,29 @@ const {
   getAllGroupMessages,
   deleteGroupMessage,
   putGroupMessage,
+  getUserConversations,
 } = require("../controllers/chatroom.controller");
 
 const createMessage = async (req, res) => {
   try {
     const { sender_id, receiver_id, content } = req.body;
-    const newMessage = await postMessage(sender_id, receiver_id, content);
+    const { id: userId, type: userType } = req.user;
+
+    if (!sender_id || !receiver_id || !content) {
+      return res.status(400).json({ error: "Missing data" });
+    }
+
+    const newMessage = await postMessage(
+      sender_id,
+      receiver_id,
+      content,
+      userId,
+      userType
+    );
+
+    if (newMessage?.error) {
+      return res.status(400).json({ error: newMessage.error });
+    }
     return res.status(200).json(newMessage);
   } catch (error) {
     console.log(error);
@@ -28,7 +46,9 @@ const createMessage = async (req, res) => {
 const getListChatsByUser = async (req, res) => {
   try {
     const { id } = req.params;
-    const listChats = await getChatsByUser(id);
+    const { id: userId, type: userType } = req.user;
+
+    const listChats = await getChatsByUser(id, userId, userType);
 
     if (listChats?.error) {
       return res.status(400).json({ error: listChats.error });
@@ -40,10 +60,27 @@ const getListChatsByUser = async (req, res) => {
   }
 };
 
+const messagesByChat = async (req, res) => {
+  try {
+    const { chatId } = req.params;
+
+    const foundMessages = await getMessagesByChat(chatId);
+
+    if (foundMessages?.error) {
+      return res.status(500).json({ error: foundMessages.error });
+    }
+
+    return res.status(200).json(foundMessages);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+};
+
 const createGroup = async (req, res) => {
   try {
     const { name } = req.body;
-    const createdGroup = await postGroup(name);
+    const { id: userId } = req.user;
+    const createdGroup = await postGroup(name, userId);
 
     res.status(201).json(createdGroup);
   } catch (error) {
@@ -54,9 +91,10 @@ const createGroup = async (req, res) => {
 const editGroup = async (req, res) => {
   try {
     const { groupId } = req.params;
+    const { type: userType } = req.user;
     const { name } = req.body;
 
-    const updatedGroup = await putGroup(groupId, name);
+    const updatedGroup = await putGroup(groupId, userType, name);
 
     if (updatedGroup?.error) {
       return res.status(404).json({ error: updatedGroup.error });
@@ -71,8 +109,9 @@ const editGroup = async (req, res) => {
 const removeGroup = async (req, res) => {
   try {
     const { groupId } = req.params;
+    const { type: userType } = req.user;
 
-    const removedGroup = await deleteGroup(groupId);
+    const removedGroup = await deleteGroup(groupId, userType);
 
     if (removedGroup?.error) {
       return res.status(400).json({ error: removedGroup.error });
@@ -95,7 +134,7 @@ const allGroups = async (req, res) => {
 
     res.status(200).json(foundGroups);
   } catch (error) {
-    res.status(500).json({ error: "Error getting chat groups" });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -155,12 +194,13 @@ const newGroupMessage = async (req, res) => {
   try {
     const { groupId } = req.params;
     const { content } = req.body;
-    const userId = req.user.id;
+    const { id: userId, type: userType } = req.user;
 
     const createdGroupMessage = await postGroupMessage(
       groupId,
       content,
-      userId
+      userId,
+      userType
     );
 
     if (createdGroupMessage?.error) {
@@ -176,9 +216,13 @@ const newGroupMessage = async (req, res) => {
 const allGroupMessages = async (req, res) => {
   try {
     const { groupId } = req.params;
-    const userId = req.user.id;
+    const { id: userId, type: userType } = req.user;
 
-    const foundGroupMessages = await getAllGroupMessages(groupId, userId);
+    const foundGroupMessages = await getAllGroupMessages(
+      groupId,
+      userId,
+      userType
+    );
 
     if (foundGroupMessages?.error) {
       return res.status(403).json({ error: foundGroupMessages.error });
@@ -195,12 +239,13 @@ const allGroupMessages = async (req, res) => {
 const removeGroupMessage = async (req, res) => {
   try {
     const { groupId, messageId } = req.params;
-    const userId = req.user.id;
+    const { id: userId, type: userType } = req.user;
 
     const removedGroupMessage = await deleteGroupMessage(
       groupId,
       messageId,
-      userId
+      userId,
+      userType
     );
 
     if (removeGroupMessage?.error) {
@@ -216,14 +261,16 @@ const removeGroupMessage = async (req, res) => {
 const editGroupMessage = async (req, res) => {
   try {
     const { groupId, messageId } = req.params;
-    const { content } = req.body;
-    const userId = req.user.id;
+    const { content, messageStatus } = req.body;
+    const { id: userId, type: userType } = req.user;
 
     const updatedGroupMessage = await putGroupMessage(
       groupId,
       messageId,
       userId,
-      content
+      userType,
+      content,
+      messageStatus,
     );
 
     if (updatedGroupMessage?.error) {
@@ -232,13 +279,28 @@ const editGroupMessage = async (req, res) => {
 
     res.status(200).json(updatedGroupMessage);
   } catch (error) {
-    res.status(500).json({ error: "Error editing the message" });
+    res.status(500).json({ error: error.message });
   }
 };
+
+const userConversations = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { id: userId, type: userType } = req.user;
+
+    const allConversations = await getUserConversations(id, userId, userType);
+
+    return res.status(200).json(allConversations);
+
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+}
 
 module.exports = {
   createMessage,
   getListChatsByUser,
+  messagesByChat,
   createGroup,
   editGroup,
   removeGroup,
@@ -251,4 +313,5 @@ module.exports = {
   removeGroupMessage,
   deleteGroupMessage,
   editGroupMessage,
+  userConversations,
 };
