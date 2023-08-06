@@ -270,7 +270,7 @@ const editGroupMessage = async (req, res) => {
       userId,
       userType,
       content,
-      messageStatus,
+      messageStatus
     );
 
     if (updatedGroupMessage?.error) {
@@ -290,12 +290,15 @@ const userConversations = async (req, res) => {
 
     const allConversations = await getUserConversations(id, userId, userType);
 
-    return res.status(200).json(allConversations);
+    if (allConversations?.error) {
+      return res.status(400).json({ error: allConversations.error });
+    }
 
+    return res.status(200).json(allConversations);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
-}
+};
 
 module.exports = {
   createMessage,

@@ -64,11 +64,13 @@ const getChatsByUser = async (id, userId, userType) => {
       where: {
         [Op.or]: [{ user1_id: id }, { user2_id: id }],
       },
-      attributes: { exclude: ["user1_id", "user2_id", "created_at", "updated_at"] },
+      attributes: {
+        exclude: ["user1_id", "user2_id", "created_at", "updated_at"],
+      },
       include: [
         {
           model: Message,
-          attributes: { exclude: ["chat_id", ] },
+          attributes: { exclude: ["chat_id"] },
           include: [
             {
               model: User,
@@ -80,7 +82,7 @@ const getChatsByUser = async (id, userId, userType) => {
     });
 
     if (!chats || chats.length === 0) {
-      return { errror: "No chats found" };
+      return { error: "No chats found" };
     }
 
     return chats;
@@ -140,7 +142,7 @@ const postGroup = async (name, userId) => {
 const putGroup = async (groupId, userType, name) => {
   const group = await ChatGroup.findByPk(groupId);
 
-  if (group || userType === "admin") {
+  if (group) {
     group.name = name;
     await group.save();
 
@@ -153,7 +155,7 @@ const putGroup = async (groupId, userType, name) => {
 const deleteGroup = async (groupId, userType) => {
   const group = await ChatGroup.findByPk(groupId);
 
-  if (group || userType === "admin") {
+  if (group) {
     await group.destroy();
 
     return { message: "Group deleted successfully" };
@@ -163,46 +165,23 @@ const deleteGroup = async (groupId, userType) => {
 };
 
 const getAllGroups = async (userId, userType) => {
-  let groups;
-
-  if (userType === "admin") {
-    groups = await ChatGroup.findAll({
-      include: [
-        {
-          model: User,
-          through: {
-            attributes: {
-              exclude: ["chatGroupId", "userId", "createdAt", "updatedAt"],
-            },
+  const groups = await ChatGroup.findAll({
+    include: [
+      {
+        model: User,
+        through: {
+          attributes: {
+            exclude: ["chatGroupId", "userId", "createdAt", "updatedAt"],
           },
-          attributes: ["id", "username", "type", "profile_image"],
         },
-        {
-          model: MessageChatGroup,
-          attributes: { exclude: ["chatGroupId"] },
-        },
-      ],
-    });
-  } else {
-    groups = await ChatGroup.findAll({
-      include: [
-        {
-          model: User,
-          through: {
-            attributes: {
-              exclude: ["chatGroupId", "userId", "createdAt", "updatedAt"],
-            },
-          },
-          where: { id: userId },
-          attributes: ["id", "username", "type", "profile_image"],
-        },
-        {
-          model: MessageChatGroup,
-          attributes: { exclude: ["chatGroupId"] },
-        },
-      ],
-    });
-  }
+        attributes: ["id", "username", "type", "profile_image"],
+      },
+      {
+        model: MessageChatGroup,
+        attributes: { exclude: ["chatGroupId"] },
+      },
+    ],
+  });
 
   if (!groups || groups.length === 0) {
     return { error: "No groups found" };
@@ -222,7 +201,15 @@ const getAllGroups = async (userId, userType) => {
     outputGroups.push(outputGroup);
   }
 
-  return outputGroups;
+  if (userType === "admin") {
+    return outputGroups;
+  }
+
+  const filteredGroups = outputGroups.filter((group) => {
+    return group.users.some((user) => user.id === userId);
+  });
+
+  return filteredGroups;
 };
 
 const postUserInGroup = async (groupId, userId, role) => {
@@ -230,7 +217,7 @@ const postUserInGroup = async (groupId, userId, role) => {
   const user = await User.findByPk(userId);
 
   if (!group || !user) {
-    return { error: "Chat group or user not found" };
+    return { error: "Invalid chat group or user" };
   }
 
   await group.addUser(user, { through: { role } });
@@ -346,7 +333,7 @@ const deleteGroupMessage = async (groupId, messageId, userId, userType) => {
 
     await message.destroy();
 
-    return { message: "Message deleted successfully" };
+    return { content: "Este mensaje fue eliminado" };
   }
 
   return {
@@ -366,28 +353,46 @@ const putGroupMessage = async (
     where: { chatGroupId: groupId, userId: userId },
   });
 
-  if (userGroup || userType === "admin") {
-    const message = await MessageChatGroup.findOne({
-      where: { id: messageId, chatGroupId: groupId },
-      include: [
-        {
-          model: User,
-          attributes: ["id", "username", "type", "profile_image"],
-        },
-      ],
-    });
+  if (!userGroup) {
+    return { error: "Chat group not found" };
+  }
 
-    if (!message) {
-      return { error: "Message not found" };
+  const message = await MessageChatGroup.findOne({
+    where: { id: messageId, chatGroupId: groupId },
+    include: [
+      {
+        model: User,
+        attributes: ["id", "username", "type", "profile_image"],
+      },
+    ],
+  });
+
+  if (!message) {
+    return { error: "Message not found" };
+  }
+
+  if ((userGroup && message.userId === userId) || userType === "admin") {
+    message.content = content;
+
+    if (messageStatus && !["sent", "read", "deleted"].includes(messageStatus)) {
+      return { error: "Invalid message status" };
     }
 
-    message.content = content;
-    message.messageStatus = messageStatus;
+    if (messageStatus === "sent") {
+      message.messageStatus === message.messageStatus;
+    } else {
+      message.messageStatus = messageStatus || message.messageStatus;
+    }
 
     if (messageStatus === "deleted") {
-      await deleteGroupMessage(groupId, messageId, userId, userType);
+      const deleted = await deleteGroupMessage(
+        groupId,
+        messageId,
+        userId,
+        userType
+      );
 
-      return { content: "Este mensaje fue eliminado" };
+      return deleted;
     }
 
     await message.save();
@@ -395,7 +400,7 @@ const putGroupMessage = async (
     return messageFormatter(message);
   }
   return {
-    error: "You don't have authorization to edit messages in this group",
+    error: "Forbidden",
   };
 };
 
@@ -404,40 +409,50 @@ const getUserConversations = async (id, userId, userType) => {
 
   const userGroups = await getAllGroups(userId, userType);
   const userChats = await getChatsByUser(id, userId, userType);
-  
-  for (const group of userGroups) {
-    const [last_message] = [...group.messages].reverse();
-    const countNoRead = noReadCounter(group.messages);
 
-    const conversation = {
-      isGroup: true,
-      name: group.name,
-      image: group?.image || null,
-      last_message: last_message.content,
-      last_message_date: last_message.createdAt,
-      no_read_counter: countNoRead,
-    }
-
-    conversations.push(conversation);
+  if ((!userGroups || userGroups.error) && (!userChats || userChats.error)) {
+    return { error: "No conversations found" };
   }
 
-  for (const chat of userChats) {
-    const [last_message] = [...chat.messages].reverse();
-    const countNoRead = noReadCounter(chat.messages);
+  if (userGroups && !userGroups.error) {
+    for (const group of userGroups) {
+      const [last_message] = [...group.messages].reverse();
+      const countNoRead = noReadCounter(group.messages);
 
-    const conversation = {
-      isGroup: false,
-      name: last_message.user.username,
-      image: last_message.user.profile_image,
-      last_message: last_message.content,
-      last_message_date: last_message.createdAt,
-      no_read_counter: countNoRead,
+      const conversation = {
+        isGroup: true,
+        name: group.name,
+        image: group?.image || null,
+        last_message: last_message.content,
+        last_message_date: last_message.createdAt,
+        no_read_counter: countNoRead,
+      };
+
+      conversations.push(conversation);
     }
-
-    conversations.push(conversation);
   }
 
-  const orderedConversations = conversations.sort((a, b) => new Date(b.last_message_date) - new Date(a.last_message_date));
+  if (userChats && !userChats.error) {
+    for (const chat of userChats) {
+      const [last_message] = [...chat.messages].reverse();
+      const countNoRead = noReadCounter(chat.messages);
+
+      const conversation = {
+        isGroup: false,
+        name: last_message.user.username,
+        image: last_message.user.profile_image,
+        last_message: last_message.content,
+        last_message_date: last_message.createdAt,
+        no_read_counter: countNoRead,
+      };
+
+      conversations.push(conversation);
+    }
+  }
+
+  const orderedConversations = conversations.sort(
+    (a, b) => new Date(b.last_message_date) - new Date(a.last_message_date)
+  );
   return orderedConversations;
 };
 
