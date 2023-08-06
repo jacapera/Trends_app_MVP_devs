@@ -92,7 +92,7 @@ const getChatsByUser = async (id, userId, userType) => {
   return { error: "Not authorized" };
 };
 
-const getMessagesByChat = async (chatId) => {
+const getMessagesByChat = async (chatId, userId, userType) => {
   const chat = await Chat.findByPk(chatId, {
     attributes: {
       exclude: ["chat_id", "user1_id", "user2_id", "created_at", "updated_at"],
@@ -124,44 +124,46 @@ const getMessagesByChat = async (chatId) => {
     return { error: "Chat not found" };
   }
 
-  return chatFormatter(chat);
+  if (
+    [chat.UserSent.id, chat.UserReceived.id].includes(userId) ||
+    userType === "admin"
+  ) {
+    return chatFormatter(chat);
+  }
+
+  return { error: "Not authorized" };
 };
 
-const postGroup = async (name, userId) => {
-  const group = await ChatGroup.create({ name });
+const postGroup = async (name, image, userId, userType) => {
+  const group = await ChatGroup.create({ ownerId: userId, name, image });
 
-  try {
-    await postUserInGroup(group.id, userId, "moderator");
-  } catch (error) {
-    return { error: "Error including user in new group" };
+  if (userType !== "admin") {
+    try {
+      await postUserInGroup(group, userId, "moderator");
+    } catch (error) {
+      return { error: "Error including user in new group" };
+    }
   }
 
   return group;
 };
 
-const putGroup = async (groupId, userType, name) => {
-  const group = await ChatGroup.findByPk(groupId);
+const putGroup = async (group, name, image) => {
+  name && (group.name = name);
+  image && (group.image = image);
 
-  if (group) {
-    group.name = name;
-    await group.save();
+  await group.save();
 
-    return group;
-  }
-
-  return { error: "Group not found" };
+  return group;
 };
 
-const deleteGroup = async (groupId, userType) => {
-  const group = await ChatGroup.findByPk(groupId);
-
-  if (group) {
+const deleteGroup = async (group, userId, userType) => {
+  if (group.ownerId === userId || userType === "admin") {
     await group.destroy();
 
     return { message: "Group deleted successfully" };
   }
-
-  return { error: "Group not found" };
+  return { error: "Not authorized" };
 };
 
 const getAllGroups = async (userId, userType) => {
@@ -192,6 +194,7 @@ const getAllGroups = async (userId, userType) => {
   for (const group of groups) {
     const outputGroup = {
       id: group.id,
+      ownerId: group.ownerId,
       name: group.name,
       createdAt: group.createdAt,
       updatedAt: group.updatedAt,
@@ -212,12 +215,11 @@ const getAllGroups = async (userId, userType) => {
   return filteredGroups;
 };
 
-const postUserInGroup = async (groupId, userId, role) => {
-  const group = await ChatGroup.findByPk(groupId);
+const postUserInGroup = async (group, userId, role) => {
   const user = await User.findByPk(userId);
 
-  if (!group || !user) {
-    return { error: "Invalid chat group or user" };
+  if (!user) {
+    return { error: "User not found" };
   }
 
   await group.addUser(user, { through: { role } });
@@ -225,12 +227,18 @@ const postUserInGroup = async (groupId, userId, role) => {
   return { message: "User added to chat group successfully" };
 };
 
-const patchUserRole = async (groupId, userId, role) => {
-  const group = await ChatGroup.findByPk(groupId);
+const patchUserRole = async (
+  group,
+  groupId,
+  userId,
+  ownerId,
+  role,
+  currentUserType
+) => {
   const user = await User.findByPk(userId);
 
-  if (!group || !user) {
-    return { error: "Chat group or user not found" };
+  if (!user) {
+    return { error: "User not found" };
   }
 
   const userGroup = await UserChatGroup.findOne({
@@ -241,19 +249,39 @@ const patchUserRole = async (groupId, userId, role) => {
     return { error: "That user doesn't belong to the chat group" };
   }
 
-  await userGroup.update({ role });
+  const plainGroup = group.toJSON();
+  const userToEdit = plainGroup.users.filter((user) => user.id === userId);
 
+  if (!userToEdit || !userToEdit.length) {
+    return res.status(404).json({ error: "User not found in chat group" });
+  }
+
+  const userToEditRole = userToEdit[0].userChatGroup.role;
+
+  if (
+    (userId === ownerId || userToEditRole === "moderator") &&
+    currentUserType !== "admin"
+  ) {
+    return { error: "Not authorized" };
+  }
+
+  await userGroup.update({ role });
   return {
     message: "User role updated successfully",
   };
 };
 
-const deleteUserFromGroup = async (groupId, userId) => {
-  const group = await ChatGroup.findByPk(groupId);
+const deleteUserFromGroup = async (
+  group,
+  groupId,
+  userId,
+  ownerId,
+  currentUserType
+) => {
   const user = await User.findByPk(userId);
 
-  if (!group || !user) {
-    return { error: "Chat group or user not found" };
+  if (!user) {
+    return { error: "User not found" };
   }
 
   const userGroup = await UserChatGroup.findOne({
@@ -262,6 +290,22 @@ const deleteUserFromGroup = async (groupId, userId) => {
 
   if (!userGroup) {
     return { error: "That user doesn't belong to the chat group" };
+  }
+
+  const plainGroup = group.toJSON();
+  const userToRemove = plainGroup.users.filter((user) => user.id === userId);
+
+  if (!userToRemove || !userToRemove.length) {
+    return res.status(404).json({ error: "User not found in chat group" });
+  }
+
+  const userToRemoveRole = userToRemove[0].userChatGroup.role;
+
+  if (
+    (userId === ownerId || userToRemoveRole === "moderator") &&
+    currentUserType !== "admin"
+  ) {
+    return { error: "Not authorized" };
   }
 
   await group.removeUser(user);
