@@ -1,0 +1,9 @@
+.mainContainer{
+    background-color: white;
+    width: calc(100vw - 100px);
+    height: 100vh;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    display: flex;
+}
