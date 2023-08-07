@@ -13,6 +13,7 @@ import {
   FeedCompany,
   Chat,
 } from "./views/";
+import Chatx from "./views/Chat/Chat";
 import {Feed, NavBar} from "./components"
 // Para pruebas del chat despues las podemos remover
 // --------------------------------------------------
@@ -43,6 +44,7 @@ function App() {
         <Route path="/Trends_app_MVP/admin" element ={<AdminPage/>}/>
 
         {/* RUTAS HIJAS PARA PRUEBAS DEL CHAT DESPUES LAS PODEMOS REMOVER */}
+        <Route path="/Trends_app_MVP/chot" element={<Chatx/>}/>
         <Route path="/Trends_app_MVP/chat" element={<Chat />}>
           <Route path='register-chat' element={ <Register />} />
           <Route path='login-chat' element={ <Login />} />

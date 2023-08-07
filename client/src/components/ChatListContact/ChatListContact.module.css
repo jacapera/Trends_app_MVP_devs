@@ -29,19 +29,47 @@
     margin: auto 15px;
 }
 
+.textDiv{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 70%;
+}
+
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
 .name{
-    text-align: start;
-    height: 1.6rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #232323;
+    margin: 0;
+}
+
+.time{
+    font-size: .8rem;
+    margin: 0;
+}
+
+.body{
+    display: flex;
+    justify-content: space-between;
 }
 
 .description{
     font-size: .8rem;
-    color: #23232380;
-    text-align: start;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: clip;
-    height: 1rem;
+    margin: 0;
+}
+
+.unread{
+    text-align: center;
+    font-size: .8rem;
+    margin: 0;
+    background-color: #FAB180;
+    color: #232323;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
 }

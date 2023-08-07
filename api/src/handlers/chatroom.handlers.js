@@ -14,7 +14,7 @@ const {
   deleteGroupMessage,
   putGroupMessage,
   getUserConversations,
-} = require("../controllers/chatroom.controller");
+} = require("../controllers/chatroom.controllers");
 
 const createMessage = async (req, res) => {
   try {

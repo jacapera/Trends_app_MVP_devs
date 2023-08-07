@@ -1,4 +1,4 @@
-const { postMessage } = require('../controllers/chatroom.controller');
+const { postMessage } = require('../controllers/chatroom.controllers');
 
 module.exports = serverSocket => {
   const { Server } = require('socket.io');

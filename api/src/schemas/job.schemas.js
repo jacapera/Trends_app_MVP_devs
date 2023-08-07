@@ -8,7 +8,7 @@ module.exports = (z) => {
       })
       .trim(),
     creationDate: z.coerce.date().min(new Date()),
-    closingDate: z.coerce.date().min(new Date()),
+    closingDate: z.date().min(new Date()).optional(),
     active: z.boolean({
       required_error: "prop: 'active' is required.",
     }),
