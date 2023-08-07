@@ -489,7 +489,7 @@ const getUserConversations = async (id, userId, userType) => {
 
   if (userChats && !userChats.error) {
     for (const chat of userChats) {
-      console.log(chat)
+      
       const [last_message] = [...chat.messages].reverse();
       const countNoRead = noReadCounter(chat.messages);
 
