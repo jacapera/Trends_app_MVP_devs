@@ -1,4 +1,4 @@
-const { getJobById } = require("../controllers/search.controller");
+const { getJobById } = require("../controllers/search.controllers");
 
 // Middleware que valida si el usuario autenticado 
 // es el dueño del trabajo que se desea editar o un administrador.

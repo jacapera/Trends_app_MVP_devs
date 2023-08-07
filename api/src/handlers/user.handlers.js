@@ -4,7 +4,7 @@ const {
   putUserProfile,
   deleteUserProfile,
   changeUserPassword,
-} = require("../controllers/user.controller");
+} = require("../controllers/user.controllers");
 
 const profile = async (req, res) => {
   const { user } = req;

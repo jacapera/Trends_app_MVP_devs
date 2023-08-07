@@ -1,4 +1,4 @@
-const { getUserById, getJobById } = require("./search.controller");
+const { getUserById, getJobById } = require("./search.controllers");
 const { matcher } = require("../helpers/matchingAlgorithm/matcher.js");
 const { User, Company, Job, Admin } = require("../db");
 const { findAccount } = require("../helpers/findAccount");

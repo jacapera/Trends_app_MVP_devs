@@ -1,4 +1,4 @@
-const { getUserById } = require("../controllers/search.controller");
+const { getUserById } = require("../controllers/search.controllers");
 
 // Middleware que valida si el usuario autenticado 
 // es el dueño del perfil que se desea editar o un administrador.
@@ -32,7 +32,6 @@ const validateProfileOwner = async (req, res, next) => {
     // Si el usuario es un administrador, le permitimos 
     // continuar con la acción sin más comprobaciones.
     if (userType === "admin") {
-      // Si es admin, pasa al siguiente middleware sin realizar más comprobaciones.
       next();
     } else if (profileToEdit.id !== userId) {
       // Si el usuario no es un administrador y no es el dueño del perfil 

@@ -1,5 +1,5 @@
 const { findAllUsers, createNewAdmin } = require("../controllers/admin.controllers");
-const { getAllGroups } = require("../controllers/chatroom.controller");
+const { getAllGroups } = require("../controllers/chatroom.controllers");
 
 const createAdmin = async (req, res) => {
   const newAdmin = req.body;

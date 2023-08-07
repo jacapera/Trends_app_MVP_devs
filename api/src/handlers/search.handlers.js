@@ -3,7 +3,7 @@ const {
   getUsers,
   getJobById,
   getJobs,
-} = require("../controllers/search.controller");
+} = require("../controllers/search.controllers");
 
 const searchUserById = async (req, res) => {
   try {
