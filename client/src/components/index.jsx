@@ -22,7 +22,7 @@ import ChatUnselected from "./ChatUnselected/ChatUnselected";
 import ChatMessages from "./ChatMessages/ChatMessages";
 import ChatListContactContainer from "./ChatListContactContainer/ChatListContactContainer";
 import ChatListContact from "./ChatListContact/ChatListContact";
-import ChatMeessageContainer from "./ChatMessageContainer/ChatMessageContainer";
+import ChatMessageContainer from "./ChatMessageContainer/ChatMessageContainer";
 import ChatNewChat from "./ChatNewChat/ChatNewChat";
 import ChatMessage from "./ChatMessage/ChatMessage";
 import ChatNewGroup from "./ChatNewGroup/ChatNewGroup";
@@ -51,7 +51,7 @@ export {
   ChatMessages,
   ChatListContactContainer,
   ChatListContact,
-  ChatMeessageContainer,
+  ChatMessageContainer,
   ChatNewChat,
   ChatMessage,
   ChatNewGroup
