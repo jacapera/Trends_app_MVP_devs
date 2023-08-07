@@ -24,6 +24,7 @@ import ChatListContactContainer from "./ChatListContactContainer/ChatListContact
 import ChatListContact from "./ChatListContact/ChatListContact";
 import ChatMeessageContainer from "./ChatMessageContainer/ChatMessageContainer";
 import ChatNewChat from "./ChatNewChat/ChatNewChat";
+import ChatNewGroup from "./ChatNewGroup/ChatNewGroup"
 
 export {
   CompanyRegisterForm,
@@ -40,7 +41,7 @@ export {
   CustomTextInput,
   CustomMultiTextInput,
   CompanyJobs,
-  JobFormCompany,  
+  JobFormCompany,
   SearchComponent,
   NavBar,
   ChatButton,
@@ -50,5 +51,6 @@ export {
   ChatListContactContainer,
   ChatListContact,
   ChatMeessageContainer,
-  ChatNewChat
+  ChatNewChat,
+  ChatNewGroup,
 };

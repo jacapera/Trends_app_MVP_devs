@@ -1,4 +1,4 @@
-const { getImages, postImage } = require("../controllers/image.controller");
+const { getImages, postImage } = require("../controllers/image.controllers");
 
 const images = async (req, res) => {
   try {
