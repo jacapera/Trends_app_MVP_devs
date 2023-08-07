@@ -467,8 +467,8 @@ const getUserConversations = async (id, userId, userType) => {
         isGroup: true,
         name: group.name,
         image: group?.image || null,
-        last_message: last_message.content,
-        last_message_date: last_message.createdAt,
+        last_message: last_message?.content,
+        last_message_date: last_message?.createdAt,
         no_read_counter: countNoRead,
       };
 
