@@ -11,7 +11,9 @@ const postImage = async (id, type, filename, path) => {
 
     if (["student", "professional"].includes(type)) {
       typeOfId = "userId";
-    } else typeOfId = "companyId";
+    } else if (type === "company") {
+      typeOfId = "companyId";
+    } else typeOfId = "adminId"
 
     const savedImage = await Image.create({
       [typeOfId]: id,
@@ -23,7 +25,7 @@ const postImage = async (id, type, filename, path) => {
       return { error: "Failed to upload image" };
     }
 
-    return { message: "Image uploaded successfully" };
+    return { imagePath: path };
 };
 
 module.exports = { getImages, postImage };
