@@ -3,7 +3,7 @@ const {
   postJob,
   putJob,
   deleteJob,
-} = require("../controllers/job.controller");
+} = require("../controllers/job.controllers");
 
 const ownJobs = async (req, res) => {
   try {
