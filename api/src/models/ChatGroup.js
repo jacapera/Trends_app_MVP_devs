@@ -3,9 +3,9 @@ const { DEFAULT_IMG } = require("../../config");
 
 module.exports = (sequelize) => {
   const ChatGroup = sequelize.define("chatGroup", {
-    // ownerId: {
-    //   type: DataTypes.UUIDV4,
-    // },
+    ownerId: {
+      type: DataTypes.UUID,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -16,7 +16,7 @@ module.exports = (sequelize) => {
       defaultValue: DEFAULT_IMG,
       validate: { isUrl: true },
       set(value) {
-        this.setDataValue("profile_image", value || DEFAULT_IMG);
+        this.setDataValue("image", value || DEFAULT_IMG);
       },
     },
   });

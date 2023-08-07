@@ -53,12 +53,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/admin", authenticateAdmin, adminRoutes);
 app.use("/api/v1/user", authenticateUser, userRoutes);
 app.use("/api/v1/job", authenticateUser, jobRoutes);
 app.use("/api/v1/search", authenticateUser, searchRoutes);
-
-app.use("/api/v1/admin", authenticateAdmin, adminRoutes);
-
 app.use("/api/v1/images", authenticateUser, imageRoutes);
 app.use("/api/v1/chatroom", authenticateUser, chatroomRoutes);
 

@@ -14,7 +14,7 @@ const {
   deleteGroupMessage,
   putGroupMessage,
   getUserConversations,
-} = require("../controllers/chatroom.controller");
+} = require("../controllers/chatroom.controllers");
 
 const createMessage = async (req, res) => {
   try {
@@ -63,8 +63,9 @@ const getListChatsByUser = async (req, res) => {
 const messagesByChat = async (req, res) => {
   try {
     const { chatId } = req.params;
+    const { id: userId, type: userType } = req.user;
 
-    const foundMessages = await getMessagesByChat(chatId);
+    const foundMessages = await getMessagesByChat(chatId, userId, userType);
 
     if (foundMessages?.error) {
       return res.status(500).json({ error: foundMessages.error });
@@ -78,9 +79,9 @@ const messagesByChat = async (req, res) => {
 
 const createGroup = async (req, res) => {
   try {
-    const { name } = req.body;
-    const { id: userId } = req.user;
-    const createdGroup = await postGroup(name, userId);
+    const { name, image } = req.body;
+    const { id: userId, type: userType } = req.user;
+    const createdGroup = await postGroup(name, image, userId, userType);
 
     res.status(201).json(createdGroup);
   } catch (error) {
@@ -90,11 +91,16 @@ const createGroup = async (req, res) => {
 
 const editGroup = async (req, res) => {
   try {
-    const { groupId } = req.params;
-    const { type: userType } = req.user;
-    const { name } = req.body;
+    const group = req.group;
+    const { name, image } = req.body;
 
-    const updatedGroup = await putGroup(groupId, userType, name);
+    if (!name && !image) {
+      return res.status(400).json({
+        error: "Insufficient data: a name or an image must be provided",
+      });
+    }
+
+    const updatedGroup = await putGroup(group, name, image);
 
     if (updatedGroup?.error) {
       return res.status(404).json({ error: updatedGroup.error });
@@ -102,16 +108,16 @@ const editGroup = async (req, res) => {
 
     res.status(200).json(updatedGroup);
   } catch (error) {
-    res.status(500).json({ error: "Error updating the group name" });
+    res.status(500).json({ error: "Error updating group" });
   }
 };
 
 const removeGroup = async (req, res) => {
   try {
-    const { groupId } = req.params;
-    const { type: userType } = req.user;
+    const group = req.group;
+    const { id: userId, type: userType } = req.user;
 
-    const removedGroup = await deleteGroup(groupId, userType);
+    const removedGroup = await deleteGroup(group, userId, userType);
 
     if (removedGroup?.error) {
       return res.status(400).json({ error: removedGroup.error });
@@ -140,10 +146,10 @@ const allGroups = async (req, res) => {
 
 const addUserToGroup = async (req, res) => {
   try {
-    const { groupId } = req.params;
     const { userId, role } = req.body;
+    const group = req.group;
 
-    const addedUser = await postUserInGroup(groupId, userId, role);
+    const addedUser = await postUserInGroup(group, userId, role);
 
     if (addedUser?.error) {
       return res.status(400).json({ error: addedUser.error });
@@ -157,10 +163,20 @@ const addUserToGroup = async (req, res) => {
 
 const editUserRole = async (req, res) => {
   try {
+    const group = req.group;
     const { groupId, userId } = req.params;
+    const ownerId = req.group.ownerId;
     const { role } = req.body;
+    const { type: currentUserType } = req.user;
 
-    const editedUserRole = await patchUserRole(groupId, userId, role);
+    const editedUserRole = await patchUserRole(
+      group,
+      groupId,
+      userId,
+      ownerId,
+      role,
+      currentUserType
+    );
 
     if (editedUserRole?.error) {
       return res.status(400).json({ error: editedUserRole.error });
@@ -176,9 +192,12 @@ const editUserRole = async (req, res) => {
 
 const removeUserFromGroup = async (req, res) => {
   try {
+    const group = req.group;
     const { groupId, userId } = req.params;
+    const ownerId = req.group.ownerId;
+    const { type: currentUserType } = req.user;
 
-    const removedUserFromGroup = await deleteUserFromGroup(groupId, userId);
+    const removedUserFromGroup = await deleteUserFromGroup(group, groupId, userId, ownerId, currentUserType);
 
     if (removedUserFromGroup?.error) {
       return res.status(404).json({ error: removedUserFromGroup.error });
@@ -286,9 +305,9 @@ const editGroupMessage = async (req, res) => {
 const userConversations = async (req, res) => {
   try {
     const { id } = req.params;
-    const { id: userId, type: userType } = req.user;
+    const { id: userId, type: userType, username, name, profile_image } = req.user;
 
-    const allConversations = await getUserConversations(id, userId, userType);
+    const allConversations = await getUserConversations(id, userId, userType, username, name, profile_image);
 
     if (allConversations?.error) {
       return res.status(400).json({ error: allConversations.error });
