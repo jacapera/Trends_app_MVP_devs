@@ -458,7 +458,7 @@ const putGroupMessage = async (
   };
 };
 
-const getUserConversations = async (id, userId, userType) => {
+const getUserConversations = async (id, userId, userType, username, name, profile_image) => {
   let conversations = [];
 
   const userGroups = await getAllGroups(userId, userType);
@@ -489,15 +489,20 @@ const getUserConversations = async (id, userId, userType) => {
 
   if (userChats && !userChats.error) {
     for (const chat of userChats) {
-      console.log(chat)
+      
       const [last_message] = [...chat.messages].reverse();
       const countNoRead = noReadCounter(chat.messages);
+      const names = [ chat.UserReceived.username, chat.UserSent.username ]
+      const images = [chat.UserReceived.profile_image, chat.UserSent.profile_image]
+      const contactName = names.filter(name => name !== username);
+      let contactImage = images.filter(image => image !== profile_image);
+      !contactImage.length && (contactImage = profile_image);
 
       const conversation = {
         isGroup: false,
         id: chat.chat_id,
-        name: chat.UserReceived.username,
-        image: chat.UserReceived.profile_image,
+        name: contactName,
+        image: contactImage,
         last_message: last_message.content,
         last_message_date: last_message.createdAt,
         no_read_counter: countNoRead,
