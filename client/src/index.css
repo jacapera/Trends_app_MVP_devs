@@ -30,6 +30,10 @@ a:hover {
 
 } */
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
 	display: flex;
 	justify-content: center;
