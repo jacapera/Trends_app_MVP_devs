@@ -1,5 +1,6 @@
 const { Op, Sequelize, fn, col } = require("sequelize");
 const { User, Company, Job } = require("../db");
+const pagination = require("../helpers/pagination");
 
 const getUserById = async (id) => {
     let foundUser;
@@ -43,7 +44,7 @@ const getUserById = async (id) => {
     return foundUser;
 };
 
-const getUsers = async (queryParams, userType) => {
+const getUsers = async (queryParams, userType, page) => {
     const whereClause = {};
     let hasInvalidQuery = false;
     let userAttributes;
@@ -126,7 +127,7 @@ const getUsers = async (queryParams, userType) => {
 
     if (!users.length) return { error: "No users found" };
 
-    return users;
+    return pagination (users, page);
 };
 
 const getJobById = async (id) => {
@@ -139,7 +140,7 @@ const getJobById = async (id) => {
     return foundJob;
 };
 
-const getJobs = async (queryParams) => {
+const getJobs = async (queryParams, page) => {
   const whereClause = {};
   let hasInvalidQuery = false;
   const jobAttributes = Object.keys(Job.rawAttributes);
@@ -181,7 +182,7 @@ const getJobs = async (queryParams) => {
 
   if (!jobs.length) return { error: "No jobs found" };
 
-  return jobs;
+  return pagination(jobs, page);
 };
 
 module.exports = { getUserById, getUsers, getJobById, getJobs };

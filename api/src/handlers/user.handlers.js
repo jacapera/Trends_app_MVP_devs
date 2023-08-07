@@ -65,13 +65,14 @@ const removeProfile = async (req, res) => {
 
 const feed = async (req, res) => {
   const { id, usersType } = req.params;
+  const page = parseInt(req.query.page) || 1; // Página actual, por defecto 1
 
   if (!["student", "professional", "company"].includes(usersType.toLowerCase())) {
     return res.status(400).json({ error: "Invalid user type" });
   }
 
   try {
-    const userFeed = await getUserFeed(id, usersType);
+    const userFeed = await getUserFeed(id, usersType, page);
 
     if (!userFeed) {
       return res.status(500).json({

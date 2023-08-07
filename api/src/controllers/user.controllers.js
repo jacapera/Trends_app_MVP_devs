@@ -2,6 +2,7 @@ const { getUserById, getJobById } = require("./search.controllers");
 const { matcher } = require("../helpers/matchingAlgorithm/matcher.js");
 const { User, Company, Job, Admin } = require("../db");
 const { findAccount } = require("../helpers/findAccount");
+const pagination = require("../helpers/pagination");
 
 const getUserProfile = async (user) => {
   let foundedUser = null;
@@ -53,7 +54,7 @@ const deleteUserProfile = async (id) => {
   return deletedProfile;
 };
 
-const getUserFeed = async (id, usersType) => {
+const getUserFeed = async (id, usersType, page) => {
   let target;
 
   // Se obtiene el usuario objetivo por su id
@@ -106,7 +107,7 @@ const getUserFeed = async (id, usersType) => {
   // Se calcula el feed utilizando el algoritmo de matcheo
   const matches = matcher(users, target);
 
-  return matches;
+  return pagination(matches, page);
 };
 
 module.exports = {
