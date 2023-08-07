@@ -1,10 +1,37 @@
-const { postJob, putJob, deleteJob } = require("../controllers/job.controller");
+const {
+  getOwnJobs,
+  postJob,
+  putJob,
+  deleteJob,
+} = require("../controllers/job.controller");
+
+const ownJobs = async (req, res) => {
+  try {
+    const { id: companyId, type } = req.user;
+
+    if (type !== "company") {
+      return res.status(403).json({ error: "Forbidden" });
+    }
+
+    const foundJobs = await getOwnJobs(companyId);
+
+    if (foundJobs?.error) {
+      return res.status(400).json({ error: foundJobs.error });
+    }
+
+    return res.status(200).json(foundJobs);
+  } catch (error) {
+    return res.status(500).json({
+      error: "Internal server error",
+    });
+  }
+};
 
 const createNewJob = async (req, res) => {
-  const { id } = req.params;
-  const jobData = req.body;
-
   try {
+    const { id } = req.params;
+    const jobData = req.body;
+
     const newJob = await postJob({ companyId: id, ...jobData });
 
     if (!newJob) {
@@ -14,17 +41,17 @@ const createNewJob = async (req, res) => {
     return res.status(201).json(newJob);
   } catch (error) {
     return res.status(500).json({
-      error: "Internal server error",  
+      error: "Internal server error",
     });
   }
 };
 
 const editJob = async (req, res) => {
-  const jobData = req.body;
-  const { job } = req;
   try {
+    const jobData = req.body;
+    const { job } = req;
     const editedJob = await putJob(job, jobData);
-    
+
     if (!editedJob) {
       return res.status(500).json({ error: "The job couldn't be updated" });
     }
@@ -36,9 +63,9 @@ const editJob = async (req, res) => {
 };
 
 const removeJob = async (req, res) => {
-  const { id } = req.params;
-
   try {
+    const { id } = req.params;
+
     const removedJob = await deleteJob(id);
 
     if (removedJob === 0)
@@ -50,4 +77,4 @@ const removeJob = async (req, res) => {
   }
 };
 
-module.exports = { createNewJob, editJob, removeJob };
+module.exports = { ownJobs, createNewJob, editJob, removeJob };
