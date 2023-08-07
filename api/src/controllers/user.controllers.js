@@ -54,7 +54,7 @@ const deleteUserProfile = async (id) => {
   return deletedProfile;
 };
 
-const getUserFeed = async (id, usersType, page) => {
+const getUserFeed = async (id, usersType, page, perPage) => {
   let target;
 
   // Se obtiene el usuario objetivo por su id
@@ -107,7 +107,7 @@ const getUserFeed = async (id, usersType, page) => {
   // Se calcula el feed utilizando el algoritmo de matcheo
   const matches = matcher(users, target);
 
-  return pagination(matches, page);
+  return pagination(matches, page, perPage);
 };
 
 module.exports = {

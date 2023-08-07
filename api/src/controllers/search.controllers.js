@@ -44,7 +44,7 @@ const getUserById = async (id) => {
     return foundUser;
 };
 
-const getUsers = async (queryParams, userType, page) => {
+const getUsers = async (queryParams, userType, page, perPage) => {
     const whereClause = {};
     let hasInvalidQuery = false;
     let userAttributes;
@@ -127,7 +127,7 @@ const getUsers = async (queryParams, userType, page) => {
 
     if (!users.length) return { error: "No users found" };
 
-    return pagination (users, page);
+    return pagination (users, page, perPage);
 };
 
 const getJobById = async (id) => {
