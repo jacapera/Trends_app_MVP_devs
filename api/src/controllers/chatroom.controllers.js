@@ -496,8 +496,8 @@ const getUserConversations = async (id, userId, userType) => {
       const conversation = {
         isGroup: false,
         id: chat.chat_id,
-        name: chat.UserReceived.username,
-        image: chat.UserReceived.profile_image,
+        name: last_message.user.username,
+        image: last_message.user.profile_image,
         last_message: last_message.content,
         last_message_date: last_message.createdAt,
         no_read_counter: countNoRead,
