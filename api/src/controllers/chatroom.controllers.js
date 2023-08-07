@@ -494,7 +494,7 @@ const getUserConversations = async (id, userId, userType, username, name, profil
       const countNoRead = noReadCounter(chat.messages);
       const names = [ chat.UserReceived.username, chat.UserSent.username ]
       const images = [chat.UserReceived.profile_image, chat.UserSent.profile_image]
-      const contactName = names.filter(name => name !== username);
+      const contactName = names.filter(name => name !== username)[0];
       let contactImage = images.filter(image => image !== profile_image);
       !contactImage.length && (contactImage = profile_image);
 
