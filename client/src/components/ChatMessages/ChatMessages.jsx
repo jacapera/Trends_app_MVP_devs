@@ -10,6 +10,7 @@ import { selectAllUsersChat, selectShownUser } from "../../Redux/usersChatSlice"
 import { useEffect, useState } from "react"
 import { selectAllUsers } from "../../Redux/UsersSlice"
 import { ChatMeessageContainer } from ".."
+const viteUrl = import.meta.env.VITE_URL;
 
 const ChatMessages = ({socket}) => {
   
@@ -44,31 +45,36 @@ const ChatMessages = ({socket}) => {
     event.preventDefault();
     if(message !== '' ){
       const sender_id = user.id;
+      //!console.log("sender_id: ", sender_id)
       const receiver_id = selectedUser?.UserReceived?.user_id === user.id
         ? selectedUser.UserSent?.user_id : selectedUser?.UserSent?.user_id === user.id
         ? selectedUser?.UserReceived?.user_id : selectedUser?.id !== user.id && selectedUser?.id;
+      //!console.log("receiver_id: ", receiver_id)
       const content = message;
+      //!console.log("content: ", content)
       const userNameReceptor =
-        selectedUser?.UserReceived?.userName === user.userName
-        ? selectedUser?.UserSent?.userName : selectedUser?.UserSent?.userName === user.userName
-        ? selectedUser?.UserReceived?.userName : selectedUser?.userName !== user.userName
+        selectedUser?.UserReceived?.username === user.username
+        ? selectedUser?.UserSent?.username : selectedUser?.UserSent?.username === user.username
+        ? selectedUser?.UserReceived?.userName : selectedUser?.username !== user.username
         && selectedUser?.username;
+      console.log("userNameReceptor: ", userNameReceptor)
       //const imageReceptor = selectedUser?.image;
       const userNameEmisor = user.username;
       //const imageEmisor = image;
-      // dispatch(setMessages([...messages,
-      //   {
-      //     emisor, receptor, message, userNameEmisor, userNameReceptor, imageEmisor, imageReceptor, fecha
-      //   }
-      // ]));
+      const chat_id = selectedUser.chat_id;
+      console.log("chat_id: ", chat_id)
+      axios.post(`${viteUrl}/api/v1/chatroom/message`, {
+        sender_id,
+        receiver_id,
+        content:message,
+      })
       socket?.emit("private-message",
         {
-          sender_id, receiver_id, content, userNameReceptor, userNameEmisor
+          sender_id, receiver_id, content, userNameReceptor, userNameEmisor, chat_id
         });
       setMessage("");
       //setPreview(false);
     }
-    
   }
 
   useEffect(() => {

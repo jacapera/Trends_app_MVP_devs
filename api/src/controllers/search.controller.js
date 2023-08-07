@@ -44,7 +44,6 @@ const getUserById = async (id) => {
 };
 
 const getUsers = async (queryParams, userType) => {
-  try {
     const whereClause = {};
     let hasInvalidQuery = false;
     let userAttributes;
@@ -128,9 +127,6 @@ const getUsers = async (queryParams, userType) => {
     if (!users.length) return { error: "No users found" };
 
     return users;
-  } catch (error) {
-    return { error: error.message };
-  }
 };
 
 const getJobById = async (id) => {

@@ -31,7 +31,7 @@ const updatePassword = async (req, res) => {
 };
 
 const editProfile = async (req, res) => {
-  const { ...profileData } = req.body;
+  const profileData = req.body;
   const { profile } = req;
 
   try {
@@ -43,7 +43,7 @@ const editProfile = async (req, res) => {
 
     return res.status(201).json(editedProfile);
   } catch (error) {
-    return res.status(500).json({ error: "Database error" });
+    return res.status(500).json({ error: "Error updating the database" });
   }
 };
 
@@ -87,7 +87,7 @@ const feed = async (req, res) => {
     res.status(200).json(userFeed);
   } catch (error) {
     return res.status(500).json({
-      error: error.message,
+      error: "Error retrieving the feed data",
     });
   }
 };

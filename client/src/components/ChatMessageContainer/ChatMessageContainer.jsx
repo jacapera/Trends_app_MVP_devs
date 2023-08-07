@@ -1,8 +1,15 @@
+import { useEffect, useState } from "react";
 import ChatMessage from "../ChatMessage/ChatMessage";
+import axios from 'axios';
+import { useSelector } from "react-redux";
+const viteUrl = import.meta.env.VITE_URL;
 
 const ChatMessageContainer = ({isGroup = true}) => {
 
-  
+  const [messages, setMessages] = useState({})
+
+  const selectedUser = useSelector(state => state.usersChat.selectedUser)
+
   const listChat = [
     {
       userId: 2,
@@ -42,10 +49,20 @@ const ChatMessageContainer = ({isGroup = true}) => {
     }
   ];
 
+  useEffect(() => {
+    if(Object.keys(selectedUser.length > 0)){
+      axios.get(`${viteUrl}/api/v1/chatroom/chat/${selectedUser?.chat_id}/messages`,
+        {withCredentials:"include"}).then(({data}) => {
+          setMessages(data);
+          console.log("chat-messages", messages);
+        }).catch(error => console.log(error));
+    }
+  },[selectedUser])
+
   return (
     <div className="flex flex-col w-full h-full gap-2 my-1 overflow-x-hidden p-2">
       {
-        listChat?.map((message, index) => {
+        messages.messages?.map((message, index) => {
           return(
             <ChatMessage
               key={index}

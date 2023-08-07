@@ -7,24 +7,22 @@ const getUserProfile = async (user) => {
   let foundedUser = null;
   try {
     if (user.type.toLowerCase() === "company")
-      foundedUser = await Company.scope(
-        
-        "withoutPassword"
-      ).findByPk(user.id);
+      foundedUser = await Company.scope("withoutPassword").findByPk(user.id, {
+        include: {
+          model: Job,
+          attributes: {
+            exclude: ["companyId"],
+          },
+        },
+      });
     if (user.type.toLowerCase() === "professional")
-      foundedUser = await User.scope("withoutPassword").findByPk(
-        user.id
-      );
+      foundedUser = await User.scope("withoutPassword").findByPk(user.id);
     if (user.type.toLowerCase() === "student")
-      foundedUser = await User.scope(
-        
-        "withoutPassword",
-        "student"
-      ).findByPk(user.id);
-    if (user.type.toLowerCase() === "admin")
-      foundedUser = await Admin.scope("withoutPassword").findByPk(
+      foundedUser = await User.scope("withoutPassword", "student").findByPk(
         user.id
       );
+    if (user.type.toLowerCase() === "admin")
+      foundedUser = await Admin.scope("withoutPassword").findByPk(user.id);
     return foundedUser;
   } catch (error) {
     throw new Error("Could not find user in db.");
@@ -51,72 +49,71 @@ const changeUserPassword = async (userId, newPassword, currentPassword) => {
 };
 
 const putUserProfile = async (profile, profileData) => {
-  const foundProfile = profile;
-  const updatedProfile = await foundProfile.update(profileData);
+  const updatedProfile = await profile.update(profileData);
 
   return updatedProfile;
 };
 
 const deleteUserProfile = async (id) => {
-    const deletedProfile = await User.destroy({ where: { id } });
+  const deletedProfile = await User.destroy({ where: { id } });
 
-    return deletedProfile;
+  return deletedProfile;
 };
 
 const getUserFeed = async (id, usersType) => {
-    let target;
+  let target;
 
-    // Se obtiene el usuario objetivo por su id
-    target = await getUserById(id);
+  // Se obtiene el usuario objetivo por su id
+  target = await getUserById(id);
 
-    // Si el id no corresponde a un usuario
-    // se verifica si es de un trabajo
-    if (!target) {
-      target = await getJobById(id);
-    }
-    if (!target) {
-      return { error: "Nothing found!" };
-    }
+  // Si el id no corresponde a un usuario
+  // se verifica si es de un trabajo
+  if (!target) {
+    target = await getJobById(id);
+  }
+  if (!target) {
+    return { error: "Nothing found!" };
+  }
 
-    // Se obtiene la lista de usuarios con el type especificado
-    let users;
+  // Se obtiene la lista de usuarios con el type especificado
+  let users;
 
-    users = await User.findAll({
-      where: { type: usersType },
+  users = await User.findAll({
+    where: { type: usersType },
+    attributes: {
+      exclude: [
+        "password",
+        ...(usersType === "student"
+          ? ["info_company_name", "info_position"]
+          : usersType === "professional"
+          ? ["academic_level"]
+          : []),
+      ],
+    },
+  });
+
+  if (!users.length) {
+    users = await Company.findAll({
       attributes: {
-        exclude: [
-          "password",
-          ...(usersType.toLowerCase() === "student"
-            ? ["info_company_name", "info_position"]
-            : usersType.toLowerCase() === "professional"
-            ? ["academic_level"]
-            : []),
-        ],
+        exclude: ["password"],
+      },
+      include: {
+        model: Job,
+        attributes: {
+          exclude: ["companyId"],
+        },
       },
     });
+  }
 
-    if (!users.length) {
-      users = await Company.findAll({
-        attributes: {
-          exclude: ["password"],
-        },
-        include: {
-          model: Job,
-          attributes: {
-            exclude: ["companyId"],
-          },
-        },
-      });
-    }
+  if (!users.length) {
+    return { error: "No users of the specified type were found" };
+  }
 
-    if (!users.length) {
-      return { error: "No users of the specified type were found" };
-    }
+  // Se calcula el feed utilizando el algoritmo de matcheo
+  const matches = matcher(users, target);
 
-    // Se calcula el feed utilizando el algoritmo de matcheo
-    const matches = matcher(users, target);
-
-    return matches;
+  return matches;
 };
 
 module.exports = {

@@ -2,7 +2,7 @@ import style from "./ChatListContact.module.css"
 import { useDispatch, useSelector } from "react-redux"
 import { selectShownUser, setSelectedUser, setShownUser } from "../../Redux/usersChatSlice";
 
-const ChatListContact = ({id, name, profile_bio, profile_image}) => {
+const ChatListContact = ({id, chat_id, name, profile_bio, profile_image}) => {
   const dispatch = useDispatch();
 
   const shownUser = useSelector(selectShownUser);
@@ -11,6 +11,7 @@ const ChatListContact = ({id, name, profile_bio, profile_image}) => {
     dispatch(setShownUser(id));
     dispatch(setSelectedUser({
       id,
+      chat_id,
       username: name,
       profile_image
     }));
@@ -19,7 +20,7 @@ const ChatListContact = ({id, name, profile_bio, profile_image}) => {
     const clipString = (string) =>{
         return string.slice(0, 50) + "..."
     }
-    
+
   return (
     <div className={shownUser?.id === id ? style.mainContainerActive : style.mainContainer} onClick={clickHandler}>
       <img src={profile_image} className={style.image}/>

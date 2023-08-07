@@ -18,8 +18,6 @@ const ChatListContactContainer = () => {
 
     const dispatch = useDispatch();
 
-    //console.log("userFilter: ", filteredUsers)
-
     const handleUserSelection = (user) => {
       dispatch(setSelectedUser(user))
     }
@@ -30,7 +28,7 @@ const ChatListContactContainer = () => {
     }, [selectedUser]);
 
     useEffect(()=>{
-      if(user){
+      if(Object.keys(user).length > 0){
         console.log("user: ", user)
         axios.get(`${viteUrl}/api/v1/chatroom/chat/${user?.id}`, { withCredentials:"include"})
           .then(({data}) => {
@@ -43,26 +41,16 @@ const ChatListContactContainer = () => {
   return (
     <div className="flex flex-col w-full h-auto">
       {
-        listChats?.map((user, index)=>{
+        listChats?.map((chat, index)=>{
             return(
-              // <div className={style.containerUsers} key={index}
-              //   onClick={()=>handleUserSelection(user)}
-              // >
-              //   <div className={style.containerImgName}>
-              //     <img className={style.imgUser} src={user.UserReceived.profile_image} alt="" />
-              //     <div>
-              //       <span>{user.UserReceived.username}</span>
-              //       <span>{user?.messages[0]?.content}</span>
-              //     </div>
-              //   </div>
-              // </div>
-                <ChatListContact
-                    key={index}
-                    id={user.UserReceived.id}
-                    name={user.UserReceived.username}
-                    profile_bio={user?.messages[user?.messages.length-1]?.content}
-                    profile_image={user.UserReceived.profile_image}
-                />
+              <ChatListContact
+                key={index}
+                chat_id={chat.chat_id}
+                id={(user.id !== chat.UserReceived.id) ? chat.UserReceived.id : chat.UserSent.id }
+                name={(user.id !== chat.UserReceived.id) ? chat.UserReceived.username : chat.UserSent.username}
+                profile_bio={chat.messages[0]?.content}
+                profile_image={(user.id !== chat.UserReceived.id) ? chat.UserReceived.profile_image : chat.UserSent.profile_image}
+              />
             )
         })
       }
