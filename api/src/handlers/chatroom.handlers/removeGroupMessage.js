@@ -1,0 +1,25 @@
+const {
+  deleteGroupMessage,
+} = require("../../controllers/chatroom.controllers");
+
+module.exports = async (req, res) => {
+  try {
+    const { groupId, messageId } = req.params;
+    const { id: userId, type: userType } = req.user;
+
+    const removedGroupMessage = await deleteGroupMessage(
+      groupId,
+      messageId,
+      userId,
+      userType
+    );
+
+    if (removeGroupMessage?.error) {
+      return res.status(400).json({ error: removeGroupMessage.error });
+    }
+
+    return res.status(200).json(removedGroupMessage);
+  } catch (error) {
+    res.status(500).json({ error: "Error deleting the message" });
+  }
+};
