@@ -93,6 +93,9 @@ Image.belongsTo(User);
 Company.hasMany(Image);
 Image.belongsTo(Company);
 
+Admin.hasMany(Image);
+Image.belongsTo(Admin);
+
 // ------- Relaciones para el chat --------------
 // Definicion de la relacion entre User y Message
 User.hasMany(Message, {foreignKey: "sender_id"})
