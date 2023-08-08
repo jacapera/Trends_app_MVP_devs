@@ -2,11 +2,11 @@ const { Job } = require("../db");
 
 const getOwnJobs = async (companyId) => {
   const ownJobs = await Job.findAll({
-    where: { companyId }
+    where: { companyId },
   });
 
   if (!ownJobs || !ownJobs.length) {
-    return { error: "No jobs found" }
+    return { error: "No jobs found" };
   }
 
   return ownJobs;
