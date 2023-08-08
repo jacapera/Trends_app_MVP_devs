@@ -11,13 +11,15 @@ const initialState = {
   listMessages:[],
 }
 
-const setListChats = createAsyncThunk("chat/setListChats", async(user_id) =>{
+const setListChats = createAsyncThunk("chat/setListChats", async (user_id) => {
   try {
     const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}`, { withCredentials:"include"})).data
     return promise;
   } catch (error) {
-    return error;
+    console.error(error);
+    throw error;
   }
+
 })
 // const setListMessages = createAsyncThunk("chat/setListMessages", async(id) =>{
 //   try {
@@ -73,7 +75,7 @@ export {setListChats};
 export const { setIsMinimized, setError, setMessage, setSelectedUser, setListMessages } = chatSlice.actions;
 export default chatSlice.reducer;
 
-export const selectSelectedUser = (state) => state.chat.listChats;
+export const selectSelectedUser = (state) => state.chat.selectedUser;
 export const selectListChats = (state) => state.chat.listChats;
 export const selectListMessages = (state) => state.chat.listMessages;
 export const selectIsMinimized = (state) => state.chat.isMinimized;

@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 const {VITE_URL} = import.meta.env;
+import { setFilteredUsersChat } from "../../Redux/usersChatSlice";
+import { selectSelectedUser } from "../../Redux/chatSlice";
+import { selectUserProfile } from "../../Redux/UsersSlice";
 
 
 const ChatList = () => {
   const dispatch = useDispatch();
-  const user= useSelector(state => state.users.user)
+  const user = useSelector(selectUserProfile)
 
   useEffect(()=> {
     //dispatch(setFilteredUsersChat(""))

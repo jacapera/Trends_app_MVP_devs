@@ -6,22 +6,19 @@ import { useEffect, useState } from "react";
 import { io } from 'socket.io-client';
 import axios from 'axios';
 import { getMatchedUsers, getUserInfo, selectUserProfile } from "../../Redux/UsersSlice";
-const viteUrl = import.meta.env.VITE_URL;
+const {VITE_URL} = import.meta.env;
 
 const Chat = () => {
-
   const[socket, setSocket] = useState(null)
-
   const isMinimized = useSelector(selectIsMinimized);
   const selectedUser = useSelector(selectSelectedUser)
   const user = useSelector(selectUserProfile)
   const dispatch = useDispatch();
-  //console.log("userChat: ", user)
 
 
 //Conexión de Socket al servidor
   useEffect(() => {
-    const newSocket = io(viteUrl);
+    const newSocket = io(VITE_URL);
     newSocket.on("connect", () => {
       setSocket(newSocket)});
     return () => {
@@ -43,10 +40,12 @@ const Chat = () => {
 
 
   return (
-    <div>
+    <div className={style.mainContainer}>
+      <ChatList/>
       {
-        isMinimized ? (
-          <ChatButton/>
+        !selectedUser.id ?
+        (
+          <ChatUnselected/>
         ) : (
           <div className={style.mainContainer}>
             <ChatList/>
