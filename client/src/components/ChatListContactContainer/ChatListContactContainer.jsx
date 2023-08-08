@@ -1,20 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import {ChatListContact} from "../index";
-import { selectUserProfile } from "../../Redux/UsersSlice";
 import { selectListChats, setListChats } from "../../Redux/chatSlice";
 
 const ChatListContactContainer = () => {
-    const user = useSelector(selectUserProfile);
-    const listChats = useSelector(selectListChats);
-
-    const dispatch = useDispatch();
-
-    useEffect(()=>{
-      if(Object.keys(user).length > 0){
-        dispatch(setListChats(user.id))
-      }
-    },[user])
+  const listChats = useSelector(selectListChats);
 
   return (
     <div className="flex flex-col w-full h-auto">
