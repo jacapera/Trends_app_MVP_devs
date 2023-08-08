@@ -1,5 +1,7 @@
 import {
   DonutChart,
+  Flex,
+  Legend,
   LineChart,
   Tab,
   TabGroup,
@@ -9,21 +11,27 @@ import {
   Text,
 } from "@tremor/react";
 import axios from "axios";
-import { format } from "date-fns";
-import s from "./adminPage.module.css";
+import { format, parse } from "date-fns";
 import { useEffect, useState } from "react";
+const DATE_FORMAT = "yyyy-MM-dd HH:mm";
 
 const totalUsersByDay = (data) => {
   const counts = {};
   data.forEach((user) => {
-    const date = format(new Date(user.updatedAt), "yyyy-MM-dd HH:mm");
+    const date = format(new Date(user.updatedAt), DATE_FORMAT);
     counts[date] = (counts[date] || 0) + 1;
   });
 
-  return Object.keys(counts).map((date) => ({
-    date,
-    ["Registered users"]: counts[date],
-  }));
+  return Object.keys(counts)
+    .map((date) => ({
+      date,
+      ["Registered users"]: counts[date],
+    }))
+    .sort(
+      (a, b) =>
+        parse(a.date, DATE_FORMAT, new Date()) -
+        parse(b.date, DATE_FORMAT, new Date())
+    );
 };
 
 const countUsersByDay = (data, type) => {
@@ -68,6 +76,7 @@ export default function AdminPage() {
       setStudents(countUsersByDay(data, "student"));
       setProfessionals(countUsersByDay(data, "professional"));
       setCompanies(countUsersByDay(data, "company"));
+      console.log(users);
       setDonutData([
         {
           name: "students",
@@ -88,80 +97,92 @@ export default function AdminPage() {
   }, []);
 
   return (
-    <main className={s.container}>
+    <main
+      className="p-8 bg-slate-900 w-screen h-screen overflow-hidden flex flex-col items-center
+     gap-8"
+    >
       <header>
-        <h1>Admin Dashboard</h1>
+        <h1 className="uppercase">Admin Dashboard</h1>
       </header>
-      <TabGroup>
-        <TabList>
-          <Tab>All</Tab>
-          <Tab>Students</Tab>
-          <Tab>Professionals</Tab>
-          <Tab>Companies</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <Text>
-              <h2>Total users</h2>
-            </Text>
-            <LineChart
-              data={users}
-              index="date"
-              categories={["Registered users"]}
-              colors={["amber"]}
-              yAxisWidth={100}
+      <Flex>
+        <TabGroup className="w-2/3">
+          <TabList>
+            <Tab>All</Tab>
+            <Tab>Students</Tab>
+            <Tab>Professionals</Tab>
+            <Tab>Companies</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <Text>
+                <h2>Total users</h2>
+              </Text>
+              <LineChart
+                data={users}
+                index="date"
+                categories={["Registered users"]}
+                colors={["amber"]}
+                yAxisWidth={100}
+              />
+            </TabPanel>
+            <TabPanel>
+              <Text className="text-2xl mt-6">Students Charts</Text>
+              <LineChart
+                data={students}
+                index="date"
+                categories={["Registered students"]}
+                colors={["sky"]}
+                yAxisWidth={40}
+              />
+            </TabPanel>
+            <TabPanel>
+              <Text className="text-2xl mt-6">Professionals Charts</Text>
+              <LineChart
+                data={professionals}
+                index="date"
+                categories={["Registered professionals"]}
+                colors={["lime"]}
+                yAxisWidth={40}
+              />
+            </TabPanel>
+            <TabPanel>
+              <Text className="text-2xl mt-6">Companies Charts</Text>
+              <LineChart
+                data={companies}
+                index="date"
+                categories={["Registered companies"]}
+                colors={["red"]}
+                yAxisWidth={40}
+              />
+            </TabPanel>
+          </TabPanels>
+        </TabGroup>
+        <Flex flexDirection="col" className="w-1/3 gap-6">
+          <div>
+            <DonutChart
+              variant="pie"
+              data={donutData}
+              category="total"
+              index="name"
+              colors={["sky", "lime", "red"]}
             />
-          </TabPanel>
-          <TabPanel>
-            <Text>Students</Text>
-            <LineChart
-              data={students}
-              index="date"
-              categories={["Registered students"]}
-              colors={["sky"]}
-              yAxisWidth={40}
+            <Legend
+              categories={["Students", "Professionals", "Companies"]}
+              colors={["sky", "lime", "red"]}
+              className="mt-4"
             />
-          </TabPanel>
-          <TabPanel>
-            <Text>Professionals</Text>
-            <LineChart
-              data={professionals}
-              index="date"
-              categories={["Registered professionals"]}
-              colors={["lime"]}
-              yAxisWidth={40}
-            />
-          </TabPanel>
-          <TabPanel>
-            <Text>Companies</Text>
-            <LineChart
-              data={companies}
-              index="date"
-              categories={["Registered companies"]}
-              colors={["red"]}
-              yAxisWidth={40}
-            />
-          </TabPanel>
-        </TabPanels>
-      </TabGroup>
-      <div className={s.donutContainer}>
-        <DonutChart
-          variant="pie"
-          data={donutData}
-          category="total"
-          index="name"
-          colors={["sky", "lime", "red"]}
-        />
-        <span>
-          Total users registered:{" "}
-          <strong>
-            {donutData.reduce(
-              (tot, curr) => Number(tot) + Number(curr.total),
-              [0]
-            )}
-          </strong>
-        </span>
-      </div>
+          </div>
+          <Text className="text-2xl flex flex-col items-center">
+            Total users registered
+            <strong className="text-4xl text-green-400">
+              {donutData.reduce(
+                (tot, curr) => Number(tot) + Number(curr.total),
+                [0]
+              )}
+            </strong>
+          </Text>
+        </Flex>
+      </Flex>
     </main>
   );
 }
