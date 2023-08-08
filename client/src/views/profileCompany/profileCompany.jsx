@@ -222,14 +222,14 @@ export default function profileCompany() {
                         className={style.profilePicture}/>
                     {isProfileOwner && 
                         <div>
-                            <input 
+                            {/* <input 
                                 type="file"
                                 name="image"
                                 onChange={(e)=>subirImagen(e.target.files[0])}
                                 />
                             <button
                                 onClick={()=>postImage()}
-                            >Subir Imagen</button>
+                            >Subir Imagen</button> */}
                             {/* <button 
                                 className={style.imageChangeButton} 
                                 onClick={() => handleImageChangeButton()}
