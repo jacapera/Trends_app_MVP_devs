@@ -11,7 +11,7 @@ const initialState = {
   listMessages:[],
 }
 
-const setListChats = createAsyncThunk("chat/setListChats", async (user_id) => {
+const setListChats = createAsyncThunk("chat/setListChats", async ({ user_id, query_name }) => {
   try {
     const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}`, { withCredentials:"include"})).data
     return promise;
