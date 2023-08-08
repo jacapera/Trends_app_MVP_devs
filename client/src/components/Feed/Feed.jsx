@@ -35,7 +35,7 @@ const Feed = () => {
 
             <div className={style.FeedContainer}>
                     <div className={style.Feed}>
-                    {allUsers.map((user, userIndex) => (
+                    {allUsers?.data?.map((user, userIndex) => (
                         <div key={userIndex}>
                             <FeedCard user ={user} />
                             {userIndex < allUsers.length - 1 && <hr />}

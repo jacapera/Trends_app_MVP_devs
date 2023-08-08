@@ -19,10 +19,6 @@ const ChatMessages = ({socket}) => {
   
   const dispatch = useDispatch();
 
-  const handleMinimize = () =>{
-    dispatch(setIsMinimized(true))
-  }
-
   const handleChange = (event) =>{
     event.preventDefault()
     setMessage(event.target.value)
@@ -78,7 +74,6 @@ const ChatMessages = ({socket}) => {
         </div>
         <div class="flex gap-2">
             <button className={style.headerIcon}><BiDotsVerticalRounded/></button>
-            <button className={style.headerIcon} onClick={handleMinimize}><FaWindowMinimize className="text-base"/></button>
         </div>
       </div>
 
@@ -89,7 +84,7 @@ const ChatMessages = ({socket}) => {
             <VscSmiley className={style.messageBarIcon}/>
             <AiOutlinePaperClip className={style.messageBarIcon}/>
         </div>
-        {/* INPUT MENSAJE TEXTO */}
+        
         <form onSubmit={sendMessage} className={style.messageBarInputDiv}>
             <input className={style.messageBarInput} type="text" value={message} onChange={handleChange} onKeyDown={handleKeyDown}/>
             <button className={style.messageBarInputButton} type="submit">
