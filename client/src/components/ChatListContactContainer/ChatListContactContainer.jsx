@@ -14,6 +14,7 @@ const ChatListContactContainer = () => {
     useEffect(()=>{
       if(Object.keys(user).length > 0){
         dispatch(setListChats(user.id))
+        console.log("LISTCHATS: ", listChats)
       }
     },[user])
 

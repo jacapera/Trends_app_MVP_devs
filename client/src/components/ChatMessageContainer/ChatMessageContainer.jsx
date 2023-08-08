@@ -61,7 +61,7 @@ const ChatMessageContainer = ({isGroup = true}) => {
           )
         })
       }
-    </div> 
+    </div>
   )
 }
 

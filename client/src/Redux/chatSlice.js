@@ -14,7 +14,7 @@ const initialState = {
 const setListChats = createAsyncThunk("chat/setListChats", async(user_id) =>{
   try {
     console.log("toy aca");
-    const promise = (await axios.get(`http://localhost:3001/api/v1/chatroom/conversations/${user_id}`, { withCredentials:"include"})).data
+    const promise = (await axios.get(`http://localhost:3004/api/v1/chatroom/conversations/${user_id}`, { withCredentials:"include"})).data
     console.log("promise: ", promise)
     return promise;
   } catch (error) {
@@ -43,7 +43,7 @@ export const chatSlice = createSlice({
   extraReducers: (builder) => {
     builder
     .addCase(setListChats.pending, (state) => {
-      state.listChats = [];
+      //state.listChats = [];
     })
     .addCase(setListChats.fulfilled, (state, action) => {
       state.listChats = action.payload;

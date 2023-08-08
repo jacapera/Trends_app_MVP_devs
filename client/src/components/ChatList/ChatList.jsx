@@ -4,7 +4,6 @@ import {BsThreeDotsVertical, BsFillPersonPlusFill} from "react-icons/bs";
 import { BiSearchAlt2 } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilteredUsersChat } from "../../Redux/usersChatSlice";
 import axios from 'axios'
 const viteUrl = import.meta.env.VITE_URL;
 
@@ -14,7 +13,7 @@ const ChatList = () => {
   const user= useSelector(state => state.users.user)
 
   useEffect(()=> {
-    dispatch(setFilteredUsersChat(""))
+    //dispatch(setFilteredUsersChat(""))
   }, [])
 
   const [newChat, setNewChat] = useState(false);

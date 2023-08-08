@@ -30,6 +30,7 @@ export default function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (inputs.user && inputs.password) {
+      console.log(inputs)
       try {
         await axios.post(URL, inputs, { withCredentials: "include" });
         dispatch(getUserInfo());

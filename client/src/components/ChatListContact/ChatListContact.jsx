@@ -46,7 +46,7 @@ const ChatListContact = ({id, isGroup, name, image, last_message, last_message_d
       const unaSemanaEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
       return diff < unaSemanaEnMilisegundos;
   };
-      
+
   return (
     <div className={selectedUser?.id === id ? style.mainContainerActive : style.mainContainer} onClick={clickHandler}>
       <img src={image} className={style.image}/>
