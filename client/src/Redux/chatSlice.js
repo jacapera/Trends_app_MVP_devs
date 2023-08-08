@@ -1,6 +1,6 @@
 import { createAsyncThunk ,createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-const viteUrl = import.meta.env;
+const viteUrl = import.meta.env.VITE_URL;
 
 const initialState = {
   isMinimized: false,
@@ -11,16 +11,15 @@ const initialState = {
   listMessages:[],
 }
 
-const setListChats = createAsyncThunk("chat/setListChats", async(user_id) =>{
+const setListChats = createAsyncThunk("chat/setListChats", async (user_id) => {
   try {
-    console.log("toy aca");
-    const promise = (await axios.get(`http://localhost:3001/api/v1/chatroom/conversations/${user_id}`, { withCredentials:"include"})).data
-    console.log("promise: ", promise)
-    return promise;
+    const response = await axios.get(`http://localhost:3001/api/v1/chatroom/conversations/${user_id}`, { withCredentials: true });
+    return response.data;
   } catch (error) {
-    return error;
+    console.error(error);
+    throw error;
   }
-})
+});
 
 export const chatSlice = createSlice({
   name: "chat",
@@ -55,7 +54,7 @@ export {setListChats};
 export const { setIsMinimized, setError, setMessage, setSelectedUser } = chatSlice.actions;
 export default chatSlice.reducer;
 
-export const selectSelectedUser = (state) => state.chat.listChats;
+export const selectSelectedUser = (state) => state.chat.selectedUser;
 export const selectListChats = (state) => state.chat.listChats;
 export const selectIsMinimized = (state) => state.chat.isMinimized;
 export const selectError = (state) => state.chat.error;
