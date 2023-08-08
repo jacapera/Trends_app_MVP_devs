@@ -305,9 +305,10 @@ const editGroupMessage = async (req, res) => {
 const userConversations = async (req, res) => {
   try {
     const { id } = req.params;
-    const { id: userId, type: userType } = req.user;
+    const { query_name } = req.query;
+    const { id: userId, type: userType, username, name, profile_image } = req.user;
 
-    const allConversations = await getUserConversations(id, userId, userType);
+    const allConversations = await getUserConversations(id, userId, userType, username, name, profile_image, query_name);
 
     if (allConversations?.error) {
       return res.status(400).json({ error: allConversations.error });

@@ -9,7 +9,7 @@ import {setIsMinimized} from "../../Redux/chatSlice"
 import { selectAllUsersChat, selectShownUser } from "../../Redux/usersChatSlice"
 import { useEffect, useState } from "react"
 import { selectAllUsers } from "../../Redux/UsersSlice"
-import { ChatMeessageContainer } from ".."
+import { ChatMessageContainer } from ".."
 
 const ChatMessages = ({socket}) => {
   
@@ -97,7 +97,7 @@ const ChatMessages = ({socket}) => {
         </div>
       </div>
 
-      <ChatMeessageContainer className={style.chatContainer} />
+      <ChatMessageContainer className={style.chatContainer} />
 
       <div className={style.messageBar}>
         <div className={style.messageBarIconDiv}>
