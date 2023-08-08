@@ -16,7 +16,7 @@ const Feed = () => {
     const allUsers = useSelector(selectAllUsers);
     const dispatch = useDispatch()
     useEffect(() => {
-       dispatch(getMatchedUsers()) 
+       dispatch(getMatchedUsers())
     }, []);
 
     return (
@@ -39,7 +39,7 @@ const Feed = () => {
                         <div key={userIndex}>
                             <FeedCard user ={user} />
                             {userIndex < allUsers.length - 1 && <hr />}
-                        </div>   
+                        </div>
                     ))}
                     </div>
             </div>
