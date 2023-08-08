@@ -1,4 +1,5 @@
-const validateUser = require("../../controllers/auth.controllers");
+const { NODE_ENV } = require("../../../config");
+const { validateUser } = require("../../controllers/auth.controllers");
 
 module.exports = async (req, res) => {
   const userData = req.body;

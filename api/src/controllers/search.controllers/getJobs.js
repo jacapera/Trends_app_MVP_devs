@@ -2,7 +2,7 @@ const { Op, Sequelize, fn, col } = require("sequelize");
 const { Job } = require("../../db");
 const pagination = require("../../helpers/pagination");
 
-module.exports = async (queryParams, page) => {
+module.exports = async (queryParams, page, perPage) => {
   const whereClause = {};
   let hasInvalidQuery = false;
   const jobAttributes = Object.keys(Job.rawAttributes);
@@ -44,5 +44,5 @@ module.exports = async (queryParams, page) => {
 
   if (!jobs.length) return { error: "No jobs found" };
 
-  return pagination(jobs, page);
+  return pagination(jobs, page, perPage);
 };

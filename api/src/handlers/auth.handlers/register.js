@@ -1,6 +1,6 @@
 const { NODE_ENV } = require("../../../config");
 const { findAccount } = require("../../helpers/findAccount");
-const registerUser = require("../../controllers/auth.controllers");
+const { registerUser } = require("../../controllers/auth.controllers");
 
 module.exports = async (req, res) => {
   const newUser = req.body;

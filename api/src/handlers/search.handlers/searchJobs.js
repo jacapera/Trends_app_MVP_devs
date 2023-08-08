@@ -3,10 +3,12 @@ const { getJobs } = require("../../controllers/search.controllers");
 module.exports = async (req, res) => {
   const queryParams = { ...req.query };
   const page = parseInt(queryParams.page) || 1; // Página actual, por defecto 1
+  const perPage = parseInt(req.query.perPage) || 10; // Cantidad por página, por defecto 10
   delete queryParams.page;
+  delete queryParams.perPage;
 
   try {
-    const jobs = await getJobs(queryParams, page);
+    const jobs = await getJobs(queryParams, page, perPage);
 
     if (!jobs) {
       return res.status(500).json({

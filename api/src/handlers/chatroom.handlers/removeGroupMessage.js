@@ -14,8 +14,8 @@ module.exports = async (req, res) => {
       userType
     );
 
-    if (removeGroupMessage?.error) {
-      return res.status(400).json({ error: removeGroupMessage.error });
+    if (removedGroupMessage?.error) {
+      return res.status(400).json({ error: removedGroupMessage.error });
     }
 
     return res.status(200).json(removedGroupMessage);

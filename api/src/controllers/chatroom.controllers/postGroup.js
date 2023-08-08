@@ -1,4 +1,5 @@
 const { ChatGroup } = require("../../db");
+const postUserInGroup = require("./postUserInGroup");
 
 module.exports = async (name, image, userId, userType) => {
   const group = await ChatGroup.create({ ownerId: userId, name, image });

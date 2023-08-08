@@ -1,5 +1,6 @@
 const { User, UserChatGroup, MessageChatGroup } = require("../../db");
 const messageFormatter = require("../../helpers/messageFormatter");
+const deleteGroupMessage = require("./deleteGroupMessage");
 
 module.exports = async (
   groupId,

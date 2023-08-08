@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
     const { groupId, userId } = req.params;
     const ownerId = req.group.ownerId;
     const { role } = req.body;
-    const { type: currentUserType } = req.user;
+    const { id: currentUserId, type: currentUserType } = req.user;
 
     const editedUserRole = await patchUserRole(
       group,
@@ -14,6 +14,7 @@ module.exports = async (req, res) => {
       userId,
       ownerId,
       role,
+      currentUserId,
       currentUserType
     );
 

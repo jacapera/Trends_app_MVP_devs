@@ -6,6 +6,7 @@ module.exports = async (
   userId,
   ownerId,
   role,
+  currentUserId,
   currentUserType
 ) => {
   const user = await User.findByPk(userId);
@@ -29,17 +30,13 @@ module.exports = async (
     return res.status(404).json({ error: "User not found in chat group" });
   }
 
-  const userToEditRole = userToEdit[0].userChatGroup.role;
+  // const userToEditRole = userToEdit[0].userChatGroup.role;
 
-  if (
-    (userId === ownerId || userToEditRole === "moderator") &&
-    currentUserType !== "admin"
-  ) {
-    return { error: "Not authorized" };
+  if (currentUserId === ownerId || currentUserType === "admin") {
+    await userGroup.update({ role });
+    return {
+      message: "User role updated successfully",
+    };
   }
-
-  await userGroup.update({ role });
-  return {
-    message: "User role updated successfully",
-  };
+  return { error: "Not authorized" };
 };
