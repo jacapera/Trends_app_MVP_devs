@@ -1,31 +1,70 @@
+import { selectSelectedUser, setSelectedUser } from "../../Redux/chatSlice";
 import style from "./ChatListContact.module.css"
 import { useDispatch, useSelector } from "react-redux"
-import { selectShownUser, setSelectedUser, setShownUser } from "../../Redux/usersChatSlice";
 
-const ChatListContact = ({id, name, profile_bio, profile_image}) => {
+const ChatListContact = ({id, isGroup, name, image, last_message, last_message_date, no_read_counter, bio, show_last_message=false}) => {
   const dispatch = useDispatch();
 
-  const shownUser = useSelector(selectShownUser);
+  const selectedUser = useSelector(selectSelectedUser);
 
-  const clickHandler = (user) =>{
-    dispatch(setShownUser(id));
-    dispatch(setSelectedUser({
-      id,
-      username: name,
-      profile_image
-    }));
+  const clickHandler = () =>{
+    dispatch(setSelectedUser({id, isGroup}))
   }
 
-    const clipString = (string) =>{
-        return string.slice(0, 50) + "..."
+  const formatDate = (date) => {
+    const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const hoy = new Date();
+    const nombreDiaSemana = diasSemana[date.getDay()];
+    const dia = date.getDate();
+    const mes = date.getMonth() + 1;
+    const anio = date.getFullYear();
+    const hora = date.getHours();
+    let minutos = date.getMinutes();
+    minutos = minutos < 10 ? `0${minutos}` : minutos;
+
+    if (esMismoDia(date, hoy)) {
+        return `hoy ${hora}:${minutos}`;
+    } else if (esMismoDia(date, new Date(hoy.getTime() - 86400000))) {
+        return `ayer ${hora}:${minutos}`;
+    } else if (esMismaSemana(date, hoy)) {
+        return `${nombreDiaSemana} ${hora}:${minutos}`;
+    } else {
+        return `${dia}/${mes}/${anio} ${hora}:${minutos}`;
     }
-    
+  };
+
+  const esMismoDia = (date1, date2) => {
+      return (
+          date1.getDate() === date2.getDate() &&
+          date1.getMonth() === date2.getMonth() &&
+          date1.getFullYear() === date2.getFullYear()
+      );
+  };
+
+  const esMismaSemana = (date1, date2) => {
+      const diff = Math.abs(date1 - date2);
+      const unaSemanaEnMilisegundos = 7 * 24 * 60 * 60 * 1000;
+      return diff < unaSemanaEnMilisegundos;
+  };
+      
   return (
-    <div className={shownUser?.id === id ? style.mainContainerActive : style.mainContainer} onClick={clickHandler}>
-      <img src={profile_image} className={style.image}/>
-      <div className="flex flex-col justify-center">
-        <p className={style.name}>{name}</p>
-        <p className={style.description}>{clipString(profile_bio)}</p>
+    <div className={selectedUser?.id === id ? style.mainContainerActive : style.mainContainer} onClick={clickHandler}>
+      <img src={image} className={style.image}/>
+      <div className={style.textDiv}>
+        <div className={style.header}>
+          <p className={style.name}>{name}</p>
+          <p className={style.time}>{formatDate(new Date(last_message_date))}</p>
+        </div>
+        <div className={style.body}>
+          {show_last_message ? (
+            <p className={style.description}>{last_message}</p>
+          ) : (
+            <p className={style.description}>{bio}</p>
+          )}
+          {(no_read_counter > 0) &&
+            <p className={style.unread}>{no_read_counter}</p>
+          }
+        </div>
       </div>
     </div>
   )

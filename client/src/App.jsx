@@ -13,6 +13,7 @@ import {
   FeedCompany,
   Chat,
 } from "./views/";
+import Chatx from "./views/Chat/Chat";
 import {Feed, NavBar} from "./components"
 // Para pruebas del chat despues las podemos remover
 // --------------------------------------------------
@@ -21,6 +22,7 @@ import Login from "./views/Chat/Login";
 import NavBarInicio from "../src/components/NavBarInicio/NavBarInicio";
 import RegisterFormBase from "./components/RegisterFormBase/RegisterFormBase";
 import LoginPage from "./views/loginPage/loginPage";
+import AdminPage from "./views/admin";
 
 
 function App() {
@@ -39,8 +41,10 @@ function App() {
         <Route path="/Trends_app_MVP/profile" element={<Profile />} />
         <Route path="/Trends_app_MVP/feedCompany" element={<FeedCompany />} />
         <Route path="/Trends_app_MVP/feed" element={<Feed/>} />
+        <Route path="/Trends_app_MVP/admin" element ={<AdminPage/>}/>
 
         {/* RUTAS HIJAS PARA PRUEBAS DEL CHAT DESPUES LAS PODEMOS REMOVER */}
+        <Route path="/Trends_app_MVP/chot" element={<Chatx/>}/>
         <Route path="/Trends_app_MVP/chat" element={<Chat />}>
           <Route path='register-chat' element={ <Register />} />
           <Route path='login-chat' element={ <Login />} />
