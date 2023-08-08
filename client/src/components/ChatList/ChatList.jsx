@@ -5,13 +5,13 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setFilteredUsersChat } from "../../Redux/usersChatSlice";
-import axios from 'axios'
-const viteUrl = import.meta.env.VITE_URL;
+import { selectSelectedUser } from "../../Redux/chatSlice";
+import { selectUserProfile } from "../../Redux/UsersSlice";
 
 
 const ChatList = () => {
   const dispatch = useDispatch();
-  const user= useSelector(state => state.users.user)
+  const user = useSelector(selectUserProfile)
 
   useEffect(()=> {
     dispatch(setFilteredUsersChat(""))

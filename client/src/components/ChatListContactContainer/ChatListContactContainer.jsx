@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {ChatListContact} from "../index";
 import { selectUserProfile } from "../../Redux/UsersSlice";
 import { selectListChats, setListChats } from "../../Redux/chatSlice";
-const viteUrl = import.meta.env.VITE_URL;
 
 const ChatListContactContainer = () => {
     const user = useSelector(selectUserProfile);
@@ -19,7 +18,7 @@ const ChatListContactContainer = () => {
 
   return (
     <div className="flex flex-col w-full h-auto">
-      {
+      { listChats.length ? (
         listChats?.map((conversation, index)=>{
             return(
                 <ChatListContact
@@ -35,7 +34,9 @@ const ChatListContactContainer = () => {
                   show_last_message={true}
                 />
             )
-        })
+        })) : (
+          <p class="text-xs m-3">No tienes ningun chat. Inicia una conversación!</p>
+        )
       }
     </div>
   )
