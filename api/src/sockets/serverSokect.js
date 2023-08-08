@@ -1,5 +1,3 @@
-const { postMessage } = require('../controllers/chatroom.controllers');
-
 module.exports = serverSocket => {
   const { Server } = require('socket.io');
   const io = new Server(serverSocket, {cors:{origin:'*'}});
@@ -32,26 +30,20 @@ module.exports = serverSocket => {
     // =============== Chat Individual v2 ================================
     socket.on("private-message",
     ({
-      sender_id, receiver_id, content, file, userNameReceptor, userNameEmisor
-    }) => {
+      listMessages, userNameReceptor, userNameEmisor
+    }) => {0
 
-      postMessage(sender_id, receiver_id, content)
+      console.log("LISTMESSAGES: ", listMessages);
+
       const receiver = getUser(userNameReceptor);
       const sender = getUser(userNameEmisor);
-      let listChats = []
-      getChatsByUser(receiver_id)
-        .then(response => {
-          io.to(receiver?.socketId).emit("mensaje-recibido", response);
-          io.to(sender?.socketId).emit("mensaje-recibido", response);
-          console.log("mensaje enviado")
-        }).catch(error => console.log(error));
+      console.log("receiver: ", receiver, "sender: ", sender)
+      io.to(receiver?.socketId).emit("mensaje-recibido", listMessages);
+      io.to(sender?.socketId).emit("mensaje-recibido", listMessages);
 
-      console.log('reciver: ', receiver, message);
-      console.log('mensaje recibido: ', `emisor: ${usernameEmisor}`, `receptor: ${usernameReceptor}`, message);
     });
 
     socket.on("disconnect", () => {
-      //filtered =[]
       removeUser(socket.id)
     })
 

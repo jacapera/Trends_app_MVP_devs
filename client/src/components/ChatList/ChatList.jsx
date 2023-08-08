@@ -5,7 +5,7 @@ import { BiSearchAlt2 } from "react-icons/bi";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
-const viteUrl = import.meta.env.VITE_URL;
+const {VITE_URL} = import.meta.env;
 
 
 const ChatList = () => {

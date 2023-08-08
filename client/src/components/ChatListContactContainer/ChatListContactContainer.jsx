@@ -1,9 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import {ChatListContact} from "../index";
 import { selectUserProfile } from "../../Redux/UsersSlice";
 import { selectListChats, setListChats } from "../../Redux/chatSlice";
-const viteUrl = import.meta.env.VITE_URL;
 
 const ChatListContactContainer = () => {
     const user = useSelector(selectUserProfile);
