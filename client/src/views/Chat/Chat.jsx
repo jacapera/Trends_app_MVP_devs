@@ -9,8 +9,6 @@ import { selectIsMinimized, selectSelectedUser } from "../../Redux/chatSlice";
 const {VITE_URL} = import.meta.env;
 
 const Chat = () => {
-
-const Chat = () => {
   const[socket, setSocket] = useState(null)
   
   const isMinimized = useSelector(selectIsMinimized);
