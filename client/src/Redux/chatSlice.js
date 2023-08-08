@@ -1,6 +1,6 @@
 import { createAsyncThunk ,createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
-const viteUrl = import.meta.env.VITE_URL;
+const {VITE_URL} = import.meta.env;
 
 const initialState = {
   isMinimized: false,
@@ -13,13 +13,24 @@ const initialState = {
 
 const setListChats = createAsyncThunk("chat/setListChats", async (user_id) => {
   try {
-    const response = await axios.get(`http://localhost:3001/api/v1/chatroom/conversations/${user_id}`, { withCredentials: true });
-    return response.data;
+    const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}`, { withCredentials:"include"})).data
+    return promise;
   } catch (error) {
     console.error(error);
     throw error;
   }
-});
+
+})
+// const setListMessages = createAsyncThunk("chat/setListMessages", async(id) =>{
+//   try {
+//     const {data} = await axios.get(`${VITE_URL}/api/v1/chatroom/chat/${id}/messages`, { withCredentials:"include"})
+//     data.messages.reverse();
+//     console.log("DATA: ", data)
+//     return data;
+//   } catch (error) {
+//     return error;
+//   }
+// })
 
 export const chatSlice = createSlice({
   name: "chat",
@@ -37,6 +48,10 @@ export const chatSlice = createSlice({
     setSelectedUser: (state, action) => {
       const {id, isGroup} = action.payload;
       state.selectedUser = state.listChats.filter(chat => (chat.id === id && chat.isGroup === isGroup))[0];
+      //state.selectedUser = action.payload;
+    },
+    setListMessages: (state, action) => {
+      state.listMessages = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -47,15 +62,22 @@ export const chatSlice = createSlice({
     .addCase(setListChats.fulfilled, (state, action) => {
       state.listChats = action.payload;
     })
+    // .addCase(setListMessages.pending, (state) => {
+    //   console.log("cargando...");
+    // })
+    // .addCase(setListMessages.fulfilled, (state, action) => {
+    //   state.listMessages = action.payload;
+    // })
   }
 })
 
 export {setListChats};
-export const { setIsMinimized, setError, setMessage, setSelectedUser } = chatSlice.actions;
+export const { setIsMinimized, setError, setMessage, setSelectedUser, setListMessages } = chatSlice.actions;
 export default chatSlice.reducer;
 
 export const selectSelectedUser = (state) => state.chat.selectedUser;
 export const selectListChats = (state) => state.chat.listChats;
+export const selectListMessages = (state) => state.chat.listMessages;
 export const selectIsMinimized = (state) => state.chat.isMinimized;
 export const selectError = (state) => state.chat.error;
 export const selectMessage = (state) => state.chat.message;

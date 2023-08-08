@@ -1,8 +1,7 @@
-const { postMessage } = require("../controllers/chatroom.controllers");
+module.exports = serverSocket => {
+  const { Server } = require('socket.io');
+  const io = new Server(serverSocket, {cors:{origin:'*'}});
 
-module.exports = (serverSocket) => {
-  const { Server } = require("socket.io");
-  const io = new Server(serverSocket, { cors: { origin: "*" } });
 
   // Almacenar clientes que se vayan conectando
   let onLineUsers = [];
@@ -30,41 +29,23 @@ module.exports = (serverSocket) => {
     });
 
     // =============== Chat Individual v2 ================================
-    socket.on(
-      "private-message",
-      ({
-        sender_id,
-        receiver_id,
-        content,
-        file,
-        userNameReceptor,
-        userNameEmisor,
-      }) => {
-        postMessage(sender_id, receiver_id, content);
-        const receiver = getUser(userNameReceptor);
-        const sender = getUser(userNameEmisor);
-        let listChats = [];
-        getChatsByUser(receiver_id)
-          .then((response) => {
-            io.to(receiver?.socketId).emit("mensaje-recibido", response);
-            io.to(sender?.socketId).emit("mensaje-recibido", response);
-            console.log("mensaje enviado");
-          })
-          .catch((error) => console.log(error));
+    socket.on("private-message",
+    ({
+      listMessages, userNameReceptor, userNameEmisor
+    }) => {0
 
-        console.log("reciver: ", receiver, message);
-        console.log(
-          "mensaje recibido: ",
-          `emisor: ${usernameEmisor}`,
-          `receptor: ${usernameReceptor}`,
-          message
-        );
-      }
-    );
+      console.log("LISTMESSAGES: ", listMessages);
+
+      const receiver = getUser(userNameReceptor);
+      const sender = getUser(userNameEmisor);
+      console.log("receiver: ", receiver, "sender: ", sender)
+      io.to(receiver?.socketId).emit("mensaje-recibido", listMessages);
+      io.to(sender?.socketId).emit("mensaje-recibido", listMessages);
+
+    });
 
     socket.on("disconnect", () => {
-      //filtered =[]
-      removeUser(socket.id);
-    });
+      removeUser(socket.id)
+    })
   });
 };

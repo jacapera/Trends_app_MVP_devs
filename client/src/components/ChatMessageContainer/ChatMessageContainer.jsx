@@ -1,7 +1,12 @@
+import { useDispatch, useSelector } from "react-redux";
+import { selectListMessages, setListMessages } from "../../Redux/chatSlice";
 import ChatMessage from "../ChatMessage/ChatMessage";
+import { useEffect } from "react";
 
-const ChatMessageContainer = ({isGroup = true}) => {
+const ChatMessageContainer = ({isGroup = true, socket}) => {
 
+  const listMessages = useSelector(selectListMessages)
+  const dispatch = useDispatch()
   
   const listChat = [
     {
@@ -42,10 +47,18 @@ const ChatMessageContainer = ({isGroup = true}) => {
     }
   ];
 
+  useEffect(() => {
+    socket?.on("mensaje-recibido", listMessages => {
+      console.log("listmessges-socketon", listMessages)
+      dispatch(setListMessages(listMessages));
+    })
+    return () => {socket?.off("mensaje-recibido", listMessages)}
+  },[socket])
+
   return (
     <div className="flex flex-col w-full h-full gap-2 my-1 overflow-x-hidden p-2">
       {
-        listChat?.map((message, index) => {
+        listMessages.messages?.map((message, index) => {
           return(
             <ChatMessage
               key={index}
@@ -61,7 +74,7 @@ const ChatMessageContainer = ({isGroup = true}) => {
           )
         })
       }
-    </div> 
+    </div>
   )
 }
 
