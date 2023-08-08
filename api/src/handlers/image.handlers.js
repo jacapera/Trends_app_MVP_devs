@@ -22,7 +22,7 @@ const uploadImage = async (req, res) => {
     const uploadedImage = await postImage(id, type, filename, path);
 
     if (!uploadImage) {
-      return res.status(500).json({ error: "Database error" })
+      return res.status(500).json({ error: "Database error" });
     }
 
     if (uploadedImage.error) {
