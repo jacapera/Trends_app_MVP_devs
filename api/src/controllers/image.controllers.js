@@ -7,25 +7,25 @@ const getImages = async () => {
 };
 
 const postImage = async (id, type, filename, path) => {
-    let typeOfId;
+  let typeOfId;
 
-    if (["student", "professional"].includes(type)) {
-      typeOfId = "userId";
-    } else if (type === "company") {
-      typeOfId = "companyId";
-    } else typeOfId = "adminId"
+  if (["student", "professional"].includes(type)) {
+    typeOfId = "userId";
+  } else if (type === "company") {
+    typeOfId = "companyId";
+  } else typeOfId = "adminId";
 
-    const savedImage = await Image.create({
-      [typeOfId]: id,
-      filename,
-      filepath: path,
-    });
+  const savedImage = await Image.create({
+    [typeOfId]: id,
+    filename,
+    filepath: path,
+  });
 
-    if (!savedImage) {
-      return { error: "Failed to upload image" };
-    }
+  if (!savedImage) {
+    return { error: "Failed to upload image" };
+  }
 
-    return { imagePath: path };
+  return { imagePath: path };
 };
 
 module.exports = { getImages, postImage };

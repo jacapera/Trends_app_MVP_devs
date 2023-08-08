@@ -3,141 +3,141 @@ const { User, Company, Job } = require("../db");
 const pagination = require("../helpers/pagination");
 
 const getUserById = async (id) => {
-    let foundUser;
+  let foundUser;
 
-    foundUser = await User.findOne({
+  foundUser = await User.findOne({
+    where: { id },
+    attributes: {
+      exclude: ["password"],
+    },
+  });
+
+  if (!foundUser) {
+    foundUser = await Company.findOne({
       where: { id },
       attributes: {
         exclude: ["password"],
       },
-    });
-
-    if (!foundUser) {
-      foundUser = await Company.findOne({
-        where: { id },
+      include: {
+        model: Job,
         attributes: {
-          exclude: ["password"],
+          exclude: ["companyId"],
         },
-        include: {
-          model: Job,
-          attributes: {
-            exclude: ["companyId"],
-          },
-        },
-      });
-    }
+      },
+    });
+  }
 
-    if (!foundUser) return null;
+  if (!foundUser) return null;
 
-    // const plainUser = foundUser.toJSON();
+  // const plainUser = foundUser.toJSON();
 
-    // const { type } = plainUser;
+  // const { type } = plainUser;
 
-    // if (type === "student") {
-    //   delete plainUser.info_company_name;
-    //   delete plainUser.info_position;
-    // } else if (type === "professional") {
-    //   delete plainUser.academic_level;
-    // }
+  // if (type === "student") {
+  //   delete plainUser.info_company_name;
+  //   delete plainUser.info_position;
+  // } else if (type === "professional") {
+  //   delete plainUser.academic_level;
+  // }
 
-    // return plainUser;
-    return foundUser;
+  // return plainUser;
+  return foundUser;
 };
 
 const getUsers = async (queryParams, userType, page, perPage) => {
-    const whereClause = {};
-    let hasInvalidQuery = false;
-    let userAttributes;
+  const whereClause = {};
+  let hasInvalidQuery = false;
+  let userAttributes;
 
-    ["student", "professional"].includes(userType) &&
-      (userAttributes = Object.keys(User.rawAttributes));
+  ["student", "professional"].includes(userType) &&
+    (userAttributes = Object.keys(User.rawAttributes));
 
-    userType === "company" &&
-      (userAttributes = Object.keys(Company.rawAttributes));
+  userType === "company" &&
+    (userAttributes = Object.keys(Company.rawAttributes));
 
-    Object.keys(queryParams).forEach((param) => {
-      if (userAttributes.includes(param)) {
-        const columnType = User.rawAttributes[param]?.type?.key;
+  Object.keys(queryParams).forEach((param) => {
+    if (userAttributes.includes(param)) {
+      const columnType = User.rawAttributes[param]?.type?.key;
 
-        if (columnType === "ARRAY") {
-          whereClause[param] = {
-            [Op.overlap]: [queryParams[param]],
-          };
-          whereClause[param] = Sequelize.where(
-            fn("array_to_string", col(param), ","),
-            {
-              [Op.iLike]: `%${queryParams[param]}%`,
-            }
-          );
-        } else if (columnType === "STRING") {
-          whereClause[param] = {
+      if (columnType === "ARRAY") {
+        whereClause[param] = {
+          [Op.overlap]: [queryParams[param]],
+        };
+        whereClause[param] = Sequelize.where(
+          fn("array_to_string", col(param), ","),
+          {
             [Op.iLike]: `%${queryParams[param]}%`,
-          };
-        } else if (columnType === "BOOLEAN") {
-          const booleanValue = queryParams[param] === "true";
-          whereClause[param] = booleanValue;
-        }
-      } else {
-        hasInvalidQuery = true;
+          }
+        );
+      } else if (columnType === "STRING") {
+        whereClause[param] = {
+          [Op.iLike]: `%${queryParams[param]}%`,
+        };
+      } else if (columnType === "BOOLEAN") {
+        const booleanValue = queryParams[param] === "true";
+        whereClause[param] = booleanValue;
       }
-    });
-
-    if (hasInvalidQuery) {
-      return { error: "Invalid query" };
+    } else {
+      hasInvalidQuery = true;
     }
+  });
 
-    if (userType) {
-      whereClause["type"] = {
-        [Op.iLike]: `%${userType}%`,
-      };
-    }
+  if (hasInvalidQuery) {
+    return { error: "Invalid query" };
+  }
 
-    if (userType === "company") {
-      const companies = await Company.findAll({
-        where: whereClause,
-        attributes: {
-          exclude: ["password"],
-        },
-        include: {
-          model: Job,
-          attributes: {
-            exclude: ["companyId"],
-          },
-        },
-      });
+  if (userType) {
+    whereClause["type"] = {
+      [Op.iLike]: `%${userType}%`,
+    };
+  }
 
-      if (!companies.length) return { error: "No companies found" };
-
-      return companies;
-    }
-    
-    const users = await User.findAll({
+  if (userType === "company") {
+    const companies = await Company.findAll({
       where: whereClause,
       attributes: {
-        exclude: [
-          "password",
-          ...(userType === "student"
-            ? ["info_company_name", "info_position"]
-            : userType === "professional"
-            ? ["academic_level"]
-            : []),
-        ],
+        exclude: ["password"],
+      },
+      include: {
+        model: Job,
+        attributes: {
+          exclude: ["companyId"],
+        },
       },
     });
 
-    if (!users.length) return { error: "No users found" };
+    if (!companies.length) return { error: "No companies found" };
 
-    return pagination (users, page, perPage);
+    return companies;
+  }
+
+  const users = await User.findAll({
+    where: whereClause,
+    attributes: {
+      exclude: [
+        "password",
+        ...(userType === "student"
+          ? ["info_company_name", "info_position"]
+          : userType === "professional"
+          ? ["academic_level"]
+          : []),
+      ],
+    },
+  });
+
+  if (!users.length) return { error: "No users found" };
+
+  return pagination(users, page, perPage);
 };
 
 const getJobById = async (id) => {
-    const foundJob = await Job.findOne({
-      where: { id },
-    });
+  const foundJob = await Job.findOne({
+    where: { id },
+  });
 
-    if (!foundJob) return null;
+  if (!foundJob) return null;
 
-    return foundJob;
+  return foundJob;
 };
 
 const getJobs = async (queryParams, page) => {

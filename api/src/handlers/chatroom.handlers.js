@@ -197,7 +197,13 @@ const removeUserFromGroup = async (req, res) => {
     const ownerId = req.group.ownerId;
     const { type: currentUserType } = req.user;
 
-    const removedUserFromGroup = await deleteUserFromGroup(group, groupId, userId, ownerId, currentUserType);
+    const removedUserFromGroup = await deleteUserFromGroup(
+      group,
+      groupId,
+      userId,
+      ownerId,
+      currentUserType
+    );
 
     if (removedUserFromGroup?.error) {
       return res.status(404).json({ error: removedUserFromGroup.error });
@@ -305,9 +311,24 @@ const editGroupMessage = async (req, res) => {
 const userConversations = async (req, res) => {
   try {
     const { id } = req.params;
-    const { id: userId, type: userType, username, name, profile_image } = req.user;
+    const { query_name } = req.query;
+    const {
+      id: userId,
+      type: userType,
+      username,
+      name,
+      profile_image,
+    } = req.user;
 
-    const allConversations = await getUserConversations(id, userId, userType, username, name, profile_image);
+    const allConversations = await getUserConversations(
+      id,
+      userId,
+      userType,
+      username,
+      name,
+      profile_image,
+      query_name
+    );
 
     if (allConversations?.error) {
       return res.status(400).json({ error: allConversations.error });

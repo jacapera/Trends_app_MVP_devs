@@ -10,6 +10,8 @@ const { Op } = require("sequelize");
 const messageFormatter = require("../helpers/messageFormatter");
 const chatFormatter = require("../helpers/chatFormatter");
 const noReadCounter = require("../helpers/noReadCounter");
+const getContactData = require("../helpers/getContactData");
+const chatListFilter = require("../helpers/chatListFilter");
 
 const postMessage = async (
   sender_id,
@@ -71,12 +73,12 @@ const getChatsByUser = async (id, userId, userType) => {
         {
           model: User,
           as: "UserSent",
-          attributes: ["username", "id", "profile_image"],
+          attributes: ["name", "username", "id", "profile_image"],
         },
         {
           model: User,
           as: "UserReceived",
-          attributes: ["username", "id", "profile_image"],
+          attributes: ["name", "username", "id", "profile_image"],
         },
         {
           model: Message,
@@ -458,7 +460,15 @@ const putGroupMessage = async (
   };
 };
 
-const getUserConversations = async (id, userId, userType, username, name, profile_image) => {
+const getUserConversations = async (
+  id,
+  userId,
+  userType,
+  username,
+  name,
+  profile_image,
+  query_name
+) => {
   let conversations = [];
 
   const userGroups = await getAllGroups(userId, userType);
@@ -489,20 +499,22 @@ const getUserConversations = async (id, userId, userType, username, name, profil
 
   if (userChats && !userChats.error) {
     for (const chat of userChats) {
-      
       const [last_message] = [...chat.messages].reverse();
       const countNoRead = noReadCounter(chat.messages);
-      const names = [ chat.UserReceived.username, chat.UserSent.username ]
-      const images = [chat.UserReceived.profile_image, chat.UserSent.profile_image]
-      const contactName = names.filter(name => name !== username)[0];
-      let contactImage = images.filter(image => image !== profile_image);
-      !contactImage.length && (contactImage = profile_image);
+      const contactName = getContactData(name, "name", chat);
+      const contactUsername = getContactData(username, "username", chat);
+      const contactProfileImage = getContactData(
+        profile_image,
+        "profile_image",
+        chat
+      );
 
       const conversation = {
         isGroup: false,
         id: chat.chat_id,
         name: contactName,
-        image: contactImage,
+        username: contactUsername,
+        image: contactProfileImage,
         last_message: last_message.content,
         last_message_date: last_message.createdAt,
         no_read_counter: countNoRead,
@@ -515,6 +527,13 @@ const getUserConversations = async (id, userId, userType, username, name, profil
   const orderedConversations = conversations.sort(
     (a, b) => new Date(b.last_message_date) - new Date(a.last_message_date)
   );
+
+  if (query_name) {
+    const filteredChats = chatListFilter(orderedConversations, query_name);
+
+    return filteredChats;
+  }
+
   return orderedConversations;
 };
 
