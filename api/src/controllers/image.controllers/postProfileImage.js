@@ -1,4 +1,4 @@
-const { Image } = require("../../db");
+const { Image, Admin } = require("../../db");
 const { getUserById } = require("../search.controllers");
 const { putUserProfile } = require("../user.controllers");
 
@@ -21,16 +21,24 @@ module.exports = async (userId, userType, filename, path) => {
     return { error: "Failed to upload image" };
   }
 
+  let currentProfile;
+
   try {
-    const currentProfile = await getUserById(userId);
+    currentProfile = await getUserById(userId);
+
+    if (!currentProfile) {
+      currentProfile = await Admin.findOne({
+        where: { id: userId }
+      })
+    }
 
     if (!currentProfile) {
       return { error: "User not found" };
     }
-
+    
     let imageProp;
 
-    if (currentProfile.type === "company") {
+    if (["company", "admin"].includes(currentProfile.type)) {
       imageProp = "image"
     } else imageProp = "profile_image"
 

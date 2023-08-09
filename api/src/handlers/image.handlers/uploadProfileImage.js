@@ -5,12 +5,6 @@ module.exports = async (req, res) => {
     const { id: userId, type: userType } = req.user;
     const { filename, path } = req.file;
 
-    if (userType === "admin") {
-      return res
-        .status(403)
-        .json({ error: "Admin users can't upload a profile image" });
-    }
-
     const uploadedImage = await postProfileImage(userId, userType, filename, path);
 
     if (uploadedImage?.error) {
