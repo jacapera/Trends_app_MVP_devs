@@ -1,5 +1,5 @@
 const {Router} = require("express")
-const postUserTest = require("../controllers/userTest.controller");
+const postUserTest = require("../controllers/userTest.controllers");
 const { verifyToken } = require("../helpers/jwt");
 const userTestRoutes = Router();
 
