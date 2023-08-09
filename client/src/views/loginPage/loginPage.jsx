@@ -36,6 +36,7 @@ export default function LoginPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (inputs.user && inputs.password) {
+      console.log(inputs)
       try {
         await axios.post(URL+getUniqueQueryString(), inputs, { withCredentials: "include" });
         //console.log("que trae resp <loginPage>: ", resp)
