@@ -14,7 +14,7 @@ const ChatList = () => {
 
   useEffect(()=> {
     dispatch(setListChats({ user_id: user?.id, query_name: "" }))
-  }, [])
+  }, [user])
 
   const [newChat, setNewChat] = useState(false);
   const [searchTerm, setSearchTerm] = useState("")
@@ -49,7 +49,7 @@ const ChatList = () => {
       <div className={style.searchBar}>
         <div className={style.searchBarInputDiv}>
           <div>
-            <BiSearchAlt2/>
+            <BiSearchAlt2 className={style.searchIcon}/>
           </div>
           <div className="w-full">
             <input type="text" className={style.searchBarInput} value={searchTerm} onChange={handleChange}/>

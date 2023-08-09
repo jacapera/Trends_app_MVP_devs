@@ -13,14 +13,25 @@ const initialState = {
 
 const setListChats = createAsyncThunk("chat/setListChats", async ({ user_id, query_name }) => {
   try {
-    const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}`, { withCredentials:"include"})).data
+    const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}?query_name=${query_name}`, { withCredentials:"include"})).data
     return promise;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     throw error;
   }
-
 })
+
+const deleteMessage = createAsyncThunk("chat/deleteMessage", async({message_id, isGroup, conversation_id}) =>{
+  try {
+    const response = isGroup ?
+      await (axios.put(`${VITE_URL}/api/v1/chatroom/groups/${conversation_id}/message/${message_id}`, {messageStatus:"deleted"}, { withCredentials:"include"})).data :
+      await (axios.put(`${VITE_URL}/api/v1/chatroom/chat/${conversation_id}/message/${message_id}`, {messageStatus:"deleted"}, { withCredentials:"include"})).data
+      return response;
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 // const setListMessages = createAsyncThunk("chat/setListMessages", async(id) =>{
 //   try {
 //     const {data} = await axios.get(`${VITE_URL}/api/v1/chatroom/chat/${id}/messages`, { withCredentials:"include"})
@@ -71,7 +82,7 @@ export const chatSlice = createSlice({
   }
 })
 
-export {setListChats};
+export {setListChats, deleteMessage};
 export const { setIsMinimized, setError, setMessage, setSelectedUser, setListMessages } = chatSlice.actions;
 export default chatSlice.reducer;
 

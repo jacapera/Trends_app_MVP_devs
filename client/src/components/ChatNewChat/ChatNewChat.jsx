@@ -27,7 +27,7 @@ const ChatNewChat = () =>{
                             key={index}
                             id={user.id}
                             name={user.name}
-                            // bio={user.profile_bio}
+                            bio={user.profile_bio}
                             image={user.profile_image}
                         />
                     )
