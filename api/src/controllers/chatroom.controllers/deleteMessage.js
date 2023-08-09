@@ -27,7 +27,7 @@ module.exports = async (chatId, messageId, userId, userType) => {
   if (message.sender_id === userId || userType === "admin") {
     await message.destroy();
 
-    return { content: "Este mensaje fue eliminado" };
+    return { message: "Message deleted from database" };
   }
 
   return {

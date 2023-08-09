@@ -46,14 +46,7 @@ module.exports = async (
     }
 
     if (messageStatus === "deleted") {
-      const deleted = await deleteGroupMessage(
-        groupId,
-        messageId,
-        userId,
-        userType
-      );
-
-      return deleted;
+      message.content = "Este mensaje fue eliminado"
     }
 
     await message.save();
