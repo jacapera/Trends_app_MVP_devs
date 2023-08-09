@@ -55,7 +55,7 @@ const Profile = () => {
             ...isEditing,
             general: true
         })
-    }
+    } 
 
     return(
         <div className={style.BGContainer}>
