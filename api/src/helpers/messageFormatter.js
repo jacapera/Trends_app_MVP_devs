@@ -21,4 +21,3 @@ const messageFormatter = (messages) => {
 };
 
 module.exports = messageFormatter;
-

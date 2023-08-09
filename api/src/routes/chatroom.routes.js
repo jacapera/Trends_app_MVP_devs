@@ -22,7 +22,6 @@ const validateProfileOwner = require("../middlewares/validateProfileOwner");
 
 const chatroomRoutes = Router();
 
-chatroomRoutes.get("/chat");
 chatroomRoutes.get("/chat/:id", validateId, getListChatsByUser);
 chatroomRoutes.get("/chat/:chatId/messages", messagesByChat);
 chatroomRoutes.post("/message", createMessage);

@@ -24,6 +24,7 @@ const getListChats = createAsyncThunk("chat/getListChats", async(user_id) =>{
       return { error: "An error occurred" };
     }
   }
+
 })
 // const setListMessages = createAsyncThunk("chat/setListMessages", async(id) =>{
 //   try {

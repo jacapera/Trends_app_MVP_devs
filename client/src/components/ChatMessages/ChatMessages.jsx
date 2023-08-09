@@ -13,17 +13,12 @@ import { selectUserProfile } from "../../Redux/UsersSlice"
 const { VITE_URL } = import.meta.env;
 
 const ChatMessages = ({socket}) => {
-
   const [message, setMessage] = useState("");
   const [chatId, setChatId] = useState("");
   const listMessages = useSelector(selectListMessages)
   const user = useSelector(selectUserProfile);
   const selectedUser = useSelector(selectSelectedUser)
   const dispatch = useDispatch();
-
-  const handleMinimize = () =>{
-    dispatch(setIsMinimized(true))
-  }
 
   const handleChange = (event) =>{
     event.preventDefault()
@@ -112,9 +107,8 @@ const ChatMessages = ({socket}) => {
                 <p className={style.status}> online/offline</p>
             </div>
         </div>
-        <div className="flex gap-2">
+        <div class="flex gap-2">
             <button className={style.headerIcon}><BiDotsVerticalRounded/></button>
-            <button className={style.headerIcon} onClick={handleMinimize}><FaWindowMinimize className="text-base"/></button>
         </div>
       </div>
 
@@ -125,7 +119,7 @@ const ChatMessages = ({socket}) => {
             <VscSmiley className={style.messageBarIcon}/>
             <AiOutlinePaperClip className={style.messageBarIcon}/>
         </div>
-        {/* INPUT MENSAJE TEXTO */}
+        
         <form onSubmit={sendMessage} className={style.messageBarInputDiv}>
             <input className={style.messageBarInput} type="text" value={message} onChange={handleChange} onKeyDown={handleKeyDown}/>
             <button className={style.messageBarInputButton} type="submit">

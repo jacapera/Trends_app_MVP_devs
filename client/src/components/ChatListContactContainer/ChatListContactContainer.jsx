@@ -19,8 +19,13 @@ const ChatListContactContainer = () => {
 
   return (
     <div className="flex flex-col w-full h-auto">
+<<<<<<< HEAD
       {
         listChats.length > 0 && listChats.map((conversation, index)=>{
+=======
+      { listChats.length ? (
+        listChats?.map((conversation, index)=>{
+>>>>>>> ccfb3dacb9a1bd2502161bf917a5f8f45ecce924
             return(
                 <ChatListContact
                   key={index}
@@ -35,7 +40,9 @@ const ChatListContactContainer = () => {
                   show_last_message={true}
                 />
             )
-        })
+        })) : (
+          <p class="text-xs m-3">No tienes ningun chat. Inicia una conversación!</p>
+        )
       }
     </div>
   )
