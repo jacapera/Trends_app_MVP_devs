@@ -19,6 +19,7 @@ module.exports = async (req, res) => {
 
     res.status(200).json(foundGroupMessages);
   } catch (error) {
+    console.error(error.message);
     res
       .status(500)
       .json({ error: "Error obtaining messages from the chat group" });

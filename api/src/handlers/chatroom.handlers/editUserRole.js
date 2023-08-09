@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
 
     res.status(200).json(editedUserRole);
   } catch (error) {
+    console.error(error.message);
     res.status(500).json({
       error: "Error updating user role",
     });

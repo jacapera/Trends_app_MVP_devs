@@ -18,7 +18,7 @@ module.exports = async (groupId, userId, userType) => {
       attributes: { exclude: ["userId"] },
     });
 
-    if (!messages.length) {
+    if (!messages || !messages.length) {
       return { error: "No messages found" };
     }
 
