@@ -47,5 +47,5 @@ module.exports = async (userId, userType, filename, path) => {
     return { error: error.message };
   }
 
-  return { imageId: savedImage.id, imagePath: path };
+  return { message: "Profile image updated" };
 };
