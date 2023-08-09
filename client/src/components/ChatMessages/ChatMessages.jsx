@@ -89,11 +89,6 @@ const ChatMessages = ({socket}) => {
     console.log("receiver_id: ",selectedUser)
   }, [user, selectedUser])
 
-  const handleSend = () =>{
-    alert("enviado el mensaje: '" + message + "' a " + selectedUser.name);
-    setMessage("");
-  }
-
   return (
     <div className={style.mainContainer}>
       <div className={style.chatHeader}>
