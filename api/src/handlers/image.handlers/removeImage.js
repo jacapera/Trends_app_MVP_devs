@@ -3,8 +3,13 @@ const { deleteImage } = require("../../controllers/image.controllers");
 module.exports = async (req, res) => {
   try {
     const { imageId } = req.params;
+    const { id: currentUserId, type: currentUserType } = req.user;
 
-    const removedImage = await deleteImage(imageId);
+    const removedImage = await deleteImage(
+      imageId,
+      currentUserId,
+      currentUserType
+    );
 
     if (removedImage?.error) {
       return res.status(400).json({ error: removedImage.error });
