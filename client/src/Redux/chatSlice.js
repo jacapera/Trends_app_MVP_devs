@@ -2,6 +2,8 @@ import { createAsyncThunk ,createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 const {VITE_URL} = import.meta.env;
 
+
+
 const initialState = {
   isMinimized: false,
   error:"",
@@ -11,12 +13,16 @@ const initialState = {
   listMessages:[],
 }
 
-const setListChats = createAsyncThunk("chat/setListChats", async(user_id) =>{
+const getListChats = createAsyncThunk("chat/getListChats", async(user_id) =>{
   try {
-    const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}`, { withCredentials:"include"})).data
-    return promise;
+    const {data} = await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}`, { withCredentials:"include"})
+    return data;
   } catch (error) {
-    return error;
+    if (error.response && error.response.data) {
+      return { error: error.response.data };
+    } else {
+      return { error: "An error occurred" };
+    }
   }
 })
 // const setListMessages = createAsyncThunk("chat/setListMessages", async(id) =>{
@@ -44,9 +50,19 @@ export const chatSlice = createSlice({
       state.message = action.payload;
     },
     setSelectedUser: (state, action) => {
-      const {id, isGroup} = action.payload;
-      state.selectedUser = state.listChats.filter(chat => (chat.id === id && chat.isGroup === isGroup))[0];
-      //state.selectedUser = action.payload;
+      const {id, isGroup, allUsers} = action.payload;
+      console.log("soy un: ", typeof state.listChats)
+      console.log(typeof id)
+      if(typeof id === "number"){
+        console.log("stoy aca")
+        console.log(id, isGroup)
+        state.selectedUser = state.listChats.find(chat => (chat.id === id && chat.isGroup === isGroup));
+        console.log("allUser-chatslice: ", state.selectedUser)
+      } else {
+        console.log(id, isGroup)
+        state.selectedUser = allUsers?.data.find(user => (user.id === id));
+        console.log("allUser-chatslice: ", state.selectedUser)
+      }
     },
     setListMessages: (state, action) => {
       state.listMessages = action.payload;
@@ -54,11 +70,14 @@ export const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(setListChats.pending, (state) => {
+    .addCase(getListChats.pending, (state) => {
       state.listChats = [];
     })
-    .addCase(setListChats.fulfilled, (state, action) => {
+    .addCase(getListChats.fulfilled, (state, action) => {
       state.listChats = action.payload;
+    })
+    .addCase(getListChats.rejected, (state, action) => {
+      state.listChats = [];
     })
     // .addCase(setListMessages.pending, (state) => {
     //   console.log("cargando...");
@@ -69,11 +88,11 @@ export const chatSlice = createSlice({
   }
 })
 
-export {setListChats};
+export {getListChats};
 export const { setIsMinimized, setError, setMessage, setSelectedUser, setListMessages } = chatSlice.actions;
 export default chatSlice.reducer;
 
-export const selectSelectedUser = (state) => state.chat.listChats;
+export const selectSelectedUser = (state) => state.chat.selectedUser;
 export const selectListChats = (state) => state.chat.listChats;
 export const selectListMessages = (state) => state.chat.listMessages;
 export const selectIsMinimized = (state) => state.chat.isMinimized;

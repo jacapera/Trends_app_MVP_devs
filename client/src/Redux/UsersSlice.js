@@ -11,7 +11,7 @@ const initialState = {
     user: {},
     test: false
 };
-
+//console.log(state.allUsers)
 const getMatchedUsers = createAsyncThunk("users/getMatchedUsers", async () => {
     try {
         const URL = `${VITE_URL}/api/v1/search/users?type=student`;
@@ -92,7 +92,7 @@ export default usersSlice.reducer;
 // export of the selectors of the global state
 export {getSearchedUsers, getUserInfo, getMatchedUsers};
 export const {test, addCompany} = usersSlice.actions;
-export const selectAllUsers = (state) => state.users.allUsers;
+export const selectAllUsers = (state) => state.users?.allUsers;
 export const selectSearchedUsers = (state) => state.users.searchedUsers;
 export const selectStudents = (state) => state.users.students;
 export const selectProfessionals = (state) => state.users.professionals;

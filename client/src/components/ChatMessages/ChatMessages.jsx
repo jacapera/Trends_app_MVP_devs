@@ -9,13 +9,15 @@ import {selectListMessages, selectSelectedUser, setIsMinimized, setListMessages}
 import { useEffect, useState } from "react"
 import { ChatMessageContainer } from ".."
 import axios from "axios"
+import { selectUserProfile } from "../../Redux/UsersSlice"
 const { VITE_URL } = import.meta.env;
 
 const ChatMessages = ({socket}) => {
 
   const [message, setMessage] = useState("");
+  const [chatId, setChatId] = useState("");
   const listMessages = useSelector(selectListMessages)
-  const user = useSelector(state => state.users.user);
+  const user = useSelector(selectUserProfile);
   const selectedUser = useSelector(selectSelectedUser)
   const dispatch = useDispatch();
 
@@ -35,53 +37,54 @@ const ChatMessages = ({socket}) => {
     }
   }
 
-  function getUniqueQueryString(){
-    return `?_=${Date.now()}`
-  }
-
   const sendMessage = (event) => {
     event.preventDefault();
     if(message !== '' ){
+
       const sender_id = user.id;
-      console.log("sender_id: ", sender_id);
-      const receiver_id=listMessages.UserReceived.id === user.id
-        ? listMessages.UserSent.id : listMessages.UserReceived.id;
+        console.log("sender_id: ", sender_id);
+
+      const receiver_id = listMessages?.UserReceived?.id === user?.id
+        ? listMessages?.UserSent?.id : listMessages?.UserSent?.id === user.id
+        ? listMessages?.UserReceived?.id : selectedUser && selectedUser.id ;
         console.log("receiver_id: ", receiver_id);
-      const userNameEmisor = listMessages.UserSent.id !== user.id
-        ? listMessages.UserReceived.username : listMessages.UserSent.username;
+
+      const userNameEmisor = user.username
         console.log("userNameEmisor: ", userNameEmisor)
-      const userNameReceptor = listMessages.UserReceived.id !== user.id
-        ? listMessages.UserReceived.username : listMessages.UserSent.username;
+
+      const userNameReceptor = listMessages?.UserReceived?.id === user?.id
+        ? listMessages?.UserSent?.username : listMessages?.UserSent?.id === user.id
+        ? listMessages?.UserReceived?.username : selectedUser && selectedUser.username ;
         console.log("userNameReceptor: ", userNameReceptor)
+
       const content = message;
-      console.log("content: ", content)
+        console.log("content: ", content)
 
       axios.post(`${VITE_URL}/api/v1/chatroom/message`,
         {content, receiver_id, sender_id },
         {withCredentials: "include"})
           .then(({data}) => {
             console.log("NEW MESSAGE: ",  data)
+            setChatId(data.chat_id)
+            console.log(chatId)
 
-            // socket?.emit("private-message", {
-            //   data,
-            //   userNameEmisor,
-            //   userNameReceptor
-            // })
-
-            axios.get(`${VITE_URL}/api/v1/chatroom/chat/${selectedUser[0].id}/messages`+
-            getUniqueQueryString(),
-            {withCredentials:"include"})
-              .then(({data}) =>{
-                console.log("data-sockek-send", data)
-                socket?.emit("private-message", {
-                  listMessages,
-                  userNameEmisor,
-                  userNameReceptor
+            axios.get(`${VITE_URL}/api/v1/chatroom/chat/${data.chat_id}/messages?timestamp=${Date.now()}`,
+              {withCredentials:"include"})
+                .then(({data}) =>{
+                  console.log("data-sockek-send", data)
+                  //data.messages.reverse();
+                  socket?.emit("private-message", {
+                    data,
+                    userNameEmisor,
+                    userNameReceptor
+                  })
+                }).catch(error => {
+                  console.log("ERROR-get: ", error);
                 })
-              }).catch(error => {
-                console.log("ERROR-get: ", error);
-              })
+
           }).catch(error => console.log("ERROR-post: ", error))
+
+        
 
       setMessage("");
       //setPreview(false);
@@ -103,9 +106,9 @@ const ChatMessages = ({socket}) => {
     <div className={style.mainContainer}>
       <div className={style.chatHeader}>
         <div className={style.infoDiv}>
-            <img src={selectedUser[0]?.image} className={style.profileImage}/>
+            <img src={selectedUser.image ? selectedUser.image : selectedUser.profile_image} className={style.profileImage}/>
             <div>
-                <p className={style.userName}>{selectedUser[0]?.username}</p>
+                <p className={style.userName}>{selectedUser?.username}</p>
                 <p className={style.status}> online/offline</p>
             </div>
         </div>

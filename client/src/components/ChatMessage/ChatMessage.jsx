@@ -1,8 +1,12 @@
+import { useSelector } from "react-redux";
 import style from "./ChatMessage.module.css"
+import { selectUserProfile } from "../../Redux/UsersSlice";
 
 const ChatMessage = ({userId, username, profile_image, messageId, createdAt, content, status, isGroup}) => {
 
-    const myId = 1;
+    const user = useSelector(selectUserProfile)
+
+    const myId = user.id;
   
     return (
       <div className={userId === myId ? style.myContainer : style.elseContainer}>

@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import {ChatListContact} from "../index";
 import { selectUserProfile } from "../../Redux/UsersSlice";
-import { selectListChats, setListChats } from "../../Redux/chatSlice";
+import { getListChats, selectListChats } from "../../Redux/chatSlice";
 
 const ChatListContactContainer = () => {
     const user = useSelector(selectUserProfile);
@@ -12,7 +12,7 @@ const ChatListContactContainer = () => {
 
     useEffect(()=>{
       if(Object.keys(user).length > 0){
-        dispatch(setListChats(user.id))
+        dispatch(getListChats(user.id))
         console.log("LISTCHATS: ", listChats)
       }
     },[user])
@@ -20,7 +20,7 @@ const ChatListContactContainer = () => {
   return (
     <div className="flex flex-col w-full h-auto">
       {
-        listChats?.map((conversation, index)=>{
+        listChats.length > 0 && listChats.map((conversation, index)=>{
             return(
                 <ChatListContact
                   key={index}

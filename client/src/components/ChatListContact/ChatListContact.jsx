@@ -2,26 +2,33 @@ import { selectSelectedUser, setListMessages, setSelectedUser } from "../../Redu
 import style from "./ChatListContact.module.css"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
+import { selectAllUsers } from "../../Redux/UsersSlice";
 const { VITE_URL } = import.meta.env;
 
 const ChatListContact = ({id, isGroup, name, image, last_message, last_message_date, no_read_counter, bio, show_last_message=false}) => {
   const dispatch = useDispatch();
 
   const selectedUser = useSelector(selectSelectedUser);
+  const allUsers = useSelector(selectAllUsers);
 
   const clickHandler = () =>{
     dispatch(setSelectedUser({
       id,
-      isGroup
+      isGroup,
+      allUsers,
     }))
-    axios.get(`${VITE_URL}/api/v1/chatroom/chat/${id}/messages`,
-      {withCredentials:"include"})
-        .then(({data}) => {
-          data.messages.reverse()
-          dispatch(setListMessages(data))
-        }).catch(error => {
-          console.log("ERROR: ", error)
-        })
+    console.log("ID: ", id)
+    if(typeof id === "number"){
+      axios.get(`${VITE_URL}/api/v1/chatroom/chat/${id}/messages?timestamp=${Date.now()}`,
+        {withCredentials:"include"})
+          .then(({data}) => {
+            data.messages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+            //data.messages.reverse()
+            dispatch(setListMessages(data))
+          }).catch(error => {
+            console.log("ERROR: ", error)
+          })
+    }
   }
 
   const formatDate = (date) => {
