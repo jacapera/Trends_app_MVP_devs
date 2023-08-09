@@ -13,10 +13,10 @@ module.exports = async (imageId, currentUserId, currentUserType) => {
     return { error: "Image not found" };
   }
 
-  const { userId, CompanyId, adminId } = foundImage;
+  const { userId, companyId, adminId } = foundImage;
 
   if (
-    [userId, CompanyId, adminId].includes(currentUserId) ||
+    [userId, companyId, adminId].includes(currentUserId) ||
     currentUserType === "admin"
   ) {
     const imagePath = path.resolve("src", "uploads", foundImage.filename);
