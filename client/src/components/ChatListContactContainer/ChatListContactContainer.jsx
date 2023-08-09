@@ -13,14 +13,13 @@ const ChatListContactContainer = () => {
     useEffect(()=>{
       if(Object.keys(user).length > 0){
         dispatch(getListChats(user.id))
-        console.log("LISTCHATS: ", listChats)
       }
     },[user])
 
   return (
     <div className="flex flex-col w-full h-auto">
       {
-        listChats.length > 0 ? listChats.map((conversation, index)=>{
+        listChats?.length > 0 ? listChats?.map((conversation, index)=>{
             return(
                 <ChatListContact
                   key={index}
@@ -36,7 +35,7 @@ const ChatListContactContainer = () => {
                 />
             )
         }) : (
-          <p class="text-xs m-3">No tienes ningun chat. Inicia una conversación!</p>
+          <p className="text-xs m-3">No tienes ningun chat. Inicia una conversación!</p>
         )
       }
     </div>

@@ -6,24 +6,22 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios'
 const {VITE_URL} = import.meta.env;
-import { setFilteredUsersChat } from "../../Redux/usersChatSlice";
-import { selectSelectedUser } from "../../Redux/chatSlice";
 import { selectUserProfile } from "../../Redux/UsersSlice";
+import { selectNewChat, setNewChat } from "../../Redux/chatSlice";
 
 
 const ChatList = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(selectUserProfile)
 
-  useEffect(()=> {
-    //dispatch(setFilteredUsersChat(""))
-  }, [])
-
-  const [newChat, setNewChat] = useState(false);
+  //const [newChat, setNewChat] = useState(false);
   const [searchTerm, setSearchTerm] = useState("")
 
+  const user = useSelector(selectUserProfile)
+  const newChat = useSelector(selectNewChat)
+  const dispatch = useDispatch();
+
   const handleNewChat = () =>{
-    setNewChat(!newChat);
+    //setNewChat(!newChat);
+    dispatch(setNewChat(!newChat))
   }
 
   const handleChange = (event) =>{
@@ -31,7 +29,6 @@ const ChatList = () => {
     dispatch(setFilteredUsersChat(event.target.value));
   }
 
-  
   return (
     <div className={style.mainContainer}>
       <div className={style.chatListHeader}>

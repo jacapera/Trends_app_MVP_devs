@@ -36,7 +36,7 @@ const getUserInfo = createAsyncThunk("users/getUserInfo", async () => {
 const getSearchedUsers = createAsyncThunk("users/getSearchedUsers", async({name, academic_formation, academic_institution}) =>{
     try {
     console.log("ACTION OK")
-    let query = `http://localhost:3001/api/v1/search/users?name=${name}`
+    let query = `${VITE_URL}/api/v1/search/users?name=${name}`
     if (academic_formation) query += `&academic_formation=${academic_formation}`
     if (academic_institution) query += `&academic_institution=${academic_institution}`
     console.log("Query: " + query)

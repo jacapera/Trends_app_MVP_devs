@@ -1,4 +1,6 @@
-import { selectSelectedUser, setListMessages, setSelectedUser } from "../../Redux/chatSlice";
+import {
+  getMessagesByChat, selectListChats, selectNewChat, selectSelectedUser, setListMessages, setNewChat, setSelectedUser
+} from "../../Redux/chatSlice";
 import style from "./ChatListContact.module.css"
 import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
@@ -10,6 +12,8 @@ const ChatListContact = ({id, isGroup, name, image, last_message, last_message_d
 
   const selectedUser = useSelector(selectSelectedUser);
   const allUsers = useSelector(selectAllUsers);
+  const listChats = useSelector(selectListChats)
+  const newChat = useSelector(selectNewChat);
 
   const clickHandler = () =>{
     dispatch(setSelectedUser({
@@ -17,17 +21,31 @@ const ChatListContact = ({id, isGroup, name, image, last_message, last_message_d
       isGroup,
       allUsers,
     }))
-    console.log("ID: ", id)
     if(typeof id === "number"){
-      axios.get(`${VITE_URL}/api/v1/chatroom/chat/${id}/messages?timestamp=${Date.now()}`,
-        {withCredentials:"include"})
-          .then(({data}) => {
-            data.messages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
-            //data.messages.reverse()
-            dispatch(setListMessages(data))
-          }).catch(error => {
-            console.log("ERROR: ", error)
-          })
+      try {
+        dispatch(getMessagesByChat(id)).then(
+          response => {
+            dispatch(setListMessages(response.payload))
+          }
+        )
+      } catch (error) {
+        console.log(error)
+      }
+    } else {
+      const findUser = listChats?.find(chat => chat.name === name);
+      if(findUser){
+        try {
+          dispatch(getMessagesByChat(findUser.id)).then(
+            response => {
+              dispatch(setListMessages(response.payload))
+              dispatch(setNewChat(!newChat))
+            }
+          )
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      dispatch(setListMessages([]))
     }
   }
 
