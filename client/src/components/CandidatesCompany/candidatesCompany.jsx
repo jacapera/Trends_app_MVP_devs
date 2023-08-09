@@ -97,3 +97,7 @@ const candidatesCompany = ({jobName,arraycandidates}) => {
 };
 
 export default candidatesCompany;
+
+
+
+
