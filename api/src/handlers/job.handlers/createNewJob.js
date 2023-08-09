@@ -7,14 +7,15 @@ module.exports = async (req, res) => {
 
     const newJob = await postJob({ companyId: id, ...jobData });
 
-    if (!newJob) {
-      return res.status(500).json({ error: "The job couldn't be created" });
+    if (newJob?.error) {
+      return res.status(500).json({ error: newJob.error });
     }
 
     return res.status(201).json(newJob);
   } catch (error) {
+    console.error(error.message);
     return res.status(500).json({
-      error: "Internal server error",
+      error: "Error creating new job",
     });
   }
 };

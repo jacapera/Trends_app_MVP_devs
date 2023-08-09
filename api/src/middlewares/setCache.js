@@ -15,7 +15,7 @@ const setCache = function (req, res, next) {
     //  stale-if-error: acepta una respuesta antigua si falla la comprobación de una nueva.
     res.set(
       "Cache-control",
-      `public, max-age=${period}, must-revalidate, immutable, stale-while-revalidate=33, stale-if-error=60`
+      `public, max-age=${period}, stale-while-revalidate=33, stale-if-error=60`
     );
   } else {
     // Si no es una petición GET, no se almacena nada

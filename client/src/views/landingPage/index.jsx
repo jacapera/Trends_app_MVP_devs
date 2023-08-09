@@ -1,10 +1,11 @@
-import './LandingPage.css'
+import React from "react";
+import styles from "./index.module.css";
 
 export default function LandingPage() {
   return (
-    <main className="LandingContainer">
+    <main className={styles.LandingContainer}>
       <article>
-        <section className="card">
+        <section className={styles.card}>
           <h1>
             ¡Bienvenido a <strong>#TRENDS!</strong>
           </h1>
@@ -13,10 +14,5 @@ export default function LandingPage() {
         </section>
       </article>
     </main>
-  )
+  );
 }
-
-
-
-
-

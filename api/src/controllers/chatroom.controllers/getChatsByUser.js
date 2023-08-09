@@ -36,7 +36,7 @@ module.exports = async (id, userId, userType) => {
       ],
     });
 
-    if (!chats || chats.length === 0) {
+    if (!chats || !chats.length) {
       return { error: "No chats found" };
     }
 

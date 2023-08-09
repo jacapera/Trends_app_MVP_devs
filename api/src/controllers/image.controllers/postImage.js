@@ -19,5 +19,5 @@ module.exports = async (id, type, filename, path) => {
     return { error: "Failed to upload image" };
   }
 
-  return { imagePath: path };
+  return { imageId: savedImage.id, imagePath: path };
 };

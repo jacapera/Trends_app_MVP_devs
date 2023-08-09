@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
   try {
     const removedProfile = await deleteUserProfile(id);
 
-    if (removedProfile === 0) {
+    if (!removedProfile) {
       return res.status(400).json({ error: "User not found" });
     }
 

@@ -6,12 +6,12 @@ module.exports = async (req, res) => {
     const { job } = req;
     const editedJob = await putJob(job, jobData);
 
-    if (!editedJob) {
-      return res.status(500).json({ error: "The job couldn't be updated" });
+    if (editedJob?.error) {
+      return res.status(500).json({ error: editedJob.error });
     }
 
     return res.status(201).json(editedJob);
   } catch (error) {
-    return res.status(500).json({ error: "Database error" });
+    return res.status(500).json({ error: "Error updating job" });
   }
 };

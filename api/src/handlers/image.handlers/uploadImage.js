@@ -7,16 +7,13 @@ module.exports = async (req, res) => {
   try {
     const uploadedImage = await postImage(id, type, filename, path);
 
-    if (!uploadedImage) {
-      return res.status(500).json({ error: "Database error" });
-    }
-
-    if (uploadedImage.error) {
+    if (uploadedImage?.error) {
       return res.status(400).json({ error: uploadedImage.error });
     }
 
     res.status(200).json(uploadedImage);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
+    res.status(500).json({ error: "Error uploading image" });
   }
 };

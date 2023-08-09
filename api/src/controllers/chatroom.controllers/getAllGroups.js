@@ -19,7 +19,7 @@ module.exports = async (userId, userType) => {
     ],
   });
 
-  if (!groups || groups.length === 0) {
+  if (!groups || !groups.length) {
     return { error: "No groups found" };
   }
 
@@ -30,6 +30,7 @@ module.exports = async (userId, userType) => {
       id: group.id,
       ownerId: group.ownerId,
       name: group.name,
+      image: group.image,
       createdAt: group.createdAt,
       updatedAt: group.updatedAt,
       users: group.users,

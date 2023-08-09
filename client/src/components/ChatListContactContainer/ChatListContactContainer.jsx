@@ -5,8 +5,7 @@ import { selectUserProfile } from "../../Redux/UsersSlice";
 import { getListChats, selectListChats } from "../../Redux/chatSlice";
 
 const ChatListContactContainer = () => {
-    const user = useSelector(selectUserProfile);
-    const listChats = useSelector(selectListChats);
+  const listChats = useSelector(selectListChats);
 
     const dispatch = useDispatch();
 

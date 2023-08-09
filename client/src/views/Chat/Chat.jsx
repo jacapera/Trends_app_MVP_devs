@@ -1,17 +1,18 @@
 import style from "./Chat.module.css"
-import { ChatButton, ChatList, ChatUnselected, ChatMessages } from '../../components';
+import { ChatList, ChatUnselected, ChatMessages } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsMinimized, selectSelectedUser} from '../../Redux/chatSlice';
 import { useEffect, useState } from "react";
 import { io } from 'socket.io-client';
 import axios from 'axios';
 import { getMatchedUsers, getUserInfo, selectUserProfile } from "../../Redux/UsersSlice";
+import { selectIsMinimized, selectSelectedUser } from "../../Redux/chatSlice";
 const {VITE_URL} = import.meta.env;
 
 const Chat = () => {
   const[socket, setSocket] = useState(null)
+  
   const isMinimized = useSelector(selectIsMinimized);
-  const selectedUser = useSelector(selectSelectedUser)
+  const selectedUser = useSelector(selectSelectedUser);
   const user = useSelector(selectUserProfile)
   const dispatch = useDispatch();
 
@@ -40,7 +41,7 @@ const Chat = () => {
 
 
   return (
-    <div className={style.mainContainer}>
+    <div className={isMinimized ? style.hidden : style.mainContainer}>
       <ChatList/>
       {
         !selectedUser.id ?

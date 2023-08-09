@@ -19,6 +19,7 @@ module.exports = async (req, res) => {
 
     res.status(201).json(createdGroupMessage);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
+    res.status(500).json({ error: "Error creating message" });
   }
 };

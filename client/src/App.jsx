@@ -1,9 +1,6 @@
 import "./App.css";
-import StudentRegister from "./components/registerFormStudent";
 import { Route, Routes ,Link} from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import CompanyRegister from "./components/registerFormCompany";
-import ProfessionalRegisterForm from "./components/registerFormProfesional";
 import "./App.css";
 import {
   LandingPage,
@@ -11,8 +8,8 @@ import {
   NotFoundPage,
   Profile,
   FeedCompany,
+  Chat
 } from "./views/";
-import Chat from "./views/Chat/Chat";
 import {Feed, NavBar} from "./components"
 // Para pruebas del chat despues las podemos remover
 // --------------------------------------------------
@@ -40,6 +37,7 @@ function App() {
         <Route path="/Trends_app_MVP/feed" element={<Feed/>} />
         <Route path="/Trends_app_MVP/admin" element ={<AdminPage/>}/>
 
+        {/* RUTAS HIJAS PARA PRUEBAS DEL CHAT DESPUES LAS PODEMOS REMOVER */}
         <Route path="/Trends_app_MVP/chat" element={<Chat/>}/>
 
         {/*RUTA PRUEBA DE NAVBAR Y SEARCHBAR*/}

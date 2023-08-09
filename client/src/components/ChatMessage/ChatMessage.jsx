@@ -1,22 +1,30 @@
 import { useSelector } from "react-redux";
 import style from "./ChatMessage.module.css"
+import {BsTrash} from "react-icons/bs"
+import { useState } from "react";
+import { deleteMessage, selectSelectedUser } from "../../Redux/chatSlice";
 import { selectUserProfile } from "../../Redux/UsersSlice";
 
 const ChatMessage = ({userId, username, profile_image, messageId, createdAt, content, status, isGroup}) => {
+    const dispatch = useDispatch();
 
-    const user = useSelector(selectUserProfile)
+    const {id} = useSelector(selectUserProfile);
+    const conversation = useSelector(selectSelectedUser);
+    const [hovered, setHovered] = useState(false);
 
-    const myId = user.id;
+    const handleDelete = () =>{
+        dispatch(deleteMessage({message_id: messageId, isGroup: isGroup, conversation_id: conversation.id}))
+    }
   
     return (
-      <div className={userId === myId ? style.myContainer : style.elseContainer}>
-        {(isGroup && userId!==myId) && (
+      <div className={userId === id ? style.myContainer : style.elseContainer} onMouseEnter={()=>setHovered(true)} onMouseLeave={()=>setHovered(false)}>
+        {(isGroup && userId!==id) && (
             <div>
                 <img src={profile_image} className={style.image}/>
             </div>
         )}
-        <div className={userId === myId ? style.myMessageContainer : style.messageContainer}>
-            {(isGroup && userId!==myId) && (
+        <div className={userId === id ? style.myMessageContainer : style.messageContainer}>
+            {(isGroup && userId!==id) && (
                 <p className={style.username}>{username}</p>
             )}
             <p className={style.messageContent}>
@@ -30,6 +38,9 @@ const ChatMessage = ({userId, username, profile_image, messageId, createdAt, con
                     {status}
                 </p>
             </div>
+        </div>
+        <div className={(userId === id && hovered) ? style.deleteButton : style.hidden} onClick={handleDelete}>
+            <BsTrash/>
         </div>
       </div> 
     )

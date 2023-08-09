@@ -1,5 +1,6 @@
 const deleteGroup = require("./deleteGroup");
 const deleteGroupMessage = require("./deleteGroupMessage");
+const deleteMessage = require("./deleteMessage");
 const deleteUserFromGroup = require("./deleteUserFromGroup");
 const getAllGroupMessages = require("./getAllGroupMessages");
 const getAllGroups = require("./getAllGroups");
@@ -13,9 +14,12 @@ const postMessage = require("./postMessage");
 const postUserInGroup = require("./postUserInGroup");
 const putGroup = require("./putGroup");
 const putGroupMessage = require("./putGroupMessage");
+const putMessage = require("./putMessage");
 
 module.exports = {
   postMessage,
+  putMessage,
+  deleteMessage,
   getChatsByUser,
   getMessagesByChat,
   postGroup,
