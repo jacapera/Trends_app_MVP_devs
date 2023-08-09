@@ -9,7 +9,7 @@ module.exports = async (id, UserId, UserType) => {
       },
     });
 
-    if (!dbImages) {
+    if (!dbImages || !dbImages.length) {
       return { error: "No images found" };
     }
 

@@ -21,6 +21,7 @@ module.exports = async (req, res) => {
 
     res.status(200).json(updatedGroupMessage);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
+    res.status(500).json({ error: "Error updating message" });
   }
 };

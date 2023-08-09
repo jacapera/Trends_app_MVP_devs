@@ -12,6 +12,7 @@ module.exports = async (req, res) => {
 
     res.status(200).json(foundImages);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
+    res.status(500).json({ error: "Failed to fetch images" });
   }
 };

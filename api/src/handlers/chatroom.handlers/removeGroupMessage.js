@@ -20,6 +20,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json(removedGroupMessage);
   } catch (error) {
-    res.status(500).json({ error: "Error deleting the message" });
+    console.error(error.message);
+    res.status(500).json({ error: "Error deleting message" });
   }
 };

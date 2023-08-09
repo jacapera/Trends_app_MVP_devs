@@ -30,6 +30,7 @@ module.exports = async (req, res) => {
 
     return res.status(200).json(allConversations);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error(error.message);
+    res.status(500).json({ error: "Error retrieving data from database" });
   }
 };

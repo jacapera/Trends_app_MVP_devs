@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
 
     const removedJob = await deleteJob(id);
 
-    if (removedJob === 0)
+    if (!removedJob)
       return res.status(400).json({ error: "Job not found" });
 
     res.status(200).json({ message: "Job successfully removed" });
