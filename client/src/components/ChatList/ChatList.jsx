@@ -14,7 +14,7 @@ const ChatList = () => {
 
   useEffect(()=> {
     dispatch(setListChats({ user_id: user?.id, query_name: "" }))
-  }, [])
+  }, [user])
 
   const [newChat, setNewChat] = useState(false);
   const [searchTerm, setSearchTerm] = useState("")

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 const { VITE_URL } = import.meta.env;
 
-const ChatListContact = ({id, isGroup, name, image, last_message, last_message_date, no_read_counter, bio, show_last_message=false}) => {
+const ChatListContact = ({id, isGroup, name, image, last_message="", last_message_date="", no_read_counter="", bio, show_last_message=false}) => {
   const dispatch = useDispatch();
 
   const selectedUser = useSelector(selectSelectedUser);
