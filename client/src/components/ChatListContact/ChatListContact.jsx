@@ -4,10 +4,14 @@ import { useDispatch, useSelector } from "react-redux"
 import axios from "axios"
 const { VITE_URL } = import.meta.env;
 
-const ChatListContact = ({id, isGroup, name, image, last_message="", last_message_date="", no_read_counter="", bio, show_last_message=false}) => {
+const ChatListContact = ({id, isGroup, name, image, last_message, last_message_date, no_read_counter, bio, show_last_message=false}) => {
   const dispatch = useDispatch();
 
   const selectedUser = useSelector(selectSelectedUser);
+
+  const bioShortener = (string) =>{
+    return string.slice(0, 40)+"...";
+  }
 
   const clickHandler = () =>{
     dispatch(setSelectedUser({
@@ -66,13 +70,13 @@ const ChatListContact = ({id, isGroup, name, image, last_message="", last_messag
       <div className={style.textDiv}>
         <div className={style.header}>
           <p className={style.name}>{name}</p>
-          <p className={style.time}>{formatDate(new Date(last_message_date))}</p>
+          <p className={style.time}>{last_message && formatDate(new Date(last_message_date))}</p>
         </div>
         <div className={style.body}>
           {show_last_message ? (
             <p className={style.description}>{last_message}</p>
           ) : (
-            <p className={style.description}>{bio}</p>
+            <p className={style.description}>{bioShortener(bio)}</p>
           )}
           {(no_read_counter > 0) &&
             <p className={style.unread}>{no_read_counter}</p>

@@ -93,9 +93,9 @@ const ChatMessages = ({socket}) => {
     <div className={style.mainContainer}>
       <div className={style.chatHeader}>
         <div className={style.infoDiv}>
-            <img src={selectedUser[0]?.image} className={style.profileImage}/>
+            <img src={selectedUser?.image} className={style.profileImage}/>
             <div>
-                <p className={style.userName}>{selectedUser[0]?.username}</p>
+                <p className={style.name}>{selectedUser?.username}</p>
                 <p className={style.status}> online/offline</p>
             </div>
         </div>
