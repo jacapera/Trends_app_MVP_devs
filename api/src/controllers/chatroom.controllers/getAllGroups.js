@@ -30,6 +30,7 @@ module.exports = async (userId, userType) => {
       id: group.id,
       ownerId: group.ownerId,
       name: group.name,
+      image: group.image,
       createdAt: group.createdAt,
       updatedAt: group.updatedAt,
       users: group.users,

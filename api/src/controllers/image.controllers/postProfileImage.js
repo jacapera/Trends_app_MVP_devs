@@ -15,6 +15,7 @@ module.exports = async (userId, userType, filename, path) => {
     [typeOfId]: userId,
     filename,
     filepath: path,
+    isProfileImage: true,
   });
 
   if (!savedImage) {
@@ -28,24 +29,24 @@ module.exports = async (userId, userType, filename, path) => {
 
     if (!currentProfile) {
       currentProfile = await Admin.findOne({
-        where: { id: userId }
-      })
+        where: { id: userId },
+      });
     }
 
     if (!currentProfile) {
       return { error: "User not found" };
     }
-    
+
     let imageProp;
 
     if (["company", "admin"].includes(currentProfile.type)) {
-      imageProp = "image"
-    } else imageProp = "profile_image"
+      imageProp = "image";
+    } else imageProp = "profile_image";
 
     await putUserProfile(currentProfile, { [imageProp]: path });
   } catch (error) {
     return { error: error.message };
   }
 
-  return { imageId: savedImage.id, imagePath: path };
+  return { imageId: savedImage.id, profileId: userId, imagePath: path };
 };

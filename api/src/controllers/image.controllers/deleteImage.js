@@ -19,7 +19,7 @@ module.exports = async (imageId, currentUserId, currentUserType) => {
     [userId, companyId, adminId].includes(currentUserId) ||
     currentUserType === "admin"
   ) {
-    const imagePath = path.resolve("src", "uploads", foundImage.filename);
+    const imagePath = path.resolve(foundImage.filepath);
 
     try {
       await fs.promises.access(imagePath);
@@ -34,7 +34,6 @@ module.exports = async (imageId, currentUserId, currentUserType) => {
 
       return { message: "Image and reference deleted successfully" };
     } catch (err) {
-      console.error("Error deleting image:", err);
       return { error: "Error deleting image or reference" };
     }
   }
