@@ -112,3 +112,5 @@ const candidatesCompany = ({jobName,arraycandidates,handlePageProfileCandidate})
 };
  
 export default candidatesCompany;
+
+
