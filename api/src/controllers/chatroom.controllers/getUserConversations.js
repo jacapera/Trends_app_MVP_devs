@@ -43,29 +43,29 @@ module.exports = async (
 
   if (userChats && !userChats.error) {
     for (const chat of userChats) {
-      const [last_message] = [...chat.messages].reverse();
-      const countNoRead = noReadCounter(chat.messages);
-      const contactName = getContactData(name, "name", chat);
-      const contactUsername = getContactData(username, "username", chat);
-      const contactProfileImage = getContactData(
-        profile_image,
-        "profile_image",
-        chat
-      );
+        const [last_message] = [...chat.messages].reverse();
+        const countNoRead = noReadCounter(chat.messages);
+        const contactName = getContactData(name, "name", chat);
+        const contactUsername = getContactData(username, "username", chat);
+        const contactProfileImage = getContactData(
+          profile_image,
+          "profile_image",
+          chat
+        );
 
-      const conversation = {
-        isGroup: false,
-        id: chat.chat_id,
-        name: contactName,
-        username: contactUsername,
-        image: contactProfileImage,
-        last_message: last_message.content,
-        last_message_date: last_message.createdAt,
-        no_read_counter: countNoRead,
-      };
+        const conversation = {
+          isGroup: false,
+          id: chat.chat_id,
+          name: contactName,
+          username: contactUsername,
+          image: contactProfileImage,
+          last_message: chat.messages.length ? last_message.content : "",
+          last_message_date: last_message?.createdAt,
+          no_read_counter: countNoRead,
+        };
 
-      conversations.push(conversation);
-    }
+        conversations.push(conversation);
+      }
   }
 
   const orderedConversations = conversations.sort(

@@ -46,14 +46,14 @@ module.exports = async (
     }
 
     if (messageStatus === "deleted") {
-      const deleted = await deleteMessage(
-        chatId,
-        messageId,
-        userId,
-        userType
-      );
-
-      return deleted;
+      message.content = "Este mensaje fue eliminado"
+      // const deleted = await deleteMessage(
+      //   chatId,
+      //   messageId,
+      //   userId,
+      //   userType
+      // );
+      // return deleted;
     }
 
     await message.save();

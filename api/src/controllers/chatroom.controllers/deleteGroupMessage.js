@@ -20,7 +20,7 @@ module.exports = async (groupId, messageId, userId, userType) => {
   if (message.userId === userId || userType === "admin") {
     await message.destroy();
 
-    return { content: "Este mensaje fue eliminado" };
+    return { message: "Message deleted from database" };
   }
 
   return {
