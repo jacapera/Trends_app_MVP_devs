@@ -130,6 +130,10 @@ Message.belongsTo(Chat, { foreignKey: 'chat_id', onDelete: 'CASCADE' });
 User.belongsToMany(ChatGroup, { through: UserChatGroup });
 ChatGroup.belongsToMany(User, { through: UserChatGroup });
 
+// Definicion de relacion entre Owner User y chatGroup
+User.hasMany(ChatGroup, {foreignKey: 'owner_id'})
+ChatGroup.belongsTo(User, {foreignKey: 'owner_id', as : 'UserOwner'})
+
 // Relación entre Usuario y Mensaje de grupo (un usuario puede enviar varios mensajes)
 User.hasMany(MessageChatGroup);
 MessageChatGroup.belongsTo(User);
