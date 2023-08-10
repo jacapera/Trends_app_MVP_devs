@@ -47,12 +47,8 @@ module.exports = async (
         const countNoRead = noReadCounter(chat.messages);
         const contactName = getContactData(name, "name", chat);
         const contactUsername = getContactData(username, "username", chat);
-        const contactProfileImage = getContactData(
-          profile_image,
-          "profile_image",
-          chat
-          );
-          
+        const contactProfileImage = getContactData(profile_image, "profile_image", chat);
+          console.log("contactName: ", contactName)
         const conversation = {
           isGroup: false,
           id: chat.chat_id,

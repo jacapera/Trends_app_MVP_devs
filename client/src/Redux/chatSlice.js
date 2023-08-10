@@ -7,6 +7,7 @@ const initialState = {
   error:"",
   message:"",
   selectedUser:{},
+  listGroups: [],
   listChats:[],
   listMessages:[],
   newChat:false,
@@ -63,6 +64,35 @@ const setListChats = createAsyncThunk("chat/setListChats", async ({ user_id, que
   }
 });
 
+const createNewGroup = createAsyncThunk("chat/createNewGroup", async({name}) => {
+  try {
+    const response = await (axios.post(`${VITE_URL}/api/v1/chatroom/groups` , {name}, { withCredentials:"include"}))
+    return response;
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+const getGroupList = createAsyncThunk("chat/getGroupList", async(user_id) => {
+  try {
+    const response = (await axios.post(`${VITE_URL}/api/v1/chatroom/groups?list=true`, { withCredentials:"include"})).data
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+})
+
+// const setListMessages = createAsyncThunk("chat/setListMessages", async(id) =>{
+//   try {
+//     const {data} = await axios.get(`${VITE_URL}/api/v1/chatroom/chat/${id}/messages`, { withCredentials:"include"})
+//     data.messages.reverse();
+//     console.log("DATA: ", data)
+//     return data;
+//   } catch (error) {
+//     return error;
+//   }
+// })
+
 export const chatSlice = createSlice({
   name: "chat",
   initialState,
@@ -102,13 +132,18 @@ export const chatSlice = createSlice({
     .addCase(setListChats.rejected, (state, action) => {
       state.listChats = [];
     })
+    .addCase(getGroupList.pending, (state) => {
+      state.listGroups = [];
+    })
+    .addCase(getGroupList.fulfilled, (state, action) => {
+      state.listGroups = action.payload;
+    })
   }
 })
 
-export {setListChats, deleteMessage};
+export {setListChats, deleteMessage, createNewGroup, getGroupList};
 export const { setIsMinimized, setError, setMessage, setSelectedUser, setListMessages, setNewChat } = chatSlice.actions;
 export default chatSlice.reducer;
-
 export const selectSelectedUser = (state) => state.chat.selectedUser;
 export const selectListChats = (state) => state.chat.listChats;
 export const selectListMessages = (state) => state.chat.listMessages;
@@ -116,3 +151,4 @@ export const selectIsMinimized = (state) => state.chat.isMinimized;
 export const selectError = (state) => state.chat.error;
 export const selectMessage = (state) => state.chat.message;
 export const selectNewChat = (state) => state.chat.newChat;
+export const selectListGroups = (state) => state.chat.listGroups;

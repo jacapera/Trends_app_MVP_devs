@@ -37,17 +37,14 @@ const ChatList = () => {
   return (
     <div className={style.mainContainer}>
       <div className={style.chatListHeader}>
-        <div>
-          <img src={user.profile_image} className={style.headerImage}/>
+        <div className={style.headerIzqDiv}>
+          <div>
+            <img src={user.profile_image} className={style.headerImage}/>
+          </div>
+          <span className={style.headerUsername}>{user.username}</span>
         </div>
-        <span className={style.headerUsername}>{user.username}</span>
-        <div className={style.headerContainerIcons}>
-          <div className={style.headerIcon} onClick={handleNewChat}>
-            <BsFillPersonPlusFill/>
-          </div>
-          <div className={style.headerIcon}>
-            <BsThreeDotsVertical/>
-          </div>
+        <div className={newChat ? style.headerContainerIconActive : style.headerContainerIcon} onClick={handleNewChat}>
+          <BsFillPersonPlusFill/>
         </div>
       </div>
 
