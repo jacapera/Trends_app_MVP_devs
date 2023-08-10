@@ -1,5 +1,6 @@
 const { Chat, Message } = require("../../db");
 const { Op } = require("sequelize");
+const decryptMessage = require("../../helpers/decryptMessage");
 
 module.exports = async (sender_id, receiver_id, content, userId, userType) => {
   // El mensaje se enviará solo si el id del remitente coincide con el del usuario
@@ -32,6 +33,8 @@ module.exports = async (sender_id, receiver_id, content, userId, userType) => {
 
     chat.updated_at = new Date();
     await chat.save();
+    
+    message.content = decryptMessage(content);
 
     return message;
   }

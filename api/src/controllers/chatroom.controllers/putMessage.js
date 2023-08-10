@@ -1,5 +1,6 @@
 const { Op } = require("sequelize");
 const { Chat, Message } = require("../../db");
+const decryptMessage = require("../../helpers/decryptMessage");
 const deleteMessage = require("./deleteMessage");
 
 module.exports = async (
@@ -47,16 +48,11 @@ module.exports = async (
 
     if (messageStatus === "deleted") {
       message.content = "Este mensaje fue eliminado"
-      // const deleted = await deleteMessage(
-      //   chatId,
-      //   messageId,
-      //   userId,
-      //   userType
-      // );
-      // return deleted;
     }
 
     await message.save();
+
+    message.content = decryptMessage(content);
 
     return message;
   }
