@@ -4,25 +4,25 @@ const chatFormatter = require("../../helpers/chatFormatter");
 module.exports = async (chatId, userId, userType) => {
   const chat = await Chat.findByPk(chatId, {
     attributes: {
-      exclude: ["chat_id", "user1_id", "user2_id", "created_at", "updated_at"],
+      exclude: ["user1_id", "user2_id", "created_at", "updated_at"],
     },
     include: [
       {
         model: User,
         as: "UserSent",
-        attributes: ["username", "id", "profile_image"],
+        attributes: ["name", "username", "id", "profile_image"],
       },
       {
         model: User,
         as: "UserReceived",
-        attributes: ["username", "id", "profile_image"],
+        attributes: ["name", "username", "id", "profile_image"],
       },
       {
         model: Message,
         include: [
           {
             model: User,
-            attributes: ["username", "id", "profile_image"],
+            attributes: ["name", "username", "id", "profile_image"],
           },
         ],
       },
@@ -33,11 +33,12 @@ module.exports = async (chatId, userId, userType) => {
     return { error: "Chat not found" };
   }
 
-  if (
-    [chat.UserSent.id, chat.UserReceived.id].includes(userId) ||
-    userType === "admin"
-  ) {
-    return chatFormatter(chat);
+  if ([chat.UserSent.id, chat.UserReceived.id].includes(userId)) {
+    return chatFormatter(chat)[0];
+  } else {
+    if (userType === "admin") {
+      return chat;
+    }
   }
 
   return { error: "Not authorized" };

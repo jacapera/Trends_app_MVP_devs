@@ -51,8 +51,8 @@ module.exports = async (
           profile_image,
           "profile_image",
           chat
-        );
-
+          );
+          
         const conversation = {
           isGroup: false,
           id: chat.chat_id,
@@ -67,7 +67,6 @@ module.exports = async (
         conversations.push(conversation);
       }
   }
-
   const orderedConversations = conversations.sort(
     (a, b) => new Date(b.last_message_date) - new Date(a.last_message_date)
   );
