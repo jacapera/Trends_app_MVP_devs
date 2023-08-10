@@ -11,7 +11,7 @@ const ChatMessageContainer = ({isGroup, socket}) => {
   const dispatch = useDispatch()
 
   const receivedMessage = data => {
-    const sortedMessages = [...data.messages].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+    const sortedMessages = [...data?.messages].sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
     const newData = {...data, messages: sortedMessages}
     console.log("listmessges-socketon", newData)
     dispatch(setListMessages(newData));
@@ -30,7 +30,7 @@ const ChatMessageContainer = ({isGroup, socket}) => {
   return (
     <div ref={messagesRef} className="custom-scrollbar flex flex-col w-full h-full gap-2 my-1 overflow-x-hidden p-2">
       {
-        listMessages?.messages?.map((message, index) => {
+        listMessages?.messages?.length > 0  && listMessages?.messages?.map((message, index) => {
           return(
             <ChatMessage
               socket={socket}

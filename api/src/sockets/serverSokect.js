@@ -34,7 +34,7 @@ module.exports = serverSocket => {
       flag, data, userNameReceptor, userNameEmisor
     }) => {
 
-      console.log("LISTMESSAGES: ", data.messages.length, "FLAG: ", flag);
+      console.log("LISTMESSAGES: ", data?.messages, "FLAG: ", flag);
 
       const receiver = getUser(userNameReceptor);
       const sender = getUser(userNameEmisor);

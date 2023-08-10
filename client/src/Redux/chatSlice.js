@@ -24,7 +24,7 @@ export const postMessage = createAsyncThunk("chat/postMessage", async ({content,
 
 export const getMessages = createAsyncThunk("chat/getMessages", async (chatId) => {
   try {
-    const { data } = await axios.get(`${VITE_URL}/api/v1/chatroom/chat/${chatId}/messages?timestamp=${Date.now()}`,
+    const { data } = await axios.get(`${VITE_URL}/api/v1/chatroom/chat/${chatId}/messages`,
       {withCredentials:"include"})
     return data
   } catch (error) {
@@ -34,7 +34,7 @@ export const getMessages = createAsyncThunk("chat/getMessages", async (chatId) =
 
 export const getMessagesByChat = createAsyncThunk("chat/getMessagesByChat", async(id) => {
   try {
-    const {data} = await axios.get(`${VITE_URL}/api/v1/chatroom/chat/${id}/messages?timestamp=${Date.now()}`,
+    const {data} = await axios.get(`${VITE_URL}/api/v1/chatroom/chat/${id}/messages`,
     {withCredentials:"include"})
     data.messages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
     return data;
@@ -56,7 +56,7 @@ const deleteMessage = createAsyncThunk("chat/deleteMessage", async({message_id, 
 
 const setListChats = createAsyncThunk("chat/setListChats", async ({ user_id, query_name }) => {
   try {
-    const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}?timestamp=${Date.now()}?query_name=${query_name}`, { withCredentials:"include"})).data
+    const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}?query_name=${query_name}`, { withCredentials:"include"})).data
     return promise;
   } catch (error) {
     return error.response.data.error;

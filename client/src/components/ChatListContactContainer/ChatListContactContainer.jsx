@@ -19,7 +19,7 @@ const ChatListContactContainer = () => {
   return (
     <div className="flex flex-col w-full h-auto">
       {
-        listChats?.length > 0 ? listChats?.map((conversation, index)=>{
+        listChats?.length > 0 && typeof listChats !== "string" ? listChats?.map((conversation, index)=>{
             return(
                 <ChatListContact
                   key={index}

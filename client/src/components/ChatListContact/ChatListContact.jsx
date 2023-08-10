@@ -36,7 +36,7 @@ const ChatListContact = ({id, isGroup, name, image, last_message, last_message_d
         console.log(error)
       }
     } else {
-      const findUser = listChats?.find(chat => chat.name === name);
+      const findUser = (listChats?.length > 0 && typeof listChats !== "string") && listChats?.find(chat => chat.name === name);
       if(findUser){
         try {
           dispatch(getMessagesByChat(findUser.id)).then(

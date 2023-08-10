@@ -5,7 +5,7 @@ import {AiOutlinePaperClip} from "react-icons/ai"
 import {TbSend} from "react-icons/tb"
 import {FaWindowMinimize} from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
-import {getMessages, postMessage, selectListMessages, selectSelectedUser, setIsMinimized, setListMessages} from "../../Redux/chatSlice"
+import {getMessages, postMessage, selectListMessages, selectNewChat, selectSelectedUser, setIsMinimized, setListMessages, setNewChat} from "../../Redux/chatSlice"
 import { useEffect, useState } from "react"
 import { ChatMessageContainer } from ".."
 import { selectUserProfile } from "../../Redux/UsersSlice"
@@ -15,6 +15,7 @@ const ChatMessages = ({socket}) => {
   const listMessages = useSelector(selectListMessages)
   const user = useSelector(selectUserProfile);
   const selectedUser = useSelector(selectSelectedUser)
+  const newChat = useSelector(selectNewChat)
   const dispatch = useDispatch();
 
   const handleChange = (event) =>{
@@ -75,6 +76,7 @@ const ChatMessages = ({socket}) => {
         console.log(error)
       }
       setMessage("");
+      dispatch(setNewChat(false))
     }
   }
 
