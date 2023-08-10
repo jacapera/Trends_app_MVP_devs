@@ -1,5 +1,6 @@
 const { Chat, Message, User } = require("../../db");
 const { Op } = require("sequelize");
+const chatFormatter = require("../../helpers/chatFormatter");
 
 module.exports = async (id, userId, userType) => {
   // Solo el propio usuario puede acceder a sus chats
@@ -29,7 +30,7 @@ module.exports = async (id, userId, userType) => {
           include: [
             {
               model: User,
-              attributes: ["username", "id", "profile_image"],
+              attributes: ["name", "username", "id", "profile_image"],
             },
           ],
         },
@@ -40,7 +41,7 @@ module.exports = async (id, userId, userType) => {
       return { error: "No chats found" };
     }
 
-    return chats;
+    return userType === "admin" ? chats : chatFormatter(chats);
   }
   // Si los chats no pertenecen al usuario logueado
   // y tampoco es admin, no está autorizado

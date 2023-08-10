@@ -1,4 +1,5 @@
 const { ChatGroup, User, MessageChatGroup } = require("../../db");
+const messageFormatter = require("../../helpers/messageFormatter");
 
 module.exports = async (userId, userType) => {
   const groups = await ChatGroup.findAll({
@@ -34,7 +35,10 @@ module.exports = async (userId, userType) => {
       createdAt: group.createdAt,
       updatedAt: group.updatedAt,
       users: group.users,
-      messages: group.messageChatGroups,
+      messages:
+        userType === "admin"
+          ? group.messageChatGroups
+          : messageFormatter(group.messageChatGroups),
     };
     outputGroups.push(outputGroup);
   }
