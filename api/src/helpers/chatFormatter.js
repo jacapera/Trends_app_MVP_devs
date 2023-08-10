@@ -2,17 +2,23 @@ const messageFormatter = require("./messageFormatter");
 
 const chatFormatter = (chat) => {
   let inputchat = Array.isArray(chat) ? chat : [chat];
-    let plainChats = [];
+  let plainChats = [];
 
-    inputchat.forEach((chat) => {
-      const plainMessages = messageFormatter(chat.messages);
-      const plainChat = chat.toJSON();
-      plainChat.messages = plainMessages;
+  inputchat.forEach((chat) => {
+    const plainMessages = messageFormatter(chat.messages);
+    const plainChat = chat.toJSON();
+    plainChat.messages = plainMessages;
 
-      plainChats.push(plainChat);
-    });
+    for (const key in plainChat) {
+      if (plainChat[key] === null || plainChat[key] === undefined) {
+        delete plainChat[key];
+      }
+    }
 
-    return plainChats;
-  };
+    plainChats.push(plainChat);
+  });
+
+  return plainChats;
+};
 
 module.exports = chatFormatter;
