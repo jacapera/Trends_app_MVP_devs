@@ -7,6 +7,7 @@ const initialState = {
   error:"",
   message:"",
   selectedUser:{},
+  listGroups: [],
   listChats:[],
   listMessages:[],
 }
@@ -29,6 +30,24 @@ const deleteMessage = createAsyncThunk("chat/deleteMessage", async({message_id, 
       return response;
   } catch (error) {
     console.log(error)
+  }
+})
+
+const createNewGroup = createAsyncThunk("chat/createNewGroup", async({name}) => {
+  try {
+    const response = await (axios.post(`${VITE_URL}/api/v1/chatroom/groups` , {name}, { withCredentials:"include"}))
+    return response;
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+const getGroupList = createAsyncThunk("chat/getGroupList", async(user_id) => {
+  try {
+    const response = (await axios.post(`${VITE_URL}/api/v1/chatroom/groups?list=true`, { withCredentials:"include"})).data
+    return response;
+  } catch (error) {
+    throw new Error(error);
   }
 })
 
@@ -73,6 +92,12 @@ export const chatSlice = createSlice({
     .addCase(setListChats.fulfilled, (state, action) => {
       state.listChats = action.payload;
     })
+    .addCase(getGroupList.pending, (state) => {
+      state.listGroups = [];
+    })
+    .addCase(getGroupList.fulfilled, (state, action) => {
+      state.listGroups = action.payload;
+    })
     // .addCase(setListMessages.pending, (state) => {
     //   console.log("cargando...");
     // })
@@ -82,7 +107,7 @@ export const chatSlice = createSlice({
   }
 })
 
-export {setListChats, deleteMessage};
+export {setListChats, deleteMessage, createNewGroup, getGroupList};
 export const { setIsMinimized, setError, setMessage, setSelectedUser, setListMessages } = chatSlice.actions;
 export default chatSlice.reducer;
 
@@ -92,3 +117,4 @@ export const selectListMessages = (state) => state.chat.listMessages;
 export const selectIsMinimized = (state) => state.chat.isMinimized;
 export const selectError = (state) => state.chat.error;
 export const selectMessage = (state) => state.chat.message;
+export const selectListGroups = (state) => state.chat.listGroups;

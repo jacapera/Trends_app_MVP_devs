@@ -3,24 +3,48 @@ import {BiDotsVerticalRounded} from "react-icons/bi"
 import {VscSmiley} from "react-icons/vsc"
 import {AiOutlinePaperClip} from "react-icons/ai"
 import {TbSend} from "react-icons/tb"
-import {FaWindowMinimize} from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
-import {selectListMessages, selectSelectedUser, setIsMinimized, setListMessages} from "../../Redux/chatSlice"
+import {selectListGroups, selectListMessages, selectSelectedUser, setIsMinimized, setListMessages} from "../../Redux/chatSlice"
 import { useEffect, useState } from "react"
 import { ChatMessageContainer } from ".."
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 const { VITE_URL } = import.meta.env;
 
 const ChatMessages = ({socket}) => {
+  const navigate = useNavigate();
+
   const [message, setMessage] = useState("");
   const listMessages = useSelector(selectListMessages)
   const user = useSelector(state => state.users.user);
-  const selectedUser = useSelector(selectSelectedUser)
-  const dispatch = useDispatch();
+  const selectedUser = useSelector(selectSelectedUser);
+  const listGroups = useSelector(selectListGroups);
+  const [menu, setMenu] = useState(false)
+  const [menuGroups, setMenuGroups] = useState(false)
+
+  const arrayTemporal = [
+    {
+      "groupId": 1,
+      "groupName": "Grupo 1"
+    },
+  
+    {
+      "groupId": 2,
+      "groupName": "Grupo 2"
+    }
+  ]
 
   const handleChange = (event) =>{
     event.preventDefault()
     setMessage(event.target.value)
+  }
+
+  const handleGroupClick = (id) =>{
+    //logica de invitación de usuario al grupo
+  }
+
+  const handleMenu = () =>{
+    setMenu(!menu);
   }
 
   const handleKeyDown = (event) => {
@@ -85,6 +109,7 @@ const ChatMessages = ({socket}) => {
   }
 
   useEffect(() => {
+    
     console.log("sender_id: ",user)
     console.log("receiver_id: ",selectedUser)
   }, [user, selectedUser])
@@ -100,7 +125,27 @@ const ChatMessages = ({socket}) => {
             </div>
         </div>
         <div class="flex gap-2">
-            <button className={style.headerIcon}><BiDotsVerticalRounded/></button>
+            <button className={menu? style.headerIconActive : style.headerIcon} onClick={handleMenu}><BiDotsVerticalRounded/></button>
+        </div>
+        <div className={menu ? style.menu : style.hidden}>
+          <ul>
+            <li className={style.menuItem}>Ir a perfil</li>
+            <li className={style.menuItem} onMouseEnter={()=>setMenuGroups(true)} onMouseLeave={()=>setMenuGroups(false)}>Invitar a grupo</li>
+            <li className={style.menuItem}>Eliminar conversacion</li>
+          </ul>
+        </div>
+        <div className={menuGroups ? style.menuGroups : style.hidden}  onMouseEnter={()=>setMenuGroups(true)} onMouseLeave={()=>setMenuGroups(false)}>
+          <ul>
+            {
+              arrayTemporal.map(group => {
+                return(
+                  <li className={style.menuGroupsItem} onClick={handleGroupClick(group.id)}>
+                    {group.groupName}
+                  </li>
+                )
+              })
+            }
+          </ul>
         </div>
       </div>
 

@@ -76,7 +76,7 @@ const ChatListContact = ({id, isGroup, name, image, last_message, last_message_d
           {show_last_message ? (
             <p className={style.description}>{last_message}</p>
           ) : (
-            <p className={style.description}>{bioShortener(bio)}</p>
+            <p className={style.description}>{bio && bioShortener(bio)}</p>
           )}
           {(no_read_counter > 0) &&
             <p className={style.unread}>{no_read_counter}</p>
