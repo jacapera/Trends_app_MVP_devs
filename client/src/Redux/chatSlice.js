@@ -32,6 +32,15 @@ const deleteMessage = createAsyncThunk("chat/deleteMessage", async({message_id, 
   }
 })
 
+const createNewGroup = createAsyncThunk("chat/createNewGroup", async({name}) => {
+  try {
+    const response = await (axios.post(`${VITE_URL}/api/v1/chatroom/groups` , {name}, { withCredentials:"include"}))
+    return response;
+  } catch (error) {
+    console.log(error)
+  }
+})
+
 // const setListMessages = createAsyncThunk("chat/setListMessages", async(id) =>{
 //   try {
 //     const {data} = await axios.get(`${VITE_URL}/api/v1/chatroom/chat/${id}/messages`, { withCredentials:"include"})
@@ -82,7 +91,7 @@ export const chatSlice = createSlice({
   }
 })
 
-export {setListChats, deleteMessage};
+export {setListChats, deleteMessage, createNewGroup};
 export const { setIsMinimized, setError, setMessage, setSelectedUser, setListMessages } = chatSlice.actions;
 export default chatSlice.reducer;
 

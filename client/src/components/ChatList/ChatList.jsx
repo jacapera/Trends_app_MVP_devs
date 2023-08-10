@@ -40,9 +40,6 @@ const ChatList = () => {
           <div className={style.headerIcon} onClick={handleNewChat}>
             <BsFillPersonPlusFill/>
           </div>
-          <div className={style.headerIcon}>
-            <BsThreeDotsVertical/>
-          </div>
         </div>
       </div>
 
