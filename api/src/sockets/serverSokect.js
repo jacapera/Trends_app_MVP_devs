@@ -31,10 +31,10 @@ module.exports = serverSocket => {
     // =============== Chat Individual v2 ================================
     socket.on("private-message",
     ({
-      data, userNameReceptor, userNameEmisor
+      flag, data, userNameReceptor, userNameEmisor
     }) => {
 
-      console.log("LISTMESSAGES: ", data);
+      console.log("LISTMESSAGES: ", data.messages.length, "FLAG: ", flag);
 
       const receiver = getUser(userNameReceptor);
       const sender = getUser(userNameEmisor);

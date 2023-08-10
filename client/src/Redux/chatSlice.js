@@ -43,21 +43,12 @@ export const getMessagesByChat = createAsyncThunk("chat/getMessagesByChat", asyn
   }
 });
 
-const getListChats = createAsyncThunk("chat/getListChats", async(user_id) =>{
-  try {
-    const {data} = await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}?timestamp=${Date.now()}`, { withCredentials:"include"})
-    return data;
-  } catch (error) {
-    return error.response.data.error;
-  }
-})
-
 const deleteMessage = createAsyncThunk("chat/deleteMessage", async({message_id, isGroup, conversation_id}) =>{
   try {
     const response = isGroup ?
       await (axios.put(`${VITE_URL}/api/v1/chatroom/groups/${conversation_id}/message/${message_id}`, {messageStatus:"deleted"}, { withCredentials:"include"})).data :
       await (axios.put(`${VITE_URL}/api/v1/chatroom/chat/${conversation_id}/message/${message_id}`, {messageStatus:"deleted"}, { withCredentials:"include"})).data
-      return response;
+    return response;
   } catch (error) {
     console.log(error)
   }
@@ -65,16 +56,12 @@ const deleteMessage = createAsyncThunk("chat/deleteMessage", async({message_id, 
 
 const setListChats = createAsyncThunk("chat/setListChats", async ({ user_id, query_name }) => {
   try {
-    const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}?query_name=${query_name}`, { withCredentials:"include"})).data
+    const promise = (await axios.get(`${VITE_URL}/api/v1/chatroom/conversations/${user_id}?timestamp=${Date.now()}?query_name=${query_name}`, { withCredentials:"include"})).data
     return promise;
   } catch (error) {
     return error.response.data.error;
-    console.log(error);
-    throw error;
   }
 });
-
-
 
 export const chatSlice = createSlice({
   name: "chat",
@@ -106,19 +93,19 @@ export const chatSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(getListChats.pending, (state) => {
+    .addCase(setListChats.pending, (state) => {
       state.listChats = [];
     })
-    .addCase(getListChats.fulfilled, (state, action) => {
+    .addCase(setListChats.fulfilled, (state, action) => {
       state.listChats = action.payload;
     })
-    .addCase(getListChats.rejected, (state, action) => {
+    .addCase(setListChats.rejected, (state, action) => {
       state.listChats = [];
     })
   }
 })
 
-export {getListChats, deleteMessage};
+export {setListChats, deleteMessage};
 export const { setIsMinimized, setError, setMessage, setSelectedUser, setListMessages, setNewChat } = chatSlice.actions;
 export default chatSlice.reducer;
 

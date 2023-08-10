@@ -59,11 +59,12 @@ const ChatMessages = ({socket}) => {
           sender_id
         }
         const result = await dispatch(postMessage(messageData))
-        //console.log(result.payload)
+        console.log(result.payload)
         dispatch(getMessages(result.payload.chat_id)).then(
           response => {
-            //console.log(response.payload)
+            console.log(response.payload)
             socket?.emit("private-message", {
+              flag:"desde creacion de mensajes",
               data: response.payload,
               userNameEmisor,
               userNameReceptor

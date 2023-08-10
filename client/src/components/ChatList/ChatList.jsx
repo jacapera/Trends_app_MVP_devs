@@ -11,16 +11,18 @@ import { selectNewChat, setNewChat } from "../../Redux/chatSlice";
 
 const ChatList = () => {
 
-  useEffect(()=> {
-    dispatch(setListChats({ user_id: user?.id, query_name: "" }))
-  }, [user])
-
   //const [newChat, setNewChat] = useState(false);
   const [searchTerm, setSearchTerm] = useState("")
-
+  
   const user = useSelector(selectUserProfile)
   const newChat = useSelector(selectNewChat)
   const dispatch = useDispatch();
+  
+  useEffect(()=> {
+    if(Object.keys(user).length > 0){
+      dispatch(setListChats({ user_id: user?.id, query_name: "" }))
+    }
+  }, [user])
 
   const handleNewChat = () =>{
     //setNewChat(!newChat);

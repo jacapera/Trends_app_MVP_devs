@@ -2,16 +2,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
 import {ChatListContact} from "../index";
 import { selectUserProfile } from "../../Redux/UsersSlice";
-import { getListChats, selectListChats } from "../../Redux/chatSlice";
+import { setListChats, selectListChats } from "../../Redux/chatSlice";
 
 const ChatListContactContainer = () => {
   const listChats = useSelector(selectListChats);
+  const user = useSelector(selectUserProfile);
 
     const dispatch = useDispatch();
 
     useEffect(()=>{
       if(Object.keys(user).length > 0){
-        dispatch(getListChats(user.id))
+        dispatch(setListChats({ user_id: user?.id, query_name: "" }))
       }
     },[user])
 
